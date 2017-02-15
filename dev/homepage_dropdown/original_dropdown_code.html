@@ -1,0 +1,94 @@
+<script>
+$(document).ready(function(){
+		$('#resourcesFor').change(function() {
+    	$('#audienceContainer div').hide();            // added a bit of animation
+    	var e = '#' + $(':selected', $(this)).attr('name');
+    	$(e).show('fast');                             // while we change the feed
+		});
+
+		$('#audienceContainer div').hide();
+		$('#audienceContainer div#audience0').show();
+
+
+		$('#audienceContainer select').change(function() {
+      window.location.href = this.value;
+			}
+		);
+});</script>
+
+<div class="pathMenus">
+  <h4 class="withFloat">What is the right path for me?</h4>
+  <div class="taskContainer withFloat">
+    
+    <select  name="resourcesFor" id="resourcesFor">
+      <option name="audience0" selected="selected">I have a:</option>
+      <option name="audience1">High school diploma</option>
+      <option name="audience2">RN (ADN) license</option>
+      <option name="audience3">Associate degee or some college</option>
+      <option name="audience4">BS in Nursing with RN (ADN) license</option>
+      <option name="audience5">BS or BA, not in nursing</option>
+      <option name="audience6">MS degree in Nursing</option>
+    </select>
+    
+    <div id="audienceContainer">
+      
+      <div id="audience0">
+        <select name="audience0" disabled="disabled">
+          <option>My program options are: </option>
+        </select>
+      </div>
+      
+      <div id="audience1" class="audienceBackground" style="display: none">
+        <select name="High school diploma" onChange="jump(this.value)">
+          <option>My program options are:</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/undergraduate-programs/nursing-bs/Admissions/Pages/requirements.aspx">BS degree - prerequisites</option>
+          <option value="http://www.ucdenver.edu/ACADEMICS/COLLEGES/NURSING/PROGRAMS-ADMISSIONS/undergraduate-PROGRAMS/Pages/IntegratedNursingPathway.aspx">Integrated Nursing Pathway Program</option>
+        </select>
+      </div>
+      
+      <div id="audience2" class="audienceBackground" style="display: none">
+        <select name="RN (ADN) license">
+          <option>My program options are:</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/undergraduate-programs/rn-to-nursing-bs/Pages/rn-to-nursing-bs%20%28online%29.aspx">RN to BS degree</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/undergraduate-programs/nursing-bs/Pages/nursing-bs.aspx">BS degree</option><option>
+        </select>
+      </div>
+      
+      <div id="audience3" class="audienceBackground" style="display: none">
+        <select name="Associate degee or some college">
+          <option>My program options are:</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/undergraduate-programs/nursing-bs/Pages/nursing-bs.aspx">BS degree - prerequisites</option>
+        </select>
+      </div>
+      
+      <div id="audience4" class="audienceBackground" style="display: none">
+        <select name="BS in Nursing with RN (ADN) license">
+          <option>My program options are:</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/graduate-programs/ms-program/">MS (nurse practitioner, CNS, nurse-midwife)</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/graduate-programs/bs-dnp-program/">BS-DNP</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/graduate-programs/bs-phd-program/">BS-PhD (research/administration)</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/CE-PD/Pages/default.aspx">Continuing Education and Professional Development</option>
+        </select>
+      </div>
+      
+      <div id="audience5" class="audienceBackground" style="display: none">
+        <select name="BS or BA, not in nursing">
+          <option>My program options are:</option><option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/undergraduate-programs/nursing-bs/Pages/nursing-bs.aspx">Traditional Pathway Program</option><option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/undergraduate-programs/UCAN/Pages/UCAN.aspx">Accelerated (UCAN) Program</option>  
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/undergraduate-programs/nursing-bs/Pages/nursing-bs.aspx">BS degree - prerequisites</option><option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/CE-PD/Pages/default.aspx">Continuing Education and Professional Development</option>
+        </select>
+      </div>
+      
+      <div id="audience6" class="audienceBackground" style="display: none">
+        <select name="MS degree in Nursing">
+          <option>My program options are:</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/graduate-programs/post-graduate-certificates/Pages/post-graduate-certificate.aspx">Post-Graduate Certificate</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/undergraduate-programs/nursing-bs/Pages/nursing-bs.aspx">Traditional Pathway Program</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/doctoral-programs/doctor-nursing-practice/">DNP (practice/education)</option>
+          <option value="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/doctoral-programs/doctor-philosophy/">PhD (research/administration)</option>
+          <option value=" http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/CE-PD/Pages/default.aspx">Continuing Education and Professional Development</option>
+        </select>
+      </div>
+      
+    </div>
+  </div>
+</div>

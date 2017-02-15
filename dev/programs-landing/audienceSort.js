@@ -33,7 +33,7 @@ $(document).ready(function() {
       $('#programSorting label').removeClass('active');
       $(this).parent().addClass('active');
       if(degreeLevel !== "all") {
-        $('.program-cards>div').not('[data-programLevel="' + degreeLevel + '"]').addClass('hidden');
+        $('.program-cards>div').not('.' + degreeLevel).addClass('hidden');
       } else {
         $('.program-cards>div').removeClass('hidden');
       }

@@ -13,23 +13,6 @@ var currentTarget,
 
 $(document).ready(function() {
   
-  
-  /**************** Set Toggle Targets *****************************/
-  
-//  for(var i = 0; i < toggleTargets.length; i++) {
-//    //Event listener added to each card to allow toggle/accordion functionality
-//    toggleTargets[i].addEventListener('click', function() {
-//      if(currentTarget == this) {
-//        $(this).next().slideUp();
-//        currentTarget = null;
-//      } else {
-//        $('.toggle-target').not(this).next().slideUp();
-//        $(this).next().slideDown();
-//        currentTarget = this;
-//      }       
-//    })
-//  }
-  
   $('.toggle-target').click(function () {
     if(currentTarget == this) {
       $(this).next().slideUp();
@@ -50,7 +33,7 @@ $(document).ready(function() {
       $('#programSorting label').removeClass('active');
       $(this).parent().addClass('active');
       if(degreeLevel !== "all") {
-        $('.program-cards>div').not('[data-programLevel="' + degreeLevel + '"]').addClass('hidden');
+        $('.program-cards>div').not('.' + degreeLevel).addClass('hidden');
       } else {
         $('.program-cards>div').removeClass('hidden');
       }

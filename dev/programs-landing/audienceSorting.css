@@ -37,17 +37,39 @@ h1 {
   padding: 0;
 }
 
-#Welcome4 #columnPrimary .cta-button {
-  margin: 2.5em auto 1em auto;
-  float: none;
-}
-
 #contentPage0 #columnPrimary {
   max-width: 912px;
 }
 
 #contentPage0 #columnPrimaryWrapper {
   border: none;
+}
+
+#Welcome4 #columnPrimary .cta-button {
+  margin: 2.5em auto 1em auto;
+  float: none;
+}
+
+
+
+/************ Scholarship Page Table Overrides ************/
+
+#scholarshipTable .ms-v2,
+#scholarshipTable .ms-vh2 {
+  color: #fff;
+}
+
+#pageContent #scholarshipTable table.ms-listviewtable td.ms-vb2 {
+  border-bottom: 1px solid #e1e1e1;
+}
+
+#pageContent #scholarshipTable table.ms-listviewtable td {
+  padding: 1.15rem .5rem .5rem 1rem
+}
+
+#scholarshipTable table.ms-listviewtable tr:nth-child(2n),
+#scholarshipTable .ms-alternating {
+  background: #fff;
 }
 
 

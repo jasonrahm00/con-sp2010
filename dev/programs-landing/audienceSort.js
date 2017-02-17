@@ -8,8 +8,7 @@
 
 **************************************************************************/
 var currentTarget, 
-    degreeLevel = "all", 
-    toggleTargets = document.getElementsByClassName('toggle-target');
+    degreeLevel = "all";
 
 $(document).ready(function() {
   
@@ -25,7 +24,7 @@ $(document).ready(function() {
   });
   
   //Click event fired when different program is category is chosen
-  //Program cards <div> is cleared out and new set of cards are added that only show programs available for current selection
+  //Cards whose class don't match the input value are hidden
   $('#programSorting input:radio').click(function() {
     if(degreeLevel !== $(this).val()) {
       degreeLevel = $(this).val();

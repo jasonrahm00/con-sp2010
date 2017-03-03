@@ -21,6 +21,12 @@ h1 {
   line-height: 100%;
 }
 
+.clearfix:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
 .sidebarInfo dl {
   margin: 2px 6px;
 }
@@ -225,3 +231,50 @@ h1 {
   color: #cfb87c;
   text-decoration: none;
 }
+
+/************ Event Page Table Overrides ************/
+
+#conEvents table.ms-listviewtable tr:nth-child(2n),
+#conEvents .ms-alternating {
+  background: #fff;
+}
+
+#conEvents tr {
+  display: flex;
+  height: 90px;
+  margin-bottom: 2rem;
+}
+
+#conEvents td.ms-vb2:first-child {
+  background: #ddd;
+  color: #fff;
+  padding: 6px;
+  width: 90px;
+}
+
+#conEvents .month {
+  display: block;
+  font-size: 1.25rem;
+  margin-top: 9px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#conEvents .day {
+  display: block;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+#conEvents td.ms-vb2:nth-child(2) a {
+  display: block;
+  font-size: .85rem;
+  font-weight: bold;
+  padding-top: 15px;
+}
+
+#conEvents tr.ms-viewheadertr.ms-vhltr{
+  display: none;
+}
+

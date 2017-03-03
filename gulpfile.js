@@ -25,14 +25,20 @@ gulp.task('programScripts', function() {
     .pipe(gulp.dest('dist/programs-landing'))
 });
 
-gulp.task('programStyles', function() {
-  gulp.src('dev/programs-landing/*.css')
+gulp.task('styles', function() {
+  gulp.src('dev/styles.css')
     .pipe(rename('subSite.css'))
-    .pipe(gulp.dest('dist/programs-landing'))
+    .pipe(gulp.dest('dist'))
+});
+
+gulp.task('eventScripts', function() {
+  gulp.src('dev/events-page/*.js')
+    .pipe(rename('local.js'))
+    .pipe(gulp.dest('dist/event-scripts'))
 });
 
 gulp.task('local', function(callback) {
-  runSequence('clean:dist', ['programScripts', 'programStyles'],
+  runSequence('clean:dist', ['eventScripts', 'styles'],
     callback
   )
 });

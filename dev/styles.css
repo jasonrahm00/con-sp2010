@@ -239,17 +239,43 @@ h1 {
   background: #fff;
 }
 
-#conEvents tr {
-  display: flex;
-  height: 90px;
-  margin-bottom: 2rem;
+#conEvents table[summary="event-list "] {
+  border-spacing: 0 1rem;
 }
 
-#conEvents td.ms-vb2:first-child {
+#conEvents tr {
+  height: 90px;
+}
+
+#conEvents .date {
   background: #ddd;
-  color: #fff;
+  color: #fff !important;
+  margin-right: 1.5rem;
   padding: 6px;
   width: 90px;
+}
+
+#conEvents .day {
+  display: block;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+#conEvents .details {
+  padding-left: 1.5rem;
+}
+
+#conEvents .details a {
+  display: block;
+  font-size: .85rem;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-top: 20px;
+}
+
+#conEvents .event-title {
+  display: block;
 }
 
 #conEvents .month {
@@ -260,21 +286,6 @@ h1 {
   text-transform: uppercase;
 }
 
-#conEvents .day {
-  display: block;
-  font-size: 2rem;
-  text-align: center;
-  font-weight: bold;
-}
-
-#conEvents td.ms-vb2:nth-child(2) a {
-  display: block;
-  font-size: .85rem;
-  font-weight: bold;
-  padding-top: 15px;
-}
-
-#conEvents tr.ms-viewheadertr.ms-vhltr{
+#conEvents .ms-viewheadertr.ms-vhltr{
   display: none;
 }
-

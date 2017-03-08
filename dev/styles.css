@@ -149,7 +149,6 @@ h1 {
 
 .program-cards>div {
   margin-bottom: 2rem;
-  width: 350px;
 }
 
 .toggle-target,
@@ -164,7 +163,7 @@ h1 {
   border-top: none;
   display: none;
   padding: 1rem .75rem;
-  width: 100%;
+  width: 350px;
 }
 
 .toggle-content a {
@@ -224,7 +223,7 @@ h1 {
   padding: 1rem;
   text-align: center;
   text-decoration: none;
-  width: 120px;
+  width: 130px;
 }
 
 .next-steps a:hover {

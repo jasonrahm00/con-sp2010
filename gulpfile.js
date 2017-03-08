@@ -38,7 +38,7 @@ gulp.task('eventScripts', function() {
 });
 
 gulp.task('local', function(callback) {
-  runSequence('clean:dist', ['eventScripts', 'styles'],
+  runSequence('clean:dist', ['styles'],
     callback
   )
 });

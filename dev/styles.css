@@ -178,6 +178,7 @@ h1 {
 
 .toggle-content a:hover {
   color: #cfb87c;
+  text-decoration: none;
 }
 
 .toggle-target {
@@ -204,14 +205,14 @@ h1 {
 }
 
 .next-steps ul {
-  display: flex;
-  justify-content: center;
   list-style-type: none;
   margin-left: 0 !important;
   padding: 0;
+  text-align: center;
 }
 
 .next-steps li {
+  display: inline-block;
   margin: 0 !important;
 }
 
@@ -223,7 +224,7 @@ h1 {
   padding: 1rem;
   text-align: center;
   text-decoration: none;
-  width: 130px;
+  width: 135px;
 }
 
 .next-steps a:hover {

@@ -56,8 +56,6 @@ h1 {
   float: none;
 }
 
-
-
 /************ Scholarship Page Table Overrides ************/
 
 #scholarshipTable .ms-v2,
@@ -76,6 +74,19 @@ h1 {
 #scholarshipTable table.ms-listviewtable tr:nth-child(2n),
 #scholarshipTable .ms-alternating {
   background: #fff;
+}
+
+/************ CUSNA Table Overrides ************/
+
+table[summary="amc-cusna-officers "] th.ms-vh2,
+table[summary="south-denver-cusna-officers "] th.ms-vh2 {
+  color: #fff;
+  padding-left: 5px;
+}
+
+table[summary="amc-cusna-officers "] .ms-alternating,
+table[summary="south-denver-cusna-officers "] .ms-alternating {
+  background-color: #fff;
 }
 
 
@@ -232,7 +243,11 @@ h1 {
   text-decoration: none;
 }
 
-/************ Event Page Table Overrides ************/
+/**********************************************************
+    
+            Event Page Table Overrides
+
+**********************************************************/
 
 #conEvents table.ms-listviewtable tr:nth-child(2n),
 #conEvents .ms-alternating {

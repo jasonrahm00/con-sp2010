@@ -21,10 +21,114 @@ h1 {
   line-height: 100%;
 }
 
+a:link.button {
+  background: black;
+  color: white;
+  display: inline-block;
+  font-size: .85rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+a:hover.button {
+  color: #cfb87c;
+  text-decoration: none;
+}
+
+a:visited.button {
+  color: white;
+  text-decoration: none;
+}
+
+.align-self-end {
+  align-self: flex-end;
+}
+
+.around {
+  justify-content: space-around;
+}
+
+.between {
+  justify-content: space-between;
+}
+
 .clearfix:after {
   clear: both;
   content: "";
   display: table;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-wrap-wrap {
+  flex-wrap: wrap;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.margin-bottom-large {
+  margin-bottom: 5rem;
+}
+
+.margin-bottom-medium {
+  margin-bottom: 3rem;
+}
+
+.margin-bottom-small {
+  margin-bottom: 1rem;
+}
+
+.margin-top-large {
+  margin-top: 5rem;
+}
+
+.margin-top-medium {
+  margin-top: 3rem;
+}
+
+.margin-top-small {
+  margin-top: 1rem;
+}
+
+.margin-vertical-large {
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}
+
+.margin-vertical-medium {
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.margin-vertical-small {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.menu-vertical {
+  border: 0;
+}
+
+.padding-small {
+  padding: 1rem;
 }
 
 .sidebarInfo dl {
@@ -43,12 +147,21 @@ h1 {
   padding: 0;
 }
 
+.whitesmoke-background {
+  background: whitesmoke;
+}
+
 #contentPage0 #columnPrimary {
   max-width: 912px;
 }
 
-#contentPage0 #columnPrimaryWrapper {
+#contentPage0 #columnPrimaryWrapper,
+#contentPage2 #columnPrimary {
   border: none;
+}
+
+#pageContentInner {
+  border: 0;
 }
 
 #Welcome4 #columnPrimary .cta-button {

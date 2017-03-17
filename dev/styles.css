@@ -96,6 +96,14 @@ a:visited.button {
   margin-bottom: 1rem;
 }
 
+.margin-left-small {
+  margin-left: 1rem;
+}
+
+.margin-right-small {
+  margin-right: 1rem;
+}
+
 .margin-top-large {
   margin-top: 5rem;
 }
@@ -189,15 +197,19 @@ a:visited.button {
   background: #fff;
 }
 
-/************ CUSNA Table Overrides ************/
+/************ Table Style Overrides ************/
 
 table[summary="amc-cusna-officers "] th.ms-vh2,
+table[summary="behavioral-health-cash-pay "] th.ms-vh2,
+table[summary="direct-primary-pricing "] th.ms-vh2,
 table[summary="south-denver-cusna-officers "] th.ms-vh2 {
   color: #fff;
   padding-left: 5px;
 }
 
 table[summary="amc-cusna-officers "] .ms-alternating,
+table[summary="behavioral-health-cash-pay "] .ms-alternating,
+table[summary="direct-primary-pricing "] .ms-alternating,
 table[summary="south-denver-cusna-officers "] .ms-alternating {
   background-color: #fff;
 }

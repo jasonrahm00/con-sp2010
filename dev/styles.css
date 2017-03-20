@@ -54,6 +54,10 @@ a:visited.button {
   justify-content: space-between;
 }
 
+.block-display {
+  display: block;
+}
+
 .clearfix:after {
   clear: both;
   content: "";
@@ -200,16 +204,18 @@ a:visited.button {
 /************ Table Style Overrides ************/
 
 table[summary="amc-cusna-officers "] th.ms-vh2,
-table[summary="behavioral-health-cash-pay "] th.ms-vh2,
 table[summary="direct-primary-pricing "] th.ms-vh2,
+table[summary="psych-np-pricing "] th.ms-vh2,
+table[summary="social-worker-psych-pricing "] th.ms-vh2,
 table[summary="south-denver-cusna-officers "] th.ms-vh2 {
   color: #fff;
   padding-left: 5px;
 }
 
 table[summary="amc-cusna-officers "] .ms-alternating,
-table[summary="behavioral-health-cash-pay "] .ms-alternating,
 table[summary="direct-primary-pricing "] .ms-alternating,
+table[summary="psych-np-pricing "] .ms-alternating,
+table[summary="social-worker-psych-pricing "] .ms-alternating,
 table[summary="south-denver-cusna-officers "] .ms-alternating {
   background-color: #fff;
 }

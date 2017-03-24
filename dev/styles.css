@@ -88,59 +88,12 @@ a:visited.button {
   width: 100%;
 }
 
-.margin-bottom-large {
-  margin-bottom: 5rem;
-}
-
-.margin-bottom-medium {
-  margin-bottom: 3rem;
-}
-
-.margin-bottom-small {
-  margin-bottom: 1rem;
-}
-
-.margin-left-small {
-  margin-left: 1rem;
-}
-
-.margin-right-small {
-  margin-right: 1rem;
-}
-
-.margin-top-large {
-  margin-top: 5rem;
-}
-
-.margin-top-medium {
-  margin-top: 3rem;
-}
-
-.margin-top-small {
-  margin-top: 1rem;
-}
-
-.margin-vertical-large {
-  margin-bottom: 5rem;
-  margin-top: 5rem;
-}
-
-.margin-vertical-medium {
-  margin-bottom: 3rem;
-  margin-top: 3rem;
-}
-
-.margin-vertical-small {
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+.gold-background {
+  background: #cfb87c;
 }
 
 .menu-vertical {
   border: 0;
-}
-
-.padding-small {
-  padding: 1rem;
 }
 
 .sidebarInfo dl {
@@ -434,4 +387,150 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 
 #conEvents .ms-viewheadertr.ms-vhltr{
   display: none;
+}
+
+
+
+/**********************************************************
+    
+              Custom Margins and Padding
+
+**********************************************************/
+
+/******************** Margins ********************/
+
+.margin-bottom-large {
+  margin-bottom: 5rem;
+}
+
+.margin-bottom-medium {
+  margin-bottom: 3rem;
+}
+
+.margin-bottom-small {
+  margin-bottom: 2rem;
+}
+
+.margin-bottom-x-small {
+  margin-bottom: 1rem;
+}
+
+.margin-left-small {
+  margin-left: 2rem;
+}
+
+.margin-left-x-small {
+  margin-left: 1rem;
+}
+
+.margin-right-small {
+  margin-right: 2rem;
+}
+
+.margin-right-x-small {
+  margin-right: 1rem;
+}
+
+.margin-top-large {
+  margin-top: 5rem;
+}
+
+.margin-top-medium {
+  margin-top: 3rem;
+}
+
+.margin-top-small {
+  margin-top: 2rem;
+}
+
+.margin-top-x-small {
+  margin-top: 2rem;
+}
+
+.margin-vertical-large {
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}
+
+.margin-vertical-medium {
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.margin-vertical-small {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+/******************** Padding ********************/
+
+.padding-bottom-large {
+  margin-bottom: 5rem;
+}
+
+.padding-bottom-medium {
+  margin-bottom: 3rem;
+}
+
+.padding-bottom-small {
+  margin-bottom: 2rem;
+}
+
+.padding-bottom-x-small {
+  margin-bottom: 1rem;
+}
+
+.padding-left-small {
+  margin-left: 2rem;
+}
+
+.padding-left-x-small {
+  margin-left: 1rem;
+}
+
+.padding-right-small {
+  margin-right: 2rem;
+}
+
+.padding-right-x-small {
+  margin-right: 1rem;
+}
+
+.padding-small {
+  padding: 2rem;
+}
+
+.padding-top-large {
+  margin-top: 5rem;
+}
+
+.padding-top-medium {
+  margin-top: 3rem;
+}
+
+.padding-top-small {
+  margin-top: 2rem;
+}
+
+.padding-top-x-small {
+  margin-top: 1rem;
+}
+
+.padding-vertical-large {
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}
+
+.padding-vertical-medium {
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.padding-vertical-small {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.padding-x-small {
+  padding: 1rem;
 }

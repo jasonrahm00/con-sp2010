@@ -64,6 +64,10 @@ a:visited.button {
   display: table;
 }
 
+.e1-background {
+  background: #e1e1e1;
+}
+
 .flex-column {
   flex-direction: column;
 }
@@ -444,7 +448,7 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 }
 
 .margin-top-x-small {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .margin-vertical-large {

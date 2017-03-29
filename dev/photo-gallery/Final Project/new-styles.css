@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+/* CSS Document                  */
+/* Written by Chris Converse     */
+/* for Lynda.com                 */
+
+
+body {
+  margin: 0 auto;
+  max-width: 960px;
+  padding-top: 5rem;
+}
+
+.gallery-preview {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  height: 375px;
+  width: 375px;
+}
+
+.gallery-thumbnails { 
+  width: 500px;
+}
+
+.gallery-thumbnails img:hover {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.gallery-thumbnails img.selected {
+  opacity: .4;
+}
+
+.gallery-full {
+  display: none;
+}

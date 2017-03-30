@@ -452,52 +452,49 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 }
 
 .margin-vertical-large {
-  margin-bottom: 5rem;
-  margin-top: 5rem;
+  margin: 5rem 0;
 }
 
 .margin-vertical-medium {
-  margin-bottom: 3rem;
-  margin-top: 3rem;
+  margin: 3rem 0;
 }
 
 .margin-vertical-small {
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
 }
 
 /******************** Padding ********************/
 
 .padding-bottom-large {
-  margin-bottom: 5rem;
+  padding-bottom: 5rem;
 }
 
 .padding-bottom-medium {
-  margin-bottom: 3rem;
+  padding-bottom: 3rem;
 }
 
 .padding-bottom-small {
-  margin-bottom: 2rem;
+  padding-bottom: 2rem;
 }
 
 .padding-bottom-x-small {
-  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
 .padding-left-small {
-  margin-left: 2rem;
+  padding-left: 2rem;
 }
 
 .padding-left-x-small {
-  margin-left: 1rem;
+  padding-left: 1rem;
 }
 
 .padding-right-small {
-  margin-right: 2rem;
+  padding-right: 2rem;
 }
 
 .padding-right-x-small {
-  margin-right: 1rem;
+  padding-right: 1rem;
 }
 
 .padding-small {
@@ -505,34 +502,31 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 }
 
 .padding-top-large {
-  margin-top: 5rem;
+  padding-top: 5rem;
 }
 
 .padding-top-medium {
-  margin-top: 3rem;
+  padding-top: 3rem;
 }
 
 .padding-top-small {
-  margin-top: 2rem;
+  padding-top: 2rem;
 }
 
 .padding-top-x-small {
-  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
 .padding-vertical-large {
-  margin-bottom: 5rem;
-  margin-top: 5rem;
+  padding: 5rem 0;
 }
 
 .padding-vertical-medium {
-  margin-bottom: 3rem;
-  margin-top: 3rem;
+  padding: 3rem 0;
 }
 
 .padding-vertical-small {
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  padding: 2rem 0;
 }
 
 .padding-x-small {

@@ -1,6 +1,7 @@
 $(document).ready(function() {
   
   var currentThumb, selectedThumb, selectedFull, selectedPre;
+  var backdrop = '<div class="backdrop"></div>';
   var firstImage = $('.gallery-thumbnails img')[0];
   
   function setImage(x) {
@@ -11,7 +12,7 @@ $(document).ready(function() {
   
   function placeImage() {
     $('.gallery-preview').html('<img alt ="" src="' + selectedPre + '">');    
-    $('.gallery-full').html('<img alt ="" src="' + selectedFull + '">');
+    $('.lightbox-content').html('<img alt ="" src="' + selectedFull + '">');
   }
   
   //Click function that selects image when clicked on
@@ -43,7 +44,26 @@ $(document).ready(function() {
   
   setDefaultImage();
   
-  //Display full-size image
-  //Need to add event listener when new image is dynamically loaded so click event will work
+  //Display full image in lightbox
+    //http://jsfiddle.net/MrGarretto/97dns8u5/
+    //https://codepen.io/anon/pen/dvQEGj
+    //http://jsfiddle.net/d6DH6/7/
+    //Create overlay programmatically instead of coded into page
   
+  var overlay = ('<div class="overlay"></div>');
+  
+  $('.gallery-preview').click(function() {
+    $('body').append(overlay);
+    $('.overlay').animate({"opacity": "0.7"}, 500);
+    $('.lightbox').animate({"opacity": "1.0"}, 500, function() {
+      $('.lightbox').css('display', 'block');
+    });
+    $('.overlay').click(function() {
+      $('.overlay, .lightbox').animate({"opacity": "0.0"}, 500, function() {
+        $('.lightbox').css("display", "none");
+        $('.overlay').remove();
+      });
+    });
+  });
+
 });

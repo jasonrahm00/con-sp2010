@@ -10,8 +10,8 @@ $(document).ready(function() {
   
   function setImage(x) {
     selectedThumb = $(x).attr('src');
-    selectedFull = selectedThumb.replace('_thumbnail', '_fullsize');
-    selectedPre = selectedThumb.replace('_thumbnail', '_preview');
+    selectedFull = selectedThumb.replace('-thumbnail', '-fullsize');
+    selectedPre = selectedThumb.replace('-thumbnail', '-preview');
   }
   
   function placeImage() {

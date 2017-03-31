@@ -15,6 +15,10 @@ body {
   opacity: .4;
 }
 
+.gallery-thumbnails {
+  text-align: center;
+}
+
 .gallery-thumbnails img.selected {
   opacity: .4;
 }
@@ -34,10 +38,13 @@ body {
   cursor: pointer;
 }
 
+.preview-wrapper figure {
+  margin: 0;
+}
+
 .view-full-image {
   color: #565A5C;
   display: block;
-  font-size: .85rem;
   margin-top: .5rem;
   text-align: center;
 }
@@ -93,6 +100,13 @@ body {
   width: 100%;
 }
 
+.lightbox-content .image-caption {
+  bottom: -10px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+}
+
 .overlay {
   opacity: 0;
   background-color: #000;
@@ -104,3 +118,26 @@ body {
   height: 100%;
   overflow: auto;
 }
+
+
+/************* Gallery Controls ****************/
+
+.gallery-controls {
+  margin: 0 auto;
+  margin-top: 2rem;
+  max-width: 375px;
+  text-align: center;
+}
+
+.gallery-controls span:hover {
+  cursor: pointer;
+}
+
+.gallery-controls .inactive {
+  opacity: 0.7;
+}
+
+.gallery-controls .inactive:hover {
+  cursor: default;
+}
+

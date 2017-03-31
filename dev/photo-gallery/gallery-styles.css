@@ -6,15 +6,8 @@ body {
 
 .gallery-preview {
   height: 375px;
-  width: 375px;
-}
-
-.gallery-preview:hover {
-  cursor: pointer;
-}
-
-.gallery-thumbnails { 
-  width: 500px;
+  margin-bottom: 5rem;
+  text-align: center;
 }
 
 .gallery-thumbnails img:hover {
@@ -24,6 +17,21 @@ body {
 
 .gallery-thumbnails img.selected {
   opacity: .4;
+}
+
+.image-caption {
+  display: block;
+  margin-top: 5px;
+}
+
+.preview-wrapper {
+  margin: 0 auto;
+  max-height: 435px;
+  width: 375px;
+}
+
+.preview-wrapper:hover {
+  cursor: pointer;
 }
 
 .view-full-image {
@@ -57,10 +65,11 @@ body {
 .lightbox-close {
   color: #565A5C;
   font-size: 1.25rem;
+  font-weight: bold;
   height: 20px;
   position: absolute;
   right: -20px;
-  top: -20px;
+  top: -10px;
   width: 20px;
 }
 
@@ -75,6 +84,7 @@ body {
   max-width: 900px;
   border: 20px solid #fff;
   height: auto;
+  line-height: 0px;
   position: relative;
   opacity: 0;
 }

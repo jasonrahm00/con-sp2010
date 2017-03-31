@@ -1,6 +1,6 @@
 $(document).ready(function() {
   
-  var currentThumb, selectedThumb, selectedFull, selectedPre;
+  var caption, currentThumb, selectedThumb, selectedFull, selectedPre;
   var backdrop = '<div class="backdrop"></div>';
   var firstImage = $('.gallery-thumbnails img')[0];
   var fadeTimerShort = 250;
@@ -8,18 +8,27 @@ $(document).ready(function() {
   var overlay = '<div class="overlay"></div>';
   var lightboxClose = '<span class="lightbox-close">X</span>';
   
+  function getCaption(y) {
+    if(y !== "") {
+      return '<span class="image-caption">' + $(y).attr('alt') + '</span>';
+    } else {
+      return '';
+    } 
+  }
+  
   function setImage(x) {
+    caption = getCaption(x);
     selectedThumb = $(x).attr('src');
     selectedFull = selectedThumb.replace('-thumb', '-full');
     selectedPre = selectedThumb.replace('-thumb', '-pre');
   }
   
   function placeImage() {
-    $('.gallery-preview').html('<img alt ="" src="' + selectedPre + '"><span class="view-full-image">View Full Image</span>');    
+    $('.preview-wrapper').html('<img alt ="" src="' + selectedPre + '">' + caption + '<span class="view-full-image">View Full Image</span>');    
     $('.lightbox-content').html('<img alt ="" src="' + selectedFull + '">' + lightboxClose);
   }
   
-  //Click function that selects image when clicked on
+  //Click event that selects image when clicked on
   $('.gallery-thumbnails img').click(function () { 
     
     if(currentThumb !== this) {
@@ -28,14 +37,16 @@ $(document).ready(function() {
       
       setImage(this);
 
-      $('.gallery-preview').fadeOut(fadeTimerShort, function() {
+      $('.preview-wrapper').fadeOut(fadeTimerShort, function() {
         setTimeout(placeImage(), fadeTimerShort);
-        $('.gallery-preview').fadeIn(fadeTimerShort);
+        $('.preview-wrapper').fadeIn(fadeTimerShort);
       });  
 
       currentThumb = this;
     }
     
+    console.log($('.gallery-thumbnails img').index($(this)));
+    console.log(caption);
   });
   
   //Set Default Image on Page Load
@@ -53,7 +64,7 @@ $(document).ready(function() {
     //https://codepen.io/anon/pen/dvQEGj
     //http://jsfiddle.net/d6DH6/7/
 
-  $('.gallery-preview').click(function() {
+  $('.preview-wrapper').click(function() {
     $('body').append(overlay);
     $('.lightbox').css('display', 'block');
     $('.overlay').animate({"opacity": "0.7"}, fadeTimerMedium);

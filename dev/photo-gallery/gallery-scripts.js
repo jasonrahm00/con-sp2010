@@ -100,7 +100,7 @@ $(document).ready(function() {
   });
   
   //Gallery controls
-  $('.gallery-controls span').click(function() {
+  $('.arrow').click(function() {
     
     if($(this).hasClass('inactive')) return;
     

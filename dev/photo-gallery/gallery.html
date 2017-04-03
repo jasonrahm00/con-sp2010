@@ -15,9 +15,12 @@
   <body>
     <div class="photo-gallery">
       <div class="gallery-preview">
-        <div class="preview-wrapper"></div>
-        <button class="previous-image arrow left"><img src="arrow-left.svg" alt="Arrow graphic pointing left"></button>
-        <button class="next-image arrow right"><img src="arrow-right.svg" alt="Arrow graphic pointing right"></button>
+        <div class="preview-wrapper">
+          <div class="preview-image"></div>
+          <span class="previous-image arrow left"><span>PREV</span></span>
+          <span class="next-image arrow right"><span>NEXT</span></span>
+        </div>
+        
       </div>
 
       <div class="gallery-thumbnails">
@@ -30,6 +33,8 @@
       
     </div>
     <div class="lightbox">
+      <div class="previous-image arrow left"><span>PREV</span></div>
+      <div class="next-image arrow right"><span>NEXT</span></div>
       <div class="lightbox-content"></div>
     </div>
   </body>

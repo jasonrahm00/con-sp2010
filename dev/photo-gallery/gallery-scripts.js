@@ -49,14 +49,14 @@ $(document).ready(function() {
   
   //Place selected image preview and full versions in their respective containers  
   function placeImage() {
-    $('.preview-wrapper').html('<figure><img alt ="Image preview" src="' + selectedPre + '">' + caption + '</figure><span class="view-full-image"><img alt="Magnifying glass icon" src="/PublishingImages/UCDLayoutImages/searchButton.png"></span>');    
+    $('.preview-image').html('<figure><img alt ="Image preview" src="' + selectedPre + '">' + caption + '</figure><span class="view-full-image"><img alt="Magnifying glass icon" src="/PublishingImages/UCDLayoutImages/searchButton.png"></span>');    
     $('.lightbox-content').html('<img alt ="" src="' + selectedFull + '">' + caption + lightboxClose);
   }
   
   function swapImage() {
-    $('.preview-wrapper').fadeOut(fadeTimerShort, function() {
-      setTimeout(placeImage(), fadeTimerShort);
-      $('.preview-wrapper').fadeIn(fadeTimerShort);
+    $('.preview-image').fadeOut(fadeTimerShort, function() {
+      placeImage();
+      $('.preview-image').fadeIn(fadeTimerShort);
     });
     
     $('.gallery-thumbnails img').removeClass('selected');
@@ -86,10 +86,10 @@ $(document).ready(function() {
   setDefaultImage();
   
   //Display full image in lightbox
-  $('.preview-wrapper').click(function() {
+  $('.preview-image').click(function() {
     $('body').append(overlay);
     $('.lightbox').css('display', 'block');
-    $('.overlay').animate({"opacity": "0.7"}, fadeTimerMedium);
+    $('.overlay').animate({"opacity": "0.9"}, fadeTimerMedium);
     $('.lightbox-content').animate({"opacity": "1.0"}, fadeTimerMedium);
     $('.overlay, .lightbox-close').click(function() {
       $('.overlay, .lightbox-content').animate({"opacity": "0.0"}, fadeTimerMedium, function() {

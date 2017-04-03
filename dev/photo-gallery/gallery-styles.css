@@ -4,6 +4,10 @@ body {
   padding-top: 5rem;
 }
 
+figcaption {
+  text-align: center;
+}
+
 .gallery-preview {
   height: 375px;
   margin-bottom: 5rem;
@@ -137,13 +141,15 @@ button.arrow {
 }
 
 .arrow {
+  display: inline-block;
+  border-right: 4px solid #A2A4A3;
+  border-bottom: 4px solid #A2A4A3;
   cursor: pointer;
+  margin-top: -45px;
   position: absolute;
   top: 50%;
-  margin-top: -45px;
-  margin-left: -35px;
-  width: 70px;
-  height: 90px;
+  width: 30px; 
+  height: 30px;
 }
 
 .arrow.inactive {
@@ -154,11 +160,38 @@ button.arrow {
   cursor: default;
 }
 
-
-.left {
+.arrow.left {
+  margin-left: -35px;
+  transform: rotate(-225deg);
   left: 25%;
 }
 
-.right {
+.lightbox .arrow span {
+  color: #fff;
+}
+
+.arrow.left span {
+  transform: rotate(225deg);
+}
+
+.arrow.right {
+  transform: rotate(-45deg);
   right: 22%;
 }
+
+.lightbox .arrow {
+  width: 50px; 
+  height: 50px;
+  z-index: 1000;
+}
+
+.lightbox .arrow.left {
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+}
+
+.lightbox .arrow.right {
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+}
+

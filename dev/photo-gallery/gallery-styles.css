@@ -57,21 +57,21 @@ figcaption {
 /************* Lightbox ****************/
 
 .lightbox {
-  text-align: center;
   display: none;
   height:100%;
-  width:100%;
-  position:absolute;
   left:0;
+  position:absolute;
+  text-align: center;
   top:0;
+  width:100%;
 }
 
 .lightbox:before {
   content: '';
   display: inline-block;
   height: 100%;
-  vertical-align: middle;
   margin-right: -0.25rem;
+  vertical-align: middle;
 }
 
 .lightbox-close {
@@ -90,15 +90,15 @@ figcaption {
 }
 
 .lightbox-content {
-  display: inline-block;
-  vertical-align: middle;
-  z-index: 1000;
-  max-width: 900px;
   border: 20px solid #fff;
+  display: inline-block;  
   height: auto;
   line-height: 0px;
-  position: relative;
   opacity: 0;
+  position: relative;
+  vertical-align: middle;
+  z-index: 1000;
+  
 }
 
 .lightbox-content img {
@@ -113,15 +113,16 @@ figcaption {
 }
 
 .overlay {
-  opacity: 0;
+  
   background-color: #000;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  overflow: auto;
   position: absolute;
   top: 0;
-  left: 0;
-  z-index: 900;
   width: 100%;
-  height: 100%;
-  overflow: auto;
+  z-index: 900;
 }
 
 
@@ -129,69 +130,65 @@ figcaption {
 /************* Gallery Controls ****************/
 /* https://codepen.io/fixcl/pen/Fkcot */
 
-svg {
-  padding: 5px;
-}
-
-button.arrow {
-  -webkit-appearance: none;
-  background: transparent;
-  border: 0;
-  outline:0;
-}
-
-.arrow {
+.arrow::before {
+  border-style: solid;
+  border-width: 2px 2px 0 0;
+  content: '';
   display: inline-block;
-  border-right: 4px solid #A2A4A3;
-  border-bottom: 4px solid #A2A4A3;
+  height: 0.5em;
+  position: relative;
+  top: -3px;
+  transform: rotate(-45deg);
+  vertical-align: middle;
+  width: 0.45em;
+}
+
+.gallery-scroll:hover {
   cursor: pointer;
-  margin-top: -45px;
+}
+
+.arrow.left:before {
+  transform: rotate(-135deg);
+}
+
+.arrow.right:before {
+  transform: rotate(45deg);
+}
+
+.gallery-scroll {
+  color: #a2a4a3;
+  font-size: 1.5rem;
+  padding: .75rem;
   position: absolute;
   top: 50%;
-  width: 30px; 
-  height: 30px;
 }
 
-.arrow.inactive {
-  opacity: 0.5;
+.gallery-scroll.inactive {
+  opacity: 0.25;
 }
 
-.arrow.inactive:hover {
+.gallery-scroll.inactive:hover {
   cursor: default;
 }
 
-.arrow.left {
-  margin-left: -35px;
-  transform: rotate(-225deg);
-  left: 25%;
+.gallery-scroll.previous {
+  left: 15%;
 }
 
-.lightbox .arrow span {
+.gallery-scroll.next {
+  right: 15%;
+}
+
+.lightbox .gallery-scroll {
   color: #fff;
-}
-
-.arrow.left span {
-  transform: rotate(225deg);
-}
-
-.arrow.right {
-  transform: rotate(-45deg);
-  right: 22%;
-}
-
-.lightbox .arrow {
-  width: 50px; 
-  height: 50px;
   z-index: 1000;
 }
 
-.lightbox .arrow.left {
-  border-right-color: #fff;
-  border-bottom-color: #fff;
+.lightbox .gallery-scroll.previous {
+  left: 25%;
 }
 
-.lightbox .arrow.right {
-  border-right-color: #fff;
-  border-bottom-color: #fff;
+.lightbox .gallery-scroll.next {
+  right: 25%;
 }
 

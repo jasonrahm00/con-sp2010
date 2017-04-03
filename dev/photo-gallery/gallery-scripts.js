@@ -25,15 +25,15 @@ $(document).ready(function() {
   //Hide/show controls depending on the index of the current image
   function indexCheck() {
     if(selectedIndex === 0) {
-      $('.previous-image').addClass('inactive');
+      $('.previous').addClass('inactive');
     } else {
-      $('.previous-image').removeClass('inactive');
+      $('.previous').removeClass('inactive');
     }
     
     if((selectedIndex + 1) === $('.gallery-thumbnails img').length) {
-      $('.next-image').addClass('inactive');
+      $('.next').addClass('inactive');
     } else {
-      $('.next-image').removeClass('inactive');
+      $('.next').removeClass('inactive');
     }
   }
   
@@ -50,7 +50,7 @@ $(document).ready(function() {
   //Place selected image preview and full versions in their respective containers  
   function placeImage() {
     $('.preview-image').html('<figure><img alt ="Image preview" src="' + selectedPre + '">' + caption + '</figure><span class="view-full-image"><img alt="Magnifying glass icon" src="/PublishingImages/UCDLayoutImages/searchButton.png"></span>');    
-    $('.lightbox-content').html('<img alt ="" src="' + selectedFull + '">' + caption + lightboxClose);
+    $('.lightbox-content').html('<img alt ="" src="' + selectedFull + '">' + lightboxClose);
   }
   
   function swapImage() {
@@ -100,14 +100,14 @@ $(document).ready(function() {
   });
   
   //Gallery controls
-  $('.arrow').click(function() {
+  $('.gallery-scroll').click(function() {
     
     if($(this).hasClass('inactive')) return;
     
-    if($(this).hasClass('previous-image')) {
+    if($(this).hasClass('previous')) {
       setImage($('.gallery-thumbnails img')[selectedIndex - 1]);
     }
-    if($(this).hasClass('next-image')) {
+    if($(this).hasClass('next')) {
       setImage($('.gallery-thumbnails img')[selectedIndex + 1]);
     }
     swapImage();

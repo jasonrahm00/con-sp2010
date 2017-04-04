@@ -34,7 +34,6 @@ h2 {
 
 .toggle-header.active {
   background: whitesmoke;
-  border-bottom: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }

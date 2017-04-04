@@ -1,15 +1,19 @@
 $(document).ready(function() {
   
   var caption, currentThumb, selectedIndex, selectedFull, selectedPre, selectedThumb;
+  var captionSetting = $('.photo-gallery').attr('data-caption');
   var backdrop = '<div class="backdrop"></div>';
   var firstImage = $('.gallery-thumbnails img')[0];
   var fadeTimerShort = 250;
   var fadeTimerMedium = 500;
   var overlay = '<div class="overlay"></div>';
   var lightboxClose = '<span class="lightbox-close">X</span>';
-  
+
   //Called in the setImage function If image has alt text, use that as a caption, else no caption shows
   function getCaption(y) {
+    if(captionSetting !== 'on') {
+      return '';
+    }
     if($(y).attr('alt') !== '') {
       return '<figcaption class="image-caption">' + $(y).attr('alt') + '</figcaption>';
     } else {

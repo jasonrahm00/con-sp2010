@@ -188,14 +188,16 @@ figcaption {
   top: calc(50% - .75rem);
 }
 
+.lightbox .next {
+  order: 3;
+  right: 0;
+}
+
 .lightbox .previous {
+  left: 0;
   order: 1;
 }
 
 .lightbox-content {
   order: 2;
-}
-
-.lightbox .next {
-  order: 3;
 }

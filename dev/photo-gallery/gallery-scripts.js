@@ -41,6 +41,14 @@ $(document).ready(function() {
     }
   }
   
+  //Closes the lightbox when a targeted area is clicked
+  function closeLightbox() {
+    $('.overlay, .lightbox-content').animate({"opacity": "0.0"}, fadeTimerMedium, function() {
+      $('.lightbox').css("display", "none");
+      $('.overlay').remove();
+    });
+  }
+  
   //Set the selected image when a thumbnail is clicked
   function setImage(x) {
     selectedIndex = setIndex(x);
@@ -55,6 +63,12 @@ $(document).ready(function() {
   function placeImage() {
     $('.preview-image').html('<figure><img alt ="Image preview" src="' + selectedPre + '">' + caption + '</figure><span class="view-full-image"><img alt="Magnifying glass icon" src="/PublishingImages/UCDLayoutImages/searchButton.png"></span>');    
     $('.lightbox-content').html('<img alt ="" src="' + selectedFull + '">' + lightboxClose);
+    
+    //Add click event to the lightbox-close button whenever the image changes
+    $('.lightbox-close').click(function() {
+      closeLightbox();
+    });
+    
   }
   
   function swapImage() {
@@ -71,12 +85,10 @@ $(document).ready(function() {
 
   //Click event that selects image when clicked on
   $('.gallery-thumbnails img').click(function () { 
-    
     if(currentThumb !== this) {
       setImage(this);
       swapImage();
     }
-
   });
   
   //Set Default Image on Page Load
@@ -88,18 +100,15 @@ $(document).ready(function() {
   }
   
   setDefaultImage();
-  
+
   //Display full image in lightbox
   $('.preview-image').click(function() {
     $('body').append(overlay);
     $('.lightbox').css('display', 'block');
     $('.overlay').animate({"opacity": "0.9"}, fadeTimerMedium);
     $('.lightbox-content').animate({"opacity": "1.0"}, fadeTimerMedium);
-    $('.overlay, .lightbox-close').click(function() {
-      $('.overlay, .lightbox-content').animate({"opacity": "0.0"}, fadeTimerMedium, function() {
-        $('.lightbox').css("display", "none");
-        $('.overlay').remove();
-      });
+    $('.overlay').click(function() {
+      closeLightbox();
     });
   });
   

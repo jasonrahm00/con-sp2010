@@ -147,15 +147,12 @@ figcaption {
   width: 0.45em;
 }
 
-.gallery-scroll:hover {
-  cursor: pointer;
-}
-
 .arrow.left:before {
   transform: rotate(-135deg);
 }
 
 .arrow.right:before {
+  top: 0;
   transform: rotate(45deg);
 }
 
@@ -165,6 +162,10 @@ figcaption {
   padding: .75rem;
   position: absolute;
   top: 50%;
+}
+
+.gallery-scroll:hover {
+  cursor: pointer;
 }
 
 .gallery-scroll.inactive {

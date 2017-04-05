@@ -66,12 +66,20 @@ figcaption {
   width:100%;
 }
 
-.lightbox:before {
+.lightbox>div:before {
   content: '';
   display: inline-block;
   height: 100%;
-  margin-right: -0.25rem;
-  vertical-align: middle;
+}
+
+.lightbox>div {
+  width: 950px;
+  height: 640px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  position: fixed;
 }
 
 .lightbox-close {
@@ -95,10 +103,7 @@ figcaption {
   height: auto;
   line-height: 0px;
   opacity: 0;
-  position: relative;
-  vertical-align: middle;
-  z-index: 1000;
-  
+  position: relative; 
 }
 
 .lightbox-content img {
@@ -113,7 +118,6 @@ figcaption {
 }
 
 .overlay {
-  
   background-color: #000;
   height: 100%;
   left: 0;
@@ -172,23 +176,25 @@ figcaption {
 }
 
 .gallery-scroll.previous {
-  left: 15%;
+  left: 5%;
 }
 
 .gallery-scroll.next {
-  right: 15%;
+  right: 5%;
 }
 
 .lightbox .gallery-scroll {
   color: #fff;
-  z-index: 1000;
 }
 
-.lightbox .gallery-scroll.previous {
-  left: 25%;
+.lightbox .previous {
+  order: 1;
 }
 
-.lightbox .gallery-scroll.next {
-  right: 25%;
+.lightbox-content {
+  order: 2;
 }
 
+.lightbox .next {
+  order: 3;
+}

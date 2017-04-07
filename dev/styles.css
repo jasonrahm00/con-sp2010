@@ -331,6 +331,10 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
   text-decoration: none;
 }
 
+.next-steps a.auto-width {
+  width: auto;
+}
+
 /**********************************************************
     
             Event Page Table Overrides

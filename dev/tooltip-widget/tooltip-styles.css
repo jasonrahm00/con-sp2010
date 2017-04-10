@@ -1,3 +1,11 @@
 .tooltip-content {
   display: none;
 }
+
+.tooltip-content.active {
+  display: block;
+}
+
+.tooltip-target:hover {
+  cursor: pointer;
+}

@@ -8,6 +8,7 @@ $(document).ready(function() {
   var fadeTimerMedium = 500;
   var overlay = '<div class="overlay"></div>';
   var lightboxClose = '<span class="lightbox-close">X</span>';
+  var lightboxOpen = false;
 
   //Called in the setImage function If image has alt text, use that as a caption, else no caption shows
   function getCaption(y) {
@@ -47,6 +48,7 @@ $(document).ready(function() {
       $('.lightbox').css("display", "none");
       $('.overlay').remove();
     });
+    lightboxOpen = false;
   }
   
   //Set the selected image when a thumbnail is clicked
@@ -110,6 +112,7 @@ $(document).ready(function() {
     $('.overlay').click(function() {
       closeLightbox();
     });
+    lightboxOpen = true;
   });
   
   //Gallery controls
@@ -124,6 +127,13 @@ $(document).ready(function() {
       setImage($('.gallery-thumbnails img')[selectedIndex + 1]);
     }
     swapImage();
+  });
+  
+  //Keypress event binder that closes lightbox if esc is pressed and lightbox is open
+  $(document).bind('keydown', function(e) {
+    if(e.which == 27 && lightboxOpen == true) {
+      closeLightbox();
+    }
   });
 
 });

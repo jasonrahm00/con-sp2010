@@ -2,22 +2,60 @@ body {
   margin-top: 10rem;
 }
 
+.close {
+  display: block;
+}
+
+.close:hover {
+  cursor: pointer;
+}
+
 .tooltip>ul>li {
   position: relative;
 }
 
 .tooltip-content {
-  border: 1px solid #e1e1e1;
+  border: 1px solid #ddd;
   display: none;
-  left: 150px;
   padding: 1rem;
   position: absolute;
+  z-index: 10000;
+}
+
+.tooltip-content:after, 
+.tooltip-content:before {
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.tooltip-content:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-right-color: #fff;
+  border-width: 15px;
+  margin-top: -15px;
+}
+
+.tooltip-content:before {
+  border-right-color: #ddd;
+  border-width: 16px;
+  margin-top: -16px;
 }
 
 .tooltip-content ul {
   list-style-type: disc;
-  padding-left: 10px;
-  z-index: 10000;
+  padding-left: 1rem;
+}
+
+.tooltip-content-header {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
 }
 
 .tooltip-target:hover {

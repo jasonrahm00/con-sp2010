@@ -1,17 +1,24 @@
 $(document).ready(function() {
-  var currentTarget, topPosition;
+  var currentTarget, leftPosition, topPosition;
   
+  function closeTooltip() {
+    $('.tooltip-content').removeClass('active').hide();
+    currentTarget = null;
+  }
+  
+  //Position tooltip content to be just right of the target
   $('.tooltip-target').each(function() {
-    topPosition = $(this).next().height() * 0.5;
+    topPosition = ($(this).next().height() * 0.5) + ($(this).height() * 0.5);
+    leftPosition = $(this).width() + 25;
     $(this).next().css('top', '-' + topPosition + 'px');
+    $(this).next().css('left', leftPosition + 'px');
   });
   
   $('.tooltip-target').click(function (){
     if(currentTarget == this) {
-      $(this).next().removeClass('active');
-      currentTarget = null;
+      closeTooltip();
     } else {
-      $('.tooltip-target').not(this).next().removeClass('active').hide();
+      closeTooltip();
       currentTarget = this;
       $(currentTarget).next().show().addClass('active');
     }
@@ -19,12 +26,15 @@ $(document).ready(function() {
   
   $(document).click(function(event) {
     var clickTarget = $(event.target);
-    if($(clickTarget).hasClass('tooltip-target') || $(clickTarget).hasClass('tooltip-content') || $(clickTarget).parents().hasClass('tooltip-content')) {
+    if($(clickTarget).hasClass('tooltip-target') || $(clickTarget).hasClass('tooltip-content') || $(clickTarget).parents().hasClass('tooltip-content')) { 
       return;
     } else {
-      $('.tooltip-content.active').removeClass('active').hide();
-      currentTarget = null;
+      closeTooltip();
     }
+  });
+  
+  $('.tooltip-content .close').click(function() {
+    closeTooltip();
   });
   
 });

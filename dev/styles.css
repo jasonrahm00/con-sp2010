@@ -125,7 +125,8 @@ a:visited.button {
 }
 
 #contentPage0 #columnPrimaryWrapper,
-#contentPage2 #columnPrimary {
+#contentPage2 #columnPrimary,
+#tabsPage #columnPrimary {
   border: none;
 }
 

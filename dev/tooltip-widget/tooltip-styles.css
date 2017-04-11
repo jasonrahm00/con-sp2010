@@ -8,7 +8,6 @@ body {
 
 .tooltip-content {
   border: 1px solid #e1e1e1;
-  border-radius: 4px;
   display: none;
   left: 150px;
   padding: 1rem;
@@ -18,10 +17,7 @@ body {
 .tooltip-content ul {
   list-style-type: disc;
   padding-left: 10px;
-}
-
-.tooltip-content.active {
-  display: block;
+  z-index: 10000;
 }
 
 .tooltip-target:hover {

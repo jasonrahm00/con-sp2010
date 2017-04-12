@@ -6,54 +6,152 @@
 
     <script src="https://code.jquery.com/jquery-1.2.6.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="tooltip-styles.css" />
-
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <link rel="stylesheet" type="text/css" href="tooltip-styles.css">
+    
+    <style type="text/css">
+      body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 0 auto;
+        max-width: 950px;
+      }
+      
+      h1 {
+        width: 100%;
+      }
+      
+      aside {
+        width: 200px
+      }
+      
+      main {
+        width: 700px;
+      }
+    </style>
+    
   </head>
   
   <body>
+    <h1>Tooltip Test</h1>
+    <aside>
+      <h2>Sidebar Content</h2>
+    </aside>
+    <main>
+      <h2>Main Content</h2>
+      <div class="flex-container between">
+        <ul class="tooltip" data-contentWidth="400">
+          <li class="tooltip-wrapper">
+            <span class="tooltip-target faux-link">Adult Services</span>
+            <div class="tooltip-content">
+              <ul class="disc">
+                <li>Acute care for the diagnosis and treatment of minor illnesses, infections, and injuries</li>
+                <li>Annual physical exams</li>
+                <li>Arthocentesis</li>
+                <li>Cryotherapy of skin lesions</li>
+                <li>Diabeties self-management education</li>
+                <li>Evaluation and treatment of chronic disease management</li>
+                <li>Health screening, wellness and diet counseling</li>
+                <li>Immunizations (including flu shots)</li>
+                <li>Medications for health Conditions</li>
+                <li>Nutrition counseling</li>
+                <li>Pre-insurance and pre-employment physicals</li>
+                <li>Referral to specialists as needed</li>
+                <li>Routine lab tests</li>
+                <li>Sick visits</li>
+                <li>Skin biopsies</li>
+                <li>Splinting</li>
+                <li>Treatment of sexually transmitted diseases</li>
+                <li>Variety of services for aging patients</li>
+                <li>Well woman and gynecological exams</li>
+              </ul>
+              <span class="close">X</span>
+            </div>
+          </li>
+          <li class="tooltip-wrapper">
+            <span class="tooltip-target faux-link">Behavioral Health</span>
+            <div class="tooltip-content">
+              <span class="tooltip-content-header">Common Concerns</span>
+              <ul class="disc">
+                <li>Anger management</li>
+                <li>Anxiety</li>
+                <li>Depression (including post-partum depression)</li>
+                <li>Grief and loss</li>
+                <li>Life transition issues</li>
+                <li>Other mental health concerns</li>
+                <li>Trauma</li>
+              </ul>
+              <span class="tooltip-content-header">Therapeutic Services</span>
+              <ul class="disc">
+                <li>Assessment and evaluation</li>
+                <li>Family therapy</li>
+                <li>Individual therapy for ages 4+</li>
+                <li>Referrals</li>
+                <li>Select medication evaluation and management</li>
+                <li>Substance abuse services​</li>
+              </ul>
+              <span class="close">X</span>
+            </div>
+          </li>
+          <li class="tooltip-wrapper">
+            <span class="tooltip-target faux-link">Case Management</span>
+            <div class="tooltip-content">
+              <ul class="disc">
+                <li>Breast cancer screening</li>
+                <li>Cancer care</li>
+                <li>MRIs</li>
+                <li>Reduced-cost medication assistance programs</li>
+                <li>Skin evaluations</li>
+                <li>Smoking cessation assistance programs</li>
+                <li>X-rays</li>
+              </ul>
+              <span class="close">X</span>
+            </div>
+          </li>
+          <li class="tooltip-wrapper">
+            <span class="tooltip-target faux-link">Dental Services</span>
+            <div class="tooltip-content">
+              <ul class="disc">
+                <li>Deep cleaning</li>
+                <li>Dental screening and exams</li>
+                <li>Dentures, crowns and partials</li>
+                <li>Diagnostic services</li>
+                <li>Mouthguards and nightguards</li>
+                <li>Preventative care (sealants, fluoride, cleaning)</li>
+                <li>Restorative care (fillings, extractions)</li>
+                <li>Root canals</li>
+                <li>X-rays</li>
+              </ul>
+              <span class="close">X</span>
+            </div>
+          </li>
+          <li class="tooltip-wrapper">
+            <span class="tooltip-target faux-link">Maternity Services</span>
+            <div class="tooltip-content">
+              <ul class="disc">
+                <li>Annual examinations and pap smears</li>
+                <li>Contraception counseling and dispensing</li>
+                <li>Deliveries</li>
+                <li>Family planning information and referrals</li>
+                <li>Menopause and hormonal therapy</li>
+                <li>Nutrition counseling</li>
+                <li>Pregnancy testing</li>
+                <li>Prenatal and postnatal care</li>
+                <li>Reproductive health care counseling</li>
+                <li>Ultrasounds</li>
+              </ul>
+              <span class="close">X</span>
+            </div>
+          </li>
+        </ul> 
+        <div>
+          <h3>Other Content</h3>
+        </div>
+      </div>
+      
+    </main>
     
-    <div class="tooltip">
-      <ul>
-        <li>
-          <span class="tooltip-target">tooltip-target 1</span>
-          <div class="tooltip-content">
-            <ul>
-              <li>Condition 1</li>
-              <li>Condition 2</li>
-              <li>Condition 3</li>
-              <li>Condition 4</li>
-              <li>Condition 5</li>
-              <li>Condition 6</li>
-            </ul>
-            <span class="close">X</span>
-          </div>
-        </li>
-        <li>
-          <span class="tooltip-target">tooltip-target 2</span>
-          <div class="tooltip-content">
-            <ul>
-              <li>Condition 7</li>
-              <li>Condition 8</li>
-              <li>Condition 9</li>
-              <li>Condition 10</li>
-            </ul>
-            <span class="close">X</span>
-          </div>
-        </li>
-        <li>
-          <span class="tooltip-target">tooltip-target 3</span>
-          <div class="tooltip-content">
-            <ul>
-              <li>Condition 11</li>
-              <li>Condition 12</li>
-              <li>Condition 13</li>
-              <li>Condition 14</li>
-            </ul>
-            <span class="close">X</span>
-          </div>
-        </li>
-      </ul>
-    </div>   
     
     <script type="text/javascript" src="tooltip-scripts.js"></script>
     

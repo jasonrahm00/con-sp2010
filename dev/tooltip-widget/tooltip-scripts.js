@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var leftPosition, topPosition;
+  var leftPosition, topPosition, contentWidth;
   var currentTarget = null;
   
   function closeTooltip() {
@@ -7,12 +7,23 @@ $(document).ready(function() {
     currentTarget = null;
   }
   
+  function setWidth() {
+    if($('.tooltip').attr('data-contentWidth')) {
+      contentWidth = $('.tooltip').attr('data-contentWidth')
+    } else {
+      contentWidth = 250;
+    }
+  }
+  
   //Position tooltip content to be just right of the target
   $('.tooltip-target').each(function() {
+    setWidth();
     topPosition = ($(this).next().height() * 0.5) + ($(this).height());
+//    leftPosition = $(this).parents('.tooltip').width() + 25;
     leftPosition = $(this).width() + 25;
     $(this).next().css('top', '-' + topPosition + 'px');
     $(this).next().css('left', leftPosition + 'px');
+    $(this).next().css('width', contentWidth + 'px');
   });
   
   $('.tooltip-target').click(function (){
@@ -44,4 +55,7 @@ $(document).ready(function() {
     }
   });
   
+  /* Test Get Request */
+  //https://msdn.microsoft.com/en-us/library/office/hh185007(v=office.14).aspx
+  console.log($.get("/academics/colleges/nursing/clinical-practice-community/Lists/Questions%20Contact%20information%20below/Clinical%20Placement%20Contacts.aspx"));
 });

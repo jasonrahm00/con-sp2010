@@ -3,7 +3,11 @@ body {
 }
 
 .close {
-  display: block;
+  color: #565a5c;
+  font-size: 0.85rem;
+  position: absolute;
+  right: 5px;
+  top: 2px;
 }
 
 .close:hover {
@@ -17,7 +21,7 @@ body {
 .tooltip-content {
   border: 1px solid #ddd;
   display: none;
-  padding: 1rem;
+  padding: 1.5rem;
   position: absolute;
   z-index: 10000;
 }

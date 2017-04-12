@@ -1,5 +1,6 @@
 $(document).ready(function() {
-  var currentTarget, leftPosition, topPosition;
+  var leftPosition, topPosition;
+  var currentTarget = null;
   
   function closeTooltip() {
     $('.tooltip-content').removeClass('active').hide();
@@ -8,7 +9,7 @@ $(document).ready(function() {
   
   //Position tooltip content to be just right of the target
   $('.tooltip-target').each(function() {
-    topPosition = ($(this).next().height() * 0.5) + ($(this).height() * 0.5);
+    topPosition = ($(this).next().height() * 0.5) + ($(this).height());
     leftPosition = $(this).width() + 25;
     $(this).next().css('top', '-' + topPosition + 'px');
     $(this).next().css('left', leftPosition + 'px');
@@ -35,6 +36,12 @@ $(document).ready(function() {
   
   $('.tooltip-content .close').click(function() {
     closeTooltip();
+  });
+  
+  $(document).bind('keydown', function(e) {
+    if(e.which == 27 && currentTarget !== null) {
+      closeTooltip();
+    }
   });
   
 });

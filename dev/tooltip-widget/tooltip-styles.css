@@ -2,19 +2,6 @@ ul.disc li {
   list-style-type: disc !important;
 }
 
-.close {
-  color: #565a5c;
-  font-size: 0.75rem;
-  font-weight: bold;
-  position: absolute;
-  right: 5px;
-  top: 2px;
-}
-
-.close:hover {
-  cursor: pointer;
-}
-
 .faux-link {
   color: #004D81;
 }
@@ -36,25 +23,25 @@ ul.disc li {
   z-index: 10000;
 }
 
-.tooltip .tooltip-content:after, 
-.tooltip .tooltip-content:before {
+.tooltip .tooltip-content::after, 
+.tooltip .tooltip-content::before {
   right: 100%;
   top: 50%;
   border: solid transparent;
-  content: " ";
+  content: "";
   height: 0;
   width: 0;
   position: absolute;
   pointer-events: none;
 }
 
-.tooltip .tooltip-content:after {
+.tooltip .tooltip-content::after {
   border-right-color: #fff;
   border-width: 13px;
   margin-top: -13px;
 }
 
-.tooltip .tooltip-content:before {
+.tooltip .tooltip-content::before {
   border-right-color: #cfb87c;
   border-width: 16px;
   margin-top: -16px;

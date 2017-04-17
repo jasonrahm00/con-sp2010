@@ -16,6 +16,7 @@ $(document).ready(function() {
   }
   
   //Position tooltip content to be just right of the target
+  /*
   $('.tooltip-target').each(function() {
     setWidth();
     topPosition = ($(this).next().height() * 0.5) + ($(this).height());
@@ -25,6 +26,12 @@ $(document).ready(function() {
     $(this).next().css('left', leftPosition + 'px');
     $(this).next().css('width', contentWidth + 'px');
   });
+  */
+  
+  function populateContent() {
+    $('#contentHolder').html('');
+    $('#contentHolder').html($(currentTarget).next());
+  }
   
   $('.tooltip-target').click(function (){
     if(currentTarget == this) {
@@ -32,7 +39,8 @@ $(document).ready(function() {
     } else {
       closeTooltip();
       currentTarget = this;
-      $(currentTarget).next().show().addClass('active');
+      //$(currentTarget).next().show().addClass('active');
+      populateContent();
     }
   });
   

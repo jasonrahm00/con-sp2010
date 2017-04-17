@@ -10,6 +10,17 @@ ul.disc li {
   text-decoration: underline;
 }
 
+.tooltip .close {
+  font-weight: bold;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.tooltip .close:hover {
+  cursor: pointer;
+}
+
 .tooltip .tooltip-wrapper {
   position: relative;
 }
@@ -20,6 +31,7 @@ ul.disc li {
   display: none;
   padding: 1.5rem;
   position: absolute;
+  width: 350px;
   z-index: 10000;
 }
 
@@ -47,15 +59,15 @@ ul.disc li {
   margin-top: -16px;
 }
 
-.tooltip .tooltip-content ul {
-  margin-left: 0 !important;
-}
-
 .tooltip .tooltip-content-header {
   display: block;
   font-weight: bold;
   font-size: .85rem;
-  margin-bottom: 0 0 .75rem 0;
+  margin-bottom: 1rem;
+}
+
+.tooltip .tooltip-target {
+  display: block;
 }
 
 .tooltip .tooltip-target:hover {

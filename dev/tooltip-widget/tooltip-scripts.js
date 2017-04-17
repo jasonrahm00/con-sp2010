@@ -3,49 +3,35 @@ $(document).ready(function() {
   var currentTarget = null;
   
   function closeTooltip() {
-    $('.tooltip-content').removeClass('active').hide();
+    $('.tooltip-content').hide();
     currentTarget = null;
   }
   
-  function setWidth() {
-    if($('.tooltip').attr('data-contentWidth')) {
-      contentWidth = $('.tooltip').attr('data-contentWidth')
-    } else {
-      contentWidth = 250;
-    }
-  }
-  
   //Position tooltip content to be just right of the target
-  /*
   $('.tooltip-target').each(function() {
-    setWidth();
     topPosition = ($(this).next().height() * 0.5) + ($(this).height());
-//    leftPosition = $(this).parents('.tooltip').width() + 25;
-    leftPosition = $(this).width() + 25;
-    $(this).next().css('top', '-' + topPosition + 'px');
-    $(this).next().css('left', leftPosition + 'px');
-    $(this).next().css('width', contentWidth + 'px');
+    leftPosition = $(this).parents('.tooltip').width() + 25;
+    $(this).next().css({
+      'top': '-' + topPosition + 'px',
+      'left': leftPosition + 'px'
+    });
+    $(this).next().append('<span class="close">X</span>');
   });
-  */
   
-  function populateContent() {
-    $('#contentHolder').html('');
-    $('#contentHolder').html($(currentTarget).next());
-  }
-  
-  $('.tooltip-target').click(function (){
+  $('.tooltip-target').click(function (event){
+    event.preventDefault(); //In case target is an <a> tag, disable default behavior
     if(currentTarget == this) {
       closeTooltip();
     } else {
       closeTooltip();
       currentTarget = this;
-      //$(currentTarget).next().show().addClass('active');
-      populateContent();
+      $(currentTarget).next().show();
     }
   });
   
+  //Close tooltip if anything other than the content box is clicked on
   $(document).click(function(event) {
-    var clickTarget = $(event.target);
+    var clickTarget = $(event.target); 
     if($(clickTarget).hasClass('tooltip-target') || $(clickTarget).hasClass('tooltip-content') || $(clickTarget).parents().hasClass('tooltip-content')) { 
       return;
     } else {
@@ -63,7 +49,4 @@ $(document).ready(function() {
     }
   });
   
-  /* Test Get Request */
-  //https://msdn.microsoft.com/en-us/library/office/hh185007(v=office.14).aspx
-  console.log($.get("/academics/colleges/nursing/clinical-practice-community/Lists/Questions%20Contact%20information%20below/Clinical%20Placement%20Contacts.aspx"));
 });

@@ -42,12 +42,41 @@ a:visited.button {
   text-decoration: none;
 }
 
+.after-apply {
+  display: table-row;
+}
+
+.after-apply section {
+  display: table-cell;
+  height: 130px;
+  padding: 10px 20px;
+  width: 30%;
+}
+
+.after-apply section:first-child {
+  border-right: 1px solid #ddd;
+}
+
+.after-apply section:last-child {
+  border-left: 1px solid #ddd;
+}
+
 .align-self-end {
   align-self: flex-end;
 }
 
 .around {
   justify-content: space-around;
+}
+
+.background-light-gray {
+  background: whitesmoke;
+}
+
+.banner-image {
+  height: auto;
+  margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .between {
@@ -96,6 +125,10 @@ a:visited.button {
   background: #cfb87c;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .menu-vertical {
   border: 0;
 }
@@ -118,6 +151,14 @@ a:visited.button {
 
 .whitesmoke-background {
   background: whitesmoke;
+}
+
+#accordion>h3 {
+  margin: 1.5rem 0 1rem 0;
+}
+
+#accordion .accordion_header {
+  line-height: 1.5rem;
 }
 
 #contentPage0 #columnPrimary {
@@ -162,6 +203,7 @@ a:visited.button {
 /************ Table Style Overrides ************/
 
 table[summary="amc-cusna-officers "] th.ms-vh2,
+table[summary="Application Deadlines "] th.ms-vh2,
 table[summary="direct-primary-pricing "] th.ms-vh2,
 table[summary="psych-np-pricing "] th.ms-vh2,
 table[summary="social-worker-psych-pricing "] th.ms-vh2,
@@ -171,6 +213,7 @@ table[summary="south-denver-cusna-officers "] th.ms-vh2 {
 }
 
 table[summary="amc-cusna-officers "] .ms-alternating,
+table[summary="Application Deadlines "] .ms-alternating,
 table[summary="direct-primary-pricing "] .ms-alternating,
 table[summary="psych-np-pricing "] .ms-alternating,
 table[summary="social-worker-psych-pricing "] .ms-alternating,
@@ -335,6 +378,8 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 .next-steps a.auto-width {
   width: auto;
 }
+
+
 
 /**********************************************************
     

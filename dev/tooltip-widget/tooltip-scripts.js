@@ -10,7 +10,7 @@ $(document).ready(function() {
   //Position tooltip content to be just right of the target
   $('.tooltip-target').each(function() {
     topPosition = ($(this).next().height() * 0.5) + ($(this).height());
-    leftPosition = $(this).parents('.tooltip').width() + 25;
+    leftPosition = $(this).width() + 35;
     $(this).next().css({
       'top': '-' + topPosition + 'px',
       'left': leftPosition + 'px'

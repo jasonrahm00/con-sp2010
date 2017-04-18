@@ -14,7 +14,7 @@ ul.disc li {
   font-weight: bold;
   position: absolute;
   right: 5px;
-  top: 5px;
+  top: 0;
 }
 
 .tooltip .close:hover {
@@ -37,14 +37,15 @@ ul.disc li {
 
 .tooltip .tooltip-content::after, 
 .tooltip .tooltip-content::before {
-  right: 100%;
-  top: 50%;
   border: solid transparent;
   content: "";
   height: 0;
-  width: 0;
   position: absolute;
   pointer-events: none;
+  right: 100%;
+  top: 50%;
+  width: 0;
+  
 }
 
 .tooltip .tooltip-content::after {
@@ -61,13 +62,9 @@ ul.disc li {
 
 .tooltip .tooltip-content-header {
   display: block;
-  font-weight: bold;
   font-size: .85rem;
+  font-weight: bold;
   margin-bottom: 1rem;
-}
-
-.tooltip .tooltip-target {
-  display: block;
 }
 
 .tooltip .tooltip-target:hover {

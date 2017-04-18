@@ -21,6 +21,11 @@ h1 {
   line-height: 100%;
 }
 
+h4 {
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+
 a:link.button {
   background: black;
   color: white;
@@ -513,6 +518,10 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
   margin: 2rem 0;
 }
 
+.margin-vertical-x-small {
+  margin: 1rem 0;
+}
+
 /******************** Padding ********************/
 
 .padding-bottom-large {
@@ -577,6 +586,10 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 
 .padding-vertical-small {
   padding: 2rem 0;
+}
+
+.padding-vertical-x-small {
+  padding: 1rem 0;
 }
 
 .padding-x-small {

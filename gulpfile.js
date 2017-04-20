@@ -75,16 +75,16 @@ gulp.task('compile-css', function(callback) {
   runSequence('clean:dist', 'single-css', callback)
 });
 
-gulp.task('widget-js', function() {
-  return gulp.src(['dev/program-landing/*.js', 'dev/toggle-widget/*.js', 'dev/tooltip-widget/*.js'])
+gulp.task('single-js', function() {
+  return gulp.src(['dev/photo-gallery/*.js', 'dev/programs-landing/*.js', 'dev/toggle-widget/*.js', 'dev/tooltip-widget/*.js'])
     .pipe(concat('local.js'))
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('compile-js', function(callback) {
-  runSequence('clean:dist', 'widget-js', callback)
+  runSequence('clean:dist', 'single-js', callback)
 });
 
 gulp.task('compile', function(callback) {
-  runSequence('clean:dist', ['single-css', 'widget-js'], callback)
+  runSequence('clean:dist', ['single-css', 'single-js'], callback)
 });

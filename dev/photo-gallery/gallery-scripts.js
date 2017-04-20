@@ -1,3 +1,7 @@
+/**************************************************************************
+                    Custom Photo Gallery ~jrahm
+**************************************************************************/
+
 $(document).ready(function() {
   
   var caption, currentThumb, selectedIndex, selectedFull, selectedPre, selectedThumb;

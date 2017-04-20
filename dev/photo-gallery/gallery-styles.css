@@ -1,12 +1,6 @@
-body {
-  margin: 0 auto;
-  max-width: 960px;
-  padding-top: 5rem;
-}
-
-figcaption {
-  text-align: center;
-}
+/**************************************************************************
+                  Custom Photo Gallery Styles ~jrahm
+**************************************************************************/
 
 .gallery-preview {
   height: 375px;

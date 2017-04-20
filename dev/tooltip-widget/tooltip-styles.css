@@ -1,14 +1,6 @@
-ul.disc li {
-  list-style-type: disc !important;
-}
-
-.faux-link {
-  color: #004D81;
-}
-
-.faux-link:hover {
-  text-decoration: underline;
-}
+/**************************************************************************
+                  Custom Tooltip Widget Styles ~jrahm
+**************************************************************************/
 
 .tooltip .close {
   font-weight: bold;

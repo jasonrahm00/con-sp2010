@@ -1,18 +1,3 @@
-/* development notes/reminders to add missing links, TBD items, etc. */
-/*.dev-note
-{
-    display: inline-block;
-    background: #fc0 url(dev_note.png) no-repeat left center;
-    border: solid 1px #c33;
-    color: #000;
-    padding: 0 4px 0 16px;
-    margin: 0 4px;
-    font-size: 9px;
-    font-weight: bold;
-}*/
-
-/* end dev-note */
-
 h1 {
   color: #565a5c;
   font-family: MuliRegular, Helvetica, Arial, sans-serif;
@@ -45,6 +30,14 @@ a:hover.button {
 a:visited.button {
   color: white;
   text-decoration: none;
+}
+
+figcaption {
+  text-align: center;
+}
+
+ul.disc>li {
+  list-style-type: disc !important;
 }
 
 .after-apply {
@@ -84,12 +77,21 @@ a:visited.button {
   width: 100%;
 }
 
+.bottom {
+  position: absolute;
+  bottom: 10px;
+}
+
 .between {
   justify-content: space-between;
 }
 
 .block-display {
   display: block;
+}
+
+.center {
+  text-align: center;
 }
 
 .clearfix:after {
@@ -100,6 +102,14 @@ a:visited.button {
 
 .e1-background {
   background: #e1e1e1;
+}
+
+.faux-link {
+  color: #004D81;
+}
+
+.faux-link:hover {
+  text-decoration: underline;
 }
 
 .flex-column {
@@ -234,20 +244,6 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 
 **********************************************************/
 
-.banner-image {
-  height: auto;
-  margin-bottom: 1.5rem;
-  width: 100%;
-}
-
-.bottom {
-  position: absolute;
-  bottom: 10px;
-}
-
-.center {
-  text-align: center;
-}
 
 #labelWrapper {
   margin: 2rem 0;
@@ -326,56 +322,13 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
   font-size: .85rem !important;
 }
 
-/*
-.toggle-target,
-.toggle-content,
-.toggle-content a {
-  display: block;
-}
-
-.toggle-content {
-  background: whitesmoke;
-  border: 1px solid #ddd;
-  border-top: none;
-  display: none;
-  padding: 1rem .75rem;
-  width: 350px;
-}
-
-.toggle-content a {
-  background: #000;
-  color: white;
-  font-size: 1rem;
-  margin-top: 1rem;
-  text-align: center;
-  text-decoration: none;
-  padding: .5rem;
-}
-
-.toggle-content a:hover {
-  color: #cfb87c;
-  text-decoration: none;
-}
-
-.toggle-target {
-  color: #000;
-  border: 1px solid #ddd;
-  font-size: .85rem;
-  padding: 1rem .75rem;
-  width: 350px;
-  text-align: center;
-}
-
-.toggle-target:hover {
-  border-color: #cfb87c;
-  cursor: pointer;
-  text-decoration: none;
-}
-*/
 
 
+/**********************************************************
+    
+                    Next Steps
 
-/******************** Next Steps ********************/
+**********************************************************/
 
 .next-steps {
   margin-top: 2rem;

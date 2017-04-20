@@ -7,14 +7,29 @@ var concat = require('gulp-concat'),
     runSequence = require('run-sequence'),
     uglifyJS = require('gulp-uglify');
 
-gulp.task('clean:dist', function() {
-  return del.sync('dist');
+
+
+
+/*********************************************
+            Individual Tasks
+*********************************************/
+
+gulp.task('event-scripts', function() {
+  gulp.src('dev/events-page/*.js')
+    .pipe(rename('local.js'))
+    .pipe(gulp.dest('dist/event-scripts'))
 });
 
-gulp.task('homepageDropdown', function() {
+gulp.task('homepage-dropdown', function() {
   gulp.src('dev/homepage_dropdown/*.js')
     .pipe(rename('local.js'))
     .pipe(gulp.dest('dist/homepage_dropdown'))
+});
+
+gulp.task('program-scripts', function() {
+  gulp.src('dev/programs-landing/*.js')
+    .pipe(rename('local.js'))
+    .pipe(gulp.dest('dist/programs-landing'))
 });
 
 gulp.task('pulse', function() {
@@ -23,42 +38,53 @@ gulp.task('pulse', function() {
     .pipe(gulp.dest('dist/pulse'))
 });
 
-gulp.task('programScripts', function() {
-  gulp.src('dev/programs-landing/*.js')
-    .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/programs-landing'))
-});
-
-gulp.task('styles', function() {
-  gulp.src('dev/styles.css')
-    .pipe(rename('subSite.css'))
-    .pipe(cssnano())
-    .pipe(gulp.dest('dist'))
-});
-
-gulp.task('eventScripts', function() {
-  gulp.src('dev/events-page/*.js')
-    .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/event-scripts'))
-});
-
-gulp.task('watch', function() {
-  gulp.watch('dev/*.js', ['createLocal'])
-});
-
 gulp.task('widget-scripts', function() {
   return gulp.src(['dev/toggle-widget/*.js', 'dev/tooltip-widget/*.js'])
-    .pipe(concat('custom-widget-scripts.txt'))
+    .pipe(concat('test-widget-scripts.txt'))
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('widget-styles', function() {
   return gulp.src(['dev/toggle-widget/*.css', 'dev/tooltip-widget/*.css'])
-    .pipe(concatCss('custom-widget-styles.txt'))
+    .pipe(concatCss('test-widget-styles.txt'))
     .pipe(cssnano())
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('widget', function(callback) {
   runSequence('clean:dist', ['widget-scripts', 'widget-styles'], callback)
+});
+
+
+/*********************************************
+            Global Tasks
+*********************************************/
+
+gulp.task('clean:dist', function() {
+  return del.sync('dist');
+});
+
+gulp.task('single-css', function() {
+  return gulp.src(['dev/styles.css', 'dev/photo-gallery/*.css', 'dev/toggle-widget/*.css', 'dev/tooltip-widget/*.css'])
+    .pipe(concatCss('nursing-styles.css'))
+    .pipe(cssnano())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('compile-css', function(callback) {
+  runSequence('clean:dist', 'single-css', callback)
+});
+
+gulp.task('widget-js', function() {
+  return gulp.src(['dev/program-landing/*.js', 'dev/toggle-widget/*.js', 'dev/tooltip-widget/*.js'])
+    .pipe(concat('local.js'))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('compile-js', function(callback) {
+  runSequence('clean:dist', 'widget-js', callback)
+});
+
+gulp.task('compile', function(callback) {
+  runSequence('clean:dist', ['single-css', 'widget-js'], callback)
 });

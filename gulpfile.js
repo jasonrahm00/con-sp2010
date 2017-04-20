@@ -5,7 +5,7 @@ var concat = require('gulp-concat'),
     gulp = require('gulp'),
     rename = require('gulp-rename'),
     runSequence = require('run-sequence'),
-    uglifyJS = require('gulp-uglify');
+    uglify = require('gulp-uglify');
 
 
 
@@ -55,6 +55,7 @@ gulp.task('compile-css', function(callback) {
 gulp.task('single-js', function() {
   return gulp.src(['dev/photo-gallery/*.js', 'dev/programs-landing/*.js', 'dev/toggle-widget/*.js', 'dev/tooltip-widget/*.js'])
     .pipe(concat('local.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('dist'));
 });
 

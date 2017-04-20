@@ -1,0 +1,61 @@
+/**********************************************************
+    
+            Event Page Table Overrides
+
+**********************************************************/
+
+#conEvents table.ms-listviewtable tr:nth-child(2n),
+#conEvents .ms-alternating {
+  background: #fff;
+}
+
+#conEvents table[summary="event-list "] {
+  border-spacing: 0 1rem;
+}
+
+#conEvents tr {
+  height: 90px;
+}
+
+#conEvents .date {
+  background: #ddd;
+  color: #fff !important;
+  margin-right: 1.5rem;
+  padding: 6px;
+  width: 90px;
+}
+
+#conEvents .day {
+  display: block;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+#conEvents .details {
+  padding-left: 1.5rem;
+}
+
+#conEvents .details a {
+  display: block;
+  font-size: .85rem;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-top: 20px;
+}
+
+#conEvents .event-title {
+  display: block;
+}
+
+#conEvents .month {
+  display: block;
+  font-size: 1.25rem;
+  margin-top: 9px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#conEvents .ms-viewheadertr.ms-vhltr{
+  display: none;
+}

@@ -17,13 +17,19 @@ var concat = require('gulp-concat'),
 gulp.task('event-scripts', function() {
   gulp.src('dev/events-page/*.js')
     .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/event-scripts'))
+    .pipe(gulp.dest('dist/events'))
+});
+
+gulp.task('event-styles', function() {
+  gulp.src('dev/events-page/*.css')
+    .pipe(rename('event-styles.txt'))
+    .pipe(gulp.dest('dist/events'))
 });
 
 gulp.task('homepage-dropdown', function() {
   gulp.src('dev/homepage_dropdown/*.js')
     .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/homepage_dropdown'))
+    .pipe(gulp.dest('dist/homepage-dropdown'))
 });
 
 gulp.task('pulse', function() {

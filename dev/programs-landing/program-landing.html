@@ -3,19 +3,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=9">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
   <link href="../styles.css" rel="stylesheet">
+  <link href="../toggle-widget/toggle-styles.css" rel="stylesheet">
+  
   
   <script src="https://code.jquery.com/jquery-1.2.6.min.js"></script>
   
+  <style type="text/css">
+    body {
+      margin: 0 auto;
+      max-width: 912px;
+    }
+  </style>
 </head>
 
 <body>
 
 <h1>College of Nursing Degrees and Programs</h1>
   
-<img class="banner-image" alt="A group of eight undergraduate nursing students gather around a hospital bed with a simulated patient (dummy) wearing an oxygen mask and a hospital gown. The students are all looking at the professor who is mid-sentence." src="/academics/colleges/nursing/programs-admissions/PublishingImages/nursing-simulation-class.jpg">
+<img style="height: 512px;" class="banner-image" alt="A group of eight undergraduate nursing students gather around a hospital bed with a simulated patient (dummy) wearing an oxygen mask and a hospital gown. The students are all looking at the professor who is mid-sentence." src="/academics/colleges/nursing/programs-admissions/PublishingImages/nursing-simulation-class.jpg">
 
 <section id="programSorting">
   <h2 class="center">Explore Programs and Specialties</h2>
@@ -40,7 +47,7 @@
 
   </div>
 
-  <section class="clearfix">
+  <section class="toggle">
     <h3 class="center">Chooose Your Area of Interest</h3>
     <div class="program-cards">
       
@@ -282,6 +289,7 @@
   </ul>
 </div>
   
+  <script src="../toggle-widget/toggle-scripts.js"></script>
   <script src="audienceSort.js"></script>
 
 </body>

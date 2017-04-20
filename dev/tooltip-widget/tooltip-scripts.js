@@ -1,3 +1,7 @@
+/**************************************************************************
+                  Custom Tooltip Widget ~jrahm
+**************************************************************************/
+
 $(document).ready(function() {
   var leftPosition, topPosition, contentWidth;
   var currentTarget = null;

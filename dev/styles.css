@@ -299,6 +299,34 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
   margin-bottom: 2rem;
 }
 
+.program-cards .toggle-content a {
+  background: #000;
+  color: white;
+  display: block;
+  font-size: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  text-decoration: none;
+  padding: .5rem;
+}
+
+.program-cards .toggle-content a:hover {
+  color: #cfb87c;
+  text-decoration: none;
+}
+
+.program-cards .toggle-content,
+.program-cards .toggle-target {
+  width: 350px;
+}
+
+.program-cards .toggle-target {
+  color: #000;
+  display: block;
+  font-size: .85rem !important;
+}
+
+/*
 .toggle-target,
 .toggle-content,
 .toggle-content a {
@@ -343,6 +371,7 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
   cursor: pointer;
   text-decoration: none;
 }
+*/
 
 
 
@@ -382,6 +411,10 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 
 .next-steps a.auto-width {
   width: auto;
+}
+
+.next-steps a.full-width {
+  width: 100%;
 }
 
 

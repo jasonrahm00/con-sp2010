@@ -1,0 +1,22 @@
+.toggle .toggle-content {
+  background: whitesmoke;
+  border: 1px solid #ddd;
+  border-top: none;
+  display: none;
+  padding: 1rem;
+}
+
+.toggle .toggle-target {
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+.toggle .toggle-target:hover {
+  border-color: #cfb87c;
+  cursor: pointer;
+  text-decoration: none;
+}

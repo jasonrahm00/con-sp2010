@@ -1,7 +1,11 @@
-var del = require('del'),
+var concat = require('gulp-concat'),
+    concatCss = require('gulp-concat-css'),
+    cssnano = require('gulp-cssnano'),
+    del = require('del'),
     gulp = require('gulp'),
     rename = require('gulp-rename'),
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
+    uglifyJS = require('gulp-uglify');
 
 gulp.task('clean:dist', function() {
   return del.sync('dist');
@@ -28,6 +32,7 @@ gulp.task('programScripts', function() {
 gulp.task('styles', function() {
   gulp.src('dev/styles.css')
     .pipe(rename('subSite.css'))
+    .pipe(cssnano())
     .pipe(gulp.dest('dist'))
 });
 
@@ -37,12 +42,23 @@ gulp.task('eventScripts', function() {
     .pipe(gulp.dest('dist/event-scripts'))
 });
 
-gulp.task('local', function(callback) {
-  runSequence('clean:dist', ['styles'],
-    callback
-  )
-});
-
 gulp.task('watch', function() {
   gulp.watch('dev/*.js', ['createLocal'])
+});
+
+gulp.task('widget-scripts', function() {
+  return gulp.src(['dev/toggle-widget/*.js', 'dev/tooltip-widget/*.js'])
+    .pipe(concat('custom-widget-scripts.txt'))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('widget-styles', function() {
+  return gulp.src(['dev/toggle-widget/*.css', 'dev/tooltip-widget/*.css'])
+    .pipe(concatCss('custom-widget-styles.txt'))
+    .pipe(cssnano())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('widget', function(callback) {
+  runSequence('clean:dist', ['widget-scripts', 'widget-styles'], callback)
 });

@@ -140,6 +140,10 @@ ul.disc>li {
   background: #cfb87c;
 }
 
+.hidden {
+  display: none;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -279,10 +283,6 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 
 /******************** Program Cards ********************/
 
-.hidden {
-  display: none;
-}
-
 .program-cards {
   display: flex;
   flex-wrap: wrap;
@@ -313,7 +313,7 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 
 .program-cards .toggle-content,
 .program-cards .toggle-target {
-  width: 350px;
+  width: 355px;
 }
 
 .program-cards .toggle-target {

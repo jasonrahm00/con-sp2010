@@ -9,7 +9,6 @@ var concat = require('gulp-concat'),
 
 
 
-
 /*********************************************
             Individual Tasks
 *********************************************/
@@ -39,6 +38,7 @@ gulp.task('pulse', function() {
 });
 
 
+
 /*********************************************
             Global Tasks
 *********************************************/
@@ -54,15 +54,15 @@ gulp.task('single-css', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('compile-css', function(callback) {
-  runSequence('clean:dist', 'single-css', callback)
-});
-
 gulp.task('single-js', function() {
   return gulp.src(['dev/photo-gallery/*.js', 'dev/programs-landing/*.js', 'dev/toggle-widget/*.js', 'dev/tooltip-widget/*.js'])
     .pipe(concat('local.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist'));
+});
+
+gulp.task('compile-css', function(callback) {
+  runSequence('clean:dist', 'single-css', callback)
 });
 
 gulp.task('compile-js', function(callback) {

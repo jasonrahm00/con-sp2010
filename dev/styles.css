@@ -172,14 +172,6 @@ ul.disc>li {
   background: whitesmoke;
 }
 
-#accordion>h3 {
-  margin: 1.5rem 0 1rem 0;
-}
-
-#accordion .accordion_header {
-  line-height: 1.5rem;
-}
-
 #contentPage0 #columnPrimary {
   max-width: 912px;
 }
@@ -244,10 +236,108 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 
 /**********************************************************
     
-        Custom Styles for Programs Landing Page
+            Accordion Widget Overrides
 
 **********************************************************/
 
+/************ Inline Accordions ************/
+
+#accordion .accordion_header {
+  background: none;
+  border: 1px solid #ddd !important;
+  font-size: .85rem;
+  font-weight: normal;
+  line-height: normal;
+  margin-top: .5rem;
+  padding: 1rem;
+  text-align: center !important;
+}
+
+#accordion .accordion_header:first-child {
+  margin-top: 0;
+}
+
+#accordion .accordion_header:hover {
+  border-color: #cfb87c !important;
+}
+
+#accordion .accordion_body {
+  background: whitesmoke !important;
+  border-bottom: 1px solid #ddd !important;
+  border-left: 1px solid #ddd !important;
+  border-right: 1px solid #ddd !important;
+  padding: 1rem;
+}
+
+#accordion .active {
+  background: none !important;
+}
+
+#accordion>h3 {
+  margin: 1.5rem 0 1rem 0;
+}
+
+
+/************ Webpart Accordions ************/
+
+.ms-WPBody h3.ui-accordion-header,
+.ui-accordion-header {
+  border: 1px solid #cecece;
+  font-weight: normal;
+  font-size: .85rem !important;
+  line-height: initial;
+  margin-top: .5rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.ms-WPBody h3.ui-accordion-header:first-child,
+.ui-accordion-header:first-child {
+  margin-top: 0;
+}
+
+h3.ui-accordion-header:hover,
+.ms-WPBody .accordionWebPart h3.ui-state-active:hover,
+.ui-accordion-header:hover {
+  border-color: #cfb87c;
+}
+
+.ms-WPBody .accordionWebPart h3.ui-state-active {
+  background: 0;
+  background-color: #fff;
+  border: 1px solid #cecece;
+  color: #5A5A5A;
+  font-weight: normal;
+}
+
+.ms-WPBody .ui-accordion-header span.iconSpace {
+  margin-left: 0;
+  text-align: center !important;
+}
+
+.ui-accordion-content {
+  background: whitesmoke;
+  border-bottom: 1px solid #cecece;
+  border-left: 1px solid #cecece;
+  border-right: 1px solid #cecece;
+  padding: 1rem;
+}
+
+.ui-accordion-header .ui-icon {
+  display: none;
+}
+
+.ui-state-active {
+  background: #fff;
+}
+
+
+
+/**********************************************************
+    
+        Custom Styles for Programs Landing Page
+
+**********************************************************/
 
 #labelWrapper {
   margin: 2rem 0;

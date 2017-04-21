@@ -4,14 +4,14 @@
 
 .toggle .toggle-content {
   background: whitesmoke;
-  border: 1px solid #ddd;
+  border: 1px solid #cecece;
   border-top: none;
   display: none;
   padding: 1rem;
 }
 
 .toggle .toggle-target {
-  border: 1px solid #ddd;
+  border: 1px solid #cecece;
   display: block;
   font-size: 1rem;
   font-weight: normal;

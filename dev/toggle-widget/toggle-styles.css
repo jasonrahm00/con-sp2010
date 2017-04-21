@@ -12,6 +12,7 @@
 
 .toggle .toggle-target {
   border: 1px solid #ddd;
+  display: block;
   font-size: 1rem;
   font-weight: normal;
   margin: 0;
@@ -23,4 +24,8 @@
   border-color: #cfb87c;
   cursor: pointer;
   text-decoration: none;
+}
+
+.toggle .toggle-wrapper {
+  min-width: 250px;
 }

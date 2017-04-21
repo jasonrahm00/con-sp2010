@@ -2,67 +2,12 @@
                   Custom Clinic Locator Styles ~jrahm
 **************************************************************************/
 
-.tooltip .close {
-  font-weight: bold;
-  position: absolute;
-  right: 5px;
-  top: 0;
+.clinics .clinic-card>h2 {
+  width: 100%;
 }
 
-.tooltip .close:hover {
-  cursor: pointer;
-}
-
-.tooltip .tooltip-wrapper {
-  position: relative;
-}
-
-.tooltip .tooltip-content {
-  background-color: #fff;
-  border: 2px solid #cfb87c;
-  display: none;
-  padding: 1.5rem;
-  position: absolute;
-  width: 350px;
-  z-index: 10000;
-}
-
-.tooltip .tooltip-content::after, 
-.tooltip .tooltip-content::before {
-  border: solid transparent;
-  content: "";
-  height: 0;
-  position: absolute;
-  pointer-events: none;
-  right: 100%;
-  top: 50%;
-  width: 0;
-  
-}
-
-.tooltip .tooltip-content::after {
-  border-right-color: #fff;
-  border-width: 13px;
-  margin-top: -13px;
-}
-
-.tooltip .tooltip-content::before {
-  border-right-color: #cfb87c;
-  border-width: 16px;
-  margin-top: -16px;
-}
-
-.tooltip .tooltip-content-header {
-  color: #474a4c !important;
-  display: block;
-  font-family: Verdana, Arial, Helvetica, sans-serif !important;
-  font-size: .85rem !important;
-  font-weight: bold;
-  line-height: normal;
-  margin-bottom: 1rem;
-  margin-top: 0 !important;
-}
-
-.tooltip .tooltip-target:hover {
-  cursor: pointer;
+.clinics .clinic-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

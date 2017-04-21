@@ -53,10 +53,14 @@
 }
 
 .tooltip .tooltip-content-header {
+  color: #474a4c !important;
   display: block;
-  font-size: .85rem;
+  font-family: Verdana, Arial, Helvetica, sans-serif !important;
+  font-size: .85rem !important;
   font-weight: bold;
+  line-height: normal;
   margin-bottom: 1rem;
+  margin-top: 0 !important;
 }
 
 .tooltip .tooltip-target:hover {

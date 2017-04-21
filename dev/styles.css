@@ -266,6 +266,7 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
   border-bottom: 1px solid #ddd !important;
   border-left: 1px solid #ddd !important;
   border-right: 1px solid #ddd !important;
+  color: #474A4C;
   padding: 1rem;
 }
 
@@ -283,6 +284,7 @@ table[summary="south-denver-cusna-officers "] .ms-alternating {
 .ms-WPBody h3.ui-accordion-header,
 .ui-accordion-header {
   border: 1px solid #cecece;
+  color: #474A4C;
   font-weight: normal;
   font-size: .85rem !important;
   line-height: initial;
@@ -306,7 +308,7 @@ h3.ui-accordion-header:hover,
   background: 0;
   background-color: #fff;
   border: 1px solid #cecece;
-  color: #5A5A5A;
+  color: #474A4C;
   font-weight: normal;
 }
 
@@ -320,6 +322,7 @@ h3.ui-accordion-header:hover,
   border-bottom: 1px solid #cecece;
   border-left: 1px solid #cecece;
   border-right: 1px solid #cecece;
+  color: #474A4C;
   padding: 1rem;
 }
 
@@ -404,12 +407,6 @@ h3.ui-accordion-header:hover,
 .program-cards .toggle-content,
 .program-cards .toggle-target {
   width: 355px;
-}
-
-.program-cards .toggle-target {
-  color: #000;
-  display: block;
-  font-size: .85rem !important;
 }
 
 

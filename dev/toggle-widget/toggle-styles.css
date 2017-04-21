@@ -12,8 +12,9 @@
 
 .toggle .toggle-target {
   border: 1px solid #cecece;
+  color: #474A4C;
   display: block;
-  font-size: 1rem;
+  font-size: .85rem;
   font-weight: normal;
   margin: 0;
   padding: 1rem;

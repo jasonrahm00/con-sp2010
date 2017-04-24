@@ -37,9 +37,9 @@ $(document).ready(function() {
   function createClinicCard(x) {
     var header = '<section class="clinic-card"><h2>' + x.name + '</h2>',
         services = createServiceList(x.services),
-        hours = '<div><h3>Hours</h3></div></section>';
+        hours = '<div class="hours"><h3>Hours</h3></div></section>';
     
-    clinicCard = header + '<div><h3>Location</h3>' +  basicContent(x) + '<div class="services">' + services + '</div>' + hours;
+    clinicCard = header + '<div class="location"><h3>Location</h3>' +  basicContent(x) + '<div class="services">' + services + '</div>' + hours;
     
     return clinicCard;
   }
@@ -55,7 +55,7 @@ $(document).ready(function() {
   function initMap() {
     var allLatLongs = [];
     
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('clinicMap'), {
       zoom: 8,
       center: {lat: 39.7392, lng: -104.9903}//The map is initially centered on the geographical center Denver
     });

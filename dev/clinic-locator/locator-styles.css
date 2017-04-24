@@ -11,3 +11,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
+#map {
+  height: 400px;
+  width: 100%;
+}

@@ -3,8 +3,7 @@
 **************************************************************************/
 
 $(document).ready(function() {
-  'use strict';
-  var clinicCard;
+  var clinicCard, map;
     
   clinics.sort(function(a, b) {
     return a.name > b.name ? 1 : ((b.name > a.name) ? -1 : 0);
@@ -39,5 +38,14 @@ $(document).ready(function() {
   $.each(clinics, function(index, value) {
     $('.clinics').append(createClinicCard(value));
   });
+  
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: {lat: 39.8282172, lng: -98.5795122}//The map is centered on the geographical center of the contiguous US
+    });
+  }
+  
+  initMap();
   
 });

@@ -4,24 +4,24 @@
 
 $(document).ready(function() {
   
-  /*************************** Sharepoint Table Data Option ***************************/
+  /*************************** Get Data from Sharepoint Table on Page ***************************/
   
-  var clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
+  var clinicData,
+      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
-  $(clinics).each(function () {
-    
-    var name = $(this).find('td.ms-vb2:first-child')[0].textContent,
-        location = $(this).find('td.ms-vb2:nth-child(2)')[0].innerHTML,
-        services = $(this).find('td.ms-vb2:nth-child(3)')[0].innerHTML,
-        hours = $(this).find('td.ms-vb2:nth-child(4)')[0].innerHTML,
-        lat = $(this).find('td.ms-vb2:nth-child(5)')[0].innerHTML,
-        long = $(this).find('td.ms-vb2:nth-child(6)')[0].innerHTML;
-    
-    $(this).html('<td><section class="clinic-card"><h2>' + name + '</h2><section class="location"><h3>Location</h3>' + location + '</section><section class="services"><h3>Services</h3>' + services + '</section><section class="hours"><h3>Hours</h3>' + hours + '</section></section></td>');
-    
-  });
-    
+  function getData(tableRow) {
+    return {
+      name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
+      baseContent: $(tableRow).find('td.ms-vb2:nth-child(2)')[0].innerHTML,
+      services: $(tableRow).find('td.ms-vb2:nth-child(3)')[0].innerHTML,
+      hours: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].innerHTML,
+      lat: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].innerHTML,
+      long: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].innerHTML
+    }
+  }
+
   /*************************** Map ***************************/
+  
   /*
   function initMap() {
     var allLatLongs = [];
@@ -32,8 +32,9 @@ $(document).ready(function() {
     });
     
     $.each(clinics, function(index, value) {
-      var currentLatLong = new google.maps.LatLng(value.lat, value.long);
-      setMarkers(map, value, currentLatLong);
+      clinicData = getData(value);
+      var currentLatLong = new google.maps.LatLng(clinicData.lat, clinicData.long);
+      setMarkers(map, clinicData, currentLatLong);
       allLatLongs.push(currentLatLong);
     });
     
@@ -51,7 +52,7 @@ $(document).ready(function() {
   //Create and place map markers and content
   function setMarkers(map, location, currentLatLong) {
     var marker,
-        markerContent = '<div class="markerInfo"><strong>' + location.name + '</strong><br>' + basicContent(location) + '</div>',
+        markerContent = '<div class="markerInfo"><strong>' + location.name + '</strong><br>' + location.baseContent + '</div>',
         markerOptions = {
           position: currentLatLong,
           map: map
@@ -72,6 +73,15 @@ $(document).ready(function() {
  
   initMap();
   */
+  
+  //Reformat data in table
+  $(clinics).each(function () {
+    
+    clinicData = getData(this);
+    
+    $(this).html('<td><section class="clinic-card"><h2>' + clinicData.name + '</h2><section class="location"><h3>Location</h3>' + clinicData.baseContent + '</section><section class="services"><h3>Services</h3>' + clinicData.services + '</section><section class="hours"><h3>Hours</h3>' + clinicData.hours + '</section></section></td>');
+    
+  });
   
   $('#loadingMessage').remove();
   $('#clinics').removeClass('hidden');

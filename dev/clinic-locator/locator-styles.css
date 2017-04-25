@@ -2,10 +2,6 @@
                   Custom Clinic Locator Styles ~jrahm
 **************************************************************************/
 
-#clinics {
-  display: none;
-}
-
 #clinics .clinic-card>h2 {
   width: 100%;
 }
@@ -15,7 +11,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 2rem 0;
+  margin-bottom: 2rem;
   padding: 2rem 2rem 4rem;
 }
 

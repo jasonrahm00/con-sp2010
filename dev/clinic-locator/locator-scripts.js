@@ -6,8 +6,9 @@ $(document).ready(function() {
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
   
-  var clinicData, currentLatLong, infoWindow, map, mapBounds,
+  var currentLatLong, infoWindow, map, mapBounds,
       allLatLongs = [],
+      clinicData = [],
       clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
   function getData(tableRow) {
@@ -20,6 +21,10 @@ $(document).ready(function() {
       long: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].textContent
     }
   }
+  
+  $.each(clinics, function(index, value) {
+    clinicData.push(getData(value));
+  });
 
   /*************************** Map ***************************/
   
@@ -30,10 +35,9 @@ $(document).ready(function() {
       center: {lat: 39.7392, lng: -104.9903}//The map is initially centered on the geographical center Denver
     });
     
-    $.each(clinics, function(index, value) {
-      clinicData = getData(value);
-      currentLatLong = new google.maps.LatLng(clinicData.lat, clinicData.long);
-      setMarkers(map, clinicData, currentLatLong);
+    $.each(clinicData, function(index, value) {
+      currentLatLong = new google.maps.LatLng(value.lat, value.long);
+      setMarkers(map, value, currentLatLong);
       allLatLongs.push(currentLatLong);
     });
     
@@ -72,17 +76,25 @@ $(document).ready(function() {
  
   initMap();
   
-  /*************************** Reformat Table Datat to Display Better ***************************/
-  //Has to be done after map data is loaded, or map won't load
   
-  $(clinics).each(function () {
+  
+  /*************************** Reformat Table Datat to Display Better ***************************/
+  //Reformatting has to be done after map data is loaded, or map won't load
+  
+  $('#clinicLocations').html('');
+  
+  $(clinicData).each(function () {
     
-    clinicData = getData(this);
-    
-    $(this).html('<td><section data-coords="{lat: ' + clinicData.lat + ',long: ' + clinicData.long + '}" class="clinic-card"><h2>' + clinicData.name + '</h2><section class="location"><h3>Location</h3>' + clinicData.baseContent + '</section><section class="services"><h3>Services</h3>' + clinicData.services + '</section><section class="hours"><h3>Hours</h3>' + clinicData.hours + '</section></section></td>');
+    $('#clinicLocations').append('<section class="clinic-card"><h2>' + this.name + '</h2><section class="location"><h3>Location</h3>' + this.baseContent + '</section><section class="services"><h3>Services</h3>' + this.services + '</section><section class="hours"><h3>Hours</h3>' + this.hours + '</section></section>');
     
   });
   
   $('#loadingMessage').remove();
   $('#clinics').removeClass('hidden');
+  
+  
+  
+  /*************************** Location Filtering ***************************/
+  
+  
 });

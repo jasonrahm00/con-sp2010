@@ -4,54 +4,25 @@
 
 $(document).ready(function() {
   
-  /*************************** Clinic Cards ***************************/
+  /*************************** Sharepoint Table Data Option ***************************/
   
-  var clinicCard, infoWindow, map;
+  var clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
+  
+  $(clinics).each(function () {
     
-  clinics.sort(function(a, b) {
-    return a.name > b.name ? 1 : ((b.name > a.name) ? -1 : 0);
+    var name = $(this).find('td.ms-vb2:first-child')[0].textContent,
+        location = $(this).find('td.ms-vb2:nth-child(2)')[0].innerHTML,
+        services = $(this).find('td.ms-vb2:nth-child(3)')[0].innerHTML,
+        hours = $(this).find('td.ms-vb2:nth-child(4)')[0].innerHTML,
+        lat = $(this).find('td.ms-vb2:nth-child(5)')[0].innerHTML,
+        long = $(this).find('td.ms-vb2:nth-child(6)')[0].innerHTML;
+    
+    $(this).html('<td><section class="clinic-card"><h2>' + name + '</h2><section class="location"><h3>Location</h3>' + location + '</section><section class="services"><h3>Services</h3>' + services + '</section><section class="hours"><h3>Hours</h3>' + hours + '</section></section></td>');
+    
   });
-  
-  function createServiceList(y) {
-    var serviceSpan = $('<span/>'),
-        serviceHeader = $('<h3/>').text('Services').appendTo(serviceSpan),
-        ul = $('<ul/>').appendTo(serviceSpan);
     
-    y.sort();
-    
-    $.each(y, function(index, value) {
-      var li = $('<li/>').text(value);
-      $(ul).append(li);    
-    });
-    
-    return $(serviceSpan).html();
-  }
-  
-  function basicContent(y) {
-    var address = '<a href="' + y.mapUrl + '" target="_blank">' + y.street + '<br>' + y.city + ' ' + y.zip + '</a><br>',
-        phone = 'Phone: ' + y.phone + '<br>',
-        website = '<a href="' + y.pageUrl + '">Visit Clinic Page</a></div>';
-    return address + phone + website;
-  }
-  
-  function createClinicCard(x) {
-    var header = '<section class="clinic-card"><h2>' + x.name + '</h2>',
-        services = createServiceList(x.services),
-        hours = '<div class="hours"><h3>Hours</h3></div></section>';
-    
-    clinicCard = header + '<div class="location"><h3>Location</h3>' +  basicContent(x) + '<div class="services">' + services + '</div>' + hours;
-    
-    return clinicCard;
-  }
-  
-  $.each(clinics, function(index, value) {
-    $('.clinics').append(createClinicCard(value));
-  });
-  
-  
-  
   /*************************** Map ***************************/
-  
+  /*
   function initMap() {
     var allLatLongs = [];
     
@@ -100,5 +71,8 @@ $(document).ready(function() {
   }
  
   initMap();
+  */
   
+  $('#loadingMessage').remove();
+  $('#clinics').removeClass('hidden');
 });

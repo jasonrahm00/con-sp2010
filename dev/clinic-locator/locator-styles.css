@@ -2,11 +2,15 @@
                   Custom Clinic Locator Styles ~jrahm
 **************************************************************************/
 
-.clinics .clinic-card>h2 {
+#clinics {
+  display: none;
+}
+
+#clinics .clinic-card>h2 {
   width: 100%;
 }
 
-.clinics .clinic-card {
+#clinics .clinic-card {
   border-bottom: 2px solid #e1e1e1;
   display: flex;
   flex-wrap: wrap;
@@ -15,24 +19,20 @@
   padding: 2rem 2rem 4rem;
 }
 
-.clinics .clinic-card:last-child {
-  border-bottom: 0;
-}
-
-.clinics .clinic-card h2 {
+#clinics .clinic-card h2 {
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.clinics .clinic-card .hours {
+#clinics .clinic-card .hours {
   width: 25%;
 }
 
-.clinics .clinic-card .location {
+#clinics .clinic-card .location {
   width: 25%;
 }
 
-.clinics .clinic-card .services {
+#clinics .clinic-card .services {
   width: 30%;
 }
 
@@ -40,4 +40,15 @@
   height: 490px;
   margin-bottom: 1.5rem;
   width: 100%;
+}
+
+/*************************** Sharepoint Table Data Option ***************************/
+
+#clinics table.ms-listviewtable tr:nth-child(2n),
+#clinics .ms-alternating {
+  background: #fff;
+}
+
+#clinics .ms-viewheadertr.ms-vhltr{
+  display: none;
 }

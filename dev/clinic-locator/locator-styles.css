@@ -32,19 +32,22 @@
   width: 30%;
 }
 
+#clinicLocations {
+  width: 75%;
+}
+
 #clinicMap {
   height: 490px;
   margin-bottom: 1.5rem;
   width: 100%;
 }
 
-/*************************** Sharepoint Table Data Option ***************************/
-
-#clinics table.ms-listviewtable tr:nth-child(2n),
-#clinics .ms-alternating {
-  background: #fff;
+#locationFilter {
+  margin-top: 2rem;
+  width: 20%;
 }
 
-#clinics .ms-viewheadertr.ms-vhltr{
-  display: none;
+#locationFilter h2 {
+  font-size: 1.5rem;
+  font-weight: normal;
 }

@@ -1,0 +1,14 @@
+Search Features
+
+Find radial distance between search input and all locations
+calculate drive distance in miles
+determine if results are within search radius
+repaint map for values that fall within driving distance
+If no results return, tell them to search again
+Also add starting point for the search lat/long to the repainted map (change icon)
+After repaint, add driving distance to each location section (at bottom)
+
+Include ability to get browser location to auto find closest to current position
+need to check if location is available on browser initially. if not, don't display button on page
+
+Generate new API Key and restrict to URL before go-live

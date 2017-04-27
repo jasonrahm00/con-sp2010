@@ -9,7 +9,8 @@ $(document).ready(function() {
   var geocoder, infoWindow, map, mapBounds, searchLatLong, searchRadius, searchResults, zip,
       allLatLongs = [],
       clinicData = [],
-      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
+      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr')),
+      filterResults = [];
   
   
   
@@ -32,6 +33,13 @@ $(document).ready(function() {
     clinicData.push(getData(value));
   });
   
+  //Creates clinic cards and adds them to the page, expects an object array as input
+  function createClinicCards(x) {
+    $.each(x, function(index, value) {
+      $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + value.baseContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section></section>');
+    });
+  }
+  
   
   
   /*************************** Re-Add Location Info to Page ***************************/
@@ -40,13 +48,8 @@ $(document).ready(function() {
   $('#clinicLocations').html('');
   
   //Create individual <sections> for each location and append them to the now clean container
-  $.each(clinicData, function (index, value) {
-    
-    $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + value.baseContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section></section>');
-    
-  });
-
   
+  createClinicCards(clinicData);  
   
   /**************************************************************************
                           Load gMap and Markers
@@ -160,8 +163,8 @@ $(document).ready(function() {
   }
   
   function checkDistance() {
-    var mapDistanceMatrix = new google.maps.DistanceMatrixService(),
-        searchResults = [];
+    var mapDistanceMatrix = new google.maps.DistanceMatrixService();
+    filterResults = [];
     
     $.each(clinicData, function (index, value) {
       
@@ -180,7 +183,7 @@ $(document).ready(function() {
         if(status === "OK") {
           results = response.rows[0].elements[0];
           var miles = Math.round(results.distance.value * 0.000621371);
-          miles <= searchRadius ? (value.driveMiles = miles, searchResults.push(value)) : '';
+          miles <= searchRadius ? (value.driveMiles = miles, filterResults.push(value)) : '';
         } else {
           console.log("Error: " + status);
         }
@@ -188,13 +191,13 @@ $(document).ready(function() {
       
     });
     
-    //Sort results so the closest is displayed
-    searchResults.sort(function(a,b) {
-      return (a.crowDistance - b.crowDistance);
-    });
-    
-    console.log(searchResults);
-    
+//      
+//    //Sort results so the closest is displayed first
+//    filtered.sort(function(a,b) {
+//      return (a.driveMiles - b.driveMiles);
+//    });
+//
+//    return filterResults;
   }
   
   function filterClinics(startLocation) {
@@ -212,13 +215,14 @@ $(document).ready(function() {
           
           //Call getClosest function to calculate distance between each distributor and the entered zip code
           checkDistance();
+          
         }
       }
     });
   }
 
-  
-  
+
+
   /**************************************************************************
                   Unhide components when page is loaded
   **************************************************************************/

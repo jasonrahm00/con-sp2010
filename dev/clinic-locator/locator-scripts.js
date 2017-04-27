@@ -27,7 +27,7 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var geocoder, infoWindow, map, mapBounds, searchLatLong, searchRadius, searchResults, zip,
+  var clinicPromises, geocoder, infoWindow, map, mapBounds, mapDistanceMatrix, searchLatLong, searchRadius, searchResults, zip,
       allLatLongs = [],
       //clinicData = [],
       //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr')),
@@ -67,7 +67,11 @@ $(document).ready(function() {
   /*************************** Re-Add Location Info to Page ***************************/
   
   //Remove extraneous nested table code that SharePoint creates so there is a clean slate to manipulate the page
-  $('#clinicLocations').html('');
+  function cleanContainer() {
+    $('#clinicLocations').html('');
+  }
+  
+  cleanContainer();
   
   //Create individual <sections> for each location and append them to the now clean container
   
@@ -184,15 +188,15 @@ $(document).ready(function() {
     zip = '';
   }
   
-  function checkDistance() {
-    var mapDistanceMatrix = new google.maps.DistanceMatrixService();
-    filterResults = [];
+  function checkDistance(x) {
+
+    x.driveMiles = null;
     
-    $.each(clinicData, function (index, value) {
+    return new Promise(function(resolve, reject) {
       
       mapDistanceMatrix.getDistanceMatrix(
         {
-          origins: [value.latLong],
+          origins: [x.latLong],
           destinations: [searchLatLong],
           travelMode: google.maps.TravelMode.DRIVING,
           unitSystem: google.maps.UnitSystem.IMPERIAL, //Convert distance units to miles
@@ -205,13 +209,16 @@ $(document).ready(function() {
         if(status === "OK") {
           results = response.rows[0].elements[0];
           var miles = Math.round(results.distance.value * 0.000621371);
-          miles <= searchRadius ? (value.driveMiles = miles, filterResults.push(value)) : '';
+          miles <= searchRadius ? x.driveMiles = miles : '';
+          resolve(x);
         } else {
           console.log("Error: " + status);
+          reject(x);
         }
       }
       
     });
+      
     
 //      
 //    //Sort results so the closest is displayed first
@@ -223,6 +230,7 @@ $(document).ready(function() {
   }
   
   function filterClinics(startLocation) {
+    filterResults = [];
     geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': startLocation, 'componentRestrictions':{'country': 'US'}}, function(results, status) {
       if(status !== google.maps.GeocoderStatus.OK) {
@@ -231,13 +239,27 @@ $(document).ready(function() {
         if(results[0].formatted_address === "United States") {
           errorMessage.innerHTML = errorCodes[0];
         } else {
-      
+          
+          filterResults = [];
+          mapDistanceMatrix = new google.maps.DistanceMatrixService();
+          
           //Set latitude and longitude of search zip
           searchLatLong = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
           
           //Call getClosest function to calculate distance between each distributor and the entered zip code
-          checkDistance();
+          clinicPromises = clinicData.map(checkDistance);
           
+          Promise.all(clinicPromises).then(function(x) {
+            //http://www.javascriptkit.com/javatutors/javascriptpromises.shtml
+            $.each(x, function(index, value) {
+              if(value.driveMiles) {
+                filterResults.push(value);
+              }
+            });
+            console.log(filterResults);
+          }).catch(function(x) {
+            console.log(x);
+          });
         }
       }
     });

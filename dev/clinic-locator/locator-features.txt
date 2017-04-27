@@ -12,3 +12,9 @@ Include ability to get browser location to auto find closest to current position
 need to check if location is available on browser initially. if not, don't display button on page
 
 Generate new API Key and restrict to URL before go-live
+
+Git Branch Stream
+master
+  clinic-locator
+    table-method
+      local-test

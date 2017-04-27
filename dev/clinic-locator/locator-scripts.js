@@ -1,3 +1,24 @@
+var clinicData = [
+  {
+    name: 'Anschutz Campus Health Center',
+    baseContent: '<a href="https://goo.gl/maps/2tJeYvNkWoQ2" target="_blank">12348 E. Montview Blvd. | 2nd Floor<br/>Aurora, CO 80045</a><br/>Phone: 303-724-6242<br/><a href="/academics/colleges/nursing/clinical-practice-community/PatientServices/CHC/Pages/default.aspx">Visit Clinic Page</a>',
+    services: '<ul><li>Behavioral and Counseling Services</li><li>Flu Shots</li>  <li>Physical and General Services</li></ul>',
+    hours: '<span>7am - 7pm (Weekdays)<br/>9am - 1pm (Sat)</span>',
+    lat: 39.7470331,
+    long: -104.8438491,
+    latLong: ''
+  },
+  {
+    name: 'Boulder Health Center',
+    baseContent: '<a href="https://goo.gl/maps/cZvaqSVZf6v" target="_blank">5495 Arapahoe Ave<br/>Boulder, CO 80303</a><br/>Phone: 720-494-3128<br/><a href="/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx">Visit&#160;Clinic Page</a>',
+    services: '<ul><li>Annual Gynecologic Exams</li><li>Breastfeeding Consultation</li><li>Family Planning</li><li>Gynecologic Care</li><li>Labor and Birth</li><li>Labor Support</li><li>Nitrous Oxide</li><li>Preconception Counseling</li><li>Prenatal Care</li><li>Postpartum Care</li><li>Vaginal Birth after Cesarean Section</li><li>Water Birth</li></ul>',
+    hours: '<span>8am - 5pm (Mon &amp; Thur)</span>',
+    lat: 40.0150815,
+    long: -105.226161,
+    latLong: ''
+  }
+]
+
 /**************************************************************************
                   Custom Clinic Locator Logic ~jrahm
 **************************************************************************/
@@ -8,30 +29,31 @@ $(document).ready(function() {
   
   var geocoder, infoWindow, map, mapBounds, searchLatLong, searchRadius, searchResults, zip,
       allLatLongs = [],
-      clinicData = [],
-      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr')),
+      //clinicData = [],
+      //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr')),
       filterResults = [];
   
   
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
     
-  function getData(tableRow) {
-    return {
-      name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
-      baseContent: $(tableRow).find('td.ms-vb2:nth-child(2)')[0].innerHTML,
-      services: $(tableRow).find('td.ms-vb2:nth-child(3)')[0].innerHTML,
-      hours: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].innerHTML,
-      lat: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].textContent,
-      long: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].textContent,
-      latLong: ''
-    }
-  }
+//  function getData(tableRow) {
+//    return {
+//      name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
+//      baseContent: $(tableRow).find('td.ms-vb2:nth-child(2)')[0].innerHTML,
+//      services: $(tableRow).find('td.ms-vb2:nth-child(3)')[0].innerHTML,
+//      hours: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].innerHTML,
+//      lat: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].textContent,
+//      long: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].textContent,
+//      latLong: ''
+//    }
+//  }
+//  
+//  //Take location info from table, create object for each location and push to data array
+//  $.each(clinics, function(index, value) {
+//    clinicData.push(getData(value));
+//  });
   
-  //Take location info from table, create object for each location and push to data array
-  $.each(clinics, function(index, value) {
-    clinicData.push(getData(value));
-  });
   
   //Creates clinic cards and adds them to the page, expects an object array as input
   function createClinicCards(x) {
@@ -39,7 +61,7 @@ $(document).ready(function() {
       $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + value.baseContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section></section>');
     });
   }
-  
+
   
   
   /*************************** Re-Add Location Info to Page ***************************/

@@ -13,8 +13,6 @@ need to check if location is available on browser initially. if not, don't displ
 
 Generate new API Key and restrict to URL before go-live
 
-Git Branch Stream
-master
-  clinic-locator
-    table-method
-      local-test
+Add search filtering inputs for current location and city/state
+
+Add checks to see if information changes before repainting the page, to decrease api calls

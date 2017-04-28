@@ -27,12 +27,19 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var geocoder, infoWindow, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, searchLatLong, searchRadius, searchResults, zip,
-      allLatLongs = [];
+  var geocoder, infoWindow, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, searchLat, searchLatLong, searchLong, searchRadius, searchResults, zip,
+      allLatLongs = [],
+      errorCodes = [
+        "Enter a valid U.S. Zip Code",
+        "Select search radius",
+        "Geolocation not supported by browser"
+      ];
       //clinicData = [],
       //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr')),
   
-  
+  //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
+    //A click event could be called on another element, but a button is best for accessibility purposes
+  $('#locationFilter button').attr('type', 'button');
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
     
@@ -58,6 +65,7 @@ $(document).ready(function() {
   function showDriveMiles(x) {    
     return x.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + x.driveMiles + ' Miles</p></div>' : '';
   }
+  
   function createClinicCards(x) {
     $.each(x, function(index, value) {
       $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + value.baseContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section>' + showDriveMiles(value) + '</section>');
@@ -76,8 +84,9 @@ $(document).ready(function() {
   cleanContainer();
   
   //Create individual <sections> for each location and append them to the now clean container
-  
   createClinicCards(clinicData);  
+  
+  
   
   /**************************************************************************
                           Load gMap and Markers
@@ -105,8 +114,6 @@ $(document).ready(function() {
       //Add location LatLng to array for use in bounding method
       allLatLongs.push(value.latLong);
     });
-    
-    console.log(allLatLongs);
     
     //Change bounds of map and recenter so all markers are visible using gmaps api fitBounds method
     mapBounds = new google.maps.LatLngBounds();
@@ -150,12 +157,25 @@ $(document).ready(function() {
   /**************************************************************************
                           Location Filtering
   **************************************************************************/
+
+  //Reset search values when a new search is initiated
+  function resetValues() {
+    filterResults = [];
+    matrixDestinations = [];
+    searchLat = '';
+    searchLatLong = '';
+    searchLong = '';
+    zip = '';
+  }
   
-  var geocoder, errorCodes = [
-    "Please enter a valid U.S. Zip Code",
-    "<span style='color: red;'>Sorry, there are no distributor locations within your search radius.</span>"
-  ];
+  function setSearchRadius() {
+    return Number($('#searchRadius').val());
+  }
+
+
   
+  /************************** Search by Zip Code **************************/
+
   //Validate Zip Code using Regex code
   function validateZip(x) {
     var validZip = false;
@@ -163,40 +183,49 @@ $(document).ready(function() {
     validZip = /^\b\d{5}(-\d{4})?\b$/.test(x);
     return validZip;
   }
-  
-  
-  
-  /************************** Search by Zip Code **************************/
 
-  //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
-    //A click event could be called on another element, but a button is best for accessibility purposes
-  $('#locationFilter button').attr('type', 'button');
-  
   $('#zipSearch').click(function() {
     filterByZip();
   });
   
   function filterByZip() {
     resetValues();
-    searchRadius = Number($('#searchRadius').val());
+    searchRadius = setSearchRadius();
     zip = $("#zipCode").val();
     
     if(!validateZip(zip)) {
       $('#errorMessage').html(errorCodes[0]);
+    } else if(!searchRadius) {
+      $('#errorMessage').html(errorCodes[1]);
     } else {
       $('#errorMessage').html('');
+      cleanContainer();
       filterClinics(zip);
     }
   }
   
   
   
-  /************************** Dependant Search Functions **************************/
+  /************************** Search by Browser Geo Location **************************/
   
-  function resetValues() {
-    searchLatLong = '';
-    zip = '';
+  function showPosition(position) {
+    searchLat = position.coords.latitude;
+    searchLong = position.coords.longitude;
   }
+  
+  $('#geoSearch button').click(function() {
+    resetValues();
+    searchRadius = setSearchRadius();
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      $('#errorMessage').html(errorCodes[2]);
+    }
+  });
+  
+  
+  
+  /************************** Dependant Search Functions **************************/
   
   function checkDistance() {
 
@@ -234,14 +263,16 @@ $(document).ready(function() {
       //If there are no clinics within given parameters of start location and search radius, message displayed on page
       $('#clinicLocations').html('<p>No Results</p>');
     } else {
+      
       //Sort results so the closest displays first
       filterResults.sort(function(a,b) {
         return (a.driveMiles - b.driveMiles);
       });
       
       //Re-Add clinic cards to page and include drive distance from start to destination
-      cleanContainer();
       createClinicCards(filterResults);
+      
+      //Reinitiate the map to include only the filter results and the searchLocation
       initMap(filterResults);
     }
   }
@@ -255,12 +286,10 @@ $(document).ready(function() {
         if(results[0].formatted_address === "United States") {
           errorMessage.innerHTML = errorCodes[0];
         } else {
-          
-          //Reset values when filter function is called
-          matrixDestinations = [];
-          filterResults = [];
+
           mapDistanceMatrix = new google.maps.DistanceMatrixService();
           
+          //Push clinic latLong into separate array for use in checkDistance function
           $.each(clinicData, function(index, value) {
             value.driveMiles = null;
             matrixDestinations.push(value.latLong);
@@ -279,7 +308,7 @@ $(document).ready(function() {
               
               //If the distance to the clinic is within the search radius, the clinic is pushed to the filterResults array
               miles <= searchRadius ? (value.driveMiles = miles, filterResults.push(value)) : '';
-            })
+            });
             
             //Display results is called to re-paint the content and map to show only results of the search
             displayResults();

@@ -30,37 +30,45 @@
 
       <div id="clinics">
         <div id="clinicMap"></div>
-        <div class="flex-container between">
+        <div style="display: flex; justify-content: space-between;">
           <div id="locationFilter">
             <h2>Filter Locations</h2>
-            <div class="col-1" style="margin-bottom: 1.5rem; margin-top: 0px;">
-
-            <div>
-              <label>Zip Code * <span id="errorMessage"></span></label>
-              <input id="zipCode" type="text" placeholder="U.S. Zip Code"/>
-            </div>
-
-            <div>
+            <span id="errorMessage"></span>
+            <div style="margin-bottom: 2rem;">
               <label>Search Radius</label>
               <div>
                 <select id="searchRadius">
                   <option></option>
                   <option value="5">5 Miles</option>
-                  <option value="15">15 Miles</option>
-                  <option value="25">20 Miles</option>
-                  <option value="50">50 Miles</option>
+                  <option value="10">10 Miles</option>
+                  <option value="20">20 Miles</option>
+                  <option value="30">30 Miles</option>
                 </select>
               </div>
             </div>
+            
+            <div class="zip-search">
+              <div>
+                <label>Zip Code</label>
+                <input id="zipCode" type="text" placeholder="U.S. Zip Code"/>
+              </div>
 
-            <button id="zipSearch">Search Zip Code</button>
+              <button id="zipSearch">Search Zip Code</button>
 
             </div>
+            
+            <div class="city-search" style="margin: 2rem 0;">
+              <input type="text" placeholder="City">
+              <button id="citySearch">Search City</button>
+            </div>
+            
+            <div id="geoSearch">
+              <button>Find Near Me</button>
+            </div>
+            
           </div>
 
-          <div id="clinicLocations">
-
-          </div>
+          <div id="clinicLocations"></div>
 
         </div>
       </div>

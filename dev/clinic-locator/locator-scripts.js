@@ -27,11 +27,10 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var clinicPromises, geocoder, infoWindow, map, mapBounds, mapDistanceMatrix, searchLatLong, searchRadius, searchResults, zip,
-      allLatLongs = [],
+  var clinicPromises, filterPromises, geocoder, infoWindow, map, mapBounds, mapDistanceMatrix, searchLatLong, searchRadius, searchResults, zip,
+      allLatLongs = [];
       //clinicData = [],
       //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr')),
-      filterResults = [];
   
   
   
@@ -188,16 +187,18 @@ $(document).ready(function() {
     zip = '';
   }
   
-  function checkDistance(x) {
+  function checkDistance(clinic) {
 
-    x.driveMiles = null;
+    clinic.driveMiles = null;
     
+    //Promise object created to handle asynchornous calls to gmaps distance matrix service
     return new Promise(function(resolve, reject) {
       
+      //getDistanceMatrix checks distance between origin and destination
       mapDistanceMatrix.getDistanceMatrix(
         {
-          origins: [x.latLong],
-          destinations: [searchLatLong],
+          origins: [searchLatLong],
+          destinations: [clinic.latLong],
           travelMode: google.maps.TravelMode.DRIVING,
           unitSystem: google.maps.UnitSystem.IMPERIAL, //Convert distance units to miles
           avoidHighways: false,
@@ -205,15 +206,16 @@ $(document).ready(function() {
         }, callback
       );
       
+      //
       function callback(response, status) {
         if(status === "OK") {
           results = response.rows[0].elements[0];
           var miles = Math.round(results.distance.value * 0.000621371);
-          miles <= searchRadius ? x.driveMiles = miles : '';
-          resolve(x);
+          miles <= searchRadius ? clinic.driveMiles = miles : '';
+          resolve(clinic);
         } else {
           console.log("Error: " + status);
-          reject(x);
+          reject(err);
         }
       }
       
@@ -229,8 +231,21 @@ $(document).ready(function() {
 //    return filterResults;
   }
   
+  //Displays results of filter
+  function displayResults() {
+    if(filterResults.length === 0) {
+      //If there are no clinics within given parameters of start location and search radius, message displayed on page
+      $('#clinicLocations').html('<p>No Results</p>');
+    } else {
+      //If there are clinics in the given search radius
+        //Matching clinic cards are added to page (ordered with closest first)
+        //Map is reinitialized to show start location and nearby clinics only
+      cleanContainer();
+      createClinicCards(filterResults);      
+    }
+  }
+    
   function filterClinics(startLocation) {
-    filterResults = [];
     geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': startLocation, 'componentRestrictions':{'country': 'US'}}, function(results, status) {
       if(status !== google.maps.GeocoderStatus.OK) {
@@ -240,25 +255,33 @@ $(document).ready(function() {
           errorMessage.innerHTML = errorCodes[0];
         } else {
           
+          //Reset values when filter function is called
+          clinicPromises = [];
           filterResults = [];
           mapDistanceMatrix = new google.maps.DistanceMatrixService();
           
           //Set latitude and longitude of search zip
           searchLatLong = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
           
-          //Call getClosest function to calculate distance between each distributor and the entered zip code
-          clinicPromises = clinicData.map(checkDistance);
+          //For each clinic, call checkDistance function which will return an array of promises for the clinics
+            //The promise data includes drive miles to nearest clinic from given start zip or location (if available)
+          $.each(clinicData, function(index, value) {
+            clinicPromises.push(checkDistance(value));
+          });
           
-          Promise.all(clinicPromises).then(function(x) {
-            //http://www.javascriptkit.com/javatutors/javascriptpromises.shtml
-            $.each(x, function(index, value) {
+          //Once all of the calls to the gmaps API are complete and the promises are returned, the data is pushed into filterResults array for additional use
+          Promise.all(clinicPromises).then(function(clinic) {
+            
+            $.each(clinic, function(index, value) {
               if(value.driveMiles) {
                 filterResults.push(value);
               }
             });
-            console.log(filterResults);
-          }).catch(function(x) {
-            console.log(x);
+            
+            displayResults();
+            
+          }).catch(function(err) {
+            console.error(err);
           });
         }
       }

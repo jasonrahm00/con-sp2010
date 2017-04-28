@@ -199,8 +199,7 @@ $(document).ready(function() {
       $('#errorMessage').html(errorCodes[1]);
     } else {
       $('#errorMessage').html('');
-      cleanContainer();
-      filterClinics(zip);
+      zipCitySearch(zip);
     }
   }
   
@@ -211,6 +210,8 @@ $(document).ready(function() {
   function showPosition(position) {
     searchLat = position.coords.latitude;
     searchLong = position.coords.longitude;
+    searchLatLong = new google.maps.LatLng(searchLat, searchLong);
+    filterClinics();
   }
   
   $('#geoSearch button').click(function() {
@@ -276,8 +277,8 @@ $(document).ready(function() {
       initMap(filterResults);
     }
   }
-    
-  function filterClinics(startLocation) {
+  
+  function zipCitySearch(startLocation) {
     geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': startLocation, 'componentRestrictions':{'country': 'US'}}, function(results, status) {
       if(status !== google.maps.GeocoderStatus.OK) {
@@ -286,38 +287,41 @@ $(document).ready(function() {
         if(results[0].formatted_address === "United States") {
           errorMessage.innerHTML = errorCodes[0];
         } else {
-
-          mapDistanceMatrix = new google.maps.DistanceMatrixService();
-          
-          //Push clinic latLong into separate array for use in checkDistance function
-          $.each(clinicData, function(index, value) {
-            value.driveMiles = null;
-            matrixDestinations.push(value.latLong);
-          });
-          
           //Set latitude and longitude of search zip
           searchLatLong = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-          
-          //Call checkDistanhce function which returns a promise containing array of distances from start to all destinations
-          checkDistance().then(function(data) {
-            
-            //Loop through clinicData, using the clinic index to check drive distance returned by the Promise
-            $.each(clinicData, function(index, value) {
-              //Promise returns drive distance in meteres, which needs to be converted to miles to compare against searchRadius 
-              miles = Math.round(data.rows[0].elements[index].distance.value * 0.000621371);
-              
-              //If the distance to the clinic is within the search radius, the clinic is pushed to the filterResults array
-              miles <= searchRadius ? (value.driveMiles = miles, filterResults.push(value)) : '';
-            });
-            
-            //Display results is called to re-paint the content and map to show only results of the search
-            displayResults();
-          })
-          .catch(function(err) {
-            console.error(err);
-          });
+          filterClinics();
         }
       }
+    });
+  }
+    
+  function filterClinics() {
+    cleanContainer();
+    mapDistanceMatrix = new google.maps.DistanceMatrixService();
+
+    //Push clinic latLong into separate array for use in checkDistance function
+    $.each(clinicData, function(index, value) {
+      value.driveMiles = null;
+      matrixDestinations.push(value.latLong);
+    });
+
+    //Call checkDistanhce function which returns a promise containing array of distances from start to all destinations
+    checkDistance().then(function(data) {
+
+      //Loop through clinicData, using the clinic index to check drive distance returned by the Promise
+      $.each(clinicData, function(index, value) {
+        //Promise returns drive distance in meteres, which needs to be converted to miles to compare against searchRadius 
+        miles = Math.round(data.rows[0].elements[index].distance.value * 0.000621371);
+
+        //If the distance to the clinic is within the search radius, the clinic is pushed to the filterResults array
+        miles <= searchRadius ? (value.driveMiles = miles, filterResults.push(value)) : '';
+      });
+
+      //Display results is called to re-paint the content and map to show only results of the search
+      displayResults();
+    })
+    .catch(function(err) {
+      console.error(err);
     });
   }
 

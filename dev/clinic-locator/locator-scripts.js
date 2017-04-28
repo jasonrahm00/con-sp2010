@@ -27,7 +27,7 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var clinicPromises, filterPromises, geocoder, infoWindow, map, mapBounds, mapDistanceMatrix, searchLatLong, searchRadius, searchResults, zip,
+  var geocoder, infoWindow, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, searchLatLong, searchRadius, searchResults, zip,
       allLatLongs = [];
       //clinicData = [],
       //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr')),
@@ -55,9 +55,12 @@ $(document).ready(function() {
   
   
   //Creates clinic cards and adds them to the page, expects an object array as input
+  function showDriveMiles(x) {    
+    return x.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + x.driveMiles + ' Miles</p></div>' : '';
+  }
   function createClinicCards(x) {
     $.each(x, function(index, value) {
-      $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + value.baseContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section></section>');
+      $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + value.baseContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section>' + showDriveMiles(value) + '</section>');
     });
   }
 
@@ -187,10 +190,8 @@ $(document).ready(function() {
     zip = '';
   }
   
-  function checkDistance(clinic) {
+  function checkDistance() {
 
-    clinic.driveMiles = null;
-    
     //Promise object created to handle asynchornous calls to gmaps distance matrix service
     return new Promise(function(resolve, reject) {
       
@@ -198,21 +199,17 @@ $(document).ready(function() {
       mapDistanceMatrix.getDistanceMatrix(
         {
           origins: [searchLatLong],
-          destinations: [clinic.latLong],
+          destinations: matrixDestinations,
           travelMode: google.maps.TravelMode.DRIVING,
           unitSystem: google.maps.UnitSystem.IMPERIAL, //Convert distance units to miles
           avoidHighways: false,
           avoidTolls: false
         }, callback
       );
-      
-      //
+
       function callback(response, status) {
         if(status === "OK") {
-          results = response.rows[0].elements[0];
-          var miles = Math.round(results.distance.value * 0.000621371);
-          miles <= searchRadius ? clinic.driveMiles = miles : '';
-          resolve(clinic);
+          resolve(response);
         } else {
           console.log("Error: " + status);
           reject(err);
@@ -220,15 +217,7 @@ $(document).ready(function() {
       }
       
     });
-      
-    
-//      
-//    //Sort results so the closest is displayed first
-//    filtered.sort(function(a,b) {
-//      return (a.driveMiles - b.driveMiles);
-//    });
-//
-//    return filterResults;
+
   }
   
   //Displays results of filter
@@ -237,9 +226,12 @@ $(document).ready(function() {
       //If there are no clinics within given parameters of start location and search radius, message displayed on page
       $('#clinicLocations').html('<p>No Results</p>');
     } else {
-      //If there are clinics in the given search radius
-        //Matching clinic cards are added to page (ordered with closest first)
-        //Map is reinitialized to show start location and nearby clinics only
+      //Sort results so the closest displays first
+      filterResults.sort(function(a,b) {
+        return (a.driveMiles - b.driveMiles);
+      });
+      
+      //Re-Add clinic cards to page and include drive distance from start to destination
       cleanContainer();
       createClinicCards(filterResults);      
     }
@@ -256,31 +248,34 @@ $(document).ready(function() {
         } else {
           
           //Reset values when filter function is called
-          clinicPromises = [];
+          matrixDestinations = [];
           filterResults = [];
           mapDistanceMatrix = new google.maps.DistanceMatrixService();
+          
+          $.each(clinicData, function(index, value) {
+            value.driveMiles = null;
+            matrixDestinations.push(value.latLong);
+          });
           
           //Set latitude and longitude of search zip
           searchLatLong = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
           
-          //For each clinic, call checkDistance function which will return an array of promises for the clinics
-            //The promise data includes drive miles to nearest clinic from given start zip or location (if available)
-          $.each(clinicData, function(index, value) {
-            clinicPromises.push(checkDistance(value));
-          });
-          
-          //Once all of the calls to the gmaps API are complete and the promises are returned, the data is pushed into filterResults array for additional use
-          Promise.all(clinicPromises).then(function(clinic) {
+          //Call checkDistanhce function which returns a promise containing array of distances from start to all destinations
+          checkDistance().then(function(data) {
             
-            $.each(clinic, function(index, value) {
-              if(value.driveMiles) {
-                filterResults.push(value);
-              }
-            });
+            //Loop through clinicData, using the clinic index to check drive distance returned by the Promise
+            $.each(clinicData, function(index, value) {
+              //Promise returns drive distance in meteres, which needs to be converted to miles to compare against searchRadius 
+              miles = Math.round(data.rows[0].elements[index].distance.value * 0.000621371);
+              
+              //If the distance to the clinic is within the search radius, the clinic is pushed to the filterResults array
+              miles <= searchRadius ? (value.driveMiles = miles, filterResults.push(value)) : '';
+            })
             
+            //Display results is called to re-paint the content and map to show only results of the search
             displayResults();
-            
-          }).catch(function(err) {
+          })
+          .catch(function(err) {
             console.error(err);
           });
         }

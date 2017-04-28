@@ -83,23 +83,30 @@ $(document).ready(function() {
                           Load gMap and Markers
   **************************************************************************/
   
-  function initMap() {
+  function initMap(clinics) {
+    
+    allLatLongs = [];
     
     map = new google.maps.Map(document.getElementById('clinicMap'), {
       zoom: 8,
       center: {lat: 39.7392, lng: -104.9903}//The map is initially centered on the geographical center Denver
     });
     
+    var startIcon = "stick-figure.png"
+    searchLatLong ? (setMarkers(map, ({name: "You Are Here", baseContent: ""}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
+    
     //Iterate over each object in clinicData
-    $.each(clinicData, function(index, value) {
+    $.each(clinics, function(index, value) {
       value.latLong = new google.maps.LatLng(value.lat, value.long);
       
       //Create marker at each location
-      setMarkers(map, value, value.latLong);
+      setMarkers(map, value, '', value.latLong);
       
       //Add location LatLng to array for use in bounding method
       allLatLongs.push(value.latLong);
     });
+    
+    console.log(allLatLongs);
     
     //Change bounds of map and recenter so all markers are visible using gmaps api fitBounds method
     mapBounds = new google.maps.LatLngBounds();
@@ -113,12 +120,13 @@ $(document).ready(function() {
   }
 
   //Create and place map markers and content
-  function setMarkers(map, location, currentLatLong) {
+  function setMarkers(map, location, mapIcon, currentLatLong) {
     var marker,
         markerContent = '<div class="markerInfo"><strong>' + location.name + '</strong><br>' + location.baseContent + '</div>',
         markerOptions = {
           position: currentLatLong,
-          map: map
+          map: map,
+          icon: mapIcon
         };
     
     marker = new google.maps.Marker(markerOptions);
@@ -135,7 +143,7 @@ $(document).ready(function() {
 
   }
  
-  initMap();
+  initMap(clinicData);
 
   
   
@@ -233,7 +241,8 @@ $(document).ready(function() {
       
       //Re-Add clinic cards to page and include drive distance from start to destination
       cleanContainer();
-      createClinicCards(filterResults);      
+      createClinicCards(filterResults);
+      initMap(filterResults);
     }
   }
     

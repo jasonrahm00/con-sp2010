@@ -35,7 +35,7 @@ $(document).ready(function() {
         "Geolocation not supported by browser"
       ];
       //clinicData = [],
-      //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr')),
+      //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
@@ -43,22 +43,24 @@ $(document).ready(function() {
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
     
-//  function getData(tableRow) {
-//    return {
-//      name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
-//      baseContent: $(tableRow).find('td.ms-vb2:nth-child(2)')[0].innerHTML,
-//      services: $(tableRow).find('td.ms-vb2:nth-child(3)')[0].innerHTML,
-//      hours: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].innerHTML,
-//      lat: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].textContent,
-//      long: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].textContent,
-//      latLong: ''
-//    }
-//  }
-//  
-//  //Take location info from table, create object for each location and push to data array
-//  $.each(clinics, function(index, value) {
-//    clinicData.push(getData(value));
-//  });
+  /*
+  function getData(tableRow) {
+    return {
+      name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
+      baseContent: $(tableRow).find('td.ms-vb2:nth-child(2)')[0].innerHTML,
+      services: $(tableRow).find('td.ms-vb2:nth-child(3)')[0].innerHTML,
+      hours: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].innerHTML,
+      lat: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].textContent,
+      long: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].textContent,
+      latLong: ''
+    }
+  }
+  
+  //Take location info from table, create object for each location and push to data array
+  $.each(clinics, function(index, value) {
+    clinicData.push(getData(value));
+  });
+  */
   
   
   //Creates clinic cards and adds them to the page, expects an object array as input
@@ -100,6 +102,9 @@ $(document).ready(function() {
       zoom: 8,
       center: {lat: 39.7392, lng: -104.9903}//The map is initially centered on the geographical center Denver
     });
+    
+    geocoder = new google.maps.Geocoder();
+    mapDistanceMatrix = new google.maps.DistanceMatrixService();
     
     var startIcon = "stick-figure.png"
     searchLatLong ? (setMarkers(map, ({name: "You Are Here", baseContent: ""}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
@@ -279,7 +284,6 @@ $(document).ready(function() {
   }
   
   function zipCitySearch(startLocation) {
-    geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': startLocation, 'componentRestrictions':{'country': 'US'}}, function(results, status) {
       if(status !== google.maps.GeocoderStatus.OK) {
         console.log(status);
@@ -297,7 +301,6 @@ $(document).ready(function() {
     
   function filterClinics() {
     cleanContainer();
-    mapDistanceMatrix = new google.maps.DistanceMatrixService();
 
     //Push clinic latLong into separate array for use in checkDistance function
     $.each(clinicData, function(index, value) {

@@ -27,13 +27,14 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var geocoder, infoWindow, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, searchLat, searchLatLong, searchLong, searchRadius, searchResults, zip,
+  var cityState, geocoder, infoWindow, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, searchLat, searchLatLong, searchLong, searchRadius, searchResults, startLocation, zip,
       allLatLongs = [],
       errorCodes = [
         "Enter a valid U.S. Zip Code",
         "Select search radius",
         "Geolocation not supported by browser"
-      ];
+      ],
+      autoExpandRadius = false;
       //clinicData = [],
       //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
@@ -64,8 +65,12 @@ $(document).ready(function() {
   
   
   //Creates clinic cards and adds them to the page, expects an object array as input
-  function showDriveMiles(x) {    
-    return x.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + x.driveMiles + ' Miles</p></div>' : '';
+  function showDriveMiles(x) {
+    if(!autoExpandRadius) {
+      return x.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + x.driveMiles + ' Miles</p></div>' : '';
+    } else {
+      return x.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + x.driveMiles + ' Miles</p><p><em>No clinics were found within your search parameters. The closest is listed above.</em></p></div>' : '';
+    }
   }
   
   function createClinicCards(x) {
@@ -99,7 +104,7 @@ $(document).ready(function() {
     allLatLongs = [];
     
     map = new google.maps.Map(document.getElementById('clinicMap'), {
-      zoom: 8,
+      zoom: 12,
       center: {lat: 39.7392, lng: -104.9903}//The map is initially centered on the geographical center Denver
     });
     
@@ -170,6 +175,7 @@ $(document).ready(function() {
     searchLat = '';
     searchLatLong = '';
     searchLong = '';
+    startLocation = '';
     zip = '';
   }
   
@@ -189,29 +195,19 @@ $(document).ready(function() {
     return validZip;
   }
 
-  $('#zipSearch').click(function() {
-    filterByZip();
-  });
-  
-  function filterByZip() {
+  $('#filterSearch').click(function() {
     resetValues();
     searchRadius = setSearchRadius();
-    zip = $("#zipCode").val();
-    
-    if(!validateZip(zip)) {
-      $('#errorMessage').html(errorCodes[0]);
-    } else if(!searchRadius) {
-      $('#errorMessage').html(errorCodes[1]);
-    } else {
-      $('#errorMessage').html('');
-      zipCitySearch(zip);
-    }
-  }
+    startLocation = $('#searchInput').val();
+    geoCodeFilter(startLocation);
+  });
   
-  
+
   
   /************************** Search by Browser Geo Location **************************/
-  
+  //Not available on SharePoint 2010 site
+    //Site must be served over secure connection (https) for geolocation api to work
+  /*
   function showPosition(position) {
     searchLat = position.coords.latitude;
     searchLong = position.coords.longitude;
@@ -228,7 +224,7 @@ $(document).ready(function() {
       $('#errorMessage').html(errorCodes[2]);
     }
   });
-  
+  */
   
   
   /************************** Dependant Search Functions **************************/
@@ -245,7 +241,7 @@ $(document).ready(function() {
           destinations: matrixDestinations,
           travelMode: google.maps.TravelMode.DRIVING,
           unitSystem: google.maps.UnitSystem.IMPERIAL, //Convert distance units to miles
-          avoidHighways: false,
+          avoidHighways: true,
           avoidTolls: false
         }, callback
       );
@@ -265,16 +261,28 @@ $(document).ready(function() {
   
   //Displays results of filter
   function displayResults() {
+    
+    //Sort results so the closest displays first
+    clinicData.sort(function(a,b) {
+      return (a.driveMiles - b.driveMiles);
+    });
+    
+    $.each(clinicData, function(index, value) {
+      if(value.driveMiles <= searchRadius) {
+        filterResults.push(value);
+      }
+    });
+    
     if(filterResults.length === 0) {
-      //If there are no clinics within given parameters of start location and search radius, message displayed on page
-      $('#clinicLocations').html('<p>No Results</p>');
+      //If there are no clinics within given parameters of start location and search radius
+        //The closest clinic is added to the page and map along with messaging saying as much
+      //$('#clinicLocations').html('<p>No Results within the specified search radius.</p>');
+      autoExpandRadius = true;
+      createClinicCards([clinicData[0]]);
+      initMap([searchLatLong, clinicData[0]]);
     } else {
-      
-      //Sort results so the closest displays first
-      filterResults.sort(function(a,b) {
-        return (a.driveMiles - b.driveMiles);
-      });
-      
+
+      autoExpandRadius = false;
       //Re-Add clinic cards to page and include drive distance from start to destination
       createClinicCards(filterResults);
       
@@ -283,22 +291,21 @@ $(document).ready(function() {
     }
   }
   
-  function zipCitySearch(startLocation) {
-    geocoder.geocode({'address': startLocation, 'componentRestrictions':{'country': 'US'}}, function(results, status) {
+  function geoCodeFilter(x) {
+    geocoder.geocode({'address': x, 'componentRestrictions':{'country': 'US'}}, function(results, status) {
       if(status !== google.maps.GeocoderStatus.OK) {
-        console.log(status);
+        console.error(status);
       } else {
-        if(results[0].formatted_address === "United States") {
-          errorMessage.innerHTML = errorCodes[0];
-        } else {
-          //Set latitude and longitude of search zip
-          searchLatLong = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-          filterClinics();
-        }
+        //Set latitude and longitude of search zip
+        searchLat = results[0].geometry.location.lat();
+        searchLong = results[0].geometry.location.lng();
+        searchLatLong = new google.maps.LatLng(searchLat, searchLong);
+        
+        filterClinics();
       }
     });
   }
-    
+
   function filterClinics() {
     cleanContainer();
 
@@ -316,8 +323,8 @@ $(document).ready(function() {
         //Promise returns drive distance in meteres, which needs to be converted to miles to compare against searchRadius 
         miles = Math.round(data.rows[0].elements[index].distance.value * 0.000621371);
 
-        //If the distance to the clinic is within the search radius, the clinic is pushed to the filterResults array
-        miles <= searchRadius ? (value.driveMiles = miles, filterResults.push(value)) : '';
+        //Drive miles property
+        value.driveMiles = miles;
       });
 
       //Display results is called to re-paint the content and map to show only results of the search

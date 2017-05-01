@@ -1,3 +1,4 @@
+/*
 var clinicData = [
   {
     name: 'Anschutz Campus Health Center',
@@ -17,7 +18,7 @@ var clinicData = [
     long: -105.226161,
     latLong: ''
   }
-]
+*/
 
 /**************************************************************************
                   Custom Clinic Locator Logic ~jrahm
@@ -35,9 +36,9 @@ $(document).ready(function() {
         "Select search radius",
         "Geolocation not supported by browser"
       ],
-      singleMapPoint = false;
-      //clinicData = [],
-      //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
+      singleMapPoint = false,
+      clinicData = [],
+      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
@@ -45,7 +46,6 @@ $(document).ready(function() {
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
     
-  /*
   function getData(tableRow) {
     return {
       name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
@@ -62,7 +62,6 @@ $(document).ready(function() {
   $.each(clinics, function(index, value) {
     clinicData.push(getData(value));
   });
-  */
   
   
   //Creates clinic cards and adds them to the page, expects an object array as input
@@ -121,7 +120,7 @@ $(document).ready(function() {
     mapDistanceMatrix = new google.maps.DistanceMatrixService();
     mapBounds = new google.maps.LatLngBounds();
     
-    var startIcon = "stick-figure.png"
+    var startIcon = "/academics/colleges/nursing/test/Documents/Styles_Scripts/clinic-locator/stick-figure.png"
     searchLatLong && !y ? (setMarkers(map, ({name: "You Are Here", baseContent: ""}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData

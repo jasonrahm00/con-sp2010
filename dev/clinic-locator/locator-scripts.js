@@ -194,21 +194,29 @@ $(document).ready(function() {
 
 
   
-  /************************** Search by Zip Code **************************/
+  /************************** Filter Search Function **************************/
 
-  //Validate Zip Code using Regex code
-  function validateZip(x) {
-    var validZip = false;
-    //Regex validation test found on http://stackoverflow.com/questions/160550/zip-code-us-postal-code-validation
-    validZip = /^\b\d{5}(-\d{4})?\b$/.test(x);
-    return validZip;
+  function initiateSearch() {
+    //Test to see if values changed. If they haven't, nothing happens
+    if($('#searchInput').val() === startLocation && searchRadius === setSearchRadius()) {
+      return
+    } else {
+      resetValues();
+      searchRadius = setSearchRadius();
+      startLocation = $('#searchInput').val();
+      geoCodeFilter(startLocation);
+    }    
   }
-
+  
   $('#filterSearch').click(function() {
-    resetValues();
-    searchRadius = setSearchRadius();
-    startLocation = $('#searchInput').val();
-    geoCodeFilter(startLocation);
+    initiateSearch();
+  });
+  
+  $('#searchInput').keypress(function(e) {
+    if(e.which === 13) {
+      e.preventDefault();
+      initiateSearch();
+    }
   });
   
 
@@ -289,12 +297,9 @@ $(document).ready(function() {
       autoExpandRadius = true;
       createClinicCards([clinicData[0]]);
       
-      if(clinicData[0].driveMiles > 50) {
-        //Place single marker on map for closest location
-        initMap([clinicData[0]], true);
-      } else {
-        initMap([searchLatLong, clinicData[0]], false);
-      }
+      //Place single marker on map for closest location
+      clinicData[0].driveMiles > 50 ? initMap([clinicData[0]], true) : initMap([searchLatLong, clinicData[0]], false);
+
     } else {
 
       autoExpandRadius = false;

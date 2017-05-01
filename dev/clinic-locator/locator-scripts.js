@@ -29,12 +29,13 @@ $(document).ready(function() {
   
   var cityState, geocoder, infoWindow, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, searchLat, searchLatLong, searchLong, searchRadius, searchResults, startLocation, zip,
       allLatLongs = [],
+      autoExpandRadius = false;
       errorCodes = [
         "Enter a valid U.S. Zip Code",
         "Select search radius",
         "Geolocation not supported by browser"
       ],
-      autoExpandRadius = false;
+      singleMapPoint = false;
       //clinicData = [],
       //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
@@ -99,23 +100,32 @@ $(document).ready(function() {
                           Load gMap and Markers
   **************************************************************************/
   
-  function initMap(clinics) {
+  function initMap(x, y) {
+    
+    function centerMap() {
+      if(y) {
+        return x.latLong;
+      } else {
+        return new google.maps.LatLng(39.7392, -104.9903); //The default center is the geographical center Denver
+      }
+    }    
     
     allLatLongs = [];
     
     map = new google.maps.Map(document.getElementById('clinicMap'), {
-      zoom: 12,
-      center: {lat: 39.7392, lng: -104.9903}//The map is initially centered on the geographical center Denver
+      zoom: 8,
+      center: centerMap()
     });
     
     geocoder = new google.maps.Geocoder();
     mapDistanceMatrix = new google.maps.DistanceMatrixService();
+    mapBounds = new google.maps.LatLngBounds();
     
     var startIcon = "stick-figure.png"
-    searchLatLong ? (setMarkers(map, ({name: "You Are Here", baseContent: ""}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
+    searchLatLong && !y ? (setMarkers(map, ({name: "You Are Here", baseContent: ""}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData
-    $.each(clinics, function(index, value) {
+    $.each(x, function(index, value) {
       value.latLong = new google.maps.LatLng(value.lat, value.long);
       
       //Create marker at each location
@@ -126,11 +136,10 @@ $(document).ready(function() {
     });
     
     //Change bounds of map and recenter so all markers are visible using gmaps api fitBounds method
-    mapBounds = new google.maps.LatLngBounds();
     allLatLongs.forEach(function(latLng) {
       mapBounds.extend(latLng);
     });
-    
+
     map.setCenter(mapBounds.getCenter());
     map.fitBounds(mapBounds);
 
@@ -160,7 +169,7 @@ $(document).ready(function() {
 
   }
  
-  initMap(clinicData);
+  initMap(clinicData, false);
 
   
   
@@ -276,10 +285,16 @@ $(document).ready(function() {
     if(filterResults.length === 0) {
       //If there are no clinics within given parameters of start location and search radius
         //The closest clinic is added to the page and map along with messaging saying as much
-      //$('#clinicLocations').html('<p>No Results within the specified search radius.</p>');
+      
       autoExpandRadius = true;
       createClinicCards([clinicData[0]]);
-      initMap([searchLatLong, clinicData[0]]);
+      
+      if(clinicData[0].driveMiles > 50) {
+        //Place single marker on map for closest location
+        initMap([clinicData[0]], true);
+      } else {
+        initMap([searchLatLong, clinicData[0]], false);
+      }
     } else {
 
       autoExpandRadius = false;
@@ -287,7 +302,7 @@ $(document).ready(function() {
       createClinicCards(filterResults);
       
       //Reinitiate the map to include only the filter results and the searchLocation
-      initMap(filterResults);
+      initMap(filterResults, false);
     }
   }
   

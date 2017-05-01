@@ -16,3 +16,5 @@ Generate new API Key and restrict to URL before go-live
 Add search filtering inputs for current location and city/state
 
 Add checks to see if information changes before repainting the page, to decrease api calls
+
+add additional option if results are more than 50 miles away... for out-of-staters (remove map bounds and show sinlge, closest location?)

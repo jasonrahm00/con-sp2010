@@ -55,3 +55,8 @@
   font-size: 1.5rem;
   font-weight: normal;
 }
+
+#locationFilter #errorMessage {
+  color: red;
+  display: block;
+}

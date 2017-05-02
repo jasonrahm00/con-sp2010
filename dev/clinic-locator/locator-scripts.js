@@ -1,4 +1,4 @@
-/*
+
 var clinicData = [
   {
     name: 'Anschutz Campus Health Center',
@@ -18,7 +18,7 @@ var clinicData = [
     long: -105.226161,
     latLong: ''
   }
-*/
+];
 
 /**************************************************************************
                   Custom Clinic Locator Logic ~jrahm
@@ -28,24 +28,24 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var cityState, geocoder, infoWindow, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, searchLat, searchLatLong, searchLong, searchRadius, searchResults, startLocation, zip,
+  var cityState, geocoder, infoWindow, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, oldStart, searchLat, searchLatLong, searchLong, searchRadius, searchResults,
       allLatLongs = [],
-      autoExpandRadius = false;
+      autoExpandRadius = false,
       errorCodes = [
-        "Enter a valid U.S. Zip Code",
-        "Select search radius",
-        "Geolocation not supported by browser"
+        "Enter a City or Zip Code"
       ],
+      searchCount = 0,
       singleMapPoint = false,
-      clinicData = [],
-      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
+      startLocation = '';
+      //clinicData = [],
+      //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
   $('#locationFilter button').attr('type', 'button');
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
-    
+    /*
   function getData(tableRow) {
     return {
       name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
@@ -54,23 +54,30 @@ $(document).ready(function() {
       hours: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].innerHTML,
       lat: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].textContent,
       long: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].textContent,
-      latLong: ''
+      latLong: '',
+      driveMiles = null
     }
   }
-  
+
   //Take location info from table, create object for each location and push to data array
   $.each(clinics, function(index, value) {
     clinicData.push(getData(value));
   });
   
+  */
+  
   
   //Creates clinic cards and adds them to the page, expects an object array as input
   function showDriveMiles(x) {
-    if(!autoExpandRadius) {
-      return x.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + x.driveMiles + ' Miles</p></div>' : '';
+    if(x.driveMiles === null) {
+      return '';
     } else {
-      return x.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + x.driveMiles + ' Miles</p><p><em>No clinics were found within your search parameters. The closest is listed above.</em></p></div>' : '';
-    }
+      if(!autoExpandRadius) {
+        return x.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + x.driveMiles + ' Miles</p></div>' : '';
+      } else {
+        return x.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + x.driveMiles + ' Miles</p><p><em>No clinics were found within your search parameters. The closest is listed above.</em></p></div>' : '';
+      }
+    }    
   }
   
   function createClinicCards(x) {
@@ -183,7 +190,6 @@ $(document).ready(function() {
     searchLat = '';
     searchLatLong = '';
     searchLong = '';
-    startLocation = '';
     zip = '';
   }
   
@@ -195,16 +201,25 @@ $(document).ready(function() {
   
   /************************** Filter Search Function **************************/
 
+  function nullTest(x) {
+   return x === null ? true : false;
+  }
+
   function initiateSearch() {
-    //Test to see if values changed. If they haven't, nothing happens
-    if($('#searchInput').val() === startLocation && searchRadius === setSearchRadius()) {
+    oldStart = startLocation;
+    startLocation = $('#searchInput').val();
+    if(startLocation === '') {
+      $('#errorMessage').html(errorCodes[0]);
+    } else if(oldStart === startLocation && searchRadius === setSearchRadius()) {
+      $('#errorMessage').html('');
       return
     } else {
+      $('#errorMessage').html('');
       resetValues();
       searchRadius = setSearchRadius();
-      startLocation = $('#searchInput').val();
       geoCodeFilter(startLocation);
-    }    
+      searchCount++;
+    }
   }
   
   $('#filterSearch').click(function() {
@@ -217,8 +232,32 @@ $(document).ready(function() {
       initiateSearch();
     }
   });
-  
 
+  //Reset filter button event handler resets data on page
+  $('#resetFilter').click(function() {
+    //Initial if/else test determines whether a search has been run based on the driveMiles property (if not, nothing happens)
+    if(clinicData[0].driveMiles === null) {
+      return
+    } else if(searchCount === 0){
+      return 
+    } else {
+      //Reset everything to default initial values
+      $.each(clinicData, function(index, value) {
+        value.driveMiles = null;
+      });
+      resetValues();
+      oldStart = undefined;
+      startLocation = '';
+      autoExpandRadius = false;
+      cleanContainer();
+      $('#searchInput').val('');
+      $('#searchRadius').val('5');
+      
+      //Repaint the page
+      createClinicCards(clinicData);
+      initMap(clinicData);
+    }    
+  })
   
   /************************** Search by Browser Geo Location **************************/
   //Not available on SharePoint 2010 site

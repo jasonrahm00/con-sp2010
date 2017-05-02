@@ -1,4 +1,4 @@
-
+/*
 var clinicData = [
   {
     name: 'Anschutz Campus Health Center',
@@ -19,6 +19,7 @@ var clinicData = [
     latLong: ''
   }
 ];
+*/
 
 /**************************************************************************
                   Custom Clinic Locator Logic ~jrahm
@@ -36,9 +37,9 @@ $(document).ready(function() {
       ],
       searchCount = 0,
       singleMapPoint = false,
-      startLocation = '';
-      //clinicData = [],
-      //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
+      startLocation = '',
+      clinicData = [],
+      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
@@ -46,7 +47,6 @@ $(document).ready(function() {
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
 
-  /*
   function getData(tableRow) {
     return {
       name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
@@ -64,9 +64,7 @@ $(document).ready(function() {
   $.each(clinics, function(index, value) {
     clinicData.push(getData(value));
   });
-*/
-  
-  
+
   //Creates clinic cards and adds them to the page, expects an object array as input
   function showDriveMiles(clinic) {
     if(clinic.driveMiles === null) {
@@ -120,8 +118,9 @@ $(document).ready(function() {
     mapBounds = new google.maps.LatLngBounds();
     
     //Add Start Location marker to page at the search lat long
-    var startIcon = "/academics/colleges/nursing/test/Documents/Styles_Scripts/clinic-locator/stick-figure.png"
-    searchLatLong ? (setMarkers(map, ({name: "You Are Here", baseContent: ""}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
+    //var startIcon = "star-icon.png"
+    var startIcon = "clinic-locator/star-icon.png"
+    searchLatLong ? (setMarkers(map, ({name: "Start Location", baseContent: startLocation}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData
     $.each(mapData, function(index, value) {
@@ -354,8 +353,13 @@ $(document).ready(function() {
       if(status !== google.maps.GeocoderStatus.OK) {
         console.error(status);
       } else if (results[0].address_components.length == 1){
+        //If the results address components has a length of 1
+          //The geocode didn't find the location so it defaulted to the center of the US
+            //In this instance, an error code is added to the page prompting the user can try again
+        
         $('#errorMessage').html(errorCodes[0]);
         searchCount++;
+        
       } else {
         
         //Set latitude and longitude of search zip

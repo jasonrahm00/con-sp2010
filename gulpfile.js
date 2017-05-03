@@ -45,12 +45,14 @@ gulp.task('pulse', function() {
 
 gulp.task('locator-scripts', function() {
   gulp.src('dev/clinic-locator/locator-scripts.js')
+    .pipe(uglify())
     .pipe(rename('local.js'))
     .pipe(gulp.dest('dist/clinic-locator'))
 });
 
 gulp.task('locator-styles', function() {
   gulp.src('dev/clinic-locator/*.css')
+    .pipe(cssnano())
     .pipe(rename('locator-styles.txt'))
     .pipe(gulp.dest('dist/clinic-locator'))
 });

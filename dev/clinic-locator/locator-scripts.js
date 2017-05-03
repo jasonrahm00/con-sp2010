@@ -79,6 +79,14 @@ $(document).ready(function() {
   }
   */
 
+  //Function to be called whenever the array needs to be sorted alphabetically
+    //Takes the array variable and sort property key as inputs
+  function alphaClinics() {
+    clinicData.sort(function(a,b) {
+      return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
+    });
+  }
+  
   //Returns an object with data loaded from the table cells
   function getData(tableRow) {
   
@@ -99,8 +107,6 @@ $(document).ready(function() {
     
   }
 
-  //Take location info from table, create object for each location and push to data array
-  
   //Perform try/catch test to make sure data loads properly, if it doesn't the "Clinics Loading" message will remain and the page will stop loading
   try {
     getData(clinics[0]);
@@ -117,7 +123,7 @@ $(document).ready(function() {
     dataLoaded = true;
   }  
   
-  //Creates clinic cards and adds them to the page, expects an object array as input
+  //Take location info from table, create object for each location and push to data array
   function showDriveMiles(clinic) {
     if(clinic.driveMiles === null) {
       return '';
@@ -149,6 +155,9 @@ $(document).ready(function() {
   }
   
   cleanContainer();
+  
+  //Alphabetize the clinicData array before the clinics are initially re-added to the page
+  alphaClinics();
   
   //Create individual <sections> for each location and append them to the now clean container
   createClinicCards(clinicData);  
@@ -307,9 +316,7 @@ $(document).ready(function() {
       });
       
       //Resort clinics so they display alphabetically
-      clinicData.sort(function(a,b) {
-        return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
-      });
+      alphaClinics();
       
       searchCount = 0;
       resetValues();

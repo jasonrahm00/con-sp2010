@@ -22,8 +22,12 @@
   width: 100%;
 }
 
+.clinic-card h3 {
+  margin-bottom: 1.5rem;
+}
+
 .clinic-card .drive-miles {
-  width: 100%;
+  margin-top: 1rem;
 }
 
 .clinic-card .hours {
@@ -69,10 +73,9 @@
   text-decoration: none;
 }
 
-.location span,
-.marker-info span {
+.location span {
   display: block;
-  margin: 1rem 0;
+  margin: 1rem 0 2rem 0;
 }
 
 .marker-header {
@@ -84,7 +87,7 @@
 
 .marker-info {
   font-family: Verdana, Arial, Helvetica, sans-serif;
-  max-width: 250px;
+  width: 250px;
 }
 
 .marker-info a:last-child {
@@ -96,9 +99,15 @@
   width: 120px;
 }
 
+.marker-info span {
+  display: block;
+  margin: .5rem 0;
+}
+
 .marker-info ul {
   list-style-type: none;
   margin: 0 !important;
+  padding-bottom: .5rem;
 }
 
 #clinicLocations {
@@ -113,8 +122,10 @@
 
 #errorMessage {
   color: red;
-  display: block;
+  display: table-cell;
   height: 40px;
+  margin: .25rem 0;
+  vertical-align: middle;
 }
 
 #locationFilter {
@@ -123,11 +134,10 @@
 }
 
 #locationFilter button {
-  background: #000;
+  background: #cfb87c;
   border: 0;
   border-radius: 6px;
-  color: #fff;
-  font-size: .85rem;
+  font-size: 1rem;
   padding: 1rem;
   width: 75%;
 } 
@@ -137,7 +147,6 @@
 }
 
 #locationFilter button:hover {
-  color: #cfb87c;
   cursor: pointer;
 }
 
@@ -147,9 +156,12 @@
 }
 
 #locationFilter input,
-#locationFilter label,
 #locationFilter select {
   font-size: .75rem;
+}
+
+#locationFilter label {
+  font-size: 1rem;
 }
 
 #locationFilter input {

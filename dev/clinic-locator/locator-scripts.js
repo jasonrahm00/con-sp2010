@@ -46,7 +46,7 @@ $(document).ready(function() {
       dataLoadError = false,
       errorCodes = [
         "Enter a city or zip code",
-        "Enter city or zip code in Colorado"
+        "Enter Colorado city or zip code"
       ],
       searchCount = 0,
       singleMapPoint = false,
@@ -88,8 +88,8 @@ $(document).ready(function() {
       cityStateZip: $(tableRow).find('td.ms-vb2:nth-child(3)')[0].textContent,
       phone: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].textContent,
       pageUrl: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].textContent,
-      services: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].innerHTML,
-      hours: $(tableRow).find('td.ms-vb2:nth-child(7)')[0].innerHTML,
+      services: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].innerHTML.replace(/\u200B/g,''),
+      hours: $(tableRow).find('td.ms-vb2:nth-child(7)')[0].innerHTML.replace(/\u200B/g,''),
       mapUrl: $(tableRow).find('td.ms-vb2:nth-child(8)')[0].textContent,
       lat: $(tableRow).find('td.ms-vb2:nth-child(9)')[0].textContent,
       long: $(tableRow).find('td.ms-vb2:nth-child(10)')[0].textContent,
@@ -132,7 +132,8 @@ $(document).ready(function() {
   
   function createClinicCards(clinicArray) {
     $.each(clinicArray, function(index, value) {
-      locationContent = '<div><a href="' + value.mapUrl + '" target="_blank">' + value.address + '<br>' + value.cityStateZip + '</a><span>Phone: ' + value.phone + '</span><a href="' + value.pageUrl + '">Visit Clinic page</a></div>'
+
+      locationContent = '<div><a href="' + value.mapUrl + '" target="_blank">' + value.address + '<br>' + value.cityStateZip + '</a><span>' + value.phone + '</span><a href="' + value.pageUrl + '">Visit Clinic Page</a></div>'
         
       $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + locationContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section>' + showDriveMiles(value) + '</section>');
     });
@@ -204,9 +205,9 @@ $(document).ready(function() {
     
     function setMarkerContent() {
       if(location.name === "Search Input") {
-        return '<div class="marker-info"><strong>' + location.name + '</strong><br>' + startLocation + '</div>';
+        return '<div class="marker-info"><strong>' + location.name + '</strong><span>"' + startLocation + '"</span></div>';
       } else {
-        return '<div class="marker-info"><span class="marker-header">' + location.name + '</span><a href="' + location.mapUrl + '" target="_blank">' + location.address + '<br>' + location.cityStateZip + '</a><span>Phone: '  + location.phone + '</span>' + location.hours + '<a href="' + location.pageUrl + '">Visit Clinic Page</a></div>';
+        return '<div class="marker-info"><span class="marker-header">' + location.name + '</span><a href="' + location.mapUrl + '" target="_blank">' + location.address + '<br>' + location.cityStateZip + '</a><span>'  + location.phone + '</span>' + location.hours + '<a href="' + location.pageUrl + '">Visit Clinic Page</a></div>';
       }
     }
     
@@ -285,13 +286,19 @@ $(document).ready(function() {
     }
   });
 
+  function resetInputs() {
+    $('#errorMessage').html('&nbsp;');
+    $('#searchInput').val('');
+    $('#searchRadius').val('5');
+  }
+  
   //Reset filter button event handler resets data on page
   $('#resetFilter').click(function() {
     //Initial if/else test determines whether a search has been based on driveMiles
     if(clinicData[0].driveMiles === null) {
-      return
+      resetInputs();
     } else if(!searchCount){
-      return 
+      resetInputs();
     } else {
       
       //Reset everything to default initial values
@@ -310,9 +317,7 @@ $(document).ready(function() {
       startLocation = '';
       autoExpandRadius = false;
       cleanContainer();
-      $('#errorMessage').html('&nbsp;');
-      $('#searchInput').val('');
-      $('#searchRadius').val('5');
+      resetInputs();
 
       //Repaint the page
       createClinicCards(clinicData);
@@ -487,6 +492,5 @@ $(document).ready(function() {
     $('#loadingMessage').remove();
     $('#clinics').removeClass('hidden');
   }
-  
   
 });

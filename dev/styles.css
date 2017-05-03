@@ -351,6 +351,7 @@ h3.ui-accordion-header:hover,
 #programSorting label {
   background: #fff;
   border: 1px solid #ddd;
+  border-radius: 6px;
   display: inline-block;
   font-size: 20px;
   margin-bottom: 3px;

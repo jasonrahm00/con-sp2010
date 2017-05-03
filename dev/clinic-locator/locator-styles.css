@@ -2,7 +2,7 @@
                   Custom Clinic Locator Styles ~jrahm
 **************************************************************************/
 
-#clinics .clinic-card {
+.clinic-card {
   border-bottom: 2px solid #e1e1e1;
   display: flex;
   flex-wrap: wrap;
@@ -11,31 +11,94 @@
   padding: 2rem 2rem 4rem;
 }
 
-#clinics .clinic-card:last-child {
+.clinic-card:last-child {
   border-bottom: 0;
   margin-bottom: 0;
 }
 
-#clinics .clinic-card h2 {
+.clinic-card h2 {
   margin-bottom: 2rem;
   text-align: center;
   width: 100%;
 }
 
-#clinics .clinic-card .drive-miles {
+.clinic-card .drive-miles {
   width: 100%;
 }
 
-#clinics .clinic-card .hours {
+.clinic-card .hours {
   width: 25%;
 }
 
-#clinics .clinic-card .location {
+.clinic-card .location {
   width: 25%;
 }
 
-#clinics .clinic-card .services {
+.clinic-card .services {
   width: 30%;
+}
+
+.hours li,
+.hours ul,
+.marker-info li {
+  margin: 0;
+}
+
+.hours ul {
+  list-style-type: none;
+}
+
+.location a,
+.marker-info a {
+  display: block;
+}
+
+.location a:last-child {
+  background: #000;
+  border-radius: 6px;
+  color: #fff;
+  font-size: .85rem;
+  padding: .25rem 0;
+  text-align: center;
+  width: 125px;
+}
+
+.location a:last-child:hover,
+.marker-info a:last-child:hover {
+  color: #cfb87c;
+  text-decoration: none;
+}
+
+.location span,
+.marker-info span {
+  display: block;
+  margin: 1rem 0;
+}
+
+.marker-header {
+  display: block;
+  font-size: .9rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.marker-info {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  max-width: 250px;
+}
+
+.marker-info a:last-child {
+  background: #000;
+  border-radius: 6px;
+  color: #fff;
+  padding: .5rem 0;
+  text-align: center;
+  width: 120px;
+}
+
+.marker-info ul {
+  list-style-type: none;
+  margin: 0;
 }
 
 #clinicLocations {
@@ -46,6 +109,12 @@
   height: 490px;
   margin-bottom: 1.5rem;
   width: 100%;
+}
+
+#errorMessage {
+  color: red;
+  display: block;
+  height: 40px;
 }
 
 #locationFilter {
@@ -97,10 +166,4 @@
 #locationFilter select {
   margin-right: 0;
   width: calc(100% - 4px);
-}
-
-#locationFilter #errorMessage {
-  color: red;
-  display: block;
-  height: 40px;
 }

@@ -1,4 +1,4 @@
-
+/*
 var clinicData = [
   {
     name: 'Anschutz Campus Health Center',
@@ -19,6 +19,7 @@ var clinicData = [
     latLong: ''
   }
 ];
+*/
 
 
 
@@ -39,16 +40,16 @@ $(document).ready(function() {
       ],
       searchCount = 0,
       singleMapPoint = false,
-      startLocation = '';
-      //clinicData = [],
-      //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
+      startLocation = '',
+      clinicData = [],
+      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
   $('#locationFilter button').attr('type', 'button');
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
-/*
+
   function getData(tableRow) {
     return {
       name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
@@ -66,7 +67,7 @@ $(document).ready(function() {
   $.each(clinics, function(index, value) {
     clinicData.push(getData(value));
   });
-*/
+
   //Creates clinic cards and adds them to the page, expects an object array as input
   function showDriveMiles(clinic) {
     if(clinic.driveMiles === null) {
@@ -121,8 +122,8 @@ $(document).ready(function() {
     mapBounds = new google.maps.LatLngBounds();
     
     //Add Start Location marker to page at the search lat long
-    var startIcon = "star-icon.png"
-    //var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
+    //var startIcon = "star-icon.png"
+    var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
     searchLatLong ? (setMarkers(map, ({name: "Search Input", baseContent: startLocation}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData
@@ -149,7 +150,7 @@ $(document).ready(function() {
   //Create and place map markers and content
   function setMarkers(map, location, mapIcon, currentLatLong) {
     var marker,
-        markerContent = '<div class="markerInfo"><strong>' + location.name + '</strong><br>' + location.baseContent + '</div>',
+        markerContent = '<div class="marker-info"><span class="marker-header">' + location.name + '</span>' + location.baseContent + '</div>',
         markerOptions = {
           position: currentLatLong,
           map: map,

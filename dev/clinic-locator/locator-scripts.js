@@ -2,25 +2,32 @@
 var clinicData = [
   {
     name: 'Anschutz Campus Health Center',
-    baseContent: '<a href="https://goo.gl/maps/2tJeYvNkWoQ2" target="_blank">12348 E. Montview Blvd. | 2nd Floor<br/>Aurora, CO 80045</a><br/>Phone: 303-724-6242<br/><a href="/academics/colleges/nursing/clinical-practice-community/PatientServices/CHC/Pages/default.aspx">Visit Clinic Page</a>',
-    services: '<ul><li>Behavioral and Counseling Services</li><li>Flu Shots</li>  <li>Physical and General Services</li></ul>',
-    hours: '<span>7am - 7pm (Weekdays)<br/>9am - 1pm (Sat)</span>',
+    address: '12348 E. Montview Blvd. | 2nd Floor',
+    cityStateZip: 'Aurora, CO 80045',
+    phone: '303-724-6242',
+    pageUrl: '/academics/colleges/nursing/clinical-practice-community/PatientServices/CHC/Pages/default.aspx',
+    mapUrl: 'https://goo.gl/maps/2tJeYvNkWoQ2',
+    services: '<ul><li>Behavioral and Counseling Services</li><li>Flu Shots</li><li>Physical and General Services</li></ul>',
+    hours: '<ul><li>7am - 7pm (Weekdays)</li><li>9am - 1pm (Sat)</li></ul>',
     lat: 39.7470331,
     long: -104.8438491,
     latLong: ''
   },
   {
     name: 'Boulder Health Center',
-    baseContent: '<a href="https://goo.gl/maps/cZvaqSVZf6v" target="_blank">5495 Arapahoe Ave<br/>Boulder, CO 80303</a><br/>Phone: 720-494-3128<br/><a href="/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx">Visit&#160;Clinic Page</a>',
+    address: '5495 Arapahoe Ave',
+    cityStateZip: 'Boulder, CO 80303',
+    phone: '720-494-3128',
+    pageUrl: '/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx',
+    mapUrl: 'https://goo.gl/maps/cZvaqSVZf6v',
     services: '<ul><li>Annual Gynecologic Exams</li><li>Breastfeeding Consultation</li><li>Family Planning</li><li>Gynecologic Care</li><li>Labor and Birth</li><li>Labor Support</li><li>Nitrous Oxide</li><li>Preconception Counseling</li><li>Prenatal Care</li><li>Postpartum Care</li><li>Vaginal Birth after Cesarean Section</li><li>Water Birth</li></ul>',
-    hours: '<span>8am - 5pm (Mon &amp; Thur)</span>',
+    hours: '<ul><li>8am - 5pm (Mon &amp; Thur)</li></ul>',
     lat: 40.0150815,
     long: -105.226161,
     latLong: ''
   }
 ];
 */
-
 
 
 /**************************************************************************
@@ -31,7 +38,7 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var cityState, geocoder, infoWindow, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, oldStart, searchLat, searchLatLong, searchLong, searchRadius, searchResults,
+  var cityState, geocoder, infoWindow, locationContent, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, oldStart, searchLat, searchLatLong, searchLong, searchRadius, searchResults,
       allLatLongs = [],
       autoExpandRadius = false,
       errorCodes = [
@@ -42,7 +49,7 @@ $(document).ready(function() {
       singleMapPoint = false,
       startLocation = '',
       clinicData = [],
-      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
+      clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
@@ -51,16 +58,22 @@ $(document).ready(function() {
   /*************************** Get Data from Sharepoint Table on Page ***************************/
 
   function getData(tableRow) {
+  
     return {
       name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
-      baseContent: $(tableRow).find('td.ms-vb2:nth-child(2)')[0].innerHTML,
-      services: $(tableRow).find('td.ms-vb2:nth-child(3)')[0].innerHTML,
-      hours: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].innerHTML,
-      lat: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].textContent,
-      long: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].textContent,
+      address: $(tableRow).find('td.ms-vb2:nth-child(2)')[0].textContent,
+      cityStateZip: $(tableRow).find('td.ms-vb2:nth-child(3)')[0].textContent,
+      phone: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].textContent,
+      pageUrl: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].textContent,
+      services: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].innerHTML,
+      hours: $(tableRow).find('td.ms-vb2:nth-child(7)')[0].innerHTML,
+      mapUrl: $(tableRow).find('td.ms-vb2:nth-child(8)')[0].textContent,
+      lat: $(tableRow).find('td.ms-vb2:nth-child(9)')[0].textContent,
+      long: $(tableRow).find('td.ms-vb2:nth-child(10)')[0].textContent,
       latLong: '',
       driveMiles: null
     }
+    
   }
 
   //Take location info from table, create object for each location and push to data array
@@ -83,7 +96,9 @@ $(document).ready(function() {
   
   function createClinicCards(clinicArray) {
     $.each(clinicArray, function(index, value) {
-      $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + value.baseContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section>' + showDriveMiles(value) + '</section>');
+      locationContent = '<div><a href="' + value.mapUrl + '" target="_blank">' + value.address + '<br>' + value.cityStateZip + '</a><span>Phone: ' + value.phone + '</span><a href="' + value.pageUrl + '">Visit Clinic page</a></div>'
+        
+      $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + locationContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section>' + showDriveMiles(value) + '</section>');
     });
   }
 
@@ -124,7 +139,7 @@ $(document).ready(function() {
     //Add Start Location marker to page at the search lat long
     //var startIcon = "star-icon.png"
     var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
-    searchLatLong ? (setMarkers(map, ({name: "Search Input", baseContent: startLocation}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
+    searchLatLong ? (setMarkers(map, ({name: "Search Input"}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData
     $.each(mapData, function(index, value) {
@@ -149,8 +164,17 @@ $(document).ready(function() {
 
   //Create and place map markers and content
   function setMarkers(map, location, mapIcon, currentLatLong) {
+    
+    function setMarkerContent() {
+      if(location.name === "Search Input") {
+        return '<div class="marker-info"><strong>' + location.name + '</strong><br>' + startLocation + '</div>';
+      } else {
+        return '<div class="marker-info"><span class="marker-header">' + location.name + '</span><a href="' + location.mapUrl + '" target="_blank">' + location.address + '<br>' + location.cityStateZip + '</a><span>Phone: '  + location.phone + '</span>' + location.hours + '<a href="' + location.pageUrl + '">Visit Clinic Page</a></div>';
+      }
+    }
+    
     var marker,
-        markerContent = '<div class="marker-info"><span class="marker-header">' + location.name + '</span>' + location.baseContent + '</div>',
+        markerContent = setMarkerContent(),
         markerOptions = {
           position: currentLatLong,
           map: map,

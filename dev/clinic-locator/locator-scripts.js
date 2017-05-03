@@ -177,7 +177,7 @@ $(document).ready(function() {
     
     //var startIcon = "star-icon.png"; //Local path for localhost testing
     var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
-    searchLatLong ? (setMarkers(map, ({name: "Search Input"}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
+    searchLatLong ? (setMarkers(map, ({name: "Search Location"}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData
     $.each(mapData, function(index, value) {
@@ -204,7 +204,7 @@ $(document).ready(function() {
   function setMarkers(map, location, mapIcon, currentLatLong) {
     
     function setMarkerContent() {
-      if(location.name === "Search Input") {
+      if(location.name === "Search Location") {
         return '<div class="marker-info"><strong>' + location.name + '</strong><span>"' + startLocation + '"</span></div>';
       } else {
         return '<div class="marker-info"><span class="marker-header">' + location.name + '</span><a href="' + location.mapUrl + '" target="_blank">' + location.address + '<br>' + location.cityStateZip + '</a><span>'  + location.phone + '</span>' + location.hours + '<a href="' + location.pageUrl + '">Visit Clinic Page</a></div>';

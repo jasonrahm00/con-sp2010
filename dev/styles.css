@@ -386,6 +386,7 @@ h3.ui-accordion-header:hover,
 
 .program-cards .toggle-content a {
   background: #000;
+  border-radius: 6px;
   color: white;
   display: block;
   font-size: 1rem;
@@ -462,6 +463,7 @@ h3.ui-accordion-header:hover,
 
 .next-steps a {
   background: black;
+  border-radius: 6px;
   color: white;
   display: inline-block;
   font-size: .85rem;

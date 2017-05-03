@@ -1,4 +1,4 @@
-/*
+
 var clinicData = [
   {
     name: 'Anschutz Campus Health Center',
@@ -19,7 +19,8 @@ var clinicData = [
     latLong: ''
   }
 ];
-*/
+
+
 
 /**************************************************************************
                   Custom Clinic Locator Logic ~jrahm
@@ -33,20 +34,21 @@ $(document).ready(function() {
       allLatLongs = [],
       autoExpandRadius = false,
       errorCodes = [
-        "Enter a City or Zip Code"
+        "Enter a city or zip code",
+        "Enter city or zip code in Colorado"
       ],
       searchCount = 0,
       singleMapPoint = false,
-      startLocation = '',
-      clinicData = [],
-      clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
+      startLocation = '';
+      //clinicData = [],
+      //clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
   $('#locationFilter button').attr('type', 'button');
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
-
+/*
   function getData(tableRow) {
     return {
       name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
@@ -64,7 +66,7 @@ $(document).ready(function() {
   $.each(clinics, function(index, value) {
     clinicData.push(getData(value));
   });
-
+*/
   //Creates clinic cards and adds them to the page, expects an object array as input
   function showDriveMiles(clinic) {
     if(clinic.driveMiles === null) {
@@ -78,8 +80,8 @@ $(document).ready(function() {
     }    
   }
   
-  function createClinicCards(clinics) {
-    $.each(clinics, function(index, value) {
+  function createClinicCards(clinicArray) {
+    $.each(clinicArray, function(index, value) {
       $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + value.baseContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section>' + showDriveMiles(value) + '</section>');
     });
   }
@@ -109,8 +111,9 @@ $(document).ready(function() {
     allLatLongs = [];
     
     map = new google.maps.Map(document.getElementById('clinicMap'), {
-      zoom: 8,
-      center: new google.maps.LatLng(39.7392, -104.9903) //The default center is the geographical center Denver
+      center: new google.maps.LatLng(39.7392, -104.9903), //The default center is the geographical center Denver
+      scrollwheel: false,
+      zoom: 8
     });
     
     geocoder = new google.maps.Geocoder();
@@ -118,9 +121,9 @@ $(document).ready(function() {
     mapBounds = new google.maps.LatLngBounds();
     
     //Add Start Location marker to page at the search lat long
-    //var startIcon = "star-icon.png"
-    var startIcon = "clinic-locator/star-icon.png"
-    searchLatLong ? (setMarkers(map, ({name: "Start Location", baseContent: startLocation}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
+    var startIcon = "star-icon.png"
+    //var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
+    searchLatLong ? (setMarkers(map, ({name: "Search Input", baseContent: startLocation}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData
     $.each(mapData, function(index, value) {
@@ -199,14 +202,13 @@ $(document).ready(function() {
     if(startLocation === '') {
       $('#errorMessage').html(errorCodes[0]);
     } else if(oldStart === startLocation && searchRadius === setSearchRadius()) {
-      $('#errorMessage').html('');
+      $('#errorMessage').html('&nbsp;');
       return
     } else {
-      $('#errorMessage').html('');
+      $('#errorMessage').html('&nbsp;');
       resetValues();
       searchRadius = setSearchRadius();
       geoCodeFilter(startLocation);
-      searchCount++;
     }
   }
   
@@ -223,10 +225,10 @@ $(document).ready(function() {
 
   //Reset filter button event handler resets data on page
   $('#resetFilter').click(function() {
-    //Initial if/else test determines whether a search has been run based on the driveMiles property (if not, nothing happens)
+    //Initial if/else test determines whether a search has been based on driveMiles
     if(clinicData[0].driveMiles === null) {
       return
-    } else if(searchCount === 0){
+    } else if(!searchCount){
       return 
     } else {
       
@@ -234,22 +236,26 @@ $(document).ready(function() {
       $.each(clinicData, function(index, value) {
         value.driveMiles = null;
       });
+      
+      //Resort clinics so they display alphabetically
       clinicData.sort(function(a,b) {
         return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
       });
+      
       searchCount = 0;
       resetValues();
       oldStart = undefined;
       startLocation = '';
       autoExpandRadius = false;
       cleanContainer();
-      $('#errorMessage').html('');
+      $('#errorMessage').html('&nbsp;');
       $('#searchInput').val('');
       $('#searchRadius').val('5');
 
       //Repaint the page
       createClinicCards(clinicData);
       initMap(clinicData);
+      
     }    
   })
   
@@ -352,13 +358,16 @@ $(document).ready(function() {
     geocoder.geocode({'address': searchStart, 'componentRestrictions':{'country': 'US'}}, function(results, status) {
       if(status !== google.maps.GeocoderStatus.OK) {
         console.error(status);
-      } else if (results[0].address_components.length == 1){
+      } else if(results[0].address_components.length == 1) {
         //If the results address components has a length of 1
           //The geocode didn't find the location so it defaulted to the center of the US
             //In this instance, an error code is added to the page prompting the user can try again
         
         $('#errorMessage').html(errorCodes[0]);
-        searchCount++;
+        
+      } else if(!results[0].formatted_address.includes('CO')) {
+        
+        $('#errorMessage').html(errorCodes[1]);
         
       } else {
         
@@ -366,9 +375,10 @@ $(document).ready(function() {
         searchLat = results[0].geometry.location.lat();
         searchLong = results[0].geometry.location.lng();
         searchLatLong = new google.maps.LatLng(searchLat, searchLong);
-        
         filterClinics();
+        
       }
+ 
     });
   }
 
@@ -387,14 +397,18 @@ $(document).ready(function() {
       //Loop through clinicData, using the clinic index to check drive distance returned by the Promise
       $.each(clinicData, function(index, value) {
         //Promise returns drive distance in meters, which needs to be converted to miles to compare against searchRadius 
-        miles = Math.round(data.rows[0].elements[index].distance.value * 0.000621371);
-
+        miles = data.rows[0].elements[index].distance.value * 0.000621371;
+        
         //Drive miles property changed on each clinic
-        value.driveMiles = miles;
+          //If it is less than a mile away (but greater than 0), two-place decimal value is returned
+        value.driveMiles = miles > 1 ? Math.round(miles) : Math.round(miles * 100) / 100; 
+        
       });
 
       //Display results is called to re-paint the content and map to show only results of the search
       displayResults();
+      searchCount++;
+      
     })
     .catch(function(err) {
       console.error(err);

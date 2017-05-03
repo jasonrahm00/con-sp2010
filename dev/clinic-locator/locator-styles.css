@@ -2,10 +2,6 @@
                   Custom Clinic Locator Styles ~jrahm
 **************************************************************************/
 
-#clinics .clinic-card>h2 {
-  width: 100%;
-}
-
 #clinics .clinic-card {
   border-bottom: 2px solid #e1e1e1;
   display: flex;
@@ -15,9 +11,15 @@
   padding: 2rem 2rem 4rem;
 }
 
+#clinics .clinic-card:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
 #clinics .clinic-card h2 {
   margin-bottom: 2rem;
   text-align: center;
+  width: 100%;
 }
 
 #clinics .clinic-card .drive-miles {
@@ -51,12 +53,54 @@
   width: 20%;
 }
 
+#locationFilter button {
+  background: #000;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  font-size: .85rem;
+  padding: 1rem;
+  width: 75%;
+} 
+
+#locationFilter button:focus {
+  outline: 0;
+}
+
+#locationFilter button:hover {
+  color: #cfb87c;
+  cursor: pointer;
+}
+
 #locationFilter h2 {
   font-size: 1.5rem;
   font-weight: normal;
 }
 
+#locationFilter input,
+#locationFilter label,
+#locationFilter select {
+  font-size: .75rem;
+}
+
+#locationFilter input {
+  padding: 2px;
+  width: calc(100% - 10px);
+}
+
+#locationFilter label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#locationFilter select {
+  margin-right: 0;
+  width: calc(100% - 4px);
+}
+
 #locationFilter #errorMessage {
   color: red;
   display: block;
+  height: 40px;
 }

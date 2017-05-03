@@ -1,5 +1,6 @@
 /*
-var clinicData = [
+//Test Data for local development
+var clinics = [
   {
     name: 'Anschutz Campus Health Center',
     address: '12348 E. Montview Blvd. | 2nd Floor',
@@ -41,6 +42,8 @@ $(document).ready(function() {
   var cityState, geocoder, infoWindow, locationContent, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, oldStart, searchLat, searchLatLong, searchLong, searchRadius, searchResults,
       allLatLongs = [],
       autoExpandRadius = false,
+      dataLoaded = false,
+      dataLoadError = false,
       errorCodes = [
         "Enter a city or zip code",
         "Enter city or zip code in Colorado"
@@ -56,7 +59,27 @@ $(document).ready(function() {
   $('#locationFilter button').attr('type', 'button');
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
+  /*
+   //Used to load test data
+  function getData(clinic) {
+    return {
+      name: clinic.name,
+      address: clinic.address,
+      cityStateZip: clinic.cityStateZip,
+      phone: clinic.phone,
+      pageUrl: clinic.pageUrl,
+      services: clinic.services,
+      hours: clinic.hours,
+      mapUrl: clinic.mapUrl,
+      lat: clinic.lat,
+      long: clinic.long,
+      latLong: '',
+      driveMiles: null
+    }
+  }
+  */
 
+  //Returns an object with data loaded from the table cells
   function getData(tableRow) {
   
     return {
@@ -77,10 +100,23 @@ $(document).ready(function() {
   }
 
   //Take location info from table, create object for each location and push to data array
-  $.each(clinics, function(index, value) {
-    clinicData.push(getData(value));
-  });
-
+  
+  //Perform try/catch test to make sure data loads properly, if it doesn't the "Clinics Loading" message will remain and the page will stop loading
+  try {
+    getData(clinics[0]);
+  }
+  catch(err) {
+    dataLoadError = true;
+    console.log(err);
+  }
+  
+  if(!dataLoadError) {
+    $.each(clinics, function(index, value) {
+      clinicData.push(getData(value));
+    });
+    dataLoaded = true;
+  }  
+  
   //Creates clinic cards and adds them to the page, expects an object array as input
   function showDriveMiles(clinic) {
     if(clinic.driveMiles === null) {
@@ -137,7 +173,8 @@ $(document).ready(function() {
     mapBounds = new google.maps.LatLngBounds();
     
     //Add Start Location marker to page at the search lat long
-    //var startIcon = "star-icon.png"
+    
+    //var startIcon = "star-icon.png"; //Local path for localhost testing
     var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
     searchLatLong ? (setMarkers(map, ({name: "Search Input"}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
@@ -443,10 +480,13 @@ $(document).ready(function() {
 
 
   /**************************************************************************
-                  Unhide components when page is loaded
+                Unhide components when data and map are loaded
   **************************************************************************/
-    
-  $('#loadingMessage').remove();
-  $('#clinics').removeClass('hidden');
+  
+  if(dataLoaded) {
+    $('#loadingMessage').remove();
+    $('#clinics').removeClass('hidden');
+  }
+  
   
 });

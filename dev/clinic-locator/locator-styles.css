@@ -41,7 +41,7 @@
 .hours li,
 .hours ul,
 .marker-info li {
-  margin: 0;
+  margin: 0 !important;
 }
 
 .hours ul {
@@ -98,7 +98,7 @@
 
 .marker-info ul {
   list-style-type: none;
-  margin: 0;
+  margin: 0 !important;
 }
 
 #clinicLocations {

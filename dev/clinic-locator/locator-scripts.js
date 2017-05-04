@@ -59,8 +59,8 @@ $(document).ready(function() {
   $('#locationFilter button').attr('type', 'button');
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
-  /*
-   //Used to load test data
+/*
+  //Used to load test data
   function getData(clinic) {
     return {
       name: clinic.name,
@@ -77,8 +77,7 @@ $(document).ready(function() {
       driveMiles: null
     }
   }
-  */
-
+*/
   //Function to be called whenever the array needs to be sorted alphabetically
     //Takes the array variable and sort property key as inputs
   function alphaClinics() {
@@ -86,7 +85,7 @@ $(document).ready(function() {
       return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
     });
   }
-  
+
   //Returns an object with data loaded from the table cells
   function getData(tableRow) {
   
@@ -129,9 +128,9 @@ $(document).ready(function() {
       return '';
     } else {
       if(!autoExpandRadius) {
-        return clinic.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + clinic.driveMiles + ' Miles</p></div>' : '';
+        return clinic.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + clinic.driveMiles + ' miles</p></div>' : '';
       } else {
-        return clinic.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + clinic.driveMiles + ' Miles</p><p><em>No clinics were found within your search parameters. The closest is listed above.</em></p></div>' : '';
+        return clinic.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + clinic.driveMiles + ' miles</p><p><em>No clinics were found within your search parameters. The closest is listed above.</em></p></div>' : '';
       }
     }    
   }
@@ -475,7 +474,7 @@ $(document).ready(function() {
         
         //Drive miles property changed on each clinic
           //If it is less than a mile away (but greater than 0), two-place decimal value is returned
-        value.driveMiles = miles > 1 ? Math.round(miles) : Math.round(miles * 100) / 100; 
+        value.driveMiles = miles > 1 ? Math.round(miles) : Math.round(miles * 10) / 10; 
         
       });
 

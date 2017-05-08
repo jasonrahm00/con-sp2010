@@ -313,6 +313,11 @@ h3.ui-accordion-header:hover,
   text-align: center !important;
 }
 
+.ms-WPBody .ui-accordion-content h3,
+.ms-WPBody .ui-accordion-content h4 {
+  padding: 0 !important;
+}
+
 .ui-accordion-content {
   background: whitesmoke;
   border-bottom: 1px solid #cecece;

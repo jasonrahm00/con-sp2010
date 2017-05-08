@@ -102,6 +102,11 @@
   padding-bottom: .5rem;
 }
 
+.result-message {
+  display: table-row;
+  height: 40px;
+}
+
 #clinicLocations {
   width: 75%;
 }
@@ -114,9 +119,11 @@
 
 #errorMessage {
   color: red;
+}
+
+#errorMessage,
+#resultCount {
   display: table-cell;
-  height: 40px;
-  margin: .25rem 0;
   vertical-align: middle;
 }
 
@@ -145,6 +152,7 @@
 #locationFilter h2 {
   font-size: 1.5rem;
   font-weight: normal;
+  margin-bottom: 1rem;
 }
 
 #locationFilter input,

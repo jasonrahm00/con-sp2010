@@ -26,6 +26,45 @@ var clinics = [
     lat: 40.0150815,
     long: -105.226161,
     latLong: ''
+  },
+  {
+    name: 'Belleview Point Clinic',
+    address: '5001 S. Parker Rd. | Suite 215',
+    cityStateZip: 'Aurora, CO 80015',
+    phone: '303-315-6200',
+    pageUrl: '#',
+    mapUrl: 'https://goo.gl/maps/DwoP1WDhDCx',
+    services: '',
+    hours: '',
+    lat: 39.6252013,
+    long: -104.8228108,
+    latLong: ''
+  },
+  {
+    name: 'Lowry Clinic',
+    address: '8111 East Lowry Blvd | Suite 120',
+    cityStateZip: 'Denver, CO 80230',
+    phone: '720-848-1700',
+    pageUrl: '#',
+    mapUrl: 'https://goo.gl/maps/HvoHh9VQwvP2',
+    services: '',
+    hours: '',
+    lat: 39.7187081,
+    long: -104.893519,
+    latLong: ''
+  },
+  {
+    name: 'Sheridan Community Clinic',
+    address: '3525 West Oxford Ave. | Unit G3',
+    cityStateZip: 'Denver, CO 80236',
+    phone: '303-315-6150',
+    pageUrl: '#',
+    mapUrl: 'https://goo.gl/maps/abmfwEYtD8B2',
+    services: '',
+    hours: '',
+    lat: 39.642831,
+    long: -105.033712,
+    latLong: ''
   }
 ];
 */
@@ -39,14 +78,15 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var cityState, geocoder, infoWindow, locationContent, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, oldStart, searchLat, searchLatLong, searchLong, searchRadius, searchResults,
+  var cityState, filterResults, geocoder, infoWindow, locationContent, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, oldRadius, oldStart, resultCount, searchLat, searchLatLong, searchLong, searchRadius, searchResults,
       allLatLongs = [],
       autoExpandRadius = false,
       dataLoaded = false,
       dataLoadError = false,
       errorCodes = [
         "Enter a city or zip code",
-        "Enter Colorado city or zip code"
+        "Enter Colorado city or zip code",
+        "No additional results"
       ],
       searchCount = 0,
       singleMapPoint = false,
@@ -85,6 +125,15 @@ $(document).ready(function() {
       return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
     });
   }
+  
+  function countResults(x) {
+    resultCount = x.length;
+  } 
+  
+  function displayCount() {
+    $('#resultCount').html('Results: ' + resultCount);
+  }
+  
 
   //Returns an object with data loaded from the table cells
   function getData(tableRow) {
@@ -105,7 +154,7 @@ $(document).ready(function() {
     }
     
   }
-
+  
   //Perform try/catch test to make sure data loads properly, if it doesn't the "Clinics Loading" message will remain and the page will stop loading
   try {
     getData(clinics[0]);
@@ -161,6 +210,9 @@ $(document).ready(function() {
   //Create individual <sections> for each location and append them to the now clean container
   createClinicCards(clinicData);  
   
+  countResults(clinicData);
+  
+  displayCount();
   
   
   /**************************************************************************
@@ -251,7 +303,6 @@ $(document).ready(function() {
 
   //Reset search values when a new search is initiated
   function resetValues() {
-    filterResults = [];
     matrixDestinations = [];
     searchLat = '';
     searchLatLong = '';
@@ -264,21 +315,44 @@ $(document).ready(function() {
   }
 
 
+  //Check to see if each location is within the search radius
+      //Push to filterResults array if it is
+  function radiusCheck() {
+    filterResults = [];
+    
+    $.each(clinicData, function(index, value) {
+      if(value.driveMiles <= searchRadius) {
+        filterResults.push(value);
+      }
+    });
+    
+  }
   
   /************************** Filter Search Function **************************/
 
   function initiateSearch() {
+    oldRadius = searchRadius;
     oldStart = startLocation;
+    searchRadius = setSearchRadius();
     startLocation = $('#searchInput').val();
     if(startLocation === '') {
+      $('#resultCount').html('');
       $('#errorMessage').html(errorCodes[0]);
-    } else if(oldStart === startLocation && searchRadius === setSearchRadius()) {
-      $('#errorMessage').html('&nbsp;');
+    } else if(oldStart === startLocation && oldRadius === searchRadius) {
+      $('#errorMessage').html('');
       return
+    } else if(oldStart === startLocation && oldRadius !== searchRadius) {
+      radiusCheck();
+      if(resultCount !== filterResults.length) {
+        $('#errorMessage').html('');
+        displayResults();
+      } else {
+        $('#resultCount').html('');
+        $('#errorMessage').html(errorCodes[2]);
+      }
     } else {
-      $('#errorMessage').html('&nbsp;');
+      $('#errorMessage').html('');
       resetValues();
-      searchRadius = setSearchRadius();
       geoCodeFilter(startLocation);
     }
   }
@@ -389,23 +463,20 @@ $(document).ready(function() {
   
   //Displays results of filter
   function displayResults() {
+
+    cleanContainer();
     
     //Sort results so the closest is listed first in object array
     clinicData.sort(function(a,b) {
       return (a.driveMiles - b.driveMiles);
     });
     
-    //Check to see if each location is within the search radius
-      //Push to filterResults array if it is
-    $.each(clinicData, function(index, value) {
-      if(value.driveMiles <= searchRadius) {
-        filterResults.push(value);
-      }
-    });
-    
     if(filterResults.length === 0) {
       //If there are no clinics within given parameters of start location and search radius
         //The closest clinic is added to the page and map along with messaging saying as much
+      
+      resultCount = 1;
+      displayCount();
       
       autoExpandRadius = true;
       
@@ -415,7 +486,10 @@ $(document).ready(function() {
       initMap([clinicData[0]]);
 
     } else {
-
+      
+      resultCont = countResults(filterResults);
+      displayCount();
+      
       autoExpandRadius = false;
       //Re-Add clinic cards to page and include drive distance from start to destination
       createClinicCards(filterResults);
@@ -436,10 +510,12 @@ $(document).ready(function() {
           //The geocode didn't find the location so it defaulted to the center of the US
             //In this instance, an error code is added to the page prompting the user can try again
         
+        $('#resultCount').html('');
         $('#errorMessage').html(errorCodes[0]);
         
       } else if(!results[0].formatted_address.includes('CO')) {
         
+        $('#resultCount').html('');
         $('#errorMessage').html(errorCodes[1]);
         
       } else {
@@ -456,7 +532,6 @@ $(document).ready(function() {
   }
 
   function filterClinics() {
-    cleanContainer();
 
     //Push clinic latLong into separate array for use in checkDistance function
     $.each(clinicData, function(index, value) {
@@ -479,6 +554,7 @@ $(document).ready(function() {
       });
 
       //Display results is called to re-paint the content and map to show only results of the search
+      radiusCheck();
       displayResults();
       searchCount++;
       

@@ -33,7 +33,10 @@
         <div style="display: flex; justify-content: space-between;">
           <div id="locationFilter">
             <h2>Filter Locations</h2>
-            <span id="errorMessage">&nbsp;</span>
+            <div class="result-message">
+              <span id="errorMessage"></span>
+              <span id="resultCount"></span>
+            </div>
             <div>
               <label>Search Radius</label>
               <div>
@@ -56,10 +59,6 @@
 
             </div>
             
-            <div>
-              <button id="resetFilter">Reset Filter</button>
-            </div>
-            
           </div>
 
           <div id="clinicLocations"></div>
@@ -69,7 +68,7 @@
 
     </main>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRWgd-o81dDZlb3OMfPLMx-9W0BzHJWiA&libraries=geometry"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzgoWiMYMBPCLSk_Hruiafb90Z1imzTlk&libraries=geometry"></script>
     
   </body>
 </html>

@@ -86,7 +86,7 @@ $(document).ready(function() {
       errorCodes = [
         "Enter a city or zip code",
         "Enter Colorado city or zip code",
-        "No additional results",
+        "No change in results",
         "Enter new parameters"
       ],
       minSpinTimer = 1000,

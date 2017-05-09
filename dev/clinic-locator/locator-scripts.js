@@ -86,8 +86,10 @@ $(document).ready(function() {
       errorCodes = [
         "Enter a city or zip code",
         "Enter Colorado city or zip code",
-        "No additional results"
+        "No additional results",
+        "Enter new parameters"
       ],
+      minSpinTimer = 1000,
       searchCount = 0,
       singleMapPoint = false,
       startLocation = '',
@@ -133,7 +135,6 @@ $(document).ready(function() {
   function displayCount() {
     $('#resultCount').html('Results: ' + resultCount);
   }
-  
 
   //Returns an object with data loaded from the table cells
   function getData(tableRow) {
@@ -154,7 +155,7 @@ $(document).ready(function() {
     }
     
   }
-  
+
   //Perform try/catch test to make sure data loads properly, if it doesn't the "Clinics Loading" message will remain and the page will stop loading
   try {
     getData(clinics[0]);
@@ -328,6 +329,24 @@ $(document).ready(function() {
     
   }
   
+  //Display error codes using errorCodse variable index
+  function displayError(errorCodeIndex) {
+    $('#resultCount').html('');
+    $('#errorMessage').html(errorCodes[errorCodeIndex]);
+  }
+  
+  //Add spinner to the page as visual cue that the data is about to change
+  function addSpinner() {
+    $('#errorMessage').html('');
+    $('#clinicLocations').html('<div class="location-container-message"><div class="spinner"></div></div>');
+  }
+  
+  function spinTimer(nextFunction) {
+    setTimeout(function() {
+      nextFunction;
+    }, minSpinTimer)
+  }
+  
   /************************** Filter Search Function **************************/
 
   function initiateSearch() {
@@ -335,25 +354,42 @@ $(document).ready(function() {
     oldStart = startLocation;
     searchRadius = setSearchRadius();
     startLocation = $('#searchInput').val();
+    
     if(startLocation === '') {
-      $('#resultCount').html('');
-      $('#errorMessage').html(errorCodes[0]);
+      
+      displayError(0);
+      
     } else if(oldStart === startLocation && oldRadius === searchRadius) {
-      $('#errorMessage').html('');
+      
+      displayError(3);
       return
+      
     } else if(oldStart === startLocation && oldRadius !== searchRadius) {
+      
       radiusCheck();
       if(resultCount !== filterResults.length) {
-        $('#errorMessage').html('');
-        displayResults();
+        
+        addSpinner();
+
+        //set timeout before next function call so spinner is visible
+        setTimeout(function() {
+          displayResults()
+        }, minSpinTimer)
       } else {
-        $('#resultCount').html('');
-        $('#errorMessage').html(errorCodes[2]);
+        
+        displayError(2);
+        
       }
     } else {
-      $('#errorMessage').html('');
+      
       resetValues();
-      geoCodeFilter(startLocation);
+      addSpinner();
+      
+      //set timeout before next function call so spinner is visible
+      setTimeout(function() {
+        geoCodeFilter(startLocation);
+      }, minSpinTimer)
+      
     }
   }
   
@@ -463,40 +499,41 @@ $(document).ready(function() {
   
   //Displays results of filter
   function displayResults() {
-
-    cleanContainer();
+      
+      cleanContainer();
     
-    //Sort results so the closest is listed first in object array
-    clinicData.sort(function(a,b) {
-      return (a.driveMiles - b.driveMiles);
-    });
-    
-    if(filterResults.length === 0) {
-      //If there are no clinics within given parameters of start location and search radius
-        //The closest clinic is added to the page and map along with messaging saying as much
-      
-      resultCount = 1;
-      displayCount();
-      
-      autoExpandRadius = true;
-      
-      //Display single clinic on page, the closest one to the entered parameters
-        //Since clinic data is sorted by distance, the first in the array is the closest
-      createClinicCards([clinicData[0]]);      
-      initMap([clinicData[0]]);
+      //Sort results so the closest is listed first in object array
+      clinicData.sort(function(a,b) {
+        return (a.driveMiles - b.driveMiles);
+      });
 
-    } else {
-      
-      resultCont = countResults(filterResults);
-      displayCount();
-      
-      autoExpandRadius = false;
-      //Re-Add clinic cards to page and include drive distance from start to destination
-      createClinicCards(filterResults);
-      
-      //Reinitiate the map to include only the filter results and searchLocation
-      initMap(filterResults);
-    }
+      if(filterResults.length === 0) {
+        //If there are no clinics within given parameters of start location and search radius
+          //The closest clinic is added to the page and map along with messaging saying as much
+
+        resultCount = 1;
+        displayCount();
+
+        autoExpandRadius = true;
+
+        //Display single clinic on page, the closest one to the entered parameters
+          //Since clinic data is sorted by distance, the first in the array is the closest
+        createClinicCards([clinicData[0]]);      
+        initMap([clinicData[0]]);
+
+      } else {
+
+        resultCont = countResults(filterResults);
+        displayCount();
+
+        autoExpandRadius = false;
+        //Re-Add clinic cards to page and include drive distance from start to destination
+        createClinicCards(filterResults);
+
+        //Reinitiate the map to include only the filter results and searchLocation
+        initMap(filterResults);
+      }
+    
   }
   
   //Get geo coordinates of the search parameter
@@ -510,13 +547,13 @@ $(document).ready(function() {
           //The geocode didn't find the location so it defaulted to the center of the US
             //In this instance, an error code is added to the page prompting the user can try again
         
-        $('#resultCount').html('');
-        $('#errorMessage').html(errorCodes[0]);
+        displayError(0);
+        $('#clinicLocations').html('<div class="location-container-message"><h2 class="center">No Results</h2></div>');
         
       } else if(!results[0].formatted_address.includes('CO')) {
         
-        $('#resultCount').html('');
-        $('#errorMessage').html(errorCodes[1]);
+        displayError(1);
+        $('#clinicLocations').html('<div class="location-container-message"><h2 class="center">No Results</h2></div>');
         
       } else {
         
@@ -539,7 +576,7 @@ $(document).ready(function() {
       matrixDestinations.push(value.latLong);
     });
 
-    //Call checkDistanhce function which returns a promise containing array of distances from start to all destinations
+    //Call checkDistance function which returns a promise containing array of distances from start to all destinations
     checkDistance().then(function(data) {
 
       //Loop through clinicData, using the clinic index to check drive distance returned by the Promise

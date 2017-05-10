@@ -192,12 +192,7 @@ ul.disc>li {
 }
 
 /************ Scholarship Page Table Overrides ************/
-
-#scholarshipTable .ms-v2,
-#scholarshipTable .ms-vh2 {
-  color: #fff;
-}
-
+x
 #pageContent #scholarshipTable table.ms-listviewtable td.ms-vb2 {
   border-bottom: 1px solid #e1e1e1;
 }
@@ -206,29 +201,14 @@ ul.disc>li {
   padding: 1.15rem .5rem .5rem 1rem
 }
 
-#scholarshipTable table.ms-listviewtable tr:nth-child(2n),
-#scholarshipTable .ms-alternating {
-  background: #fff;
-}
-
 /************ Table Style Overrides ************/
 
-table[summary="amc-cusna-officers "] th.ms-vh2,
-table[summary="Application Deadlines "] th.ms-vh2,
-table[summary="direct-primary-pricing "] th.ms-vh2,
-table[summary="psych-np-pricing "] th.ms-vh2,
-table[summary="social-worker-psych-pricing "] th.ms-vh2,
-table[summary="south-denver-cusna-officers "] th.ms-vh2 {
+th.ms-vh2 {
   color: #fff;
   padding-left: 5px;
 }
 
-table[summary="amc-cusna-officers "] .ms-alternating,
-table[summary="Application Deadlines "] .ms-alternating,
-table[summary="direct-primary-pricing "] .ms-alternating,
-table[summary="psych-np-pricing "] .ms-alternating,
-table[summary="social-worker-psych-pricing "] .ms-alternating,
-table[summary="south-denver-cusna-officers "] .ms-alternating {
+.ms-alternating {
   background-color: #fff;
 }
 

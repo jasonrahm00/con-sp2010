@@ -45,6 +45,7 @@ gulp.task('pulse', function() {
 
 gulp.task('locator-scripts', function() {
   gulp.src('dev/clinic-locator/locator-scripts.js')
+    .pipe(uglify())
     .pipe(rename('local.js'))
     .pipe(gulp.dest('dist/clinic-locator'))
 });

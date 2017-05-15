@@ -1,6 +1,6 @@
 
 //Test Data for local development
-var clinics = [
+const clinics = [
   {
     name: 'Anschutz Campus Health Center',
     address: '12348 E. Montview Blvd. | 2nd Floor',
@@ -78,7 +78,7 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var cityState, filterResults, geocoder, infoWindow, locationContent, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, oldRadius, oldStart, resultCount, searchLat, searchLatLong, searchLong, searchRadius, searchResults,
+  var cityState, geocoder, infoWindow, locationContent, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, searchLat, searchLatLong, searchLong,
       allLatLongs = [],
       autoExpandRadius = false,
       dataLoaded = false,
@@ -94,7 +94,8 @@ $(document).ready(function() {
       singleMapPoint = false,
       startLocation = '',
       clinicData = [];
-      //clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
+  
+  //const clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
@@ -314,20 +315,6 @@ $(document).ready(function() {
   function setSearchRadius() {
     return Number($('#searchRadius').val());
   }
-
-
-  //Check to see if each location is within the search radius
-      //Push to filterResults array if it is
-  function radiusCheck() {
-    filterResults = [];
-    
-    $.each(clinicData, function(index, value) {
-      if(value.driveMiles <= searchRadius) {
-        filterResults.push(value);
-      }
-    });
-    
-  }
   
   //Display error codes using errorCodse variable index
   function displayError(errorCodeIndex) {
@@ -349,6 +336,7 @@ $(document).ready(function() {
   
   /************************** Filter Search Function **************************/
 
+  /*
   function initiateSearch() {
     oldRadius = searchRadius;
     oldStart = startLocation;
@@ -366,7 +354,6 @@ $(document).ready(function() {
       
     } else if(oldStart === startLocation && oldRadius !== searchRadius) {
       
-      radiusCheck();
       if(resultCount !== filterResults.length) {
         
         addSpinner();
@@ -392,6 +379,18 @@ $(document).ready(function() {
       
     }
   }
+*/
+  
+  function initiateSearch() {
+
+    resetValues();
+    addSpinner();
+    
+    setTimeout(function() {
+      let startLocation = $('#searchInput').val();
+      geoCodeFilter(startLocation);
+    }, minSpinTimer)
+  }
   
   $('#filterSearch').click(function() {
     initiateSearch();
@@ -404,67 +403,6 @@ $(document).ready(function() {
     }
   });
 
-  function resetInputs() {
-    $('#errorMessage').html('&nbsp;');
-    $('#searchInput').val('');
-    $('#searchRadius').val('5');
-  }
-  
-/*
-  //Reset filter button event handler resets data on page
-  $('#resetFilter').click(function() {
-    //Initial if/else test determines whether a search has been based on driveMiles
-    if(clinicData[0].driveMiles === null) {
-      resetInputs();
-    } else if(!searchCount){
-      resetInputs();
-    } else {
-      
-      //Reset everything to default initial values
-      $.each(clinicData, function(index, value) {
-        value.driveMiles = null;
-      });
-      
-      //Resort clinics so they display alphabetically
-      alphaClinics();
-      
-      searchCount = 0;
-      resetValues();
-      oldStart = undefined;
-      startLocation = '';
-      autoExpandRadius = false;
-      cleanContainer();
-      resetInputs();
-
-      //Repaint the page
-      createClinicCards(clinicData);
-      initMap(clinicData);
-      
-    }    
-  });
-*/
-  
-  /************************** Search by Browser Geo Location **************************/
-  //Not available on SharePoint 2010 site
-    //Site must be served over secure connection (https) for geolocation api to work
-  /*
-  function showPosition(position) {
-    searchLat = position.coords.latitude;
-    searchLong = position.coords.longitude;
-    searchLatLong = new google.maps.LatLng(searchLat, searchLong);
-    filterClinics();
-  }
-  
-  $('#geoSearch button').click(function() {
-    resetValues();
-    searchRadius = setSearchRadius();
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      $('#errorMessage').html(errorCodes[2]);
-    }
-  });
-  */
   
   
   /************************** Dependant Search Functions **************************/
@@ -502,39 +440,57 @@ $(document).ready(function() {
   //Displays results of filter
   function displayResults() {
       
-      cleanContainer();
+    var searchRadius = setSearchRadius();  
+//    var oldRadius = searchRadius;
+//    var oldStart = startLocation;
+   
     
-      //Sort results so the closest is listed first in object array
-      clinicData.sort(function(a,b) {
-        return (a.driveMiles - b.driveMiles);
-      });
+    resultCount = 0;
+    
+    cleanContainer();
 
-      if(filterResults.length === 0) {
-        //If there are no clinics within given parameters of start location and search radius
-          //The closest clinic is added to the page and map along with messaging saying as much
-
-        resultCount = 1;
-        displayCount();
-
-        autoExpandRadius = true;
-
-        //Display single clinic on page, the closest one to the entered parameters
-          //Since clinic data is sorted by distance, the first in the array is the closest
-        createClinicCards([clinicData[0]]);      
-        initMap([clinicData[0]]);
-
-      } else {
-
-        resultCount = countResults(filterResults);
-        displayCount();
-
-        autoExpandRadius = false;
-        //Re-Add clinic cards to page and include drive distance from start to destination
-        createClinicCards(filterResults);
-
-        //Reinitiate the map to include only the filter results and searchLocation
-        initMap(filterResults);
+    //Sort results so the closest is listed first in object array
+    clinicData.sort(function(a,b) {
+      return (a.driveMiles - b.driveMiles);
+    });
+    
+    $.each(clinicData, function(index, value) {
+      if(value.driveMiles <= searchRadius) {
+        resultCount++
       }
+    });
+    
+    console.log(clinicData.slice(0,resultCount));
+    
+    let filterResults = clinicData.slice(0,resultCount);
+    
+    createClinicCards(filterResults);
+    initMap(filterResults);
+      
+    
+//    if (resultCount === 0) {
+//      resultCount = 1;
+//      displayCount()
+//      autoExpand = true;
+//      
+//      //Display single clinic on page, the closest one to the entered parameters
+//          //Since clinic data is sorted by distance, the first in the array is the closest
+//      createClinicCards([clinicData[0]]);      
+//      initMap([clinicData[0]]);
+//      
+//    } else {
+//      
+//      let filterResults = clinicData[0..resultCount - 1];
+//      displayCount();
+//
+//      autoExpandRadius = false;
+//      
+//      //Re-Add clinic cards to page and include drive distance from start to destination
+//      createClinicCards(filterResults);
+//
+//      //Reinitiate the map to include only the filter results and searchLocation
+//      initMap(filterResults);
+//    }
     
   }
   
@@ -593,7 +549,6 @@ $(document).ready(function() {
       });
 
       //Display results is called to re-paint the content and map to show only results of the search
-      radiusCheck();
       displayResults();
       searchCount++;
       

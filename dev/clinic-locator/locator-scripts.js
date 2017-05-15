@@ -83,22 +83,20 @@ $(document).ready(function() {
       dataLoaded = false,
       dataLoadError = false,
       searchCount = 0,
-      singleMapPoint = false;
-  
-  const clinicData = [],
-        errorCodes = [
-        "Enter a city or zip code",
-        "Enter Colorado city or zip code",
-        "No change in results",
-        "Enter new parameters"
-        ],
-        minSpinTimer = 1000;
-  
-  let resultCount = 0,
+      singleMapPoint = false,
+      clinicData = [],
+      errorCodes = [
+      "Enter a city or zip code",
+      "Enter Colorado city or zip code",
+      "No change in results",
+      "Enter new parameters"
+      ],
+      minSpinTimer = 1000,
+      resultCount = 0,
       searchRadius = 5,
       startLocation = '';
   
-  const clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
+  var clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
@@ -194,7 +192,7 @@ $(document).ready(function() {
   function createClinicCards(clinicArray) {
     $.each(clinicArray, function(index, value) {
 
-      let locationContent = '<div><a href="' + value.mapUrl + '" target="_blank">' + value.address + '<br>' + value.cityStateZip + '</a><span>' + value.phone + '</span><a href="' + value.pageUrl + '">Visit Clinic Page</a></div>'
+      var locationContent = '<div><a href="' + value.mapUrl + '" target="_blank">' + value.address + '<br>' + value.cityStateZip + '</a><span>' + value.phone + '</span><a href="' + value.pageUrl + '">Visit Clinic Page</a></div>'
         
       $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + locationContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section>' + showDriveMiles(value) + '</section>');
     });
@@ -226,7 +224,7 @@ $(document).ready(function() {
   
   function initMap(mapData) {
     
-    let allLatLongs = [];
+    var allLatLongs = [];
     
     map = new google.maps.Map(document.getElementById('clinicMap'), {
       center: new google.maps.LatLng(39.7392, -104.9903), //The default center is the geographical center Denver
@@ -270,7 +268,7 @@ $(document).ready(function() {
     
     function setMarkerContent() {
       if(location.name === "Search Location") {
-        let startLocation = $('#searchInput').val();
+        var startLocation = $('#searchInput').val();
         return '<div class="marker-info"><strong>' + location.name + '</strong><span>"' + startLocation + '"</span></div>';
       } else {
         return '<div class="marker-info"><span class="marker-header">' + location.name + '</span><a href="' + location.mapUrl + '" target="_blank">' + location.address + '<br>' + location.cityStateZip + '</a><span>'  + location.phone + '</span>' + location.hours + '<a href="' + location.pageUrl + '">Visit Clinic Page</a></div>';
@@ -337,7 +335,7 @@ $(document).ready(function() {
   /************************** Filter Search Function **************************/
   
   function countResults() {
-    let count = 0;
+    var count = 0;
     $.each(clinicData, function(index, value) {
       if(value.driveMiles <= searchRadius) {
         count++;
@@ -348,8 +346,8 @@ $(document).ready(function() {
   
   function initiateSearch() {
     
-    let oldRadius = searchRadius;
-    let oldStart = startLocation;
+    var oldRadius = searchRadius;
+    var oldStart = startLocation;
     searchRadius = Number($('#searchRadius').val());
     startLocation = $('#searchInput').val();
     
@@ -358,7 +356,7 @@ $(document).ready(function() {
     } else if(oldStart === startLocation && oldRadius === searchRadius) {
       displayError(3);
     } else if(oldStart === startLocation && oldRadius !== searchRadius) {
-      let newResultCount = countResults();
+      var newResultCount = countResults();
       if(newResultCount === resultCount) {
         displayError(2)
       } else {
@@ -429,7 +427,7 @@ $(document).ready(function() {
     cleanContainer();
     
     //Set filterResults equal to slice of sorted array that falls within search radius
-    let filterResults = clinicData.slice(0,resultCount);
+    var filterResults = clinicData.slice(0,resultCount);
 
     if(resultCount === 0) {
       autoExpandRadius = true;

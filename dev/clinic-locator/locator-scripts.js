@@ -1,4 +1,4 @@
-/*
+
 //Test Data for local development
 var clinics = [
   {
@@ -67,7 +67,7 @@ var clinics = [
     latLong: ''
   }
 ];
-*/
+
 
 
 /**************************************************************************
@@ -93,15 +93,15 @@ $(document).ready(function() {
       searchCount = 0,
       singleMapPoint = false,
       startLocation = '',
-      clinicData = [],
-      clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
+      clinicData = [];
+      //clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
   $('#locationFilter button').attr('type', 'button');
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
-/*
+
   //Used to load test data
   function getData(clinic) {
     return {
@@ -119,7 +119,7 @@ $(document).ready(function() {
       driveMiles: null
     }
   }
-*/
+
   //Function to be called whenever the array needs to be sorted alphabetically
     //Takes the array variable and sort property key as inputs
   function alphaClinics() {
@@ -135,7 +135,7 @@ $(document).ready(function() {
   function displayCount() {
     $('#resultCount').html('Results: ' + resultCount);
   }
-
+/*
   //Returns an object with data loaded from the table cells
   function getData(tableRow) {
   
@@ -155,7 +155,7 @@ $(document).ready(function() {
     }
     
   }
-
+*/
   //Perform try/catch test to make sure data loads properly, if it doesn't the "Clinics Loading" message will remain and the page will stop loading
   try {
     getData(clinics[0]);
@@ -178,9 +178,9 @@ $(document).ready(function() {
       return '';
     } else {
       if(!autoExpandRadius) {
-        return clinic.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + clinic.driveMiles + ' miles</p></div>' : '';
+        return '<div class="drive-miles"><p>Approximate Distance: ' + clinic.driveMiles + (clinic.driveMiles === 1 ? ' mile' : ' miles') + '</p></div>';
       } else {
-        return clinic.driveMiles ? '<div class="drive-miles"><p>Approximate Distance: ' + clinic.driveMiles + ' miles</p><p><em>No clinics were found within your search parameters. The closest is listed above.</em></p></div>' : '';
+        return '<div class="drive-miles"><p>Approximate Distance: ' + clinic.driveMiles + ' miles</p><p><em>No clinics were found within your search parameters. The closest is listed above.</em></p></div>';
       }
     }    
   }
@@ -236,8 +236,8 @@ $(document).ready(function() {
     
     //Add Start Location marker to page at the search lat long
     
-    //var startIcon = "star-icon.png"; //Local path for localhost testing
-    var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
+    var startIcon = "star-icon.png"; //Local path for localhost testing
+    //var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
     searchLatLong ? (setMarkers(map, ({name: "Search Location"}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData
@@ -410,6 +410,7 @@ $(document).ready(function() {
     $('#searchRadius').val('5');
   }
   
+/*
   //Reset filter button event handler resets data on page
   $('#resetFilter').click(function() {
     //Initial if/else test determines whether a search has been based on driveMiles
@@ -440,7 +441,8 @@ $(document).ready(function() {
       initMap(clinicData);
       
     }    
-  })
+  });
+*/
   
   /************************** Search by Browser Geo Location **************************/
   //Not available on SharePoint 2010 site
@@ -523,7 +525,7 @@ $(document).ready(function() {
 
       } else {
 
-        resultCont = countResults(filterResults);
+        resultCount = countResults(filterResults);
         displayCount();
 
         autoExpandRadius = false;

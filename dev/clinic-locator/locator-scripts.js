@@ -1,4 +1,4 @@
-
+/*
 //Test Data for local development
 const clinics = [
   {
@@ -67,7 +67,7 @@ const clinics = [
     latLong: ''
   }
 ];
-
+*/
 
 
 /**************************************************************************
@@ -98,14 +98,14 @@ $(document).ready(function() {
       searchRadius = 5,
       startLocation = '';
   
-  //const clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
+  const clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
   $('#locationFilter button').attr('type', 'button');
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
-
+/*
   //Used to load test data
   function getData(clinic) {
     return {
@@ -123,7 +123,7 @@ $(document).ready(function() {
       driveMiles: null
     }
   }
-
+*/
   //Function to be called whenever the array needs to be sorted alphabetically
     //Takes the array variable and sort property key as inputs
   function alphaClinics() {
@@ -135,7 +135,7 @@ $(document).ready(function() {
   function displayCount(x) {
     $('#resultCount').html('Results: ' + x);
   }
-/*
+
   //Returns an object with data loaded from the table cells
   function getData(tableRow) {
   
@@ -155,7 +155,7 @@ $(document).ready(function() {
     }
     
   }
-*/
+
   //Perform try/catch test to make sure data loads properly, if it doesn't the "Clinics Loading" message will remain and the page will stop loading
   try {
     getData(clinics[0]);
@@ -164,7 +164,7 @@ $(document).ready(function() {
     dataLoadError = true;
     console.log(err);
   }
-  
+
   if(!dataLoadError) {
     $.each(clinics, function(index, value) {
       clinicData.push(getData(value));
@@ -240,8 +240,8 @@ $(document).ready(function() {
     
     //Add Start Location marker to page at the search lat long
     
-    var startIcon = "star-icon.png"; //Local path for localhost testing
-    //var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
+    //var startIcon = "star-icon.png"; //Local path for localhost testing
+    var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
     searchLatLong ? (setMarkers(map, ({name: "Search Location"}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData

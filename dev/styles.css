@@ -40,6 +40,15 @@ ul.disc>li {
   list-style-type: disc !important;
 }
 
+ul.no-bullets {
+  list-style-type: none !important;
+}
+
+ul.no-left-margin,
+ul.no-left-margin>li {
+  margin-left: 0 !important;
+}
+
 .after-apply {
   display: table-row;
 }

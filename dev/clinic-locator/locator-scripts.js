@@ -78,22 +78,25 @@ $(document).ready(function() {
   
   /*************************** Initial Variable Declarations ***************************/
   
-  var cityState, geocoder, infoWindow, locationContent, map, miles, mapBounds, mapDistanceMatrix, matrixDestinations, searchLat, searchLatLong, searchLong,
-      allLatLongs = [],
+  var cityState, geocoder, infoWindow, map, mapBounds, mapDistanceMatrix, matrixDestinations, searchLat, searchLatLong, searchLong,
       autoExpandRadius = false,
       dataLoaded = false,
       dataLoadError = false,
-      errorCodes = [
+      searchCount = 0,
+      singleMapPoint = false;
+  
+  const clinicData = [],
+        errorCodes = [
         "Enter a city or zip code",
         "Enter Colorado city or zip code",
         "No change in results",
         "Enter new parameters"
-      ],
-      minSpinTimer = 1000,
-      searchCount = 0,
-      singleMapPoint = false,
-      startLocation = '',
-      clinicData = [];
+        ],
+        minSpinTimer = 1000;
+  
+  let resultCount = 0,
+      searchRadius = 5,
+      startLocation = '';
   
   //const clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
   
@@ -129,12 +132,8 @@ $(document).ready(function() {
     });
   }
   
-  function countResults(x) {
-    resultCount = x.length;
-  } 
-  
-  function displayCount() {
-    $('#resultCount').html('Results: ' + resultCount);
+  function displayCount(x) {
+    $('#resultCount').html('Results: ' + x);
   }
 /*
   //Returns an object with data loaded from the table cells
@@ -175,9 +174,15 @@ $(document).ready(function() {
   
   //Take location info from table, create object for each location and push to data array
   function showDriveMiles(clinic) {
+
     if(clinic.driveMiles === null) {
       return '';
     } else {
+      //Round drive miles to nearest whole number or decimal place for results less than one mile
+      $.each(clinicData, function(index, value) {
+        value.driveMiles = value.driveMiles > 1 ? Math.round(value.driveMiles) : Math.round(value.driveMiles * 10) / 10;
+      });
+      
       if(!autoExpandRadius) {
         return '<div class="drive-miles"><p>Approximate Distance: ' + clinic.driveMiles + (clinic.driveMiles === 1 ? ' mile' : ' miles') + '</p></div>';
       } else {
@@ -185,11 +190,11 @@ $(document).ready(function() {
       }
     }    
   }
-  
+
   function createClinicCards(clinicArray) {
     $.each(clinicArray, function(index, value) {
 
-      locationContent = '<div><a href="' + value.mapUrl + '" target="_blank">' + value.address + '<br>' + value.cityStateZip + '</a><span>' + value.phone + '</span><a href="' + value.pageUrl + '">Visit Clinic Page</a></div>'
+      let locationContent = '<div><a href="' + value.mapUrl + '" target="_blank">' + value.address + '<br>' + value.cityStateZip + '</a><span>' + value.phone + '</span><a href="' + value.pageUrl + '">Visit Clinic Page</a></div>'
         
       $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + locationContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section>' + showDriveMiles(value) + '</section>');
     });
@@ -212,9 +217,7 @@ $(document).ready(function() {
   //Create individual <sections> for each location and append them to the now clean container
   createClinicCards(clinicData);  
   
-  countResults(clinicData);
-  
-  displayCount();
+  displayCount(clinicData.length);
   
   
   /**************************************************************************
@@ -223,7 +226,7 @@ $(document).ready(function() {
   
   function initMap(mapData) {
     
-    allLatLongs = [];
+    let allLatLongs = [];
     
     map = new google.maps.Map(document.getElementById('clinicMap'), {
       center: new google.maps.LatLng(39.7392, -104.9903), //The default center is the geographical center Denver
@@ -267,6 +270,7 @@ $(document).ready(function() {
     
     function setMarkerContent() {
       if(location.name === "Search Location") {
+        let startLocation = $('#searchInput').val();
         return '<div class="marker-info"><strong>' + location.name + '</strong><span>"' + startLocation + '"</span></div>';
       } else {
         return '<div class="marker-info"><span class="marker-header">' + location.name + '</span><a href="' + location.mapUrl + '" target="_blank">' + location.address + '<br>' + location.cityStateZip + '</a><span>'  + location.phone + '</span>' + location.hours + '<a href="' + location.pageUrl + '">Visit Clinic Page</a></div>';
@@ -312,10 +316,6 @@ $(document).ready(function() {
     zip = '';
   }
   
-  function setSearchRadius() {
-    return Number($('#searchRadius').val());
-  }
-  
   //Display error codes using errorCodse variable index
   function displayError(errorCodeIndex) {
     $('#resultCount').html('');
@@ -335,61 +335,46 @@ $(document).ready(function() {
   }
   
   /************************** Filter Search Function **************************/
-
-  /*
+  
+  function countResults() {
+    let count = 0;
+    $.each(clinicData, function(index, value) {
+      if(value.driveMiles <= searchRadius) {
+        count++;
+      }
+    });
+    return count;
+  }
+  
   function initiateSearch() {
-    oldRadius = searchRadius;
-    oldStart = startLocation;
-    searchRadius = setSearchRadius();
+    
+    let oldRadius = searchRadius;
+    let oldStart = startLocation;
+    searchRadius = Number($('#searchRadius').val());
     startLocation = $('#searchInput').val();
     
     if(startLocation === '') {
-      
       displayError(0);
-      
     } else if(oldStart === startLocation && oldRadius === searchRadius) {
-      
       displayError(3);
-      return
-      
     } else if(oldStart === startLocation && oldRadius !== searchRadius) {
-      
-      if(resultCount !== filterResults.length) {
-        
-        addSpinner();
-
-        //set timeout before next function call so spinner is visible
-        setTimeout(function() {
-          displayResults()
-        }, minSpinTimer)
+      let newResultCount = countResults();
+      if(newResultCount === resultCount) {
+        displayError(2)
       } else {
-        
-        displayError(2);
-        
+        resultCount = newResultCount;
+        addSpinner();        
+        setTimeout(function() {
+          displayResults();
+        }, minSpinTimer)
       }
     } else {
-      
       resetValues();
       addSpinner();
-      
-      //set timeout before next function call so spinner is visible
       setTimeout(function() {
         geoCodeFilter(startLocation);
       }, minSpinTimer)
-      
     }
-  }
-*/
-  
-  function initiateSearch() {
-
-    resetValues();
-    addSpinner();
-    
-    setTimeout(function() {
-      let startLocation = $('#searchInput').val();
-      geoCodeFilter(startLocation);
-    }, minSpinTimer)
   }
   
   $('#filterSearch').click(function() {
@@ -418,7 +403,7 @@ $(document).ready(function() {
           origins: [searchLatLong],
           destinations: matrixDestinations,
           travelMode: google.maps.TravelMode.DRIVING,
-          unitSystem: google.maps.UnitSystem.IMPERIAL, //Convert distance units to miles
+          unitSystem: google.maps.UnitSystem.IMPERIAL,
           avoidHighways: true,
           avoidTolls: false
         }, callback
@@ -439,58 +424,24 @@ $(document).ready(function() {
   
   //Displays results of filter
   function displayResults() {
-      
-    var searchRadius = setSearchRadius();  
-//    var oldRadius = searchRadius;
-//    var oldStart = startLocation;
-   
     
-    resultCount = 0;
-    
+    //Clear out clinic card container    
     cleanContainer();
-
-    //Sort results so the closest is listed first in object array
-    clinicData.sort(function(a,b) {
-      return (a.driveMiles - b.driveMiles);
-    });
     
-    $.each(clinicData, function(index, value) {
-      if(value.driveMiles <= searchRadius) {
-        resultCount++
-      }
-    });
-    
-    console.log(clinicData.slice(0,resultCount));
-    
+    //Set filterResults equal to slice of sorted array that falls within search radius
     let filterResults = clinicData.slice(0,resultCount);
-    
-    createClinicCards(filterResults);
-    initMap(filterResults);
-      
-    
-//    if (resultCount === 0) {
-//      resultCount = 1;
-//      displayCount()
-//      autoExpand = true;
-//      
-//      //Display single clinic on page, the closest one to the entered parameters
-//          //Since clinic data is sorted by distance, the first in the array is the closest
-//      createClinicCards([clinicData[0]]);      
-//      initMap([clinicData[0]]);
-//      
-//    } else {
-//      
-//      let filterResults = clinicData[0..resultCount - 1];
-//      displayCount();
-//
-//      autoExpandRadius = false;
-//      
-//      //Re-Add clinic cards to page and include drive distance from start to destination
-//      createClinicCards(filterResults);
-//
-//      //Reinitiate the map to include only the filter results and searchLocation
-//      initMap(filterResults);
-//    }
+
+    if(resultCount === 0) {
+      autoExpandRadius = true;
+      createClinicCards([clinicData[0]]);
+      initMap([clinicData[0]]);
+      displayCount(1);
+    } else {
+      autoExpandRadius = false;
+      createClinicCards(filterResults);
+      initMap(filterResults);
+      displayCount(resultCount);
+    }
     
   }
   
@@ -536,17 +487,19 @@ $(document).ready(function() {
 
     //Call checkDistance function which returns a promise containing array of distances from start to all destinations
     checkDistance().then(function(data) {
-
+      
       //Loop through clinicData, using the clinic index to check drive distance returned by the Promise
       $.each(clinicData, function(index, value) {
         //Promise returns drive distance in meters, which needs to be converted to miles to compare against searchRadius 
-        miles = data.rows[0].elements[index].distance.value * 0.000621371;
-        
-        //Drive miles property changed on each clinic
-          //If it is less than a mile away (but greater than 0), two-place decimal value is returned
-        value.driveMiles = miles > 1 ? Math.round(miles) : Math.round(miles * 10) / 10; 
-        
+        value.driveMiles = data.rows[0].elements[index].distance.value * 0.000621371;        
       });
+      
+      //Sort results so the closest is listed first in object array
+      clinicData.sort(function(a,b) {
+        return (a.driveMiles - b.driveMiles);
+      });
+
+      resultCount = countResults();
 
       //Display results is called to re-paint the content and map to show only results of the search
       displayResults();

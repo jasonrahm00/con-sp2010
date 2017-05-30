@@ -1,4 +1,4 @@
-
+/*
 //Test Data for local development
 var clinics = [
   {
@@ -67,7 +67,7 @@ var clinics = [
     latLong: ''
   }
 ];
-
+*/
 
 /**************************************************************************
                   Custom Clinic Locator Logic ~jrahm
@@ -95,7 +95,7 @@ $(document).ready(function() {
       searchRadius = 5,
       startLocation = '';
   
-  //var clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
+  var clinics = $('table[summary="clinic-locations "] tr').not($('table[summary="clinic-locations "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
@@ -132,7 +132,6 @@ $(document).ready(function() {
     $('#resultCount').html('Results: ' + x);
   }
 
-  /*
   //Returns an object with data loaded from the table cells
   function getData(tableRow) {
   
@@ -152,7 +151,6 @@ $(document).ready(function() {
     }
     
   }
-*/
   
   //Perform try/catch test to make sure data loads properly, if it doesn't the "Clinics Loading" message will remain and the page will stop loading
   try {
@@ -248,8 +246,8 @@ $(document).ready(function() {
     
     //Add Start Location marker to page at the search lat long
     
-    var startIcon = "star-icon.png"; //Local path for localhost testing
-    //var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
+    //var startIcon = "star-icon.png"; //Local path for localhost testing
+    var startIcon = "/academics/colleges/nursing/Documents/Styles_Scripts/clinic-locator/star-icon.png"
     searchLatLong ? (setMarkers(map, ({name: "Search Location"}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData

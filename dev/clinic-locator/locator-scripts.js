@@ -1,12 +1,12 @@
-/*
+
 //Test Data for local development
-const clinics = [
+var clinics = [
   {
     name: 'Anschutz Campus Health Center',
     address: '12348 E. Montview Blvd. | 2nd Floor',
     cityStateZip: 'Aurora, CO 80045',
     phone: '303-724-6242',
-    pageUrl: '/academics/colleges/nursing/clinical-practice-community/PatientServices/CHC/Pages/default.aspx',
+    pageUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/CHC/Pages/default.aspx',
     mapUrl: 'https://goo.gl/maps/2tJeYvNkWoQ2',
     services: '<ul><li>Behavioral and Counseling Services</li><li>Flu Shots</li><li>Physical and General Services</li></ul>',
     hours: '<ul><li>7am - 7pm (Weekdays)</li><li>9am - 1pm (Sat)</li></ul>',
@@ -19,7 +19,7 @@ const clinics = [
     address: '5495 Arapahoe Ave',
     cityStateZip: 'Boulder, CO 80303',
     phone: '720-494-3128',
-    pageUrl: '/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx',
+    pageUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx',
     mapUrl: 'https://goo.gl/maps/cZvaqSVZf6v',
     services: '<ul><li>Annual Gynecologic Exams</li><li>Breastfeeding Consultation</li><li>Family Planning</li><li>Gynecologic Care</li><li>Labor and Birth</li><li>Labor Support</li><li>Nitrous Oxide</li><li>Preconception Counseling</li><li>Prenatal Care</li><li>Postpartum Care</li><li>Vaginal Birth after Cesarean Section</li><li>Water Birth</li></ul>',
     hours: '<ul><li>8am - 5pm (Mon &amp; Thur)</li></ul>',
@@ -32,7 +32,7 @@ const clinics = [
     address: '5001 S. Parker Rd. | Suite 215',
     cityStateZip: 'Aurora, CO 80015',
     phone: '303-315-6200',
-    pageUrl: '#',
+    pageUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/HCPBelleview/Pages/default.aspx',
     mapUrl: 'https://goo.gl/maps/DwoP1WDhDCx',
     services: '',
     hours: '',
@@ -45,7 +45,7 @@ const clinics = [
     address: '8111 East Lowry Blvd | Suite 120',
     cityStateZip: 'Denver, CO 80230',
     phone: '720-848-1700',
-    pageUrl: '#',
+    pageUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx',
     mapUrl: 'https://goo.gl/maps/HvoHh9VQwvP2',
     services: '',
     hours: '',
@@ -58,7 +58,7 @@ const clinics = [
     address: '3525 West Oxford Ave. | Unit G3',
     cityStateZip: 'Denver, CO 80236',
     phone: '303-315-6150',
-    pageUrl: '#',
+    pageUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Sheridan/Pages/Home.aspx',
     mapUrl: 'https://goo.gl/maps/abmfwEYtD8B2',
     services: '',
     hours: '',
@@ -67,7 +67,6 @@ const clinics = [
     latLong: ''
   }
 ];
-*/
 
 
 /**************************************************************************
@@ -96,14 +95,13 @@ $(document).ready(function() {
       searchRadius = 5,
       startLocation = '';
   
-  var clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
+  //var clinics = $('table[summary="clinic-locations-2 "] tr').not($('table[summary="clinic-locations-2 "] tr.ms-viewheadertr.ms-vhltr'));
   
   //Since SharePoint 2010 sucks and reloads the page whenever a button is clicked and strips out any attributes, extra crap is needed to make the search function work
     //A click event could be called on another element, but a button is best for accessibility purposes
   $('#locationFilter button').attr('type', 'button');
   
   /*************************** Get Data from Sharepoint Table on Page ***************************/
-/*
   //Used to load test data
   function getData(clinic) {
     return {
@@ -121,7 +119,7 @@ $(document).ready(function() {
       driveMiles: null
     }
   }
-*/
+
   //Function to be called whenever the array needs to be sorted alphabetically
     //Takes the array variable and sort property key as inputs
   function alphaClinics() {
@@ -134,6 +132,7 @@ $(document).ready(function() {
     $('#resultCount').html('Results: ' + x);
   }
 
+  /*
   //Returns an object with data loaded from the table cells
   function getData(tableRow) {
   
@@ -153,7 +152,8 @@ $(document).ready(function() {
     }
     
   }
-
+*/
+  
   //Perform try/catch test to make sure data loads properly, if it doesn't the "Clinics Loading" message will remain and the page will stop loading
   try {
     getData(clinics[0]);
@@ -192,15 +192,18 @@ $(document).ready(function() {
   function createClinicCards(clinicArray) {
     $.each(clinicArray, function(index, value) {
 
-      var locationContent = '<div><a href="' + value.mapUrl + '" target="_blank">' + value.address + '<br>' + value.cityStateZip + '</a><span>' + value.phone + '</span><a href="' + value.pageUrl + '">Visit Clinic Page</a></div>'
+      var locationContent = '<div><a href="' + value.mapUrl + '" target="_blank">' + value.address + '<br>' + value.cityStateZip + '</a><span>' + value.phone + '</span><a class="location-page-link" href="' + value.pageUrl + '">Visit Clinic Page</a></div>'
         
       $('#clinicLocations').append('<section class="clinic-card"><h2>' + value.name + '</h2><section class="location"><h3>Location</h3>' + locationContent + '</section><section class="services"><h3>Services</h3>' + value.services + '</section><section class="hours"><h3>Hours</h3>' + value.hours + '</section>' + showDriveMiles(value) + '</section>');
     });
   }
 
+
+
   
-  
-  /*************************** Re-Add Location Info to Page ***************************/
+  /**************************************************************************
+                  Add Location Info to Page
+  **************************************************************************/
   
   //Remove extraneous nested table code that SharePoint creates so there is a clean slate to manipulate the page
   function cleanContainer() {
@@ -217,6 +220,13 @@ $(document).ready(function() {
   
   displayCount(clinicData.length);
   
+  
+  function resetInputs() {
+    $('#searchInput').val('');
+    $('#seachRadius').find('option:first').attr('selected', 'true');
+  }
+  
+  resetInputs();
   
   /**************************************************************************
                           Load gMap and Markers
@@ -238,8 +248,8 @@ $(document).ready(function() {
     
     //Add Start Location marker to page at the search lat long
     
-    //var startIcon = "star-icon.png"; //Local path for localhost testing
-    var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
+    var startIcon = "star-icon.png"; //Local path for localhost testing
+    //var startIcon = "../Documents/Styles_Scripts/clinic-locator/star-icon.png"
     searchLatLong ? (setMarkers(map, ({name: "Search Location"}), startIcon, searchLatLong), allLatLongs.push(searchLatLong)) : '';
     
     //Iterate over each object in clinicData
@@ -271,7 +281,7 @@ $(document).ready(function() {
         var startLocation = $('#searchInput').val();
         return '<div class="marker-info"><strong>' + location.name + '</strong><span>"' + startLocation + '"</span></div>';
       } else {
-        return '<div class="marker-info"><span class="marker-header">' + location.name + '</span><a href="' + location.mapUrl + '" target="_blank">' + location.address + '<br>' + location.cityStateZip + '</a><span>'  + location.phone + '</span>' + location.hours + '<a href="' + location.pageUrl + '">Visit Clinic Page</a></div>';
+        return '<div class="marker-info"><span class="marker-header">' + location.name + '</span><a href="' + location.mapUrl + '" target="_blank">' + location.address + '<br>' + location.cityStateZip + '</a><span>'  + location.phone + '</span>' + location.hours + '<a class="location-page-link" href="' + location.pageUrl + '">Visit Clinic Page</a></div>';
       }
     }
     
@@ -300,7 +310,6 @@ $(document).ready(function() {
   initMap(clinicData);
 
   
-  
   /**************************************************************************
                           Location Filtering
   **************************************************************************/
@@ -311,7 +320,6 @@ $(document).ready(function() {
     searchLat = '';
     searchLatLong = '';
     searchLong = '';
-    zip = '';
   }
   
   //Display error codes using errorCodse variable index
@@ -324,12 +332,6 @@ $(document).ready(function() {
   function addSpinner() {
     $('#errorMessage').html('');
     $('#clinicLocations').html('<div class="location-container-message"><div class="spinner"></div></div>');
-  }
-  
-  function spinTimer(nextFunction) {
-    setTimeout(function() {
-      nextFunction;
-    }, minSpinTimer)
   }
   
   /************************** Filter Search Function **************************/
@@ -345,7 +347,6 @@ $(document).ready(function() {
   }
   
   function initiateSearch() {
-    
     var oldRadius = searchRadius;
     var oldStart = startLocation;
     searchRadius = Number($('#searchRadius').val());
@@ -419,6 +420,8 @@ $(document).ready(function() {
     });
 
   }
+  
+
   
   //Displays results of filter
   function displayResults() {
@@ -508,7 +511,7 @@ $(document).ready(function() {
       console.error(err);
     });
   }
-
+ 
 
 
   /**************************************************************************

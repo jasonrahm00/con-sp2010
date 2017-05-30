@@ -223,7 +223,7 @@ $(document).ready(function() {
   
   function resetInputs() {
     $('#searchInput').val('');
-    $('#seachRadius').find('option:first').attr('selected', 'true');
+    $('#searchRadius').val('5');
   }
   
   resetInputs();

@@ -141,10 +141,6 @@ ul.no-left-margin>li {
   float: right;
 }
 
-.full-width {
-  width: 100%;
-}
-
 .gold-background {
   background: #cfb87c;
 }
@@ -201,7 +197,7 @@ ul.no-left-margin>li {
 }
 
 /************ Scholarship Page Table Overrides ************/
-x
+
 #pageContent #scholarshipTable table.ms-listviewtable td.ms-vb2 {
   border-bottom: 1px solid #e1e1e1;
 }
@@ -540,53 +536,112 @@ h3.ui-accordion-header:hover,
 }
 
 .margin-vertical-large {
-  margin: 5rem 0;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
 }
 
 .margin-vertical-medium {
-  margin: 3rem 0;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
 }
 
 .margin-vertical-small {
-  margin: 2rem 0;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
-.margin-vertical-x-small {
-  margin: 1rem 0;
+.no-margin {
+  margin: 0;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.no-margin-horizontal {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.no-margin-left {
+  margin-left: 0;
+}
+
+.no-margin-right {
+  margin-right: 0;
+}
+
+.no-margin-top {
+  margin-top: 0;
+}
+
+.no-margin-vertical {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /******************** Padding ********************/
 
+.no-padding {
+  padding: 0;
+}
+
+.no-padding-bottom {
+  padding-bottom: 0;
+}
+
+.no-padding-horizontal {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.no-padding-right {
+  padding-right: 0;
+}
+
+.no-padding-top {
+  padding-top: 0;
+}
+
+.no-padding-vertical {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .padding-bottom-large {
-  padding-bottom: 5rem;
+  margin-bottom: 5rem;
 }
 
 .padding-bottom-medium {
-  padding-bottom: 3rem;
+  margin-bottom: 3rem;
 }
 
 .padding-bottom-small {
-  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .padding-bottom-x-small {
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .padding-left-small {
-  padding-left: 2rem;
+  margin-left: 2rem;
 }
 
 .padding-left-x-small {
-  padding-left: 1rem;
+  margin-left: 1rem;
 }
 
 .padding-right-small {
-  padding-right: 2rem;
+  margin-right: 2rem;
 }
 
 .padding-right-x-small {
-  padding-right: 1rem;
+  margin-right: 1rem;
 }
 
 .padding-small {
@@ -594,37 +649,99 @@ h3.ui-accordion-header:hover,
 }
 
 .padding-top-large {
-  padding-top: 5rem;
+  margin-top: 5rem;
 }
 
 .padding-top-medium {
-  padding-top: 3rem;
+  margin-top: 3rem;
 }
 
 .padding-top-small {
-  padding-top: 2rem;
+  margin-top: 2rem;
 }
 
 .padding-top-x-small {
-  padding-top: 1rem;
+  margin-top: 1rem;
 }
 
 .padding-vertical-large {
-  padding: 5rem 0;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
 }
 
 .padding-vertical-medium {
-  padding: 3rem 0;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
 }
 
 .padding-vertical-small {
-  padding: 2rem 0;
-}
-
-.padding-vertical-x-small {
-  padding: 1rem 0;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .padding-x-small {
   padding: 1rem;
+}
+
+
+/**********************************************************
+    
+                  Custom Widths
+
+**********************************************************/
+
+.full-width {
+  width: 100%;
+}
+
+.width-75 {
+  width: 75%;
+}
+
+.width-70 {
+  width: 70%;
+}
+
+.width-65 {
+  width: 65%;
+}
+
+.width-60 {
+  width: 60%;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.width-45 {
+  width: 45%;
+}
+
+.width-40 {
+  width: 40%;
+}
+
+.width-35 {
+  width: 35%;
+}
+
+.width-30 {
+  width: 30%;
+}
+
+.width-25 {
+  width: 25%;
+}
+
+.width-20 {
+  width: 20%;
+}
+
+.width-15 {
+  width: 15%;
+}
+
+.width-10 {
+  width: 10%;
 }

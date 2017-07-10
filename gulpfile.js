@@ -13,16 +13,22 @@ var concat = require('gulp-concat'),
             Individual Tasks
 *********************************************/
 
-gulp.task('event-scripts', function() {
-  gulp.src('dev/events-page/*.js')
+gulp.task('news-scripts', function() {
+  gulp.src('dev/newsroom-subsite/newsroom-scripts.js')
     .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/events'))
+    .pipe(gulp.dest('dist/news'))
 });
 
 gulp.task('event-styles', function() {
-  gulp.src('dev/events-page/*.css')
+  gulp.src('dev/newsroom-subsite/events-page/*.css')
     .pipe(rename('event-styles.txt'))
-    .pipe(gulp.dest('dist/events'))
+    .pipe(gulp.dest('dist/news'))
+});
+
+gulp.task('news-styles', function() {
+  gulp.src('dev/newsroom-subsite/news-room/*.css')
+    .pipe(rename('news-styles.txt'))
+    .pipe(gulp.dest('dist/news'))
 });
 
 gulp.task('homepage-dropdown', function() {

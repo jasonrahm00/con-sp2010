@@ -40,3 +40,8 @@
 #mainContainer {
   width: 712px;
 }
+
+#mainContainer table.ms-listviewtable tr:nth-child(2n),
+#mainContainer .ms-alternating {
+  background: #fff;
+}

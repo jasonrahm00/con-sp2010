@@ -40,12 +40,10 @@ $(document).ready(function() {
   /**************************************************************************
                             Newsroom Scripts
   **************************************************************************/
-  
+
   if(window.location.href.indexOf('news-stories.aspx') > -1) {
-    var dataLoaded = false,
-        dataLoadError = false,
-        storyData = [],
-        months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         newsStories = $('table[summary="News Items "] tr').not($('table[summary="News Items "] tr.ms-viewheadertr.ms-vhltr'));
     
     function getCategories(cellContents) {
@@ -65,51 +63,26 @@ $(document).ready(function() {
         categories: getCategories($(newsTableRow).find('td.ms-vb2:nth-child(4)')[0].textContent)
       }
     }
-    
-    function createStoryCard(story) {
-      var storyCard = '<section class="margin-vertical-small"><h4>' + story.name + '</h4><p><strong>' + story.publishDate + '</strong></p><p>' + story.summary + '</p></section>'
-      $('#newsContainer').append(storyCard);
-    }
-    
-    try {
-      getNewsData(newsStories[0]);
-    }
-    catch(err) {
-      dataLoadError = true;
-      console.log(err);
-    }
 
-    if(!dataLoadError) {
-      $.each(newsStories, function(index, value) {
-        storyData.push(getNewsData(value));
-      });
-      dataLoaded = true;
-    }  
-
-    if(dataLoaded) {
+    $.each(newsStories, function(index, value) {
+      var story = getNewsData(value);
+      $(this).html('<td colspan="4" style="padding: 0;"><div class="margin-bottom-medium"><h4>' + story.name + '</h4><p><strong>' + story.publishDate + '</strong></p><p>' + story.summary + '</p></div></td>');
+    });
       
-      $('#newsContainer').html('');
-      
-      $.each(storyData, function(index, value) {
-        createStoryCard(value);
-      });
-      
-      $('#localNav li a').each(function (index, value) {
-        if(window.location.href.indexOf($(this).attr('href')) > -1) {
-          $(this).parent().addClass('active');
-          if(window.location.href.indexOf('older-news') > -1) {
-            $('#subHeader').text('Archived News');
-          } else {
-            $('#subHeader').text($(this).text());
-          }
+    $('#localNav li a').each(function (index, value) {
+      if(window.location.href.indexOf($(this).attr('href')) > -1) {
+        $(this).parent().addClass('active');
+        if(window.location.href.indexOf('older-news') > -1) {
+          $('#subHeader').text('Archived News');
+        } else {
+          $('#subHeader').text($(this).text());
         }
-      });
-      
-      $('#loadingMessage').remove();
-      $('#newsContainer').removeClass('hidden');
-      
-    }
-    
+      }
+    });
+
+    $('table[summary="News Items "] tr.ms-viewheadertr.ms-vhltr').remove();
+    $('#loadingMessage').remove();
+    $('#newsContainer').removeClass('hidden');
   }
-  
+
 });

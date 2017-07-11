@@ -69,8 +69,17 @@ $(document).ready(function() {
       $(this).html('<td colspan="4" style="padding: 0;"><div class="margin-bottom-medium"><h4>' + story.name + '</h4><p><strong>' + story.publishDate + '</strong></p><p>' + story.summary + '</p></div></td>');
     });
       
+    function getFirstWord(x) {
+      var textString = x.toLowerCase().split(' ');
+      if(textString.length > 1) {
+        return textString[0];
+      } else {
+        return 'older-news';
+      }
+    }
+    
     $('#localNav li a').each(function (index, value) {
-      if(window.location.href.indexOf($(this).attr('href')) > -1) {
+      if(window.location.href.indexOf('FilterValue1=' + getFirstWord($(this).text())) > -1) {
         $(this).parent().addClass('active');
         if(window.location.href.indexOf('older-news') > -1) {
           $('#subHeader').text('Archived News');

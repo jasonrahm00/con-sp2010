@@ -180,30 +180,8 @@
   width: calc(100% - 4px);
 }
 
-/************ Spinning Loader ************/
-
 .location-container-message {
   margin-top: 2rem;
   position: relative;
 }
 
-.spinner {
-  animation: spin 2s linear infinite;
-  border: 5px solid #e1e1e1;
-  border-radius: 50%;
-  border-top: 5px solid #cfb87c;
-  height: 30px;
-  left: 50%;
-  position: absolute;
-  width: 30px;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}

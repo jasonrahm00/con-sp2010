@@ -13,15 +13,21 @@ var concat = require('gulp-concat'),
             Individual Tasks
 *********************************************/
 
-gulp.task('news-scripts', function() {
-  gulp.src('dev/newsroom-subsite/newsroom-scripts.js')
+gulp.task('admin-scripts', function() {
+  gulp.src('dev/administration/administration-scripts.js')
     .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/news'))
+    .pipe(gulp.dest('dist/admin'))
 });
 
 gulp.task('event-styles', function() {
   gulp.src('dev/newsroom-subsite/events-page/*.css')
     .pipe(rename('event-styles.txt'))
+    .pipe(gulp.dest('dist/news'))
+});
+
+gulp.task('news-scripts', function() {
+  gulp.src('dev/newsroom-subsite/newsroom-scripts.js')
+    .pipe(rename('local.js'))
     .pipe(gulp.dest('dist/news'))
 });
 

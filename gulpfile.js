@@ -22,11 +22,17 @@ gulp.task('admin-scripts', function() {
 gulp.task('event-styles', function() {
   gulp.src('dev/newsroom-subsite/events-page/*.css')
     .pipe(rename('event-styles.txt'))
-    .pipe(gulp.dest('dist/news'))
+    .pipe(gulp.dest('dist/events'))
+});
+
+gulp.task('event-scripts', function() {
+  gulp.src('dev/newsroom-subsite/events-page/*.js')
+    .pipe(rename('local.js'))
+    .pipe(gulp.dest('dist/events'))
 });
 
 gulp.task('news-scripts', function() {
-  gulp.src('dev/newsroom-subsite/newsroom-scripts.js')
+  gulp.src('dev/newsroom-subsite/news-stories/*.js')
     .pipe(rename('local.js'))
     .pipe(gulp.dest('dist/news'))
 });

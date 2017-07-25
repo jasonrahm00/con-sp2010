@@ -217,6 +217,14 @@ th.ms-vh2 {
   background-color: #fff;
 }
 
+.table tr:nth-child(2n) {
+  background-color: #fff;
+}
+
+.table tr:nth-child(odd) {
+  background: #e1e1e1;
+}
+
 /************ Loading Spinner ************/
 
 .spinner {

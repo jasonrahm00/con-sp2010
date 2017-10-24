@@ -169,10 +169,6 @@ ul.no-left-margin>li {
   border: 0;
 }
 
-.no-bullets {
-  list-style-type: none !important;
-}
-
 .sidebarInfo dl {
   margin: 2px 6px;
 }
@@ -262,6 +258,36 @@ th.ms-vh2 {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+
+
+/**********************************************************
+    
+                    List Styles
+
+**********************************************************/
+
+ul.no-bullets {
+  list-style-type: none !important;;
+}
+
+ul.column-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+ul.column-list.four>li {
+  width: 22.5%;
+}
+
+ul.column-list.three>li {
+  width: 30%;
+}
+
+ul.column-list.two>li {
+  width: 45%;
 }
 
 
@@ -550,6 +576,21 @@ h3.ui-accordion-header:hover,
   margin-bottom: 1rem;
 }
 
+.margin-horizontal-large {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.margin-horizontal-medium {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+.margin-horizontal-small {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .margin-left-small {
   margin-left: 2rem;
 }
@@ -660,35 +701,50 @@ h3.ui-accordion-header:hover,
 }
 
 .padding-bottom-large {
-  margin-bottom: 5rem;
+  padding-bottom: 5rem;
 }
 
 .padding-bottom-medium {
-  margin-bottom: 3rem;
+  padding-bottom: 3rem;
 }
 
 .padding-bottom-small {
-  margin-bottom: 2rem;
+  padding-bottom: 2rem;
 }
 
 .padding-bottom-x-small {
-  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.padding-horizontal-large {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.padding-horizontal-medium {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.padding-horizontal-small {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .padding-left-small {
-  margin-left: 2rem;
+  padding-left: 2rem;
 }
 
 .padding-left-x-small {
-  margin-left: 1rem;
+  padding-left: 1rem;
 }
 
 .padding-right-small {
-  margin-right: 2rem;
+  padding-right: 2rem;
 }
 
 .padding-right-x-small {
-  margin-right: 1rem;
+  padding-right: 1rem;
 }
 
 .padding-small {
@@ -696,34 +752,34 @@ h3.ui-accordion-header:hover,
 }
 
 .padding-top-large {
-  margin-top: 5rem;
+  padding-top: 5rem;
 }
 
 .padding-top-medium {
-  margin-top: 3rem;
+  padding-top: 3rem;
 }
 
 .padding-top-small {
-  margin-top: 2rem;
+  padding-top: 2rem;
 }
 
 .padding-top-x-small {
-  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
 .padding-vertical-large {
-  margin-bottom: 5rem;
-  margin-top: 5rem;
+  padding-bottom: 5rem;
+  padding-top: 5rem;
 }
 
 .padding-vertical-medium {
-  margin-bottom: 3rem;
-  margin-top: 3rem;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .padding-vertical-small {
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
 }
 
 .padding-x-small {

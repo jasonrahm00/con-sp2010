@@ -275,7 +275,6 @@ ul.no-bullets {
 ul.column-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 ul.column-list.four>li {

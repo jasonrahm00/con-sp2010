@@ -208,6 +208,15 @@ ul.no-left-margin>li {
   float: none;
 }
 
+#Welcome4 #pageSplashImage {
+  background: none;
+}
+
+#Welcome4 #pageSplashImage img {
+  height: auto;
+  width: 100%;
+}
+
 /************ Scholarship Page Table Overrides ************/
 
 #pageContent #scholarshipTable table.ms-listviewtable td.ms-vb2 {

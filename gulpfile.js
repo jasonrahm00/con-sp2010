@@ -49,12 +49,6 @@ gulp.task('homepage-dropdown', function() {
     .pipe(gulp.dest('dist/homepage-dropdown'))
 });
 
-gulp.task('pulse', function() {
-  gulp.src('dev/pulse/*.js')
-    .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/pulse'))
-});
-
 
 
 /*********************************************

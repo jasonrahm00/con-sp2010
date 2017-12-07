@@ -246,6 +246,15 @@ th.ms-vh2 {
   background-color: #fff;
 }
 
+table[summary="Upcoming Info Sessions "] tr.ms-viewheadertr {
+  display:none;
+}
+
+table.ms-listviewtable tbody tr.ms-newsletteralt td,
+table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
+  background: #fff;
+}
+
 
 
 /************ Loading Spinner ************/

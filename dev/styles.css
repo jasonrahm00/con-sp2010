@@ -282,6 +282,19 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
 
 
 
+/************ Social Icon Overrides ************/
+
+.hdSocial .socialOne{
+  background: #fff url("http://www.ucdenver.edu/academics/colleges/nursing/PublishingImages/icons/facebook-icon.png") no-repeat scroll left center;
+  margin-right: 5px;
+}
+
+.hdSocial .socialTwo{
+  background: #fff url("http://www.ucdenver.edu/academics/colleges/nursing/PublishingImages/icons/twitter-icon.png") no-repeat scroll left center;
+}
+
+
+
 /**********************************************************
     
                     List Styles

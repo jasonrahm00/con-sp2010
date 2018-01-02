@@ -195,7 +195,9 @@ ul.no-left-margin>li {
 
 #contentPage0 #columnPrimaryWrapper,
 #contentPage2 #columnPrimary,
-#tabsPage #columnPrimary {
+#tabsPage #columnPrimary,
+#Welcome4 #columnPrimaryWrapper,
+.whiteSidebarInfo {
   border: none;
 }
 

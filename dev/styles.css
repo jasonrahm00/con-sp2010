@@ -219,6 +219,8 @@ ul.no-left-margin>li {
   width: 100%;
 }
 
+
+
 /************ Scholarship Page Table Overrides ************/
 
 #pageContent #scholarshipTable table.ms-listviewtable td.ms-vb2 {
@@ -228,6 +230,8 @@ ul.no-left-margin>li {
 #pageContent #scholarshipTable table.ms-listviewtable td {
   padding: 1.15rem .5rem .5rem 1rem
 }
+
+
 
 /************ Table Style Overrides ************/
 
@@ -285,6 +289,13 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
 
 
 /************ Social Icon Overrides ************/
+
+.hdSocial li a{
+	height: 2.5em;
+	width: 2.5em;
+	overflow:hidden;
+	display: block;
+}
 
 .hdSocial .socialOne{
   background: #fff url("http://www.ucdenver.edu/academics/colleges/nursing/PublishingImages/icons/facebook-icon.png") no-repeat scroll left center;
@@ -365,6 +376,7 @@ ul.column-list.two>li {
 #accordion .active {
   background: none !important;
 }
+
 
 
 /************ Webpart Accordions ************/
@@ -702,6 +714,8 @@ h3.ui-accordion-header:hover,
   margin-bottom: 0;
 }
 
+
+
 /******************** Padding ********************/
 
 .no-padding {
@@ -819,6 +833,7 @@ h3.ui-accordion-header:hover,
 .padding-x-small {
   padding: 1rem;
 }
+
 
 
 /**********************************************************

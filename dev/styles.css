@@ -8,7 +8,11 @@ h1 {
 
 h4 {
   font-size: 1.25rem;
-  font-weight: normal;
+}
+
+h5 {
+  color: #777;
+  font-size: .95rem;
 }
 
 a:link.button {
@@ -250,6 +254,10 @@ th.ms-vh2 {
 
 .table tr:nth-child(odd) {
   background-color: #fff;
+}
+
+table[summary="Upcoming Info Sessions "] td.ms-vb2 {
+  padding: 0 !important;
 }
 
 table[summary="Upcoming Info Sessions "] tr.ms-viewheadertr {
@@ -633,6 +641,11 @@ h3.ui-accordion-header:hover,
 }
 
 .margin-horizontal-small {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.margin-horizontal-x-small {
   margin-left: 1rem;
   margin-right: 1rem;
 }
@@ -682,6 +695,11 @@ h3.ui-accordion-header:hover,
 .margin-vertical-small {
   margin-bottom: 2rem;
   margin-top: 2rem;
+}
+
+.margin-vertical-x-small {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .no-margin {
@@ -775,6 +793,11 @@ h3.ui-accordion-header:hover,
 }
 
 .padding-horizontal-small {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.padding-horizontal-x-small {
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -828,6 +851,11 @@ h3.ui-accordion-header:hover,
 .padding-vertical-small {
   padding-bottom: 2rem;
   padding-top: 2rem;
+}
+
+.padding-vertical-x-small {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 .padding-x-small {

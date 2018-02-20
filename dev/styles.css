@@ -269,6 +269,36 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
   background: #fff;
 }
 
+.accordion_body .table th {
+  background: #d6cca6;
+  color: #000;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+.accordion_body .table th, 
+.accordion_body .table td {
+  border-right: 1px solid #7C7E7F !important;
+}
+
+.accordion_body .table th:last-child, 
+.accordion_body .table td:last-child {
+  border-right: 0 !important;
+}
+
+.accordion_body .table tbody tr {
+  border-bottom: 1px solid #7C7E7F;
+}
+
+.accordion_body .table tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.accordion_body .table tr:nth-child(2n) {
+  background: #fff;
+}
+
 
 
 /************ Loading Spinner ************/

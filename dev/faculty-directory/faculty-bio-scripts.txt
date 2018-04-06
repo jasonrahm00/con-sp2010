@@ -51,7 +51,9 @@ $(document).ready(function() {
     var firstName = nameArray[1].trim();
     var fullName = firstName + " " + nameArray[0].trim();
     
-    var template =  x.headshot ? "<div><div id='imageContainer'>" + x.headshot + "</div>" : ""; //begin sidebar
+    var template =  "<div><div id='imageContainer'>"; //begin sidebar
+        template += x.headshot ?  x.headshot : "";
+        template += "</div>";
         template += "<ul>";
         template += "<li><strong>Phone: </strong>" + x.phone + "</li>";
         template += "<li><strong>Office: </strong>" + x.office + "</li>";

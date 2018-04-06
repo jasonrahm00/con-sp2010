@@ -2,6 +2,7 @@
 #bioContainer {
   display: flex;
   justify-content: space-between;
+  margin-top: 3rem;
 }
 
 #bioContainer > div:first-child {
@@ -27,7 +28,8 @@
 }
 
 #imageContainer {
-  margin-bottom: 1rem;
+  height: 206px;
+  margin: 0 auto 1rem;
   max-width: 156px;
   text-align: center;
 }

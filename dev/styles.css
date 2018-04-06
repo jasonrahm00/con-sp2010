@@ -15,8 +15,9 @@ h5 {
   font-size: .95rem;
 }
 
-a:link.button {
+a.button {
   background: black;
+  border-radius: 6px;
   color: white;
   display: inline-block;
   font-size: .85rem;
@@ -26,7 +27,7 @@ a:link.button {
   text-decoration: none;
 }
 
-a:hover.button {
+a.button:hover {
   color: #cfb87c;
   text-decoration: none;
 }

@@ -1,0 +1,38 @@
+<style>
+#bioContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+#bioContainer > div:first-child {
+  margin-top: 14px;
+  width: 25%;
+}
+
+#bioContainer > div:first-child ul {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+#bioContainer > div:nth-child(2) {
+  width: 70%;
+}
+
+#bioContainer > div:nth-child(2) > * {
+  margin-bottom: 2rem;
+}
+
+#bioContainer > div:nth-child(2) > *:last-child {
+  margin-bottom: 0;
+}
+
+#imageContainer {
+  margin-bottom: 1rem;
+  max-width: 156px;
+  text-align: center;
+}
+
+#imageContainer > img {
+  width: 100%;
+}
+</style>

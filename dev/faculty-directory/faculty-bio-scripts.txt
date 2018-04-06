@@ -1,0 +1,100 @@
+<script>
+/**************************************************************************
+                  Custom Clinic Locator Logic
+**************************************************************************/
+
+$(document).ready(function() {
+  
+  /*************************** Initial Variable Declarations ***************************/
+  
+  var dataLoaded = false,
+      dataLoadError = false,
+      bioInfo = {};
+  
+  var bioTableInfo = $('table[summary="faculty-directory "] tr').not($('table[summary="faculty-directory "] tr.ms-viewheadertr.ms-vhltr'));
+  
+  /*************************** Get Data from Sharepoint Table on Page ***************************/
+  
+  //Returns an object with data loaded from the table cells
+  function getData(tableRow) {
+    return {
+      name: $(tableRow).find('td.ms-vb2:first-child')[0].textContent,
+      degree: $(tableRow).find('td.ms-vb2:nth-child(2)')[0].textContent,
+      phone: $(tableRow).find('td.ms-vb2:nth-child(3)')[0].textContent,
+      office: $(tableRow).find('td.ms-vb2:nth-child(4)')[0].textContent,
+      email: $(tableRow).find('td.ms-vb2:nth-child(5)')[0].innerHTML,
+      headshot: $(tableRow).find('td.ms-vb2:nth-child(6)')[0].innerHTML,
+      education: $(tableRow).find('td.ms-vb2:nth-child(7)')[0].textContent,
+      bio: $(tableRow).find('td.ms-vb2:nth-child(8)')[0].innerHTML.replace(/\u200B/g,''),
+      specialization: $(tableRow).find('td.ms-vb2:nth-child(9)')[0].textContent,
+      title: $(tableRow).find('td.ms-vb2:nth-child(10)')[0].textContent,
+      cv: $(tableRow).find('td.ms-vb2:nth-child(11)')[0].textContent,
+      biosketch: $(tableRow).find('td.ms-vb2:nth-child(12)')[0].textContent,
+      page: $(tableRow).find('td.ms-vb2:nth-child(13)')[0].innerHTML
+    }
+  }
+  
+  function createListSection(x,y) {
+    var a = x.split(",");
+    var section = "<section class='width-30'><h3>" + y + "</h3><ul>";
+    
+    for(var i = 0; i < a.length; i++) {
+      section += "<li>" + a[i].trim() + "</li>";
+    }
+    
+    section += "</ul></section>";
+    return section;
+  }
+  
+  function createBioTemplate(x) {
+    var nameArray = x.name.split(",");
+    var firstName = nameArray[1].trim();
+    var fullName = firstName + " " + nameArray[0].trim();
+    
+    var template =  x.headshot ? "<div><div id='imageContainer'>" + x.headshot + "</div>" : ""; //begin sidebar
+        template += "<ul>";
+        template += "<li><strong>Phone: </strong>" + x.phone + "</li>";
+        template += "<li><strong>Office: </strong>" + x.office + "</li>";
+        template += "<li><strong>Email: </strong>" + x.email + "</li>";
+        template += x.cv ? "<li><strong>CV: </strong><a href='" + x.cv + "' target='_blank'>View " + firstName +  "'s CV (PDF)</a></li>" : "";
+        template += x.biosketch ? "<li><strong>Biosketch: </strong><a href='" + x.biosketch + "' target='_blank'>View " + firstName +  "'s Biosketch (PDF)</a></li>" : "";
+        template += "</ul></div>"; //end sidebar
+        template += "<div><header><h1>" + fullName + ", " + x.degree + "</h1>"; //begin main content
+        template += "<h2>" + x.title + "</h2></header>";
+        template += "<section><h3>Biography</h3>" + x.bio + "</section>";
+        template += "<div class='flex-container between flex-wrap-wrap'>";
+        template += x.specialization ? createListSection(x.specialization, "Specialization") : "";
+        template += x.education ? createListSection(x.education, "Education") : "";
+        template += "</div>";
+        template += "</div>"; //end main content
+    
+    return template;
+  }
+  
+  //Perform try/catch test to make sure data loads properly, if it doesn't the "Clinics Loading" message will remain and the page will stop loading
+  try {
+    getData(bioTableInfo[0]);
+  }
+  catch(err) {
+    dataLoadError = true;
+    console.log(err);
+  }
+  
+  if(!dataLoadError) {
+    bioInfo = getData(bioTableInfo[0]);
+    console.log(bioInfo);
+    $("#bioContainer").html(createBioTemplate(bioInfo));
+    dataLoaded = true;
+  }  
+
+  /**************************************************************************
+                Unhide components when content is fomatted
+  **************************************************************************/
+  
+  if(dataLoaded) {
+    $('#loadingMessage').remove();
+    $('#bioContainer').show();
+  }
+  
+});
+</script>

@@ -1,0 +1,43 @@
+<style>
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  background: #d6cca6;
+  color: #4c4b44;
+  display: block;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.program-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+  width: 30%
+}
+
+#filters {
+  width: 25%;
+}
+
+#programCards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 75%;
+}
+
+#sortContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#visWrapper {
+  display: none;
+}
+</style>

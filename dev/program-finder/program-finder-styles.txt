@@ -3,6 +3,11 @@
   padding: 10px;
 }
 
+.card-body a {
+  position: absolute;
+  bottom: 10px;
+}
+
 .card-title {
   background: #d6cca6;
   color: #4c4b44;
@@ -16,8 +21,10 @@
 .program-card {
   border: 1px solid #ddd;
   border-radius: 4px;
+  height: 200px;
   margin-bottom: 2rem;
-  width: 30%
+  position: relative;
+  width: 45%
 }
 
 #filters {
@@ -38,6 +45,10 @@
   font-weight: bold;
 }
 
+#filters label {
+  display: block;
+}
+
 #filters section {
   margin-bottom: 2rem;
 }
@@ -50,7 +61,7 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: 75%;
+  width: 70%;
 }
 
 #sortContainer {

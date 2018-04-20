@@ -1,0 +1,169 @@
+<script>
+$(document).ready(function() {
+  
+  /*******************************************************************
+  
+                  Initial Variable Declarations
+      
+  *******************************************************************/
+  
+  var dataLoaded = false,
+      dataLoadError = false,
+      filterDegree,
+      filterEdLevel,
+      filterFormat,
+      filterSpecialty,
+      filteredPrograms = [],
+      filterVals = {
+        "degree": [],
+        "format": []
+      },
+      programCards = "",
+      programs = [];
+  
+  var tableRows = $('table[summary="program-list "] tr').not($('table[summary="program-list "] tr.ms-viewheadertr.ms-vhltr'));
+  
+  /*******************************************************************
+  
+                  Load Data and Build Components
+      
+  *******************************************************************/
+  
+  //Returns an object with data loaded from the table cells
+  function getData(tableRow) {
+    return {
+      name: tableRow.children[0].innerText,
+      url: tableRow.children[1].innerText,
+      degree: tableRow.children[2].innerText,
+      format: tableRow.children[3].innerText
+    }
+  }
+  
+  try {
+    getData(tableRows[0]);
+  }
+  catch(err) {
+    dataLoadError = true;
+    console.log(err);
+  }
+
+  /********************* Initial Build Function *********************/
+  
+  if(!dataLoadError) {
+    programCards = "";
+    $.each(tableRows, function(index, value) {
+      var data = getData(value);
+      
+      //Add data values to filter objects for later use when building filters
+      addToFilterVals(data.degree, data.format);
+      
+      //Push data into programs array for card building
+        //Programs array will also be used for filtering
+      programs.push(data);
+      
+      createProgramCard(data);
+    });
+    cleanCardContainer();
+    $("#programCards").html(programCards);
+    buildFilters();
+    dataLoaded = true;
+  }
+
+  /********************* Program Cards Building *********************/
+  
+  function createProgramCard(x) {
+    var card = "<div class='program-card'>";
+        card += "<span class='card-title'>" + x.name + "</span>";
+        card += "<div class='card-body'>";
+        card += "<ul>";
+        card += "<li><strong>Degree: </strong>" + x.degree + "</li>";
+        card += "<li><strong>Format: </strong>" + x.format + "</li>";
+        card += "</ul>";
+        card += "<a href='" + x.url + "'>Visit Page</a>"
+        card += "</div></div>";
+    programCards += card;
+  }
+  
+  function cleanCardContainer() {
+    $("#programCards").html("");
+  }
+
+  /********************* Build Filters *********************/
+  
+  function buildMultipleChoice(name, arr) {
+    var mc = "<div>";   
+    for(var i = 0; i < arr.length; i++) {
+      mc += "<label><input type = 'checkbox' name='" + name + "' value='" + arr[i] + "'>" + arr[i] + "</label>";     
+    }
+    mc += "</div>";
+    return mc;
+  }
+  
+  function buildFilters() {
+    $("#degree").append(buildMultipleChoice("degree", filterVals.degree));
+    $("#format").append(buildMultipleChoice("format", filterVals.format));    
+    
+    $("#filters input").click(function() {
+      $(this).hasClass("checked") ? $(this).removeClass("checked") : $(this).addClass("checked");
+      filterDegrees($(this));
+    });
+    
+    //filters for
+      //degree earned (bs, dnp, phd, ms, etc)
+      //specialty
+      //format
+      //current ed level
+      //possible careers
+  }
+
+  function addToFilterVals(degree, format) {
+    filterVals.degree.indexOf(degree) === -1 ? filterVals.degree.push(degree) : '';
+    filterVals.format.indexOf(format) === -1 ? filterVals.format.push(format) : '';
+  }
+  
+  /*********** Unhide components After Initial Build ***********/
+  
+  if(dataLoaded) {
+    $("#loadingMessage").remove();
+    $("#visWrapper").show();
+  }
+  
+  /*******************************************************************
+  
+                  Filter Functionality
+      
+  *******************************************************************/
+  function dupeCheck(obj) {
+    var dupe = false;
+    if (filteredPrograms.length > 0){
+      for(var i = 0; i < filteredPrograms.length; i++) {
+        dupe = filteredPrograms[i].name === obj.name ? true : false;
+      }
+    } else {
+      dupe = false;
+    }
+    return dupe;
+  }
+  
+  function filterDegrees(x) {
+    var filterValue = $(x).val(),
+        filterKey = $(x).attr("name"),
+        checked = $(x).hasClass("checked");
+    
+    if(checked) {
+      $.each(programs, function(index, value) {
+        if(dupeCheck(value) === false && value[filterKey] === filterValue) {
+          filteredPrograms.push(value);
+        }
+      });
+      console.log(filteredPrograms);
+    } else if(!checked && filteredPrograms.length > 0) {
+      filteredPrograms = filteredPrograms.filter(function(obj) {
+        return obj[filterKey] !== filterValue;
+      });
+      console.log(filteredPrograms);
+    }
+  }
+  
+});
+</script>

@@ -1,6 +1,6 @@
 <style>
 .card-body {
-  padding: 15px;
+  padding: 10px;
 }
 
 .card-title {
@@ -22,6 +22,28 @@
 
 #filters {
   width: 25%;
+}
+
+#filters h2 {
+  border-bottom: 3px solid #CFB87C;
+  font-weight: normal;
+  font-size: 1.65rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+#filters h3 {
+  font-weight: bold;
+  font-size: 1rem !important;
+  font-weight: bold;
+}
+
+#filters section {
+  margin-bottom: 2rem;
+}
+
+#filters section:last-child {
+  margin-bottom: 0;
 }
 
 #programCards {

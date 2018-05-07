@@ -1,0 +1,57 @@
+<h1>College of Nursing Degrees and Programs</h1>
+<div class="margin-top-medium" data-ng-app="programFinder">
+  <div id="loadingMessage">
+    <h2 class="center margin-top-large">Loading...</h2>
+  </div>
+
+  <div id="visWrapper" class="hidden" data-ng-controller="mainController">
+    <div id="sortContainer">
+
+      <section id="filters">
+        <h2>Filters</h2>
+
+        <section id="degree">
+          <h3>Degree Earned</h3>
+          <label for="{{ degree }}" data-ng-repeat="degree in degreeGroup | orderBy:degree">
+            <input id="{{ degree }}" type="checkbox" data-ng-model="useDegree[degree]">{{ degree }}
+            <span>({{ (filteredPrograms | filter:count('degree', degree)).length }})</span>
+          </label>
+        </section>
+
+        <section id="format">
+          <h3>Learning Format</h3>
+          <label data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== ''">
+            <input type="checkbox" data-ng-model="useFormat[format]">{{ format }}
+            <span>({{ (filteredPrograms | filter:count('format', format)).length }})</span>
+          </label>
+        </section>
+
+        <section id="edLevel">
+          <h3>Current Education Level</h3>
+        </section>
+
+        <section id="specialty">
+          <h3>Graduate Specialty</h3>
+        </section>
+
+      </section>
+
+      <div id="programCards">
+
+        <div class="program-card" data-ng-repeat="x in filteredPrograms">
+          <span class="card-title">{{ x.name }}</span>
+          <div class="card-body">
+            <ul>
+              <li><strong>Degree:</strong> {{ x.degree }}</li>
+              <li><strong>Format:</strong> {{ x.format }}</li>
+            </ul>
+            <a href="{{ x.url }}">Visit page</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

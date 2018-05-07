@@ -59,11 +59,9 @@ $(document).ready(function() {
 });
 
 // Create app with AngularJS
-angular.module("programFinder", [])
+angular.module("programFinder", ["ngAnimate"])
 .controller("mainController", function($scope){
   $scope.programs = programs;
-  console.log($scope.programs);
-
 
   var uniqueItems = function (data, key) {
     var result = [];

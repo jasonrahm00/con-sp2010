@@ -10,7 +10,7 @@
       <section id="filters">
         <h2>Filters</h2>
 
-        <section id="degree">
+        <section>
           <h3>Degree Earned</h3>
           <label for="{{ degree }}" data-ng-repeat="degree in degreeGroup | orderBy:degree">
             <input id="{{ degree }}" type="checkbox" data-ng-model="useDegree[degree]">{{ degree }}
@@ -18,7 +18,7 @@
           </label>
         </section>
 
-        <section id="format">
+        <section>
           <h3>Learning Format</h3>
           <label data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== ''">
             <input type="checkbox" data-ng-model="useFormat[format]">{{ format }}
@@ -26,11 +26,11 @@
           </label>
         </section>
 
-        <section id="edLevel">
+        <section>
           <h3>Current Education Level</h3>
         </section>
 
-        <section id="specialty">
+        <section>
           <h3>Graduate Specialty</h3>
         </section>
 

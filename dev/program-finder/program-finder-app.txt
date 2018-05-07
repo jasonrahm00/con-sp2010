@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/program-finder-styles.css">
-<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angularjs.min.js"></script>
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angular-animate.min.js"></script>
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/program-finder-scripts.js"></script>
 
 <h1>College of Nursing Degrees and Programs</h1>
@@ -14,7 +15,7 @@
       <section id="filters">
         <h2>Filters</h2>
 
-        <section id="degree">
+        <section>
           <h3>Degree Earned</h3>
           <label for="{{ degree }}" data-ng-repeat="degree in degreeGroup | orderBy:degree">
             <input id="{{ degree }}" type="checkbox" data-ng-model="useDegree[degree]">{{ degree }}
@@ -22,7 +23,7 @@
           </label>
         </section>
 
-        <section id="format">
+        <section>
           <h3>Learning Format</h3>
           <label data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== ''">
             <input type="checkbox" data-ng-model="useFormat[format]">{{ format }}
@@ -30,11 +31,11 @@
           </label>
         </section>
 
-        <section id="edLevel">
+        <section>
           <h3>Current Education Level</h3>
         </section>
 
-        <section id="specialty">
+        <section>
           <h3>Graduate Specialty</h3>
         </section>
 
@@ -59,6 +60,11 @@
 
   </div>
 </div>
+
+
+
+
+
 
 
 

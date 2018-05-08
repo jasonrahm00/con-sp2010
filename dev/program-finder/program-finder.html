@@ -19,6 +19,14 @@
         </section>
 
         <section>
+          <h3>Current Education Level</h3>
+          <label data-ng-repeat="level in levelGroup | orderBy:level" data-ng-if="level !== ''">
+            <input type="checkbox" data-ng-model="useLevel[level]">{{ level }}
+            <span>({{ (filteredPrograms | filter:count('level', level)).length }})</span>
+          </label>
+        </section>
+
+        <section>
           <h3>Learning Format</h3>
           <label data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== ''">
             <input type="checkbox" data-ng-model="useFormat[format]">{{ format }}
@@ -27,23 +35,28 @@
         </section>
 
         <section>
-          <h3>Current Education Level</h3>
-        </section>
-
-        <section>
           <h3>Graduate Specialty</h3>
+          <label data-ng-repeat="specialty in specialtyGroup | orderBy:specialty" data-ng-if="specialty !== ''">
+            <input type="checkbox" data-ng-model="useSpecialty[specialty]">{{ specialty }}
+            <span>({{ (filteredPrograms | filter:count('specialty', specialty)).length }})</span>
+          </label>
         </section>
 
       </section>
 
       <div id="programCards">
 
-        <div class="program-card" data-ng-repeat="x in filteredPrograms">
+        <div class="program-card" data-ng-repeat="x in filteredPrograms | orderBy:'name'">
           <span class="card-title">{{ x.name }}</span>
           <div class="card-body">
             <ul>
-              <li><strong>Degree:</strong> {{ x.degree }}</li>
-              <li><strong>Format:</strong> {{ x.format }}</li>
+              <li><strong>Degree Earned:</strong> {{ x.degree }}</li>
+              <li data-ng-if="x.format"><strong>Learning Format:</strong> {{ x.format }}</li>
+              <li data-ng-if="x.level"><strong>Minimum Education Requirement:</strong> {{ x.level }}</li>
+              <li data-ng-if="x.specialty">
+                <strong>Specialty:</strong><br>
+                {{ x.specialty }}
+              </li>
             </ul>
             <a href="{{ x.url }}">Visit page</a>
           </div>

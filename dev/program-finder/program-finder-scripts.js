@@ -1,22 +1,23 @@
 var dataLoaded = false,
     programs = [];
 
-// Load data from in-page table using jQuery
+/*******************************************************************
+
+  Load data from in-page table using jQuery
+
+*******************************************************************/
+
 $(document).ready(function() {
 
   /*******************************************************************
-
-                  Initial Variable Declarations
-
+    Initial Variable Declarations
   *******************************************************************/
 
   var dataLoadError = false,
       tableRows = $("table[summary='program-list '] tr").not($("table[summary='program-list '] tr.ms-viewheadertr.ms-vhltr"));
 
   /*******************************************************************
-
-                  Load Data and Build Components
-
+    Load Data and Build Components
   *******************************************************************/
 
   //Returns an object with data loaded from the table cells
@@ -25,7 +26,9 @@ $(document).ready(function() {
       name: tableRow.children[0].innerText,
       url: tableRow.children[1].innerText,
       degree: tableRow.children[2].innerText,
-      format: tableRow.children[3].innerText
+      format: tableRow.children[3].innerText,
+      level: tableRow.children[4].innerText,
+      specialty: tableRow.children[5].innerText
     }
   }
 
@@ -37,6 +40,26 @@ $(document).ready(function() {
     console.log(err);
   }
 
+  //Remove duplicates from array
+    //https://gist.github.com/Vheissu/71dd683ad647e82a0d132076cf6eeef2#file-duplicate-remover-js
+  function removeDuplicates (array, keyToCompare) {
+
+    let listOfValuesForKeyToCompare = array.map(object => object[keyToCompare]);
+
+    let arrayWithoutDuplicates = array.filter( (object, index, array) => {
+
+      if ( listOfValuesForKeyToCompare.indexOf(object[keyToCompare]) === index ) {
+        return true; // Keep it. No other object with the same value for this key exists.
+      }
+      else {
+        return false; // Filter it out. There's another object in the list with the same value for this key.
+      }
+
+    });
+
+    return arrayWithoutDuplicates;
+  }
+
   /********************* Initial Build Function *********************/
 
   if(!dataLoadError) {
@@ -46,6 +69,7 @@ $(document).ready(function() {
       //Push data into programs array
       programs.push(data);
     });
+    programs = removeDuplicates(programs, 'name');
     dataLoaded = true;
   }
 
@@ -58,8 +82,15 @@ $(document).ready(function() {
 
 });
 
-// Create app with AngularJS
-angular.module("programFinder", ["ngAnimate"])
+
+
+/*******************************************************************
+
+  Create app with AngularJS
+
+*******************************************************************/
+
+angular.module("programFinder", [])
 .controller("mainController", function($scope){
   $scope.programs = programs;
 
@@ -77,15 +108,18 @@ angular.module("programFinder", ["ngAnimate"])
     return result;
   };
 
-
   $scope.useDegree = {};
   $scope.useFormat = {};
+  $scope.useLevel = {};
+  $scope.useSpecialty = {};
 
   $scope.$watch(function () {
     return {
       programs: $scope.programs,
       useDegree: $scope.useDegree,
-      useFormat: $scope.useFormat
+      useFormat: $scope.useFormat,
+      useSpecialty: $scope.useSpecialty,
+      useLevel: $scope.useLevel
     }
   }, function (value) {
       var selected;
@@ -134,7 +168,46 @@ angular.module("programFinder", ["ngAnimate"])
         filterAfterFormat = filterAfterDegree;
       }
 
-      $scope.filteredPrograms = filterAfterFormat;
+      $scope.levelGroup = uniqueItems($scope.programs, 'level');
+        var filterAfterLevel = [];
+        selected = false;
+        for (var j in filterAfterFormat) {
+          var p = filterAfterFormat[j];
+          for (var i in $scope.useLevel) {
+            if ($scope.useLevel[i]) {
+              selected = true;
+              if (i == p.level) {
+                filterAfterLevel.push(p);
+                break;
+              }
+            }
+          }
+        }
+        if (!selected) {
+          filterAfterLevel = filterAfterFormat;
+        }
+
+      $scope.specialtyGroup = uniqueItems($scope.programs, 'specialty');
+      var filterAfterSpecialty = [];
+      selected = false;
+      for (var j in filterAfterLevel) {
+        var p = filterAfterLevel[j];
+        for (var i in $scope.useSpecialty) {
+          if ($scope.useSpecialty[i]) {
+            selected = true;
+            if (i == p.specialty) {
+              filterAfterSpecialty.push(p);
+              break;
+            }
+          }
+        }
+      }
+      if (!selected) {
+        filterAfterSpecialty = filterAfterLevel;
+      }
+
+
+      $scope.filteredPrograms = filterAfterSpecialty;
   }, true);
 
 });

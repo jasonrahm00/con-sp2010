@@ -102,35 +102,35 @@ main > h2 {
   Filter Styles
 *******************************************/
 
-#filters {
+aside {
   width: 25%;
 }
 
-#filters h2 {
+aside h2 {
   font-weight: normal;
   font-size: 1.65rem;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
 }
 
-#filters h3 {
+aside h3 {
   color: #565a5c;
   font-weight: bold;
   font-size: 1rem !important;
   font-weight: bold;
 }
 
-#filters label {
+aside label {
   cursor: pointer;
   display: block;
   padding: 5px 0;
 }
 
-#filters section {
+aside section {
   margin-bottom: 2rem;
 }
 
-#filters section:last-child {
+aside section:last-child {
   margin-bottom: 0;
 }
 

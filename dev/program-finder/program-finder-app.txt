@@ -12,7 +12,7 @@
   <div id="visWrapper" class="hidden" data-ng-controller="mainController">
     <div id="sortContainer">
 
-      <aside id="filters">
+      <aside>
 
         <section class="padding-bottom-small border-bottom-gold">
           <h2 class="border-bottom-gold">Filters</h2>

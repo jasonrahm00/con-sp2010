@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/program-finder-styles.css">
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angular-animate.min.js"></script>
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/program-finder-scripts.js"></script>
 
 <h1>College of Nursing Degrees and Programs</h1>
@@ -11,62 +12,87 @@
   <div id="visWrapper" class="hidden" data-ng-controller="mainController">
     <div id="sortContainer">
 
-      <section id="filters">
-        <h2>Filters</h2>
+      <aside id="filters">
 
-        <section>
-          <h3>Degree Earned</h3>
-          <label for="{{ degree }}" data-ng-repeat="degree in degreeGroup | orderBy:degree">
-            <input id="{{ degree }}" type="checkbox" data-ng-model="useDegree[degree]">{{ degree }}
-            <span>({{ (filteredPrograms | filter:count('degree', degree)).length }})</span>
-          </label>
-        </section>
+        <section class="padding-bottom-small border-bottom-gold">
+          <h2 class="border-bottom-gold">Filters</h2>
 
-        <section>
-          <h3>Current Education Level</h3>
-          <label data-ng-repeat="level in levelGroup | orderBy:level" data-ng-if="level !== ''">
-            <input type="checkbox" data-ng-model="useLevel[level]">{{ level }}
-            <span>({{ (filteredPrograms | filter:count('level', level)).length }})</span>
-          </label>
-        </section>
+          <section>
+            <h3>Degree Earned</h3>
+            <label for="{{ degree }}" data-ng-repeat="degree in degreeGroup | orderBy:degree">
+              <input id="{{ degree }}" type="checkbox" data-ng-model="useDegree[degree]">{{ degree }}
+              <span>({{ (filteredPrograms | filter:count('degree', degree)).length }})</span>
+            </label>
+          </section>
 
-        <section>
-          <h3>Learning Format</h3>
-          <label data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== ''">
-            <input type="checkbox" data-ng-model="useFormat[format]">{{ format }}
-            <span>({{ (filteredPrograms | filter:count('format', format)).length }})</span>
-          </label>
-        </section>
+          <section>
+            <h3>Current Education Level</h3>
+            <label data-ng-repeat="level in levelGroup | orderBy:level" data-ng-if="level !== ''">
+              <input type="checkbox" data-ng-model="useLevel[level]">{{ level }}
+              <span>({{ (filteredPrograms | filter:count('level', level)).length }})</span>
+            </label>
+          </section>
 
-        <section>
-          <h3>Graduate Specialty</h3>
-          <label data-ng-repeat="specialty in specialtyGroup | orderBy:specialty" data-ng-if="specialty !== ''">
-            <input type="checkbox" data-ng-model="useSpecialty[specialty]">{{ specialty }}
-            <span>({{ (filteredPrograms | filter:count('specialty', specialty)).length }})</span>
-          </label>
-        </section>
-
-      </section>
-
-      <div id="programCards">
-
-        <div class="program-card" data-ng-repeat="x in filteredPrograms | orderBy:'name'">
-          <span class="card-title">{{ x.name }}</span>
-          <div class="card-body">
+          <section style="background: yellow;">
+            <h3>Patient Care Model</h3>
             <ul>
-              <li><strong>Degree Earned:</strong> {{ x.degree }}</li>
-              <li data-ng-if="x.format"><strong>Learning Format:</strong> {{ x.format }}</li>
-              <li data-ng-if="x.level"><strong>Minimum Education Requirement:</strong> {{ x.level }}</li>
-              <li data-ng-if="x.specialty">
-                <strong>Specialty:</strong><br>
-                {{ x.specialty }}
-              </li>
+              <li>Direct Care</li>
+              <li>Indirect Care</li>
             </ul>
-            <a href="{{ x.url }}">Visit page</a>
+          </section>
+
+          <section>
+            <h3>Learning Format</h3>
+            <label data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== ''">
+              <input type="checkbox" data-ng-model="useFormat[format]">{{ format }}
+              <span>({{ (filteredPrograms | filter:count('format', format)).length }})</span>
+            </label>
+          </section>
+
+          <section>
+            <h3>Graduate Specialty</h3>
+            <label data-ng-repeat="specialty in specialtyGroup | orderBy:specialty" data-ng-if="specialty !== ''">
+              <input type="checkbox" data-ng-model="useSpecialty[specialty]">{{ specialty }}
+              <span>({{ (filteredPrograms | filter:count('specialty', specialty)).length }})</span>
+            </label>
+          </section>
+        </section>
+
+
+        <section>
+          <h4>Speak to an Advisor</h4>
+          <p>To book an appointment with one of our academic advisors, please click on the link below.</p>
+          <a class="button" href="https://booknow.appointment-plus.com/y9ltsxxy/" target="_blank">Book Appointment</a>
+        </section>
+
+      </aside>
+
+      <main>
+
+        <h2>{{ filteredPrograms.length }} Education Option<span data-ng-if="filteredPrograms.length > 1">s</span></h2>
+
+        <div id="programCards">
+          <div class="program-card" data-ng-repeat="x in filteredPrograms | orderBy:'name'">
+            <div class="card-title">
+              <span>{{ x.name }}</span>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li><strong>Degree Earned:</strong> {{ x.degree }}</li>
+                <li data-ng-if="x.format"><strong>Learning Format:</strong> {{ x.format }}</li>
+                <li data-ng-if="x.level"><strong>Minimum Education Requirement:</strong> {{ x.level }}</li>
+                <li data-ng-if="x.specialty">
+                  <strong>Specialty:</strong><br>
+                  {{ x.specialty }}
+                </li>
+              </ul>
+              <a href="{{ x.url }}">Visit {{ x.name }} Page</a>
+            </div>
           </div>
+
         </div>
 
-      </div>
+      </main>
 
     </div>
 

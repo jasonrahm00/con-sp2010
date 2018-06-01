@@ -6,32 +6,58 @@ h1 {
   line-height: 100% !important;
 }
 
+main {
+  width: 70%;
+}
+
+main>h2 {
+  font-weight: normal !important;
+  font-size: 1.65rem !important;
+  margin-bottom: 2.5rem !important;
+}
+
 .card-body {
   padding: 10px;
 }
 
 .card-body a {
+  bottom: 0;
+  display: block;
+  left: 0;
+  padding: 10px;
   position: absolute;
-  bottom: 10px;
+  text-align: center;
+  width: calc(100% - 20px);
 }
 
 .card-title {
   background: #d6cca6;
+  display: table;
+  height: 50px;
+  width: 100%;
+}
+
+.card-title > span {
   color: #4c4b44;
-  display: block;
   font-weight: bold;
-  padding: 10px;
+  display: table-cell;
   text-align: center;
   text-transform: capitalize;
+  vertical-align: middle;
 }
 
 .program-card {
   border: 1px solid #ddd;
   border-radius: 4px;
-  height: 250px;
+  height: 275px;
   margin-bottom: 2rem;
   position: relative;
   width: 45%
+}
+
+.program-card:nth-child(2n) .card-title > span {
+  border-right: 1px solid #d6cca6;
+  border-radius: 4px;
 }
 
 #filters {
@@ -39,7 +65,6 @@ h1 {
 }
 
 #filters h2 {
-  border-bottom: 3px solid #d6cca6;
   font-weight: normal;
   font-size: 1.65rem;
   margin-bottom: 1.5rem;
@@ -56,6 +81,7 @@ h1 {
 #filters label {
   cursor: pointer;
   display: block;
+  padding: 5px 0;
 }
 
 #filters section {
@@ -67,10 +93,11 @@ h1 {
 }
 
 #programCards {
+  align-content: flex-start;
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
-  width: 70%;
+  justify-content: space-around;
+  position: relative;
 }
 
 #sortContainer {
@@ -83,33 +110,6 @@ h1 {
   display: none;
 }
 
-
-
-/******************************************
-
-  Animations
-
-******************************************/
-
-.program-card.ng-enter,
-.program-card.ng-leave
-{
-    -webkit-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    -moz-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    -ms-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    -o-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    position: relative;
-}
-
-.program-card.ng-enter.program-card.ng-enter-active,
-.program-card.ng-leave {
-    opacity: 1;
-    left: 0;
-}
-
-.program-card.ng-leave.program-card.ng-leave-active,
-.program-card.ng-enter {
-    opacity: 0;
-    left: -50px;
+.border-bottom-gold {
+  border-bottom: 3px solid #d6cca6;
 }

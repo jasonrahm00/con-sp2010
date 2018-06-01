@@ -27,13 +27,13 @@ a.button {
   text-decoration: none;
 }
 
-a.button:hover {
-  color: #cfb87c;
+a.button:visited {
+  color: white;
   text-decoration: none;
 }
 
-a:visited.button {
-  color: white;
+a.button:hover {
+  color: #cfb87c;
   text-decoration: none;
 }
 
@@ -278,12 +278,12 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
   text-align: center;
 }
 
-.accordion_body .table th, 
+.accordion_body .table th,
 .accordion_body .table td {
   border-right: 1px solid #7C7E7F !important;
 }
 
-.accordion_body .table th:last-child, 
+.accordion_body .table th:last-child,
 .accordion_body .table td:last-child {
   border-right: 0 !important;
 }
@@ -348,7 +348,7 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
 
 
 /**********************************************************
-    
+
                     List Styles
 
 **********************************************************/
@@ -377,7 +377,7 @@ ul.column-list.two>li {
 
 
 /**********************************************************
-    
+
             Accordion Widget Overrides
 
 **********************************************************/
@@ -481,7 +481,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
         Custom Styles for Programs Landing Page
 
 **********************************************************/
@@ -558,7 +558,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
         Custom Styles for Admissions Pages
 
 **********************************************************/
@@ -589,7 +589,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
                     Next Steps
 
 **********************************************************/
@@ -638,7 +638,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
               Custom Margins and Padding
 
 **********************************************************/
@@ -896,7 +896,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
                   Custom Widths
 
 **********************************************************/

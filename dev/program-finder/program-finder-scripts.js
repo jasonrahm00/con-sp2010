@@ -70,14 +70,8 @@ $(document).ready(function() {
       programs.push(data);
     });
     programs = removeDuplicates(programs, 'name');
+    $("#dataTable").remove();
     dataLoaded = true;
-  }
-
-  /*********** Unhide components After Initial Build ***********/
-
-  if(dataLoaded) {
-    $("#loadingMessage").remove();
-    $("#visWrapper").show();
   }
 
 });
@@ -90,9 +84,10 @@ $(document).ready(function() {
 
 *******************************************************************/
 
-angular.module("programFinder", [])
+angular.module("programFinder", ["ngAnimate"])
 .controller("mainController", function($scope){
   $scope.programs = programs;
+  $scope.filteredPrograms;
 
   var uniqueItems = function (data, key) {
     var result = [];
@@ -212,3 +207,11 @@ angular.module("programFinder", [])
 
 });
 
+/*********** Unhide components After Initial Build ***********/
+
+$(document).ready(function() {
+  if(dataLoaded) {
+    $("#loadingMessage").remove();
+    $("#visWrapper").show();
+  }
+});

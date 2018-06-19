@@ -1,8 +1,30 @@
-<style>
 #bioContainer {
   display: flex;
   justify-content: space-between;
   margin-top: 3rem;
+}
+
+#bioContainer h1 {
+  color:#565a5c;
+  font-family: MuliRegular, Helvetica, Arial, sans-serif;
+  font-weight:700;
+  font-size:2.5rem;
+  line-height:100%;
+}
+
+#bioContainer h2 {
+  color: #000;
+  font-family: MuliLight, Helvetica, Arial, sans-serif;
+  font-size: 2.08em;
+  font-weight: normal;
+  line-height: 120%;
+  margin: 6px 0 12px 0;
+}
+
+#bioContainer header h2 {
+  color: #565a5c;
+  font-size: 2.25em;
+  font-style: italic;
 }
 
 #bioContainer > div:first-child {
@@ -37,4 +59,3 @@
 #imageContainer > img {
   width: 100%;
 }
-</style>

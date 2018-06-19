@@ -1,0 +1,45 @@
+<link type="text/css" rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/faculty-directory/bios/faculty-bio-styles.css">
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
+
+<div id="bioContainer" data-ng-app="facultyBios" data-ng-controller="mainController" data-ng-cloak>
+  <div>
+    <div id="imageContainer">
+      <img src="{{ data.headshot }}" alt="">
+    </div>
+    <ul>
+      <li><strong>Phone:</strong> {{ data.phone }}</li>
+      <li><strong>Office:</strong> {{ data.office }}</li>
+      <li><strong>Email:</strong> <a href="mailto:{{ data.email.split(',')[0] }}">{{ data.email.split(',')[1] }}</a></li>
+      <li data-ng-if="data.cv !== null"><strong>CV:</strong> <a href="{{ data.cv }}" target="_blank">{{ data.firstName }}'s CV (PDF)</a></li>
+      <li data-ng-if="data.cv !== null"><strong>Biosketch:</strong> <a href="{{ data.biosketch }}" target="_blank">{{ data.firstName }}'s Biosketch (PDF)</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <header>
+      <h1>{{ data.firstName }} {{ data.lastName }}</h1>
+      <h2>{{ data.title }}</h2>
+    </header>
+    <section>
+      <h2>Biography</h2>
+      <span data-ng-bind-html="data.bio | renderHTMLCorrectly"></span>
+    </section>
+    <div class="flex-container between flex-wrap-wrap">
+      <section class="width-30" data-ng-if="data.specialization.length > 0">
+        <h2>Specialization</h2>
+        <ul>
+          <li data-ng-repeat="x in data.specialization">{{ x }}</li>
+        </ul>
+      </section>
+      <section class="width-30" data-ng-if="data.education.length > 0">
+        <h2>Education</h2>
+        <ul>
+          <li data-ng-repeat="x in data.education">{{ x }}</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/faculty-directory/bios/faculty-bio-scripts.js"></script>

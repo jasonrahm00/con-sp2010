@@ -4,40 +4,52 @@
 <div id="bioContainer" data-ng-app="facultyBios" data-ng-controller="mainController" data-ng-cloak>
   <div>
     <div id="imageContainer">
-      <img src="{{ data.headshot }}" alt="">
+      <img data-ng-src="{{ data.headshot }}" alt="">
     </div>
     <ul>
       <li><strong>Phone:</strong> {{ data.phone }}</li>
-      <li><strong>Office:</strong> {{ data.office }}</li>
-      <li><strong>Email:</strong> <a href="mailto:{{ data.email.split(',')[0] }}">{{ data.email.split(',')[1] }}</a></li>
+      <li><strong>Office:</strong> Ed2North {{ data.office }}</li>
+      <li><strong>Email:</strong> <a href="mailto:{{ data.email }}">{{ data.email }}</a></li>
       <li data-ng-if="data.cv !== null"><strong>CV:</strong> <a href="{{ data.cv }}" target="_blank">{{ data.firstName }}'s CV (PDF)</a></li>
       <li data-ng-if="data.cv !== null"><strong>Biosketch:</strong> <a href="{{ data.biosketch }}" target="_blank">{{ data.firstName }}'s Biosketch (PDF)</a></li>
     </ul>
+
+    <div>
+      <h4>News Callout</h4>
+    </div>
+
   </div>
 
   <div>
     <header>
-      <h1>{{ data.firstName }} {{ data.lastName }}</h1>
+      <h1>{{ data.firstName }} {{ data.lastName }}, {{ data.degree }}</h1>
       <h2>{{ data.title }}</h2>
     </header>
+
     <section>
       <h2>Biography</h2>
       <span data-ng-bind-html="data.bio | renderHTMLCorrectly"></span>
     </section>
+
+    <blockquote>
+      <p>Some Quote About Something Meaningful and Life-Changing</p>
+    </blockquote>
+
     <div class="flex-container between flex-wrap-wrap">
       <section class="width-30" data-ng-if="data.specialization.length > 0">
         <h2>Specialization</h2>
-        <ul>
-          <li data-ng-repeat="x in data.specialization">{{ x }}</li>
-        </ul>
+        <span data-ng-bind-html="data.specialization | renderHTMLCorrectly"></span>
       </section>
       <section class="width-30" data-ng-if="data.education.length > 0">
         <h2>Education</h2>
-        <ul>
-          <li data-ng-repeat="x in data.education">{{ x }}</li>
-        </ul>
+        <span data-ng-bind-html="data.education | renderHTMLCorrectly"></span>
       </section>
     </div>
+
+    <section>
+      <h2>{{ data.firstName }} {{ data.lastName }} in the News</h2>
+    </section>
+
   </div>
 
 </div>

@@ -4,6 +4,20 @@
   margin-top: 3rem;
 }
 
+#bioContainer blockquote {
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+}
+
+#bioContainer blockquote p {
+  font-size: 1.15rem;
+  font-style: italic;
+  margin: 0;
+  text-align: center;
+}
+
 #bioContainer h1 {
   color:#565a5c;
   font-family: MuliRegular, Helvetica, Arial, sans-serif;

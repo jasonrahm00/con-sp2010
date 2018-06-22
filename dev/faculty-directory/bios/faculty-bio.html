@@ -4,54 +4,64 @@
 <div data-ng-app="facultyBio" data-ng-controller="mainController" data-ng-cloak>
 
   <div class="margin-top-medium">
-    <label for="layout">Layout</label>
+    <label for="layout">Additional Page Components</label>
     <select id="layout" data-ng-model="layout">
       <option value="" disabled>-- Choose Layout --</option>
       <option value="default" selected>Default</option>
       <option value="video">Video</option>
       <option value="quote">Quote</option>
+      <option value="promoted">Promoted News</option>
+      <!--
       <option value="jankowski">Catherine Jankowski</option>
       <option value="rice">Michael Rice</option>
+      -->
     </select>
   </div>
 
   <div id="bioContainer">
-    <div>
+    <aside>
       <div id="imageContainer">
-        <img data-ng-src="{{ data.headshot }}" alt="">
+        <img data-ng-src="{{ data.headshot }}" alt="{{ data.firstName }} {{ data.lastName }}" data-ng-if="data.headshot">
+        <img data-ng-src="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/PublishingImages/default-profile.png" alt="Headshot placeholder silhouette" data-ng-if="!data.headshot">
       </div>
       <ul>
         <li><strong>Phone:</strong> {{ data.phone }}</li>
         <li><strong>Office:</strong> Ed2 North Room {{ data.office }}</li>
         <li><strong>Email:</strong> <a href="mailto:{{ data.email }}">{{ data.email }}</a></li>
-        <li data-ng-if="data.cv !== null"><strong>CV:</strong> <a href="{{ data.cv }}" target="_blank">{{ data.name.split(',')[1] }}'s CV (PDF)</a></li>
-        <li data-ng-if="data.cv !== null"><strong>Biosketch:</strong> <a href="{{ data.biosketch }}" target="_blank">{{ data.name.split(',')[1] }}'s Biosketch (PDF)</a></li>
+        <li data-ng-if="data.cv !== null"><strong>CV:</strong>
+          <a href="{{ data.cv }}" target="_blank">{{ data.firstName }}'s CV (PDF)</a>
+        </li>
+        <li data-ng-if="data.cv !== null"><strong>Biosketch:</strong>
+          <a href="{{ data.biosketch }}" target="_blank">{{ data.firstName }}'s Biosketch (PDF)</a>
+        </li>
       </ul>
 
-      <div data-ng-if="promotedNews">
+      <div class="promoted-news" data-ng-if="layout === 'promoted'">
+        <h2>Breaking News</h2>
         <a href="{{ promotedNews.link }}" data-ng-if="promotedNews.link.indexOf('pdf') < 0">{{ promotedNews.title }}</a>
         <a href="{{ promotedNews.link }}" data-ng-if="promotedNews.link.indexOf('pdf') > -1" target="_blank">{{ promotedNews.title }} (PDF)</a>
       </div>
 
-    </div>
+    </aside>
 
-    <div>
+    <main>
+
       <header>
-        <h1>{{ data.name.split(',')[1] }} {{ data.name.split(',')[0] }}, {{ data.degree }}</h1>
+        <h1>{{ data.firstName }} {{ data.lastName }}, {{ data.degree }}</h1>
         <h2>{{ data.title }}</h2>
       </header>
 
-      <section>
-        <h2>Biography</h2>
+      <section data-ng-if="data.bio">
+        <h2>Biography <span style="color: red;">(500 Words)</span></h2>
         <span data-ng-bind-html="data.bio | renderHTMLCorrectly"></span>
       </section>
 
       <blockquote data-ng-if="layout === 'quote'">
-        <p>Some Quote About Something Meaningful and Life-Changing</p>
+        <q>{{ data.quote }}</q>
       </blockquote>
 
       <div class="full-width center" data-ng-if="layout === 'video'">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/O6-0QmxYotU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <span data-ng-bind-html="data.video | renderHTMLCorrectly"></span>
       </div>
 
       <div class="flex-container between flex-wrap-wrap" data-ng-if="data.specialty !== null || data.education !== null">
@@ -65,8 +75,13 @@
         </section>
       </div>
 
+      <section data-ng-if="data.awards">
+        <h2>Honors and Awards</h2>
+        <span data-ng-bind-html="data.awards | renderHTMLCorrectly"></span>
+      </section>
+
       <section data-ng-if="news.length > 0">
-        <h2>In the News</h2>
+        <h2>{{ data.firstName }} in the News</h2>
         <ul>
           <li data-ng-repeat="x in news">
             <a href="{{ x.link }}" data-ng-if="x.link.indexOf('pdf') < 0">{{ x.title }}</a>
@@ -75,7 +90,7 @@
         </ul>
       </section>
 
-    </div>
+    </main>
 
   </div>
 </div>

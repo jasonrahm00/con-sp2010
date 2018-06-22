@@ -1,57 +1,84 @@
 <link type="text/css" rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/faculty-directory/bios/faculty-bio-styles.css">
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
 
-<div id="bioContainer" data-ng-app="facultyBio" data-ng-controller="mainController" data-ng-cloak>
-  <div>
-    <div id="imageContainer">
-      <img data-ng-src="{{ data.headshot }}" alt="">
+<div data-ng-app="facultyBio" data-ng-controller="mainController" data-ng-cloak>
+
+  <div class="margin-top-medium">
+    <label for="layout">Layout</label>
+    <select id="layout" data-ng-model="layout">
+      <option value="" disabled>-- Choose Layout --</option>
+      <option value="default" selected>Default</option>
+      <option value="video">Video</option>
+      <option value="quote">Quote</option>
+      <option value="jankowski">Catherine Jankowski</option>
+      <option value="rice">Michael Rice</option>
+    </select>
+  </div>
+
+  <div id="bioContainer">
+    <div>
+      <div id="imageContainer">
+        <img data-ng-src="{{ data.headshot }}" alt="">
+      </div>
+      <ul>
+        <li><strong>Phone:</strong> {{ data.phone }}</li>
+        <li><strong>Office:</strong> Ed2 North Room {{ data.office }}</li>
+        <li><strong>Email:</strong> <a href="mailto:{{ data.email }}">{{ data.email }}</a></li>
+        <li data-ng-if="data.cv !== null"><strong>CV:</strong> <a href="{{ data.cv }}" target="_blank">{{ data.name.split(',')[1] }}'s CV (PDF)</a></li>
+        <li data-ng-if="data.cv !== null"><strong>Biosketch:</strong> <a href="{{ data.biosketch }}" target="_blank">{{ data.name.split(',')[1] }}'s Biosketch (PDF)</a></li>
+      </ul>
+
+      <div data-ng-if="promotedNews">
+        <a href="{{ promotedNews.link }}" data-ng-if="promotedNews.link.indexOf('pdf') < 0">{{ promotedNews.title }}</a>
+        <a href="{{ promotedNews.link }}" data-ng-if="promotedNews.link.indexOf('pdf') > -1" target="_blank">{{ promotedNews.title }} (PDF)</a>
+      </div>
+
     </div>
-    <ul>
-      <li><strong>Phone:</strong> {{ data.phone }}</li>
-      <li><strong>Office:</strong> Ed2North {{ data.office }}</li>
-      <li><strong>Email:</strong> <a href="mailto:{{ data.email }}">{{ data.email }}</a></li>
-      <li data-ng-if="data.cv !== null"><strong>CV:</strong> <a href="{{ data.cv }}" target="_blank">{{ data.firstName }}'s CV (PDF)</a></li>
-      <li data-ng-if="data.cv !== null"><strong>Biosketch:</strong> <a href="{{ data.biosketch }}" target="_blank">{{ data.firstName }}'s Biosketch (PDF)</a></li>
-    </ul>
 
     <div>
-      <h4>News Callout</h4>
+      <header>
+        <h1>{{ data.name.split(',')[1] }} {{ data.name.split(',')[0] }}, {{ data.degree }}</h1>
+        <h2>{{ data.title }}</h2>
+      </header>
+
+      <section>
+        <h2>Biography</h2>
+        <span data-ng-bind-html="data.bio | renderHTMLCorrectly"></span>
+      </section>
+
+      <blockquote data-ng-if="layout === 'quote'">
+        <p>Some Quote About Something Meaningful and Life-Changing</p>
+      </blockquote>
+
+      <div class="full-width center" data-ng-if="layout === 'video'">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/O6-0QmxYotU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+
+      <div class="flex-container between flex-wrap-wrap" data-ng-if="data.specialty !== null || data.education !== null">
+        <section class="width-45" data-ng-if="data.specialty !== null">
+          <h2>Specialization</h2>
+          <span data-ng-bind-html="data.specialty | renderHTMLCorrectly"></span>
+        </section>
+        <section class="width-45" data-ng-if="data.education !== null">
+          <h2>Education</h2>
+          <span data-ng-bind-html="data.education | renderHTMLCorrectly"></span>
+        </section>
+      </div>
+
+      <section data-ng-if="news.length > 0">
+        <h2>In the News</h2>
+        <ul>
+          <li data-ng-repeat="x in news">
+            <a href="{{ x.link }}" data-ng-if="x.link.indexOf('pdf') < 0">{{ x.title }}</a>
+            <a href="{{ x.link }}" target="_blank" data-ng-if="x.link.indexOf('pdf') > -1">{{ x.title }} (PDF)</a>
+          </li>
+        </ul>
+      </section>
+
     </div>
 
   </div>
-
-  <div>
-    <header>
-      <h1>{{ data.name.split(',')[1] }} {{ data.name.split(',')[0] }}, {{ data.degree }}</h1>
-      <h2>{{ data.title }}</h2>
-    </header>
-
-    <section>
-      <h2>Biography</h2>
-      <span data-ng-bind-html="data.bio | renderHTMLCorrectly"></span>
-    </section>
-
-    <blockquote>
-      <p>Some Quote About Something Meaningful and Life-Changing</p>
-    </blockquote>
-
-    <div class="flex-container between flex-wrap-wrap">
-      <section class="width-45" data-ng-if="data.specialty !== null">
-        <h2>Specialization</h2>
-        <span data-ng-bind-html="data.specialty | renderHTMLCorrectly"></span>
-      </section>
-      <section class="width-45" data-ng-if="data.education !== null">
-        <h2>Education</h2>
-        <span data-ng-bind-html="data.education | renderHTMLCorrectly"></span>
-      </section>
-    </div>
-
-    <section>
-      <h2>In the News</h2>
-    </section>
-
-  </div>
-
 </div>
+
 
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/faculty-directory/bios/faculty-bio-scripts.js"></script>

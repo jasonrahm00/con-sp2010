@@ -4,6 +4,10 @@
   margin-top: 3rem;
 }
 
+#bioContainer a:link:hover {
+  text-decoration: underline;
+}
+
 #bioContainer blockquote {
   border-bottom: 1px solid #ddd;
   border-top: 1px solid #ddd;
@@ -49,6 +53,10 @@
 #bioContainer > div:first-child ul {
   list-style-type: none;
   margin-left: 0;
+}
+
+#bioContainer > div:first-child ul li {
+  margin: 0;
 }
 
 #bioContainer > div:nth-child(2) {

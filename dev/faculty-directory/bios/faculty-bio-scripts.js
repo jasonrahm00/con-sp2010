@@ -29,7 +29,7 @@ angular.module("facultyBio", [])
     return $sce.trustAsHtml(stringToParse);
   }
 })
-.service("dataService", function($http, $q) {
+.service("dataService", function($q) {
 
   var listUrl = "/academics/colleges/nursing/faculty-staff/faculty/",
       listName = "Faculty";
@@ -91,7 +91,7 @@ angular.module("facultyBio", [])
   };
 
 })
-.service("newsService", function($http, $q) {
+.service("newsService", function($q) {
   var listUrl = "/academics/colleges/nursing/about-us/news/",
       listName = "news-items";
 
@@ -140,9 +140,6 @@ angular.module("facultyBio", [])
         obj["promoted"] = item.get_item("Promoted");
 
         data.push(obj);
-
-        // End temporary logic for testing
-
 
       }
 
@@ -206,17 +203,17 @@ angular.module("facultyBio", [])
     Default functions and calls for testing
   *******************************************************************/
 
-  jQuery(document).ready(function($) {
-    ExecuteOrDelayUntilScriptLoaded(loadNews, "sp.js");
-  });
-
   $scope.data = defaultFaculty;
 
-  function loadNews() {
+  jQuery(document).ready(function($) {
+    ExecuteOrDelayUntilScriptLoaded(getNews, "sp.js");
+  });
+
+  function getNews() {
     newsService.getNews(null).then(function(response) {
       $scope.promotedNews = response[0];
       $scope.news = response.slice(1,6);
-    })
+    });
   }
 
   /*

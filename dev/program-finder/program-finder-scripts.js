@@ -1,3 +1,11 @@
+function compare(a,b) {
+  if (a.name < b.name)
+    return -1;
+  if (a.name > b.name)
+    return 1;
+  return 0;
+}
+
 angular.module("programFinder", ["ngAnimate"])
 .service("dataService", function($q) {
   var listUrl = "/academics/colleges/nursing/programs-admissions/",
@@ -16,6 +24,7 @@ angular.module("programFinder", ["ngAnimate"])
 
     function onQuerySucceed() {
       var data = [],
+          id = 0,
           itemEnumerator = items.getEnumerator();
 
       while (itemEnumerator.moveNext()) {
@@ -28,10 +37,15 @@ angular.module("programFinder", ["ngAnimate"])
         obj["level"] = item.get_item("Current_x0020_Education_x0020_Le");
         obj["specialty"] = item.get_item("Graduate_x0020_Specialty");
         obj["degree"] = item.get_item("Degree");
+        obj["id"] = id;
 
         data.push(obj);
 
+        id++;
+
       }
+
+      data.sort(compare);
 
       deferred.resolve(data);
 

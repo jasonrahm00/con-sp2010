@@ -67,7 +67,7 @@
         <h2>{{ filteredPrograms.length }} Education Option<span data-ng-if="filteredPrograms.length > 1">s</span></h2>
 
         <div id="programCards">
-          <div class="program-card" data-ng-repeat="x in filteredPrograms | orderBy:'name'">
+          <div class="program-card" data-ng-repeat="x in filteredPrograms track by x.id">
             <div class="card-title">
               <span>{{ x.name }}</span>
             </div>

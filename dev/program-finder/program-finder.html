@@ -1,10 +1,10 @@
+<link rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/program-finder-styles.css">
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angular-animate.min.js"></script>
+
 <h1>College of Nursing Degrees and Programs</h1>
 <div class="margin-top-medium" data-ng-app="programFinder">
-  <div id="loadingMessage">
-    <h2 class="center margin-top-large">Loading...</h2>
-  </div>
-
-  <div id="visWrapper" class="hidden" data-ng-controller="mainController">
+  <div data-ng-controller="mainController" data-ng-cloak>
     <div id="sortContainer">
 
       <aside>
@@ -22,7 +22,7 @@
 
           <section>
             <h3>Current Education Level</h3>
-            <label data-ng-repeat="level in levelGroup | orderBy:level" data-ng-if="level !== ''">
+            <label data-ng-repeat="level in levelGroup | orderBy:level" data-ng-if="level !== null">
               <input type="checkbox" data-ng-model="useLevel[level]">{{ level }}
               <span>({{ (filteredPrograms | filter:count('level', level)).length }})</span>
             </label>
@@ -38,7 +38,7 @@
 
           <section>
             <h3>Learning Format</h3>
-            <label data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== ''">
+            <label data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== null">
               <input type="checkbox" data-ng-model="useFormat[format]">{{ format }}
               <span>({{ (filteredPrograms | filter:count('format', format)).length }})</span>
             </label>
@@ -46,7 +46,7 @@
 
           <section>
             <h3>Graduate Specialty</h3>
-            <label data-ng-repeat="specialty in specialtyGroup | orderBy:specialty" data-ng-if="specialty !== ''">
+            <label data-ng-repeat="specialty in specialtyGroup | orderBy:specialty" data-ng-if="specialty !== null">
               <input type="checkbox" data-ng-model="useSpecialty[specialty]">{{ specialty }}
               <span>({{ (filteredPrograms | filter:count('specialty', specialty)).length }})</span>
             </label>
@@ -81,7 +81,7 @@
                   {{ x.specialty }}
                 </li>
               </ul>
-              <a href="{{ x.url }}">Visit {{ x.name }} Page</a>
+              <a href="{{ x.page }}">Visit {{ x.name }} Page</a>
             </div>
           </div>
 
@@ -93,3 +93,5 @@
 
   </div>
 </div>
+
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/program-finder-scripts.js"></script>

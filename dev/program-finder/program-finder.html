@@ -4,8 +4,8 @@
 
 <h1>College of Nursing Degrees and Programs</h1>
 <div class="margin-top-medium" data-ng-app="programFinder">
-  <div data-ng-controller="mainController" data-ng-cloak>
-    <div id="sortContainer">
+  <div data-ng-controller="mainController">
+    <div id="sortContainer" data-ng-cloak>
 
       <aside>
 
@@ -67,7 +67,7 @@
         <h2>{{ filteredPrograms.length }} Education Option<span data-ng-if="filteredPrograms.length > 1">s</span></h2>
 
         <div id="programCards">
-          <div class="program-card" data-ng-repeat="x in filteredPrograms track by x.id">
+          <div class="program-card" data-ng-repeat="x in filteredPrograms track by $index" data-ng-class="x.animate ? 'animate' : ''">
             <div class="card-title">
               <span>{{ x.name }}</span>
             </div>

@@ -126,48 +126,10 @@ aside section {
   margin-bottom: 2rem;
 }
 
+aside > section > section:nth-child(2) {
+  margin-top: 2rem;
+}
+
 aside section:last-child {
   margin-bottom: 0;
-}
-
-
-
-/*******************************************
-  Animations
-*******************************************/
-
-.program-card.ng-enter {
-  -webkit-transition: 0.5s linear all;
-  -moz-transition: 0.5s linear all;
-  -o-transition: 0.5s linear all;
-  transition: 0.5s linear all;
-  height: 0;
-  opacity: 0;
-  left: -50px;
-}
-
-.program-card.ng-enter-active {
-  height: 275px;
-  opacity: 1;
-  left: 0;
-}
-
-.program-card.ng-leave {
-  -webkit-animation: 0.5s fadeCollapse;
-  -moz-animation: 0.5s fadeCollapse;
-  -o-animation: 0.5s fadeCollapse;
-  animation: 0.5s fadeCollapse;
-}
-
-@keyframes fadeCollapse {
-  from {
-    height: 275px;
-    opacity: 1;
-    left: 0;
-  }
-  to {
-    height: 0;
-    opacity: 0;
-    left: -50px;
-  }
 }

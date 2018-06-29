@@ -24,7 +24,6 @@ angular.module("programFinder", ["ngAnimate"])
 
     function onQuerySucceed() {
       var data = [],
-          id = 0,
           itemEnumerator = items.getEnumerator();
 
       while (itemEnumerator.moveNext()) {
@@ -37,11 +36,8 @@ angular.module("programFinder", ["ngAnimate"])
         obj["level"] = item.get_item("Current_x0020_Education_x0020_Le");
         obj["specialty"] = item.get_item("Graduate_x0020_Specialty");
         obj["degree"] = item.get_item("Degree");
-        obj["id"] = id;
 
         data.push(obj);
-
-        id++;
 
       }
 
@@ -74,11 +70,9 @@ angular.module("programFinder", ["ngAnimate"])
 
   function getData() {
     dataService.getData().then(function(response) {
-      console.log(response);
       $scope.programs = response;
     });
   }
-
 
 
   /****************************************************************

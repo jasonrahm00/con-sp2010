@@ -15,7 +15,7 @@ $(document).ready(function() {
     
     function getPublishDate(dateString) {
       var dateParts = dateString.split('/');
-      return months[dateParts[0] - 1] + ', ' + dateParts[2];
+      return months[dateParts[0] - 1] + ' ' + dateParts[1] + ', ' + dateParts[2];
     }
     
     function getNewsData(newsTableRow) {

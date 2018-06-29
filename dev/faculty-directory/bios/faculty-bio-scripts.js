@@ -70,6 +70,8 @@ angular.module("facultyBio", [])
           obj["phone"] = item.get_item("PrimaryNumber");
           obj["specialty"] = stripSpaces(item.get_item("Specialty"));
           obj["awards"] = stripSpaces(item.get_item("Awards"));
+          obj["quote"] = stripSpaces(item.get_item("Quote"));
+          obj["video"] = stripSpaces(item.get_item("Video"));
 
           data.push(obj);
 
@@ -115,7 +117,6 @@ angular.module("facultyBio", [])
             obj = {},
             facultyArray = item.get_item("Faculty_x0020_Pages") !== null ? item.get_item("Faculty_x0020_Pages").split(",") : null;
 
-        /*
         if (facultyArray !== null) {
           facultyArray.forEach(function(elem) {
             elem = elem.replace(/\s+/g, ' ').trim();
@@ -130,16 +131,6 @@ angular.module("facultyBio", [])
             }
           });
         }
-        */
-
-        // Temporary logic for testing
-        obj["title"] = item.get_item("Name").get_description();
-        obj["link"] = item.get_item("Name").get_url();
-        obj["published"] = new Date(item.get_item("Publish_x0020_Date"));
-        obj["category"] = item.get_item("Category");
-        obj["promoted"] = item.get_item("Promoted");
-
-        data.push(obj);
 
       }
 
@@ -161,29 +152,34 @@ angular.module("facultyBio", [])
 })
 .controller("mainController", function($scope, dataService, newsService){
 
-  $scope.layout = "default";
+  $scope.faculty = "default";
   $scope.currentPage = window.location.href;
+  $scope.data;
 
-  /*
   jQuery(document).ready(function($) {
-    ExecuteOrDelayUntilScriptLoaded(loadData, "sp.js");
+    if ($scope.faculty === "default") {
+      $scope.data = defaultFaculty;
+    } else {
+      ExecuteOrDelayUntilScriptLoaded(loadData, "sp.js");
+    }
   });
 
   function loadData() {
 
     // Get fac data
     dataService.getData($scope.currentPage).then(function(response) {
-      $scope.data = response.length > 0 ? response[0] : defaultFaculty;
+      $scope.data = response[0];
     }, function(error) {
       console.log(error);
     });
 
     // Get news
     newsService.getNews($scope.currentPage).then(function(response) {
+
       var x = [];
 
       response.forEach(function(elem) {
-        if (elem.promoted === true && !$scope.promotedNews) {
+        if (elem.promoted && !$scope.promotedNews) {
           $scope.promotedNews = elem;
         } else {
           x.push(elem);
@@ -196,46 +192,30 @@ angular.module("facultyBio", [])
       console.log(error);
     }) ;
 
-  }
-  */
 
-  /*******************************************************************
-    Default functions and calls for testing
-  *******************************************************************/
-
-  $scope.data = defaultFaculty;
-
-  jQuery(document).ready(function($) {
-    ExecuteOrDelayUntilScriptLoaded(getNews, "sp.js");
-  });
-
-  function getNews() {
-    newsService.getNews(null).then(function(response) {
-      $scope.promotedNews = response[0];
-      $scope.news = response.slice(1,6);
-    });
   }
 
-  /*
-  $scope.$watch("layout", function(newVal, oldVal) {
+  $scope.$watch("faculty", function(newVal, oldVal) {
     if (newVal !== oldVal) {
       $scope.data = [];
       $scope.news = null;
-      $scope.promotedNews = undefined;
+      $scope.promotedNews = null;
 
-      if(newVal === "rice") {
-        $scope.currentPage = "http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/m_rice.aspx";
-      } else if (newVal === "jankowski") {
-        $scope.currentPage = "http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/c_jankowski.aspx";
-      } else {
+      if (newVal === 'default') {
         $scope.currentPage = window.location.href;
+        $scope.data = defaultFaculty;
+      } else {
+        $scope.currentPage = newVal;
+        loadData();
       }
 
-      loadData();
 
     }
   });
-  */
 
+  // Elements to add for testing and demo
+  $scope.quote = defaultFaculty.quote;
+  $scope.video = defaultFaculty.video;
+  $scope.components = "none";
 
 });

@@ -42,8 +42,8 @@ aside ul li {
 }
 
 blockquote {
-  border-bottom: 3px solid #d6cca6;
-  border-top: 3px solid #d6cca6;
+  border-bottom: 3px solid #c5a95d;
+  border-top: 3px solid #c5a95d;
   margin: 3rem 0;
   padding: 2.5rem 1rem;
   text-align: center;
@@ -81,7 +81,7 @@ main > *:last-child {
 }
 
 .promoted-news {
-  border-top: 3px solid #d6cca6;
+  border-top: 3px solid #c5a95d;
   margin-top: 3rem;
   padding: 1rem;
 }

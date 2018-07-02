@@ -6,7 +6,7 @@ var defaultFaculty = {
   degree: "PhD, MS",
   education: "<ul><li>PhD, Harvard</li><li>MS, Yale</li><li>BSN, CU Boulder</li></ul>",
   email: "somewhere@email.com",
-  headshot: null,
+  headshot: "http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/PublishingImages/default-profile.png",
   name: "Faculty, Fred",
   office: "12345",
   page: "http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/fred-faculty.aspx",

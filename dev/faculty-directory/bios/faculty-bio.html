@@ -40,16 +40,16 @@
     <aside>
       <div id="imageContainer">
         <img data-ng-src="{{ data.headshot }}" alt="{{ data.firstName }} {{ data.lastName }}" data-ng-if="data.headshot">
-        <img data-ng-src="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/PublishingImages/default-profile.png" alt="Headshot placeholder silhouette" data-ng-if="!data.headshot">
+        <!-- <img data-ng-src="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/PublishingImages/default-profile.png" alt="Headshot placeholder silhouette" data-ng-if="!data.headshot"> -->
       </div>
       <ul>
-        <li><strong>Phone:</strong> {{ data.phone }}</li>
-        <li><strong>Office:</strong> Ed2 North Room {{ data.office }}</li>
-        <li><strong>Email:</strong> <a href="mailto:{{ data.email }}">{{ data.email }}</a></li>
+        <li data-ng-if="data.phone"><strong>Phone:</strong> {{ data.phone }}</li>
+        <li data-ng-if="data.office"><strong>Office:</strong> Ed2 North Room {{ data.office }}</li>
+        <li data-ng-if="data.email"><strong>Email:</strong> <a href="mailto:{{ data.email }}">{{ data.email }}</a></li>
         <li data-ng-if="data.cv !== null"><strong>CV:</strong>
           <a href="{{ data.cv }}" target="_blank">{{ data.firstName }}'s CV (PDF)</a>
         </li>
-        <li data-ng-if="data.cv !== null"><strong>Biosketch:</strong>
+        <li data-ng-if="data.biosketch !== null"><strong>Biosketch:</strong>
           <a href="{{ data.biosketch }}" target="_blank">{{ data.firstName }}'s Biosketch (PDF)</a>
         </li>
       </ul>

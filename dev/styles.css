@@ -27,13 +27,14 @@ a.button {
   text-decoration: none;
 }
 
-a.button:hover {
-  color: #cfb87c;
+a:visited.button {
+  color: white;
   text-decoration: none;
 }
 
-a:visited.button {
-  color: white;
+a.button:hover,
+a:visited.button:hover {
+  color: #cfb87c;
   text-decoration: none;
 }
 

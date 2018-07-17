@@ -110,8 +110,7 @@ main > h2 {
   align-content: flex-start;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  position: relative;
+  justify-content: space-between;
 }
 
 

@@ -6,7 +6,7 @@ function compare(a,b) {
   return 0;
 }
 
-angular.module("programFinder", ["ngAnimate"])
+angular.module("programFinder", [])
 .service("dataService", function($q) {
   var listUrl = "/academics/colleges/nursing/programs-admissions/",
       listName = "program-list";

@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/program-finder-styles.css">
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
-<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angular-animate.min.js"></script>
 
 <h1>College of Nursing Degrees and Programs</h1>
 <div class="margin-top-medium" data-ng-app="programFinder">
@@ -10,10 +9,10 @@
       <aside>
 
         <section class="padding-bottom-small border-bottom-gold">
-          <h2 class="border-bottom-gold">Filters</h2>
+          <h2 class="border-bottom-gold">Filter Results</h2>
 
           <section>
-            <h3>Degree Earned</h3>
+            <h4>Desired Outcome</h4>
             <label for="{{ degree }}" data-ng-repeat="degree in degreeGroup | orderBy:degree">
               <input id="{{ degree }}" type="checkbox" data-ng-model="useDegree[degree]">{{ degree }}
               <span>({{ (filteredPrograms | filter:count('degree', degree)).length }})</span>
@@ -21,23 +20,15 @@
           </section>
 
           <section>
-            <h3>Current Education Level</h3>
+            <h4>Current Degree</h4>
             <label data-ng-repeat="level in levelGroup | orderBy:level" data-ng-if="level !== null">
               <input type="checkbox" data-ng-model="useLevel[level]">{{ level }}
               <span>({{ (filteredPrograms | filter:count('level', level)).length }})</span>
             </label>
           </section>
 
-          <section style="background: yellow;">
-            <h3>Patient Care Model</h3>
-            <ul>
-              <li>Direct Care</li>
-              <li>Indirect Care</li>
-            </ul>
-          </section>
-
           <section>
-            <h3>Learning Format</h3>
+            <h4>Learning Format</h4>
             <label data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== null">
               <input type="checkbox" data-ng-model="useFormat[format]">{{ format }}
               <span>({{ (filteredPrograms | filter:count('format', format)).length }})</span>
@@ -45,7 +36,7 @@
           </section>
 
           <section>
-            <h3>Graduate Specialty</h3>
+            <h4>Graduate Specialty</h4>
             <label data-ng-repeat="specialty in specialtyGroup | orderBy:specialty" data-ng-if="specialty !== null">
               <input type="checkbox" data-ng-model="useSpecialty[specialty]">{{ specialty }}
               <span>({{ (filteredPrograms | filter:count('specialty', specialty)).length }})</span>
@@ -67,17 +58,17 @@
         <h2>{{ filteredPrograms.length }} Education Option<span data-ng-if="filteredPrograms.length > 1">s</span></h2>
 
         <div id="programCards">
-          <div class="program-card" data-ng-repeat="x in filteredPrograms track by $index" data-ng-class="x.animate ? 'animate' : ''">
+          <div class="program-card" data-ng-repeat="x in filteredPrograms track by $index">
             <div class="card-title">
               <span>{{ x.name }}</span>
             </div>
             <div class="card-body">
               <ul>
-                <li><strong>Degree Earned:</strong> {{ x.degree }}</li>
+                <li><strong>Outcome:</strong> {{ x.degree }}</li>
                 <li data-ng-if="x.format"><strong>Learning Format:</strong> {{ x.format }}</li>
-                <li data-ng-if="x.level"><strong>Minimum Education Requirement:</strong> {{ x.level }}</li>
+                <li data-ng-if="x.level"><strong>Required for Entry:</strong> {{ x.level }}</li>
                 <li data-ng-if="x.specialty">
-                  <strong>Specialty:</strong><br>
+                  <strong>Graduate Specialty:</strong><br>
                   {{ x.specialty }}
                 </li>
               </ul>

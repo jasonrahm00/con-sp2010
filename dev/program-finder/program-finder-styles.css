@@ -20,6 +20,25 @@ main > h2 {
   border-bottom: 3px solid #d6cca6;
 }
 
+#contentPage0 #columnPrimary {
+  max-width: 948px;
+}
+
+#columnPrimary {
+  margin: 6px 0 18px;
+  width: 100%;
+}
+
+#columnPrimary ul {
+  list-style-type: none;
+  margin-left: 0;
+  margin-top: 1.75em;
+}
+
+#columnPrimary li {
+  line-height: 1.8em;
+}
+
 #sortContainer {
   display: flex;
   justify-content: space-between;
@@ -56,6 +75,8 @@ main > h2 {
 
 .card-title {
   background: #d6cca6;
+  /*background: #c5a95d;*/
+  border-right: 1px solid #d6cca6;
   display: table;
   height: 50px;
   width: 100%;
@@ -65,6 +86,7 @@ main > h2 {
   color: #4c4b44;
   font-weight: bold;
   display: table-cell;
+  padding: 0 5px;
   text-align: center;
   text-transform: capitalize;
   vertical-align: middle;
@@ -109,17 +131,20 @@ aside h2 {
   padding-bottom: 1rem;
 }
 
-aside h3 {
-  color: #565a5c;
-  font-weight: bold;
-  font-size: 1rem !important;
-  font-weight: bold;
+aside input {
+  cursor: pointer;
 }
 
 aside label {
   cursor: pointer;
-  display: block;
+  display: grid;
+  grid-template-columns: 25px auto 30px;
+  margin-right: 0;
   padding: 5px 0;
+}
+
+aside label span {
+  justify-self: end;
 }
 
 aside section {
@@ -132,4 +157,9 @@ aside > section > section:nth-child(2) {
 
 aside section:last-child {
   margin-bottom: 0;
+}
+
+aside > section > section h4 {
+  color: #565a5c !important;
+  font-size: 1.5em !important;
 }

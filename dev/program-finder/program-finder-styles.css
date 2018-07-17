@@ -124,11 +124,6 @@ aside {
   width: 25%;
 }
 
-aside h2 {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-}
-
 aside input {
   cursor: pointer;
 }
@@ -145,19 +140,24 @@ aside label span {
   justify-self: end;
 }
 
-aside section {
+aside > div {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+}
+
+.filter-header {
+  color: #565a5c;
+  display: block;
+  font-family: MuliRegular, Helvetica, Arial, sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 6px 0;
+}
+
+.filter-group {
   margin-bottom: 2rem;
 }
 
-aside > section > section:nth-child(2) {
-  margin-top: 2rem;
-}
-
-aside section:last-child {
+.filter-group:last-child {
   margin-bottom: 0;
-}
-
-aside > section > section h4 {
-  color: #565a5c !important;
-  font-size: 1.5em !important;
 }

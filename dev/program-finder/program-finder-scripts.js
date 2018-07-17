@@ -1,6 +1,6 @@
 const degreeOrder = [
-      "Bachelors",
-      "Masters",
+      "Bachelor's",
+      "Master's",
       "DNP",
       "PhD",
       "Dual Degree",
@@ -11,10 +11,10 @@ const degreeOrder = [
     levelOrder = [
       "High School Diploma",
       "RN (ADN) License",
-      "Bachelor's NOT in Nursing",
-      "Bachelor's in Nursing",
-      "Master's NOT in Nursing",
-      "Master's in Nursing"
+      "Nursing Bachelor's",
+      "Non-Nursing Bachelor's",
+      "Nursing Master's",
+      "Non-Nursing Master's"
     ];
 
 function compare(a,b) {

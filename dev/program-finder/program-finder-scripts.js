@@ -1,3 +1,22 @@
+const degreeOrder = [
+      "Bachelors",
+      "Masters",
+      "DNP",
+      "PhD",
+      "Dual Degree",
+      "Graduate Certificate",
+      "Post-Graduate Certificate",
+      "Non-Degree"
+    ],
+    levelOrder = [
+      "High School Diploma",
+      "RN (ADN) License",
+      "Bachelor's NOT in Nursing",
+      "Bachelor's in Nursing",
+      "Master's NOT in Nursing",
+      "Master's in Nursing"
+    ];
+
 function compare(a,b) {
   if (a.name < b.name)
     return -1;
@@ -7,6 +26,21 @@ function compare(a,b) {
 }
 
 angular.module("programFinder", [])
+.filter("custOrder", function() {
+
+  return function(arr, strng) {
+    if (arr.length > 0) {
+      if (strng === "degree") {
+        return degreeOrder;
+      } else if (strng === "level") {
+        return levelOrder;
+      } else {
+        return arr.sort();
+      }
+    }
+  }
+
+})
 .service("dataService", function($q) {
   var listUrl = "/academics/colleges/nursing/programs-admissions/",
       listName = "program-list";

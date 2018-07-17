@@ -13,7 +13,7 @@
 
           <section>
             <h4>Desired Outcome</h4>
-            <label for="{{ degree }}" data-ng-repeat="degree in degreeGroup | orderBy:degree">
+            <label for="{{ degree }}" data-ng-repeat="degree in degreeGroup | custOrder:'degree'">
               <input id="{{ degree }}" type="checkbox" data-ng-model="useDegree[degree]">{{ degree }}
               <span>({{ (filteredPrograms | filter:count('degree', degree)).length }})</span>
             </label>
@@ -21,7 +21,7 @@
 
           <section>
             <h4>Current Degree</h4>
-            <label data-ng-repeat="level in levelGroup | orderBy:level" data-ng-if="level !== null">
+            <label data-ng-repeat="level in levelGroup | custOrder:'level'" data-ng-if="level !== null">
               <input type="checkbox" data-ng-model="useLevel[level]">{{ level }}
               <span>({{ (filteredPrograms | filter:count('level', level)).length }})</span>
             </label>
@@ -55,7 +55,7 @@
 
       <main>
 
-        <h2>{{ filteredPrograms.length }} Education Option<span data-ng-if="filteredPrograms.length > 1">s</span></h2>
+        <h2>{{ filteredPrograms.length }} Education Option<span data-ng-if="filteredPrograms.length > 1 || filteredPrograms.length < 1">s</span></h2>
 
         <div id="programCards">
           <div class="program-card" data-ng-repeat="x in filteredPrograms track by $index">

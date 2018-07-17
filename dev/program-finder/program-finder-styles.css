@@ -10,7 +10,8 @@ main {
   width: 70%;
 }
 
-main > h2 {
+main > h2,
+aside h2 {
   font-weight: normal !important;
   font-size: 1.65rem !important;
   margin-bottom: 2.5rem !important;
@@ -125,8 +126,6 @@ aside {
 }
 
 aside h2 {
-  font-weight: normal;
-  font-size: 1.65rem;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
 }

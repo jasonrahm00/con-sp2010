@@ -93,16 +93,15 @@
       </div>
       -->
 
-      <div class="flex-container between flex-wrap-wrap" data-ng-if="data.specialty !== null || data.education !== null">
-        <section class="width-45" data-ng-if="data.specialty !== null">
-          <h2>Specialization</h2>
-          <span data-ng-bind-html="data.specialty | renderHTMLCorrectly"></span>
-        </section>
-        <section class="width-45" data-ng-if="data.education !== null">
-          <h2>Education</h2>
-          <span data-ng-bind-html="data.education | renderHTMLCorrectly"></span>
-        </section>
-      </div>
+      <section data-ng-if="data.education !== null">
+        <h2>Education</h2>
+        <span data-ng-bind-html="data.education | renderHTMLCorrectly"></span>
+      </section>
+
+      <section data-ng-if="data.specialty !== null">
+        <h2>Specialization</h2>
+        <span data-ng-bind-html="data.specialty | renderHTMLCorrectly"></span>
+      </section>
 
       <section data-ng-if="data.awards">
         <h2>Honors and Awards</h2>

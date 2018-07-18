@@ -94,6 +94,8 @@ angular.module("programFinder", [])
   $scope.filteredPrograms;
   $scope.programs = [];
 
+
+  
   /****************************************************************
     Loading Data
   ****************************************************************/
@@ -107,6 +109,7 @@ angular.module("programFinder", [])
       $scope.programs = response;
     });
   }
+
 
 
   /****************************************************************

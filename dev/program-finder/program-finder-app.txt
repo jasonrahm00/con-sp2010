@@ -5,12 +5,16 @@
 <div class="margin-top-medium" data-ng-app="programFinder">
   <div data-ng-controller="mainController" data-ng-cloak>
 
-    <div>
-      <h2>Loading...</h2>
+    <div data-ng-if="!dataLoaded">
+      <h2 class="center">Loading...</h2>
       <div class="spinner"></div>
     </div>
 
-    <div id="sortContainer" data-ng-if="dataLoaded" style="display: none;">
+    <div data-ng-if="loadError">
+      <h2 class="center">Unable to Load Data</h2>
+    </div>
+
+    <div id="sortContainer" data-ng-if="dataLoaded">
 
       <aside>
 

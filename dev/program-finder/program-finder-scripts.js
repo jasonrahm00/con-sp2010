@@ -1,21 +1,21 @@
 const degreeOrder = [
-      "Bachelor's",
-      "Master's",
-      "DNP",
-      "PhD",
-      "Dual Degree",
-      "Graduate Certificate",
-      "Post-Graduate Certificate",
-      "Non-Degree"
-    ],
-    levelOrder = [
-      "High School Diploma",
-      "RN (ADN) License",
-      "Nursing Bachelor's",
-      "Non-Nursing Bachelor's",
-      "Nursing Master's",
-      "Non-Nursing Master's"
-    ];
+        "Bachelor's",
+        "Master's",
+        "DNP",
+        "PhD",
+        "Dual Degree",
+        "Graduate Certificate",
+        "Post-Graduate Certificate",
+        "Non-Degree"
+      ],
+      levelOrder = [
+        "High School Diploma",
+        "RN (ADN) License",
+        "Nursing Bachelor's",
+        "Non-Nursing Bachelor's",
+        "Nursing Master's",
+        "Non-Nursing Master's"
+      ];
 
 function compare(a,b) {
   if (a.name < b.name)
@@ -93,20 +93,28 @@ angular.module("programFinder", [])
 
   $scope.filteredPrograms;
   $scope.programs = [];
+  $scope.dataLoaded = false;
+  $scope.loadError = false;
 
 
-  
+
   /****************************************************************
     Loading Data
   ****************************************************************/
 
-  jQuery(document).ready(function($) {
+  jQuery(document).ready(function() {
     ExecuteOrDelayUntilScriptLoaded(getData, "sp.js");
   });
 
   function getData() {
     dataService.getData().then(function(response) {
       $scope.programs = response;
+      $scope.dataLoaded = true;
+      $scope.loadError = false;
+    }, function(err) {
+      $scope.dataLoaded = false;
+      $scope.loadError = true;
+      console.log(err);
     });
   }
 
@@ -134,6 +142,16 @@ angular.module("programFinder", [])
   $scope.useFormat = {};
   $scope.useLevel = {};
   $scope.useSpecialty = {};
+
+  $scope.resetResults = function() {
+    if ($scope.filteredPrograms !== $scope.programs) {
+      $scope.filteredPrograms = $scope.programs;
+      $scope.useDegree = {};
+      $scope.useFormat = {};
+      $scope.useLevel = {};
+      $scope.useSpecialty = {};
+    }
+  };
 
   $scope.$watch(function () {
     return {
@@ -191,23 +209,23 @@ angular.module("programFinder", [])
       }
 
       $scope.levelGroup = uniqueItems($scope.programs, 'level');
-        var filterAfterLevel = [];
-        selected = false;
-        for (var j in filterAfterFormat) {
-          var p = filterAfterFormat[j];
-          for (var i in $scope.useLevel) {
-            if ($scope.useLevel[i]) {
-              selected = true;
-              if (i == p.level) {
-                filterAfterLevel.push(p);
-                break;
-              }
+      var filterAfterLevel = [];
+      selected = false;
+      for (var j in filterAfterFormat) {
+        var p = filterAfterFormat[j];
+        for (var i in $scope.useLevel) {
+          if ($scope.useLevel[i]) {
+            selected = true;
+            if (i == p.level) {
+              filterAfterLevel.push(p);
+              break;
             }
           }
         }
-        if (!selected) {
-          filterAfterLevel = filterAfterFormat;
-        }
+      }
+      if (!selected) {
+        filterAfterLevel = filterAfterFormat;
+      }
 
       $scope.specialtyGroup = uniqueItems($scope.programs, 'specialty');
       var filterAfterSpecialty = [];

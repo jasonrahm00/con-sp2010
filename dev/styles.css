@@ -16,7 +16,7 @@ h5 {
 }
 
 a.button {
-  background: black;
+  background: #000;
   border-radius: 4px;
   color: white;
   display: inline-block;
@@ -24,17 +24,17 @@ a.button {
   margin: 1rem 0;
   padding: 1rem;
   text-align: center;
-  text-decoration: none;
 }
 
+a.button,
 a:visited.button {
-  color: white;
+  color: #fff !important;
   text-decoration: none;
 }
 
 a.button:hover,
 a:visited.button:hover {
-  color: #cfb87c;
+  color: #cfb87c !important;
   text-decoration: none;
 }
 
@@ -280,12 +280,12 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
   text-align: center;
 }
 
-.accordion_body .table th, 
+.accordion_body .table th,
 .accordion_body .table td {
   border-right: 1px solid #7C7E7F !important;
 }
 
-.accordion_body .table th:last-child, 
+.accordion_body .table th:last-child,
 .accordion_body .table td:last-child {
   border-right: 0 !important;
 }
@@ -312,8 +312,7 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
   border-radius: 50%;
   border-top: 5px solid #cfb87c;
   height: 30px;
-  left: 50%;
-  position: absolute;
+  margin: 0 auto;
   width: 30px;
 }
 
@@ -350,7 +349,7 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
 
 
 /**********************************************************
-    
+
                     List Styles
 
 **********************************************************/
@@ -379,7 +378,7 @@ ul.column-list.two>li {
 
 
 /**********************************************************
-    
+
             Accordion Widget Overrides
 
 **********************************************************/
@@ -483,7 +482,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
         Custom Styles for Programs Landing Page
 
 **********************************************************/
@@ -560,7 +559,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
         Custom Styles for Admissions Pages
 
 **********************************************************/
@@ -591,7 +590,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
                     Next Steps
 
 **********************************************************/
@@ -640,7 +639,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
               Custom Margins and Padding
 
 **********************************************************/
@@ -898,7 +897,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-    
+
                   Custom Widths
 
 **********************************************************/

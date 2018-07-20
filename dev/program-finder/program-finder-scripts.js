@@ -1,98 +1,128 @@
-var dataLoaded = false,
-    programs = [];
+const degreeOrder = [
+        "Bachelor's",
+        "Master's",
+        "DNP",
+        "PhD",
+        "Dual Degree",
+        "Graduate Certificate",
+        "Post-Graduate Certificate",
+        "Non-Degree"
+      ],
+      levelOrder = [
+        "High School Diploma",
+        "RN (ADN) License",
+        "Nursing Bachelor's",
+        "Non-Nursing Bachelor's",
+        "Nursing Master's",
+        "Non-Nursing Master's"
+      ];
 
-/*******************************************************************
+function compare(a,b) {
+  if (a.name < b.name)
+    return -1;
+  if (a.name > b.name)
+    return 1;
+  return 0;
+}
 
-  Load data from in-page table using jQuery
+angular.module("programFinder", [])
+.filter("custOrder", function() {
 
-*******************************************************************/
-
-$(document).ready(function() {
-
-  /*******************************************************************
-    Initial Variable Declarations
-  *******************************************************************/
-
-  var dataLoadError = false,
-      tableRows = $("table[summary='program-list '] tr").not($("table[summary='program-list '] tr.ms-viewheadertr.ms-vhltr"));
-
-  /*******************************************************************
-    Load Data and Build Components
-  *******************************************************************/
-
-  //Returns an object with data loaded from the table cells
-  function getData(tableRow) {
-    return {
-      name: tableRow.children[0].innerText,
-      url: tableRow.children[1].innerText,
-      degree: tableRow.children[2].innerText,
-      format: tableRow.children[3].innerText,
-      level: tableRow.children[4].innerText,
-      specialty: tableRow.children[5].innerText
+  return function(arr, strng) {
+    if (arr.length > 0) {
+      if (strng === "degree") {
+        return degreeOrder;
+      } else if (strng === "level") {
+        return levelOrder;
+      } else {
+        return arr.sort();
+      }
     }
   }
 
-  try {
-    getData(tableRows[0]);
-  }
-  catch(err) {
-    dataLoadError = true;
-    console.log(err);
-  }
+})
+.service("dataService", function($q) {
+  var listUrl = "/academics/colleges/nursing/programs-admissions/",
+      listName = "program-list";
 
-  //Remove duplicates from array
-    //https://gist.github.com/Vheissu/71dd683ad647e82a0d132076cf6eeef2#file-duplicate-remover-js
-  function removeDuplicates (array, keyToCompare) {
+  this.getData = function() {
 
-    let listOfValuesForKeyToCompare = array.map(object => object[keyToCompare]);
+    var deferred = $q.defer(),
+        clientContext = new SP.ClientContext(listUrl),
+        web = clientContext.get_web(),
+        list = web.get_lists().getByTitle(listName),
+        items = list.getItems(SP.CamlQuery.createAllItemsQuery());
 
-    let arrayWithoutDuplicates = array.filter( (object, index, array) => {
+    clientContext.load(items);
+    clientContext.executeQueryAsync(onQuerySucceed, onQueryFail);
 
-      if ( listOfValuesForKeyToCompare.indexOf(object[keyToCompare]) === index ) {
-        return true; // Keep it. No other object with the same value for this key exists.
+    function onQuerySucceed() {
+      var data = [],
+          itemEnumerator = items.getEnumerator();
+
+      while (itemEnumerator.moveNext()) {
+        var item = itemEnumerator.get_current(),
+            obj = {};
+
+        obj["page"] = item.get_item("Page_x0020_URL");
+        obj["name"] = item.get_item("Title");
+        obj["format"] = item.get_item("Learing_x0020_Format");
+        obj["level"] = item.get_item("Current_x0020_Education_x0020_Le");
+        obj["specialty"] = item.get_item("Graduate_x0020_Specialty");
+        obj["degree"] = item.get_item("Degree");
+
+        data.push(obj);
+
       }
-      else {
-        return false; // Filter it out. There's another object in the list with the same value for this key.
-      }
 
+      data.sort(compare);
+
+      deferred.resolve(data);
+
+    }
+
+    function onQueryFail() {
+      deferred.reject();
+    }
+
+    return deferred.promise;
+  }
+
+})
+.controller("mainController", function($scope, dataService){
+
+  $scope.filteredPrograms;
+  $scope.programs = [];
+  $scope.dataLoaded = false;
+  $scope.loadError = false;
+
+
+
+  /****************************************************************
+    Loading Data
+  ****************************************************************/
+
+  jQuery(document).ready(function() {
+    ExecuteOrDelayUntilScriptLoaded(getData, "sp.js");
+  });
+
+  function getData() {
+    dataService.getData().then(function(response) {
+      $scope.programs = response;
+      $scope.dataLoaded = true;
+      $scope.loadError = false;
+    }, function(err) {
+      $scope.dataLoaded = false;
+      $scope.loadError = true;
+      console.log(err);
     });
-
-    return arrayWithoutDuplicates;
   }
 
-  /********************* Initial Build Function *********************/
-
-  if(!dataLoadError) {
-    $.each(tableRows, function(index, value) {
-      var data = getData(value);
-
-      //Push data into programs array
-      programs.push(data);
-    });
-    programs = removeDuplicates(programs, 'name');
-    dataLoaded = true;
-  }
-
-  /*********** Unhide components After Initial Build ***********/
-
-  if(dataLoaded) {
-    $("#loadingMessage").remove();
-    $("#visWrapper").show();
-  }
-
-});
 
 
-
-/*******************************************************************
-
-  Create app with AngularJS
-
-*******************************************************************/
-
-angular.module("programFinder", [])
-.controller("mainController", function($scope){
-  $scope.programs = programs;
+  /****************************************************************
+    Filtering
+  ****************************************************************/
 
   var uniqueItems = function (data, key) {
     var result = [];
@@ -112,6 +142,16 @@ angular.module("programFinder", [])
   $scope.useFormat = {};
   $scope.useLevel = {};
   $scope.useSpecialty = {};
+
+  $scope.resetResults = function() {
+    if ($scope.filteredPrograms !== $scope.programs) {
+      $scope.filteredPrograms = $scope.programs;
+      $scope.useDegree = {};
+      $scope.useFormat = {};
+      $scope.useLevel = {};
+      $scope.useSpecialty = {};
+    }
+  };
 
   $scope.$watch(function () {
     return {
@@ -169,23 +209,23 @@ angular.module("programFinder", [])
       }
 
       $scope.levelGroup = uniqueItems($scope.programs, 'level');
-        var filterAfterLevel = [];
-        selected = false;
-        for (var j in filterAfterFormat) {
-          var p = filterAfterFormat[j];
-          for (var i in $scope.useLevel) {
-            if ($scope.useLevel[i]) {
-              selected = true;
-              if (i == p.level) {
-                filterAfterLevel.push(p);
-                break;
-              }
+      var filterAfterLevel = [];
+      selected = false;
+      for (var j in filterAfterFormat) {
+        var p = filterAfterFormat[j];
+        for (var i in $scope.useLevel) {
+          if ($scope.useLevel[i]) {
+            selected = true;
+            if (i == p.level) {
+              filterAfterLevel.push(p);
+              break;
             }
           }
         }
-        if (!selected) {
-          filterAfterLevel = filterAfterFormat;
-        }
+      }
+      if (!selected) {
+        filterAfterLevel = filterAfterFormat;
+      }
 
       $scope.specialtyGroup = uniqueItems($scope.programs, 'specialty');
       var filterAfterSpecialty = [];
@@ -211,4 +251,3 @@ angular.module("programFinder", [])
   }, true);
 
 });
-

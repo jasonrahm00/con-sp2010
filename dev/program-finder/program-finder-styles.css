@@ -6,110 +6,192 @@ h1 {
   line-height: 100% !important;
 }
 
+main {
+  width: 70%;
+}
+
+main > h2,
+aside h2 {
+  font-weight: normal !important;
+  font-size: 1.65rem !important;
+}
+
+main > h2 {
+  margin-bottom: calc(1rem + 3px) !important;
+}
+
+aside h2 {
+  padding-bottom: 1rem;
+}
+
+.border-bottom-gold {
+  border-bottom: 3px solid #d6cca6;
+}
+
+#contentPage0 #columnPrimary {
+  max-width: 948px;
+}
+
+#columnPrimary {
+  margin: 6px 0 18px;
+  width: 100%;
+}
+
+#columnPrimary ul {
+  list-style-type: none;
+  margin-left: 0;
+  margin-top: 1.75em;
+}
+
+#columnPrimary li {
+  line-height: 1.8em;
+}
+
+#sortContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
+
+/*******************************************
+  Card Styles
+*******************************************/
+
 .card-body {
   padding: 10px;
 }
 
 .card-body a {
+  bottom: 0;
+  display: block;
+  left: 0;
+  padding: 10px;
   position: absolute;
-  bottom: 10px;
+  text-align: center;
+  width: calc(100% - 20px);
+}
+
+.card-body a:hover {
+  text-decoration: underline !important;
+}
+
+.card-body a:visited {
+  color: #0072bc;
 }
 
 .card-title {
   background: #d6cca6;
+  /*background: #c5a95d;*/
+  border-right: 1px solid #d6cca6;
+  display: table;
+  height: 50px;
+  width: 100%;
+}
+
+.card-title > span {
   color: #4c4b44;
-  display: block;
   font-weight: bold;
-  padding: 10px;
+  display: table-cell;
+  padding: 0 5px;
   text-align: center;
   text-transform: capitalize;
+  vertical-align: middle;
 }
 
 .program-card {
   border: 1px solid #ddd;
   border-radius: 4px;
-  height: 250px;
+  height: 275px;
   margin-bottom: 2rem;
   position: relative;
-  width: 45%
+  width: 300px;
 }
 
-#filters {
-  width: 25%;
-}
-
-#filters h2 {
-  border-bottom: 3px solid #d6cca6;
-  font-weight: normal;
-  font-size: 1.65rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-}
-
-#filters h3 {
-  color: #565a5c;
-  font-weight: bold;
-  font-size: 1rem !important;
-  font-weight: bold;
-}
-
-#filters label {
-  cursor: pointer;
-  display: block;
-}
-
-#filters section {
-  margin-bottom: 2rem;
-}
-
-#filters section:last-child {
-  margin-bottom: 0;
+.program-card:nth-child(2n) .card-title > span {
+  border-right: 1px solid #d6cca6;
+  border-radius: 4px;
 }
 
 #programCards {
+  align-content: flex-start;
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
-  width: 70%;
-}
-
-#sortContainer {
-  display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-#visWrapper {
-  display: none;
+  margin-left: 1.5rem;
 }
 
 
 
-/******************************************
+/*******************************************
+  Filter Styles
+*******************************************/
 
-  Animations
-
-******************************************/
-
-.program-card.ng-enter,
-.program-card.ng-leave
-{
-    -webkit-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    -moz-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    -ms-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    -o-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
-    position: relative;
+aside {
+  width: 27%;
 }
 
-.program-card.ng-enter.program-card.ng-enter-active,
-.program-card.ng-leave {
-    opacity: 1;
-    left: 0;
+aside input {
+  cursor: pointer;
 }
 
-.program-card.ng-leave.program-card.ng-leave-active,
-.program-card.ng-enter {
-    opacity: 0;
-    left: -50px;
+aside label {
+  color: #4c4b44;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 25px auto 30px;
+  margin-right: 0;
+  padding: 5px 0;
+}
+
+aside label span {
+  align-self: center;
+}
+
+aside label span:last-child {
+  justify-self: end;
+}
+
+aside > div {
+  margin-bottom: 2rem;
+}
+
+h3,
+.ms-WPBody h3 {
+  color: #565a5c !important;
+  font-family: MuliRegular, Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  margin: 0 0 6px;
+}
+
+.filter-group {
+  background: whitesmoke;
+  padding: 5px 5px 2rem;
+}
+
+.filter-group:nth-child(2) {
+  padding-top: 2rem;
+}
+
+.reset-icon {
+  background: #fff;
+  color: inherit;
+  cursor: pointer;
+  display: table;
+  height: 26px;
+  text-decoration: none !important;
+  transform: rotate(-90deg);
+  width: 30px;
+}
+
+.reset-icon:before {
+  content: '\21BA';
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.reset-icon:after {
+  content: '';
 }

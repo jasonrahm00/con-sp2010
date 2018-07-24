@@ -139,18 +139,20 @@ aside input {
 aside label {
   color: #4c4b44;
   cursor: pointer;
-  display: grid;
-  grid-template-columns: 25px auto 30px;
+  display: flex;
+  justify-content: space-between;
   margin-right: 0;
   padding: 5px 0;
 }
 
-aside label span {
-  align-self: center;
+aside input[type="checkbox"] {
+  height: 13px;
+  width: 25px;
 }
 
-aside label span:last-child {
-  justify-self: end;
+aside .label-text {
+  flex: 1;
+  margin-right: 10px;
 }
 
 aside > div {

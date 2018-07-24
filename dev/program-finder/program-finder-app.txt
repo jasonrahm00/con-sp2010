@@ -26,8 +26,8 @@
             <h3 style="font-size: 1.5em !important;">Desired Outcome</h3>
             <label for="degree{{$index}}" data-ng-repeat="degree in degreeGroup | custOrder:'degree'">
               <input id="degree{{$index}}" type="checkbox" data-ng-model="useDegree[degree]">
-              <span>{{ degree }}</span>
-              <span>({{ (filteredPrograms | filter:count('degree', degree)).length }})</span>
+              <span class="label-text">{{ degree }}</span>
+              <span class="result-count">({{ (filteredPrograms | filter:count('degree', degree)).length }})</span>
             </label>
           </section>
 
@@ -35,8 +35,8 @@
             <h3 style="font-size: 1.5em !important;">Your Current Degree</h3>
             <label for="level{{$index}}" data-ng-repeat="level in levelGroup | custOrder:'level'" data-ng-if="level !== null">
               <input id="level{{$index}}" type="checkbox" data-ng-model="useLevel[level]">
-              <span>{{ level }}</span>
-              <span>({{ (filteredPrograms | filter:count('level', level)).length }})</span>
+              <span class="label-text">{{ level }}</span>
+              <span class="result-count">({{ (filteredPrograms | filter:count('level', level)).length }})</span>
             </label>
           </section>
 
@@ -44,8 +44,8 @@
             <h3 style="font-size: 1.5em !important;">Ideal Learning Format</h3>
             <label for="format{{$index}}" data-ng-repeat="format in formatGroup | orderBy:format" data-ng-if="format !== null">
               <input id="format{{$index}}" type="checkbox" data-ng-model="useFormat[format]">
-              <span>{{ format }}</span>
-              <span>({{ (filteredPrograms | filter:count('format', format)).length }})</span>
+              <span class="label-text">{{ format }}</span>
+              <span class="result-count">({{ (filteredPrograms | filter:count('format', format)).length }})</span>
             </label>
           </section>
 
@@ -53,8 +53,8 @@
             <h3 style="font-size: 1.5em !important;">Graduate Specialty</h3>
             <label for="specialty{{$index}}" data-ng-repeat="specialty in specialtyGroup | orderBy:specialty" data-ng-if="specialty !== null">
               <input id="specialty{{$index}}" type="checkbox" data-ng-model="useSpecialty[specialty]">
-              <span>{{ specialty }}</span>
-              <span>({{ (filteredPrograms | filter:count('specialty', specialty)).length }})</span>
+              <span class="label-text">{{ specialty }}</span>
+              <span class="result-count">({{ (filteredPrograms | filter:count('specialty', specialty)).length }})</span>
             </label>
           </section>
 

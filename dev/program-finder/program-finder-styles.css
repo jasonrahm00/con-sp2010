@@ -6,8 +6,23 @@ h1 {
   line-height: 100% !important;
 }
 
+aside {
+  float: left;
+  margin-right: 3%;
+  width: 27%;
+}
+
 main {
+  float: right;
   width: 70%;
+}
+
+main: after,
+aside:after,
+.program-card:after {
+  clear: both;
+  content: "";
+  display: table;
 }
 
 main > h2,
@@ -45,12 +60,6 @@ aside h2 {
 
 #columnPrimary li {
   line-height: 1.8em;
-}
-
-#sortContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 
@@ -115,22 +124,23 @@ aside h2 {
 }
 
 #programCards {
-  align-content: flex-start;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   margin-left: 1.5rem;
 }
 
+.program-card:nth-child(even) {
+  float: right;
+}
+
+.program-card:nth-child(odd) {
+  float: left;
+}
 
 
 /*******************************************
   Filter Styles
 *******************************************/
 
-aside {
-  width: 27%;
-}
+
 
 aside input {
   cursor: pointer;
@@ -139,20 +149,29 @@ aside input {
 aside label {
   color: #4c4b44;
   cursor: pointer;
-  display: flex;
-  justify-content: space-between;
+  display: table-row;
+  line-height: 35px;
   margin-right: 0;
-  padding: 5px 0;
+  width: 100%;
 }
 
 aside input[type="checkbox"] {
+  display: table-cell;
   height: 13px;
   width: 25px;
 }
 
 aside .label-text {
-  flex: 1;
+  display: table-cell;
+  line-height: normal;
   margin-right: 10px;
+  width: 190px;
+}
+
+aside .result-count {
+  display: table-cell;
+  text-align: right;
+  width: 30px;
 }
 
 aside > div {
@@ -181,6 +200,7 @@ h3,
   color: inherit;
   cursor: pointer;
   display: table;
+  float: right;
   height: 26px;
   text-decoration: none !important;
   transform: rotate(-90deg);
@@ -195,5 +215,7 @@ h3,
 }
 
 .reset-icon:after {
-  content: '';
+  clear: both;
+  content: "";
+  display: table;
 }

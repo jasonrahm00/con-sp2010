@@ -1,4 +1,4 @@
-const degreeOrder = [
+var degreeOrder = [
         "Bachelor's",
         "Master's",
         "DNP",

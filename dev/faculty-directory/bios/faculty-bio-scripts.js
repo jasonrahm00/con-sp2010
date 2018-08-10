@@ -2,7 +2,7 @@ var now = Date.now(),
     currentPage = window.location.href;
 
 function addMonth(x) {
-  let y = new Date(x);
+  var y = new Date(x);
   return y.setDate(y.getDate() + 30);
 }
 

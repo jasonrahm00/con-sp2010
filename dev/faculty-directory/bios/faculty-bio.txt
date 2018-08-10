@@ -3,13 +3,16 @@
 
 <div data-ng-app="facultyBio" data-ng-controller="mainController">
 
-  <!--
   <div data-ng-if="!dataLoaded">
-    <h2>Loading</h2>
+    <h2 class="center">Loading...</h2>
+    <div class="spinner"></div>
   </div>
-  -->
 
-  <div id="bioContainer" data-ng-cloak>
+  <div data-ng-if="loadError">
+    <h2 class="center">Unable to Load Data</h2>
+  </div>
+
+  <div id="bioContainer" data-ng-if="dataLoaded" data-ng-cloak>
     <aside>
       <div id="imageContainer" data-ng-if="data.headshot">
         <img data-ng-src="{{ data.headshot }}" alt="{{ data.name.firstName }} {{ data.name.lastName }}">
@@ -21,9 +24,6 @@
         <li data-ng-if="data.cv !== null"><strong>CV:</strong>
           <a href="{{ data.cv }}" target="_blank">{{ data.name.firstName }}'s CV (PDF)</a>
         </li>
-        <li data-ng-if="data.biosketch !== null"><strong>Biosketch:</strong>
-          <a href="{{ data.biosketch }}" target="_blank">{{ data.name.firstName }}'s Biosketch (PDF)</a>
-        </li>
       </ul>
 
       <div class="promoted-news" data-ng-if="promotedNews">
@@ -33,58 +33,13 @@
         <a href="{{ promotedNews.link }}" data-ng-if="promotedNews.link.indexOf('pdf') > -1" target="_blank">{{ promotedNews.title }} (PDF)</a>
       </div>
 
-      <div id="videoContainer" data-ng-if="components === 'video' && components !=='none' && components !=='quote'">
-        <span data-ng-bind-html="video | renderHTMLCorrectly"></span>
-      </div>
-
-      <blockquote data-ng-if="components === 'quote' && components !=='none' && components !=='video'">
-        <q>{{ quote }}</q>
-      </blockquote>
-
-      <!--
-
       <div id="videoContainer" data-ng-if="data.video">
         <span data-ng-bind-html="data.video | renderHTMLCorrectly"></span>
       </div>
 
-      <blockquote data-ng-if="data.quote && !data.video'">
+      <blockquote data-ng-if="data.quote && !data.video">
         <q>{{ data.quote }}</q>
       </blockquote>
-
-      -->
-
-      <div class="margin-top-medium">
-
-        <div class="margin-bottom-small">
-          <label for="faculty" style="font-weight: bold;">Load Faculty Data</label>
-          <select id="faculty" data-ng-model="faculty">
-            <option value="" disabled>-- Choose Faculty Member --</option>
-            <option value="default">Default</option>
-            <option value="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/c_jankowski.aspx">Catherine Jankowski</option>
-            <option value="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/m_rice.aspx">Michael Rice</option>
-            <option value="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/lori-trego.aspx">Lori Trego</option>
-          </select>
-        </div>
-
-        <fieldset>
-          <legend>Additional Page Components</legend>
-          <label for="none" style="display: block;">
-            <input type="radio" id="none" name="components" value="none" data-ng-model="components" checked>
-            None
-          </label>
-
-          <label for="quote" style="display: block;">
-            <input type="radio" id="quote" name="components" value="quote" data-ng-model="components">
-            Quote
-          </label>
-
-          <label for="video" style="display: block;">
-            <input type="radio" id="video" name="components" value="video" data-ng-model="components">
-            Audio/Video
-          </label>
-        </fieldset>
-
-      </div>
 
     </aside>
 
@@ -99,7 +54,7 @@
           <span data-ng-if="data.specialty.url.length < 10">{{ data.specialty.text }}</span>
         </h3>
 
-        <h3 data-ng-if="data.clinic.text.length && data.specialty.url.length < 10">Works at 
+        <h3 data-ng-if="data.clinic.text.length && data.specialty.url.length < 10">Works at
           <span data-ng-if="data.clinic.url.length > 10"><a href="{{ data.clinic.url }}">{{ data.clinic.text }}</a></span>
           <span data-ng-if="data.clinic.url.length < 10">{{ data.clinic.text }}</span>
         </h3>
@@ -107,7 +62,7 @@
       </header>
 
       <section data-ng-if="data.bio">
-        <h2>Biography <span style="color: red; font-weight: bold;">({{ data.bio.split(' ').length }} Words)</span></h2>
+        <h2>Biography</h2>
         <span data-ng-bind-html="data.bio | renderHTMLCorrectly"></span>
       </section>
 

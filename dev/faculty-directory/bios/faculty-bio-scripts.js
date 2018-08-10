@@ -1,26 +1,5 @@
-const defaultVideoId = "O6-0QmxYotU",
-      defaultFaculty = {
-        bio: "<div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac fringilla orci. Fusce at ornare mi, sed vestibulum nibh. Etiam efficitur libero at lorem semper, in suscipit justo vehicula. Phasellus sollicitudin metus volutpat sem sodales posuere. Cras commodo commodo augue, eget mollis dolor lobortis ac. Sed imperdiet dui non leo fermentum pretium. In hac habitasse platea dictumst. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean dui tellus, tempor at bibendum vitae, tempus id felis. Donec condimentum id orci ut ornare. Nunc eu ligula tincidunt, rhoncus tortor eu, condimentum turpis. Nam dictum mollis suscipit. Praesent orci nunc, pharetra sit amet blandit quis, dapibus ut mi. Quisque vel varius arcu. Integer ultrices hendrerit neque, nec blandit quam elementum quis.</p><p>Sed eget ex quis enim ultrices rutrum. Sed dolor orci, efficitur in vulputate at, tincidunt vitae leo. Phasellus in rhoncus ligula. Nunc blandit viverra facilisis. Curabitur eget vehicula elit. Integer eget velit elit. Aliquam viverra nisi est, sit amet rutrum nisi convallis nec. Duis eget fermentum ex, sit amet maximus est. Praesent eleifend dolor ac bibendum rutrum. Mauris tristique eu enim sed semper. Morbi ac pharetra elit. In in tempor lacus. Mauris porttitor interdum bibendum. Aenean et felis consequat, consectetur ex at, sollicitudin diam. Nullam tempor aliquam nisi, et pretium risus lacinia et.</p><p>Donec semper accumsan ligula a dapibus. Sed vitae finibus mauris, et porta tellus. Nullam sagittis, tortor in ultrices suscipit, ligula orci aliquet augue, id varius lorem libero eget felis. Aliquam at augue augue. Pellentesque pulvinar sed magna vitae aliquet. Nullam sed erat est. Vivamus congue odio id ex auctor faucibus. Vestibulum posuere viverra ornare. Donec vitae lobortis massa, ut suscipit risus. Suspendisse commodo facilisis orci, et commodo risus posuere sit amet. Etiam interdum purus elit, auctor scelerisque ante sodales a. Integer sit amet nulla ipsum. Sed facilisis orci ex, varius scelerisque arcu iaculis et.</p><p>Cras id est eu turpis pellentesque gravida id vel elit. Quisque bibendum est non bibendum convallis. Sed egestas risus vel elit hendrerit dapibus. Aliquam et fermentum neque. Aliquam lacinia auctor lorem eget laoreet. Integer vel magna neque. Proin ex eros, tempor ut est et, tincidunt auctor sapien. Morbi in fermentum ex. Vivamus at lorem ut diam dictum tempor. Pellentesque odio dolor, ullamcorper et tortor ac, luctus commodo lorem. Praesent id diam eget orci facilisis hendrerit. Nunc porttitor ligula ac arcu facilisis euismod. Morbi mattis leo et nisl cursus, eget lacinia diam semper. Donec dapibus porttitor lorem, eget luctus ipsum luctus non. Donec ut tellus vel purus rutrum viverra at nec sapien. Duis tempor, mi sed ornare interdum, magna ex porttitor neque, fermentum convallis dolor mauris nec elit.</p><p>In ornare augue ut nisi faucibus, posuere dictum leo mollis. Duis pretium diam et feugiat molestie. Aenean vel nibh consequat, posuere mauris ac, rutrum risus. Praesent sit amet justo eleifend, ullamcorper eros vel, accumsan ligula. Mauris sodales mollis massa. Aenean molestie eros nec gravida eleifend. In sed nisi consequat, pellentesque justo cursus, facilisis tellus. Integer tristique massa id consequat posuere. Vestibulum eget finibus.</p></div>",
-        biosketch: "http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Documents/cv-sample.pdf",
-        awards: "<ul><li>Being Awesome Award, 2018</li><li>Excellence in Teaching, 2017</li><li>Getting Stuff Done Award, 2015</li></ul>",
-        cv: "http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Documents/cv-sample.pdf",
-        degree: "PhD, MS",
-        education: "<ul><li>PhD, Harvard</li><li>MS, Yale</li><li>BSN, CU Boulder</li></ul>",
-        email: "somewhere@email.com",
-        headshot: "http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/PublishingImages/default-profile.png",
-        name: "Faculty, Fred",
-        office: "12345",
-        page: "http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/fred-faculty.aspx",
-        phone: "555-555-5555",
-        title: "Assistant Professor",
-        quote: "An important extract from the bio. Or something this faculty member has said that is memorable and life-changing.",
-        video: '<iframe width="225" height="126" src="https://www.youtube.com/embed/' + defaultVideoId + '?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-        name: {
-          "firstName": "Fred",
-          "lastName": "Faculty"
-        }
-      },
-      now = Date.now();
+var now = Date.now(),
+    currentPage = window.location.href;
 
 function addMonth(x) {
   let y = new Date(x);
@@ -78,7 +57,7 @@ angular.module("facultyBio", [])
           obj["office"] = item.get_item("Office");
           obj["phone"] = item.get_item("PrimaryNumber");
 
-          obj["specialty"] = ((x) => {
+          obj["specialty"] = (function(x) {
             if (x !== null) {
               return {
                 "text": item.get_item("Specialty").get_description(),
@@ -92,7 +71,7 @@ angular.module("facultyBio", [])
             }
           })(item.get_item("Specialty"));
 
-          obj["clinic"] = ((x) => {
+          obj["clinic"] = (function(x) {
             if (x !== null) {
               return {
                 "text": item.get_item("Clinic_x0020_Location").get_description(),
@@ -108,7 +87,13 @@ angular.module("facultyBio", [])
 
           obj["awards"] = stripSpaces(item.get_item("Awards"));
           obj["quote"] = stripSpaces(item.get_item("Quote"));
-          obj["video"] = '<iframe width="225" height="126" src="https://www.youtube.com/embed/' + stripSpaces(item.get_item("Video")) + '?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+          obj["video"] = (function(x) {
+            if (x !== null) {
+              return '<iframe width="225" height="126" src="https://www.youtube.com/embed/' + stripSpaces(x) + '?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+            }
+          })(item.get_item("Video"))
+
+
 
           data.push(obj);
 
@@ -189,24 +174,18 @@ angular.module("facultyBio", [])
 })
 .controller("mainController", function($scope, dataService, newsService){
 
-  $scope.faculty = "default";
-  $scope.currentPage = window.location.href;
   $scope.data;
   $scope.dataLoaded = false;
   $scope.loadError = false;
 
-  jQuery(document).ready(function($) {
-    if ($scope.faculty === "default") {
-      $scope.data = defaultFaculty;
-    } else {
-      ExecuteOrDelayUntilScriptLoaded(loadData, "sp.js");
-    }
+  jQuery(document).ready(function() {
+    ExecuteOrDelayUntilScriptLoaded(loadData, "sp.js");
   });
 
   function loadData() {
 
     // Get fac data
-    dataService.getData($scope.currentPage).then(function(response) {
+    dataService.getData(currentPage).then(function(response) {
       $scope.data = response[0];
     }, function(error) {
       $scope.loadError = true;
@@ -214,7 +193,7 @@ angular.module("facultyBio", [])
     });
 
     // Get news
-    newsService.getNews($scope.currentPage).then(function(response) {
+    newsService.getNews(currentPage).then(function(response) {
 
       var x = [];
 
@@ -229,36 +208,15 @@ angular.module("facultyBio", [])
       $scope.news = x;
 
       $scope.dataLoaded = true;
+      $scope.loadError = false;
 
     }, function(error) {
+      $scope.dataLoaded = false;
       $scope.loadError = true;
       console.log(error);
     });
 
 
   }
-
-  $scope.$watch("faculty", function(newVal, oldVal) {
-    if (newVal !== oldVal) {
-      $scope.data = [];
-      $scope.news = null;
-      $scope.promotedNews = null;
-
-      if (newVal === 'default') {
-        $scope.currentPage = window.location.href;
-        $scope.data = defaultFaculty;
-      } else {
-        $scope.currentPage = newVal;
-        loadData();
-      }
-
-
-    }
-  });
-
-  // Elements to add for testing and demo
-  $scope.quote = defaultFaculty.quote;
-  $scope.video = defaultFaculty.video;
-  $scope.components = "none";
 
 });

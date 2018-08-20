@@ -1,11 +1,16 @@
-#bioContainer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 3rem;
+#bioContainer a:link {
+  color: #004D81 !important;
+}
+
+#bioContainer a:visited {
+  color: #006091 !important;
+}
+
+#bioContainer a:hover {
+  text-decoration: underline !important;
 }
 
 #bioContainer h1 {
-  color:#565a5c;
   font-family: MuliRegular, Helvetica, Arial, sans-serif;
   font-weight:700;
   font-size:2.5rem;
@@ -22,30 +27,60 @@
 }
 
 #bioContainer header h2 {
-  color: #565a5c;
   font-size: 2.25em;
   font-style: italic;
 }
 
+#bioContainer header h1,
+#bioContainer header h2,
+#bioContainer header h3 {
+  color: #565a5c;
+}
+
+#bioContainer header h3 {
+  font-size: 1.85em !important;
+}
+
+#bioContainer header h3 a:link {
+  color: #0072bc;
+  text-decoration: none;
+}
+
+#bioContainer header h3 > span {
+  font-weight: bold;
+}
+
 aside {
+  float: left;
   margin-top: 14px;
   width: 25%;
 }
 
 aside ul {
   list-style-type: none;
-  margin-left: 0;
+  margin-left: 0 !important;
 }
 
 aside ul li {
-  margin: 0;
+  margin: 0 !important;
+}
+
+aside:after,
+main:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+blockquote,
+#videoContainer {
+  margin-top: 2rem;
 }
 
 blockquote {
   border-bottom: 3px solid #c5a95d;
   border-top: 3px solid #c5a95d;
-  margin: 3rem 0;
-  padding: 2.5rem 1rem;
+  padding: 1.5rem 1rem 1rem;
   text-align: center;
 }
 
@@ -69,6 +104,7 @@ blockquote q:after {
 }
 
 main {
+  float: right;
   width: 70%;
 }
 
@@ -91,13 +127,13 @@ main > *:last-child {
 }
 
 #imageContainer {
-  height: 206px;
   margin: 0 auto 1rem;
-  max-width: 156px;
   text-align: center;
 }
 
 #imageContainer > img {
-  width: 100%;
+  border-radius: 50%;
+  max-height: 206px;
+  max-width: 156px;
 }
 

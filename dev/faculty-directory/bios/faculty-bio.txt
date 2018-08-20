@@ -77,7 +77,7 @@
       </section>
 
       <section data-ng-if="news.length > 0">
-        <h2>Recent News</h2>
+        <h2>In the News</h2>
         <ul>
           <li data-ng-repeat="x in news">
             <a href="{{ x.link }}" data-ng-if="x.link.indexOf('pdf') < 0 && x.link.indexOf('ucdenver.edu') > -1">{{ x.title }}</a>

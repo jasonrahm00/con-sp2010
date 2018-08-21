@@ -76,6 +76,34 @@ gulp.task('compile-locator', function(callback) {
 
 
 /*********************************************
+          Faculty Profile Tasks
+*********************************************/
+
+gulp.task('bio-scripts', function() {
+  gulp.src('dev/faculty-directory/bios/faculty-bio-scripts.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/faculty-bios'))
+});
+
+gulp.task('bio-styles', function() {
+  gulp.src('dev/faculty-directory/bios/faculty-bio-styles.css')
+    .pipe(cssnano())
+    .pipe(gulp.dest('dist/faculty-bios'))
+});
+
+gulp.task('bio-html', function() {
+  gulp.src('dev/faculty-directory/bios/faculty-bio.html')
+    .pipe(rename('faculty-bio.txt'))
+    .pipe(gulp.dest('dist/faculty-bios'))
+});
+
+gulp.task('compile-bio', function(callback) {
+  runSequence('clean:dist', ['bio-scripts', 'bio-styles', 'bio-html'], callback)
+});
+
+
+
+/*********************************************
             Global Tasks
 *********************************************/
 

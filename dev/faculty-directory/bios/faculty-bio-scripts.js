@@ -184,14 +184,6 @@ angular.module("facultyBio", [])
 
   function loadData() {
 
-    // Get fac data
-    dataService.getData(currentPage).then(function(response) {
-      $scope.data = response[0];
-    }, function(error) {
-      $scope.loadError = true;
-      console.log(error);
-    });
-
     // Get news
     newsService.getNews(currentPage).then(function(response) {
 
@@ -207,15 +199,26 @@ angular.module("facultyBio", [])
 
       $scope.news = x;
 
-      $scope.dataLoaded = true;
-      $scope.loadError = false;
+    }, function(error) {
+      console.log(error);
+    });
 
+    // Get fac data
+    dataService.getData(currentPage).then(function(response) {
+      if (response[0] === undefined) {
+        $scope.loadError = true;
+        $scope.dataLoaded = false;
+        console.error("Unable to retrieve faculty data. Make sure list item exists and page URL field is correct.");
+      } else {
+        $scope.data = response[0];
+        $scope.loadError = false;
+        $scope.dataLoaded = true;
+      }
     }, function(error) {
       $scope.dataLoaded = false;
       $scope.loadError = true;
       console.log(error);
     });
-
 
   }
 

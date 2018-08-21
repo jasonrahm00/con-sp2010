@@ -11,12 +11,12 @@ function stripSpaces(strng) {
 }
 
 angular.module("facultyBio", [])
-.filter("renderHTMLCorrectly", function($sce) {
+.filter("renderHTMLCorrectly", ['$sce', function($sce) {
   return function(stringToParse) {
     return $sce.trustAsHtml(stringToParse);
   }
-})
-.service("dataService", function($q) {
+}])
+.service("dataService", ['$q', function($q) {
 
   var listUrl = "/academics/colleges/nursing/faculty-staff/faculty/",
       listName = "Faculty";
@@ -114,8 +114,8 @@ angular.module("facultyBio", [])
 
   };
 
-})
-.service("newsService", function($q) {
+}])
+.service("newsService", ['$q', function($q) {
   var listUrl = "/academics/colleges/nursing/about-us/news/",
       listName = "news-items";
 
@@ -171,8 +171,8 @@ angular.module("facultyBio", [])
     return deferred.promise;
   }
 
-})
-.controller("mainController", function($scope, dataService, newsService){
+}])
+.controller("mainController", ['$scope', 'dataService', 'newsService', function($scope, dataService, newsService){
 
   $scope.data;
   $scope.dataLoaded = false;
@@ -222,4 +222,4 @@ angular.module("facultyBio", [])
 
   }
 
-});
+}]);

@@ -3,60 +3,72 @@
 
 <div data-ng-app="facultyDirectory" data-ng-controller="mainController">
 
-  <div data-ng-if="!dataLoaded && !loadError">
-    <h2 class="center">Loading...</h2>
-    <div class="spinner"></div>
-  </div>
-
-  <div data-ng-if="loadError" data-ng-cloak>
-    <h2 class="center">Unable to Load Data</h2>
-  </div>
-  
   <main>
     <h1>Faculty Directory</h1>
 
-    <section class="faculty-card">
-      <div class="card-content">
-        <div class="card-image">
-          <img src="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/PublishingImages/profile-headshots/patricia-abbott.jpg" alt="">
-        </div>
+    <div class="filters">
 
-        <header>
-          <h2>Patricia Abbott, PhD, MSN, FNP-BC</h2>
-          <h3>Assistant Professor</h3>
-          <h4>Practices at <a href="http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/CHC/Pages/default.aspx">CU Anschutz Campus Health Center</a></h4>
-        </header>
-
-        <ul>
-          <li>Phone: <a href="tel:303-724-6242">303-724-6242</a></li>
-          <li>Office: Ed2 North Room 4208</li>
-          <li>Email: <a href="mailto:Patricia.Abbott@ucdenver.edu">Patricia.Abbott@ucdenver.edu</a></li>
-          <li><a href="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/p_abbott.aspx">View Patricia's Biography</a></li>
-        </ul>
+      <div>
+        <label for="name">Search by Name</label>
+        <input id="name" type="text" value="">
       </div>
-    </section>
 
-    <section class="faculty-card">
-      <div class="card-content">
-        <div class="card-image">
-          <img src="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/PublishingImages/profile-headshots/marilyn-krajicek.jpg" alt="">
-        </div>
-
-        <header>
-          <h2>Marilyn Krajicek, EdD, RN, FAAN</h2>
-          <h3>Professor; Director, Doctor of Nursing Practice Master in Public Health (dual degree) and Doctor of Nursing Practice Public Health Specialty Nursing programs</h3>
-          <h4>Area of Expertise: <a href="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/graduate-programs/DNP_MPH/Pages/default.aspx">DNP/MPH Dual Degree</a></h4>
-        </header>
-
-        <ul>
-          <li>Phone: <a href="tel:303-724-0663">303-724-0663</a></li>
-          <li>Office: Ed2 North Room 5352</li>
-          <li>Email: <a href="mailto:Marilyn.Krajicek@ucdenver.edu">Marilyn.Krajicek@ucdenver.edu</a></li>
-          <li><a href="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/m_krajicek.aspx">View Marilyn's Biography</a></li>
-        </ul>
+      <div>
+        <label for="expertise">Expertise</label>
+        <select id="expertise">
+          <option value=""></option>
+        </select>
       </div>
-    </section>
-    
+
+      <div>
+        <label for="clinic">Clinical Location</label>
+        <select id="clinic">
+          <option value=""></option>
+        </select>
+      </div>
+
+
+    </div>
+
+    <div data-ng-if="!dataLoaded && !loadError">
+      <h2 class="center">Loading...</h2>
+      <div class="spinner"></div>
+    </div>
+
+    <div data-ng-if="loadError" data-ng-cloak>
+      <h2 class="center">Unable to Load Data</h2>
+    </div>
+
+    <div data-ng-if="dataLoaded && !loadError" data-ng-cloak>
+
+      <section class="faculty-card" data-ng-repeat="x in data">
+        <div class="card-content">
+          <div class="card-image">
+            <img data-ng-src="{{ x.headshot }}" alt="{{ x.name.firstName }} {{ x.name.lastName }}" data-ng-if="x.headshot !== null">
+          </div>
+
+          <header>
+            <h2>{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }}</h2>
+            <h3 style="font-size: 1.35em !important;">{{ x.title }}</h3>
+
+            <h4 data-ng-if="x.specialty.text.length > 0">Area of Expertise:
+              <a href="{{ x.specialty.url }}" data-ng-if="x.specialty.url.length > 10">{{ x.specialty.text }}</a>
+              <span data-ng-if="x.specialty.url.length < 10">{{ x.specialty.text }}</span>
+            </h4>
+
+          </header>
+
+          <ul>
+            <li data-ng-if="x.phone">Phone: <a href="tel:{{ x.phone }}">{{ x.phone }}</a></li>
+            <li data-ng-if="x.office">Office: Ed2 North Room {{ x.office }}</li>
+            <li data-ng-if="x.email">Email: <a href="mailto:{{ x.email }}">{{ x.email }}</a></li>
+            <li data-ng-if="x.page && x.page.indexOf('mailto') < 0"><a href="{{ x.page }}">View {{ x.name.firstName }}'s Biography</a></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+
   </main>
 
 </div>

@@ -1,0 +1,64 @@
+<link type="text/css" rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/faculty-directory/directory/directory-styles.css">
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
+
+<div data-ng-app="facultyDirectory" data-ng-controller="mainController">
+
+  <div data-ng-if="!dataLoaded && !loadError">
+    <h2 class="center">Loading...</h2>
+    <div class="spinner"></div>
+  </div>
+
+  <div data-ng-if="loadError" data-ng-cloak>
+    <h2 class="center">Unable to Load Data</h2>
+  </div>
+  
+  <main>
+    <h1>Faculty Directory</h1>
+
+    <section class="faculty-card">
+      <div class="card-content">
+        <div class="card-image">
+          <img src="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/PublishingImages/profile-headshots/patricia-abbott.jpg" alt="">
+        </div>
+
+        <header>
+          <h2>Patricia Abbott, PhD, MSN, FNP-BC</h2>
+          <h3>Assistant Professor</h3>
+          <h4>Practices at <a href="http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/CHC/Pages/default.aspx">CU Anschutz Campus Health Center</a></h4>
+        </header>
+
+        <ul>
+          <li>Phone: <a href="tel:303-724-6242">303-724-6242</a></li>
+          <li>Office: Ed2 North Room 4208</li>
+          <li>Email: <a href="mailto:Patricia.Abbott@ucdenver.edu">Patricia.Abbott@ucdenver.edu</a></li>
+          <li><a href="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/p_abbott.aspx">View Patricia's Biography</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="faculty-card">
+      <div class="card-content">
+        <div class="card-image">
+          <img src="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/PublishingImages/profile-headshots/marilyn-krajicek.jpg" alt="">
+        </div>
+
+        <header>
+          <h2>Marilyn Krajicek, EdD, RN, FAAN</h2>
+          <h3>Professor; Director, Doctor of Nursing Practice Master in Public Health (dual degree) and Doctor of Nursing Practice Public Health Specialty Nursing programs</h3>
+          <h4>Area of Expertise: <a href="http://www.ucdenver.edu/academics/colleges/nursing/programs-admissions/graduate-programs/DNP_MPH/Pages/default.aspx">DNP/MPH Dual Degree</a></h4>
+        </header>
+
+        <ul>
+          <li>Phone: <a href="tel:303-724-0663">303-724-0663</a></li>
+          <li>Office: Ed2 North Room 5352</li>
+          <li>Email: <a href="mailto:Marilyn.Krajicek@ucdenver.edu">Marilyn.Krajicek@ucdenver.edu</a></li>
+          <li><a href="http://www.ucdenver.edu/academics/colleges/nursing/faculty-staff/faculty/Pages/m_krajicek.aspx">View Marilyn's Biography</a></li>
+        </ul>
+      </div>
+    </section>
+    
+  </main>
+
+</div>
+
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/faculty-directory/directory/directory-scripts.js"></script>

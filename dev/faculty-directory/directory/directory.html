@@ -6,27 +6,25 @@
   <main>
     <h1>Faculty Directory</h1>
 
-    <div class="filters">
+    <div class="filters" data-ng-show="dataLoaded && !loadError">
 
       <div>
-        <label for="name">Search by Name</label>
-        <input id="name" type="text" value="">
+        <label for="name">Search Directory</label>
+        <input id="name" type="text" data-ng-model="query">
       </div>
 
       <div>
-        <label for="expertise">Expertise</label>
-        <select id="expertise">
-          <option value=""></option>
+        <label for="expertise">Filter by Area of Expertise</label>
+        <select id="expertise"
+                data-ng-model="expertise"
+                data-ng-options="filter for filter in expertiseFilters">
+          <option value="" disabled data-ng-selected="expertise === null">-- Expertise --</option>
         </select>
       </div>
 
       <div>
-        <label for="clinic">Clinical Location</label>
-        <select id="clinic">
-          <option value=""></option>
-        </select>
+        <input type="button" value="Reset Filters" data-ng-click="clearFilters()">
       </div>
-
 
     </div>
 
@@ -39,9 +37,9 @@
       <h2 class="center">Unable to Load Data</h2>
     </div>
 
-    <div data-ng-if="dataLoaded && !loadError" data-ng-cloak>
+    <div id="cardContainer" data-ng-if="dataLoaded && !loadError">
 
-      <section class="faculty-card" data-ng-repeat="x in data">
+      <section class="faculty-card" data-ng-repeat="x in people | filter:query | filter:expertise">
         <div class="card-content">
           <div class="card-image">
             <img data-ng-src="{{ x.headshot }}" alt="{{ x.name.firstName }} {{ x.name.lastName }}" data-ng-if="x.headshot !== null">
@@ -55,7 +53,6 @@
               <a href="{{ x.specialty.url }}" data-ng-if="x.specialty.url.length > 10">{{ x.specialty.text }}</a>
               <span data-ng-if="x.specialty.url.length < 10">{{ x.specialty.text }}</span>
             </h4>
-
           </header>
 
           <ul>

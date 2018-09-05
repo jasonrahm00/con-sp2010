@@ -20,7 +20,10 @@ angular.module("facultyDirectory", [])
     clientContext.executeQueryAsync(onQuerySucceed, onQueryFail);
 
     function onQuerySucceed() {
-      var data = [],
+      var data = {
+            "expertiseFilters": [],
+            "people": []
+          },
           itemEnumerator = items.getEnumerator();
 
       while (itemEnumerator.moveNext()) {
@@ -43,10 +46,18 @@ angular.module("facultyDirectory", [])
 
           obj["specialty"] = (function(x) {
             if (x !== null) {
-              return {
-                "text": item.get_item("Specialty").get_description(),
-                "url": item.get_item("Specialty").get_url()
+              var specText = x.get_description().trim(),
+                  specUrl = x.get_url();
+
+              if (data.expertiseFilters.indexOf(specText) < 0) {
+                data.expertiseFilters.push(specText);
               }
+
+              return {
+                "text": specText,
+                "url": specUrl
+              }
+
             } else {
               return {
                 "text": '',
@@ -58,8 +69,8 @@ angular.module("facultyDirectory", [])
           obj["clinic"] = (function(x) {
             if (x !== null) {
               return {
-                "text": item.get_item("Clinic_x0020_Location").get_description(),
-                "url": item.get_item("Clinic_x0020_Location").get_url()
+                "text": x.get_description(),
+                "url": x.get_url()
               }
             } else {
               return {
@@ -69,17 +80,19 @@ angular.module("facultyDirectory", [])
             }
           })(item.get_item("Clinic_x0020_Location"));
 
-          data.push(obj);
+          data.people.push(obj);
         }
       }
 
-      data = data.sort(function(a, b) {
+      data.people = data.people.sort(function(a, b) {
         if (a.name.lastName < b.name.lastName)
           return -1;
         if (a.name.lastName > b.name.lastName)
           return 1;
         return 0;
       });
+
+      data.expertiseFilters.sort();
 
       deferred.resolve(data);
 
@@ -94,11 +107,16 @@ angular.module("facultyDirectory", [])
   };
 
 }])
-
 .controller("mainController", ['$scope', 'dataService', function($scope, dataService){
   $scope.dataLoaded = false;
   $scope.loadError = false;
-  $scope.data;
+  $scope.expertise = null;
+  $scope.query = "";
+
+  $scope.clearFilters = function() {
+    $scope.expertise = null;
+    $scope.query = "";
+  };
 
   jQuery(document).ready(function() {
     ExecuteOrDelayUntilScriptLoaded(loadData, "sp.js");
@@ -106,7 +124,8 @@ angular.module("facultyDirectory", [])
 
   function loadData() {
     dataService.getData().then(function(response) {
-      $scope.data = response;
+      $scope.expertiseFilters = response.expertiseFilters;
+      $scope.people = response.people;
       $scope.dataLoaded = true;
     }, function(error) {
       $scope.dataLoaded = true;

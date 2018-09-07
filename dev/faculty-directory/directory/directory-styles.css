@@ -1,5 +1,5 @@
 /**********************************************************
-Baes Element Styles
+Base Element Styles
 **********************************************************/
 
 header {
@@ -13,6 +13,7 @@ header > * {
 }
 
 header > h2 {
+  color: #707070 !important;
   font-size: 1.5em !important;
 }
 
@@ -21,7 +22,7 @@ header > h3 {
 }
 
 header > h4 {
-  color: #565a5c !important;
+  color: #707070 !important;
   font-size: 1.2em !important;
 }
 
@@ -65,6 +66,10 @@ Card Styles
   vertical-align: middle;
 }
 
+.card-content a {
+  text-decoration: none !important;
+}
+
 .card-content a:hover {
   text-decoration: underline !important;
 }
@@ -83,6 +88,29 @@ Card Styles
 .faculty-card:last-child {
   border-bottom: 0;
   margin-bottom: 0;
+}
+
+header > h2 > a {
+  position: relative;
+}
+
+.page-link {
+  bottom: 8px;
+  right: -18px;
+  position: absolute;
+}
+
+.page-link:before {
+  content: '\1F86D';
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.page-link:after {
+  clear: both;
+  content: '';
+  display: table;
 }
 
 

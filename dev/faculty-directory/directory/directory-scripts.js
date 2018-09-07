@@ -6,7 +6,34 @@ angular.module("facultyDirectory", [])
 }])
 .service("dataService", ['$q', function($q) {
   var listUrl = "/academics/colleges/nursing/faculty-staff/faculty/",
-      listName = "Faculty";
+        listName = "Faculty",
+        filters = [];
+
+  function getLinkField(x,y) {
+
+    if (x !== null) {
+
+      var linkText = x.get_description(),
+          linkUrl = x.get_url();
+
+      if (y === "specialty") {
+        if (filters.indexOf(linkText) < 0) {
+          filters.push(linkText);
+        }
+      }
+
+      return {
+        "text": linkText,
+        "url": linkUrl
+      }
+    } else {
+      return {
+        "text": '',
+        "url": ''
+      }
+    }
+
+  }
 
   this.getData = function() {
 
@@ -20,6 +47,8 @@ angular.module("facultyDirectory", [])
     clientContext.executeQueryAsync(onQuerySucceed, onQueryFail);
 
     function onQuerySucceed() {
+      filters = [];
+
       var data = {
             "expertiseFilters": [],
             "people": []
@@ -41,44 +70,12 @@ angular.module("facultyDirectory", [])
           obj["degree"] = item.get_item("Degree");
           obj["email"] = item.get_item("EMail");
           obj["office"] = item.get_item("Office");
-          obj["phone"] = item.get_item("PrimaryNumber");
+          obj["phone"] = item.get_item("PrimaryNumber") == "N/A" ? undefined : item.get_item("PrimaryNumber");
           obj["hidden"] = item.get_item("Hidden");
 
-          obj["specialty"] = (function(x) {
-            if (x !== null) {
-              var specText = x.get_description().trim(),
-                  specUrl = x.get_url();
+          obj["specialty"] = getLinkField(item.get_item("Specialty"), "specialty");
 
-              if (data.expertiseFilters.indexOf(specText) < 0) {
-                data.expertiseFilters.push(specText);
-              }
-
-              return {
-                "text": specText,
-                "url": specUrl
-              }
-
-            } else {
-              return {
-                "text": '',
-                "url": ''
-              }
-            }
-          })(item.get_item("Specialty"));
-
-          obj["clinic"] = (function(x) {
-            if (x !== null) {
-              return {
-                "text": x.get_description(),
-                "url": x.get_url()
-              }
-            } else {
-              return {
-                "text": '',
-                "url": ''
-              }
-            }
-          })(item.get_item("Clinic_x0020_Location"));
+          obj["clinic"] = getLinkField(item.get_item("Clinic_x0020_Location"), null);
 
           data.people.push(obj);
         }
@@ -92,7 +89,7 @@ angular.module("facultyDirectory", [])
         return 0;
       });
 
-      data.expertiseFilters.sort();
+      data.expertiseFilters = filters.sort();
 
       deferred.resolve(data);
 
@@ -127,6 +124,7 @@ angular.module("facultyDirectory", [])
       $scope.expertiseFilters = response.expertiseFilters;
       $scope.people = response.people;
       $scope.dataLoaded = true;
+      console.log($scope.people);
     }, function(error) {
       $scope.dataLoaded = true;
       $scope.loadError = true;

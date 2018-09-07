@@ -6,7 +6,7 @@
   <main>
     <h1>Faculty Directory</h1>
 
-    <div class="filters" data-ng-show="dataLoaded && !loadError">
+    <div class="filters" data-ng-show="dataLoaded && !loadError" data-ng-cloak>
 
       <div>
         <label for="name">Search Directory</label>
@@ -37,7 +37,7 @@
       <h2 class="center">Unable to Load Data</h2>
     </div>
 
-    <div id="cardContainer" data-ng-if="dataLoaded && !loadError">
+    <div id="cardContainer" data-ng-if="dataLoaded && !loadError" data-ng-cloak>
 
       <section class="faculty-card" data-ng-repeat="x in people | filter:query | filter:expertise">
         <div class="card-content">
@@ -46,7 +46,10 @@
           </div>
 
           <header>
-            <h2>{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }}</h2>
+
+            <h2 data-ng-if="x.page && x.page.indexOf('mailto') < 0"><a href="{{ x.page }}">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }} <span class="page-link"></span></a></h2>
+            <h2 data-ng-if="x.page.indexOf('mailto') > -1">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }}</h2>
+
             <h3 style="font-size: 1.35em !important;">{{ x.title }}</h3>
 
             <h4 data-ng-if="x.specialty.text.length > 0">Area of Expertise:
@@ -59,7 +62,6 @@
             <li data-ng-if="x.phone">Phone: <a href="tel:{{ x.phone }}">{{ x.phone }}</a></li>
             <li data-ng-if="x.office">Office: Ed2 North Room {{ x.office }}</li>
             <li data-ng-if="x.email">Email: <a href="mailto:{{ x.email }}">{{ x.email }}</a></li>
-            <li data-ng-if="x.page && x.page.indexOf('mailto') < 0"><a href="{{ x.page }}">View {{ x.name.firstName }}'s Biography</a></li>
           </ul>
         </div>
       </section>

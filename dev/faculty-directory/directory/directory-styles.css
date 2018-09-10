@@ -119,32 +119,32 @@ header > h2 > a {
 Filter Styles
 **********************************************************/
 
-.filters {
+#filters {
   margin: 3rem 0;
 }
 
-.filters > div {
+#filters > div {
   display: inline-block;
 }
 
-.filters > div:first-child {
+#filters > div:first-child {
   width: 30%;
 }
 
-.filters > div:nth-child(2) {
+#filters > div:nth-child(2) {
   width: 50%;
 }
 
-.filters > div:first-child {
+#filters > div:first-child {
   margin-right: 5%;
 }
 
-.filters input[type="text"] {
+#filters input[type="text"] {
   padding: 5px;
   width: 100%;
 }
 
-.filters input[type="button"] {
+#filters input[type="button"] {
   background: #000;
   border: 0;
   border-radius: 4px;
@@ -153,16 +153,16 @@ Filter Styles
   padding: 5px 10px;
 }
 
-.filters input[type="button"]:hover {
+#filters input[type="button"]:hover {
   color: #cfb87c;
 }
 
-.filters label {
+#filters label {
   display: block;
   font-weight: bold;
 }
 
-.filters select {
+#filters select {
   font-size: 12px;
   padding: 5px;
 }

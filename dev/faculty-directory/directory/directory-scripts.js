@@ -1,3 +1,7 @@
+// Scroll top button
+  // https://jsfiddle.net/tmdy51rh/5/
+  // http://jsfiddle.net/b63rH/
+
 angular.module("facultyDirectory", [])
 .filter("renderHTMLCorrectly", ['$sce', function($sce) {
   return function(stringToParse) {
@@ -124,13 +128,10 @@ angular.module("facultyDirectory", [])
       $scope.expertiseFilters = response.expertiseFilters;
       $scope.people = response.people;
       $scope.dataLoaded = true;
-      console.log($scope.people);
     }, function(error) {
       $scope.dataLoaded = true;
       $scope.loadError = true;
       console.error(error);
     });
   }
-
-
 }]);

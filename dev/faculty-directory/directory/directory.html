@@ -1,77 +1,73 @@
 <link type="text/css" rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/faculty-directory/directory/directory-styles.css">
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
 
-<div data-ng-app="facultyDirectory" data-ng-controller="mainController">
+<main data-ng-app="facultyDirectory" data-ng-controller="mainController">
+  <h1>Faculty Directory</h1>
 
-  <main>
-    <h1>Faculty Directory</h1>
+  <div id="filters" data-ng-show="dataLoaded && !loadError" data-ng-cloak>
 
-    <div id="filters" data-ng-show="dataLoaded && !loadError" data-ng-cloak>
+    <div>
+      <label for="name">Search Directory</label>
+      <input id="name" type="text" data-ng-model="query" aria-labelledby="search directory">
+    </div>
 
-      <div>
-        <label for="name">Search Directory</label>
-        <input id="name" type="text" data-ng-model="query" aria-labelledby="search directory">
-      </div>
+    <div>
 
-      <div>
-<!--
-        <label for="expertise">Filter by Area of Expertise</label>
-        <select id="expertise" aria-labelledby="area of expertise"
-                data-ng-model="expertise"
-                data-ng-options="filter for filter in expertiseFilters">
-          <option value="" disabled data-ng-selected="expertise === null">-- Area of Expertise --</option>
-        </select>
--->
-      </div>
-
-
-      <div>
-        <input type="button" value="Reset Filters" data-ng-click="clearFilters()" aria-labelledby="reset filters">
-      </div>
+      <label for="expertise">Filter by Area of Expertise</label>
+      <select id="expertise" aria-labelledby="area of expertise"
+              data-ng-model="expertise"
+              data-ng-options="filter for filter in expertiseFilters">
+        <option value="" disabled data-ng-selected="expertise === null">-- Area of Expertise --</option>
+      </select>
 
     </div>
 
-    <div data-ng-if="!dataLoaded && !loadError">
-      <h2 class="center">Loading...</h2>
-      <div class="spinner"></div>
+
+    <div>
+      <input type="button" value="Reset Filters" data-ng-click="clearFilters()" aria-labelledby="reset filters">
     </div>
 
-    <div data-ng-if="loadError" data-ng-cloak>
-      <h2 class="center">Unable to Load Data</h2>
-    </div>
+  </div>
 
-    <div id="cardContainer" data-ng-if="dataLoaded && !loadError" data-ng-cloak>
+  <div data-ng-if="!dataLoaded && !loadError">
+    <h2 class="center">Loading...</h2>
+    <div class="spinner"></div>
+  </div>
 
-      <section class="faculty-card" data-ng-repeat="x in people | filter:query">
-        <div class="card-content">
-          <div class="card-image">
-            <img data-ng-src="{{ x.headshot }}" alt="{{ x.name.firstName }} {{ x.name.lastName }}" data-ng-if="x.headshot !== null">
-          </div>
+  <div data-ng-if="loadError" data-ng-cloak>
+    <h2 class="center">Unable to Load Data</h2>
+  </div>
 
-          <header>
-            <h2 data-ng-if="x.page && x.page.indexOf('mailto') < 0"><a href="{{ x.page }}">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }} <span class="page-link"></span></a></h2>
-            <h2 data-ng-if="x.page.indexOf('mailto') > -1">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }}</h2>
+  <div id="cardContainer" data-ng-if="dataLoaded && !loadError" data-ng-cloak>
 
-            <h3 style="font-size: 1.35em !important;">{{ x.title }}</h3>
-
-            <h4 data-ng-if="x.specialty.text.length > 0">Area of Expertise:
-              <a href="{{ x.specialty.url }}" data-ng-if="x.specialty.url.length > 10">{{ x.specialty.text }}</a>
-              <span data-ng-if="x.specialty.url.length < 10">{{ x.specialty.text }}</span>
-            </h4>
-          </header>
-
-          <ul>
-            <li data-ng-if="x.phone">Phone: <a href="tel:{{ x.phone }}">{{ x.phone }}</a></li>
-            <li data-ng-if="x.office">Office: Ed2 North Room {{ x.office }}</li>
-            <li data-ng-if="x.email">Email: <a href="mailto:{{ x.email }}">{{ x.email }}</a></li>
-          </ul>
+    <section class="faculty-card" data-ng-repeat="x in filteredPeople | filter:query">
+      <div class="card-content">
+        <div class="card-image">
+          <img data-ng-src="{{ x.headshot }}" alt="{{ x.name.firstName }} {{ x.name.lastName }}" data-ng-if="x.headshot !== null">
         </div>
-      </section>
 
-    </div>
+        <header>
+          <h2 data-ng-if="x.page && x.page.indexOf('mailto') < 0"><a href="{{ x.page }}">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }} <span class="page-link"></span></a></h2>
+          <h2 data-ng-if="x.page.indexOf('mailto') > -1">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }}</h2>
 
-  </main>
+          <h3 style="font-size: 1.35em !important;">{{ x.title }}</h3>
 
-</div>
+          <h4 data-ng-if="x.specialty.text.length > 0">Area of Expertise:
+            <a href="{{ x.specialty.url }}" data-ng-if="x.specialty.url.length > 10">{{ x.specialty.text }}</a>
+            <span data-ng-if="x.specialty.url.length < 10">{{ x.specialty.text }}</span>
+          </h4>
+        </header>
+
+        <ul>
+          <li data-ng-if="x.phone">Phone: <a href="tel:{{ x.phone }}">{{ x.phone }}</a></li>
+          <li data-ng-if="x.office">Office: Ed2 North Room {{ x.office }}</li>
+          <li data-ng-if="x.email">Email: <a href="mailto:{{ x.email }}">{{ x.email }}</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+</main>
 
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/faculty-directory/directory/directory-scripts.js"></script>

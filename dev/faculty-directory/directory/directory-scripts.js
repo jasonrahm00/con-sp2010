@@ -3,15 +3,10 @@
   // http://jsfiddle.net/b63rH/
 
 angular.module("facultyDirectory", [])
-.filter("renderHTMLCorrectly", ['$sce', function($sce) {
-  return function(stringToParse) {
-    return $sce.trustAsHtml(stringToParse);
-  }
-}])
 .service("dataService", ['$q', function($q) {
   var listUrl = "/academics/colleges/nursing/faculty-staff/faculty/",
-        listName = "Faculty",
-        filters = [];
+      listName = "Faculty",
+      filters = [];
 
   function getLinkField(x,y) {
 
@@ -113,10 +108,13 @@ angular.module("facultyDirectory", [])
   $scope.loadError = false;
   $scope.expertise = null;
   $scope.query = "";
+  $scope.people = [];
+  $scope.filteredPeople = [];
 
   $scope.clearFilters = function() {
     $scope.expertise = null;
     $scope.query = "";
+    $scope.filteredPeople = angular.copy($scope.people);
   };
 
   jQuery(document).ready(function() {
@@ -127,6 +125,7 @@ angular.module("facultyDirectory", [])
     dataService.getData().then(function(response) {
       $scope.expertiseFilters = response.expertiseFilters;
       $scope.people = response.people;
+      $scope.filteredPeople = angular.copy($scope.people);
       $scope.dataLoaded = true;
     }, function(error) {
       $scope.dataLoaded = true;
@@ -134,4 +133,19 @@ angular.module("facultyDirectory", [])
       console.error(error);
     });
   }
+
+  $scope.$watch("expertise", function(newVal, oldVal) {
+    if(newVal !== oldVal) {
+      var filteredPeople = [];
+      $scope.people.forEach(function(elem, index) {
+        if(elem.specialty.text === newVal)
+          filteredPeople.push(elem);
+      });
+      if (filteredPeople.length > 0) {
+        $scope.filteredPeople = filteredPeople;
+      }
+
+    }
+  });
+
 }]);

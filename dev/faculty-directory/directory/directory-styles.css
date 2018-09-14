@@ -166,28 +166,3 @@ Filter Styles
   font-size: 12px;
   padding: 5px;
 }
-
-
-
-/**********************************************************
-Card Animations
-**********************************************************/
-
-.faculty-card.ng-enter,
-.faculty-card.ng-leave {
-  transition: 500ms ease-in all;
-  position: relative;
-  display: block;
-}
-
-.faculty-card.ng-enter-active,
-.ng-leave {
-  left: 0;
-  opacity: 1;
-}
-
-.faculty-card.ng-leave-active,
-.ng-enter {
-  left: 500px;
-  opacity: 0;
-}

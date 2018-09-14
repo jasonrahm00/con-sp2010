@@ -2,7 +2,7 @@
   // https://jsfiddle.net/tmdy51rh/5/
   // http://jsfiddle.net/b63rH/
 
-angular.module("facultyDirectory", ["ngAnimate"])
+angular.module("facultyDirectory", [])
 .service("dataService", ['$q', function($q) {
   var listUrl = "/academics/colleges/nursing/faculty-staff/faculty/",
       listName = "Faculty",

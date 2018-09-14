@@ -104,6 +104,33 @@ gulp.task('compile-bio', function(callback) {
 
 
 /*********************************************
+          Faculty Directory Tasks
+*********************************************/
+
+gulp.task('directory-scripts', function() {
+  gulp.src('dev/faculty-directory/directory/directory-scripts.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/faculty-directory'))
+});
+
+gulp.task('directory-styles', function() {
+  gulp.src('dev/faculty-directory/directory/directory-styles.css')
+    .pipe(cssnano())
+    .pipe(gulp.dest('dist/faculty-directory'))
+});
+
+gulp.task('directory-html', function() {
+  gulp.src('dev/faculty-directory/directory/directory.html')
+    .pipe(gulp.dest('dist/faculty-directory'))
+});
+
+gulp.task('compile-directory', function(callback) {
+  runSequence('clean:dist', ['directory-scripts', 'directory-styles', 'directory-html'], callback)
+});
+
+
+
+/*********************************************
             Global Tasks
 *********************************************/
 

@@ -2,7 +2,7 @@
   // https://jsfiddle.net/tmdy51rh/5/
   // http://jsfiddle.net/b63rH/
 
-angular.module("facultyDirectory", [])
+angular.module("facultyDirectory", ["ngAnimate"])
 .service("dataService", ['$q', function($q) {
   var listUrl = "/academics/colleges/nursing/faculty-staff/faculty/",
       listName = "Faculty",
@@ -112,9 +112,11 @@ angular.module("facultyDirectory", [])
   $scope.filteredPeople = [];
 
   $scope.clearFilters = function() {
-    $scope.expertise = null;
-    $scope.query = "";
-    $scope.filteredPeople = angular.copy($scope.people);
+    if ($scope.filteredPeople !== $scope.people) {
+      $scope.expertise = null;
+      $scope.query = "";
+      $scope.filteredPeople = angular.copy($scope.people);
+    }
   };
 
   jQuery(document).ready(function() {

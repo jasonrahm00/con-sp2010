@@ -1,5 +1,6 @@
 <link type="text/css" rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/faculty-directory/directory/directory-styles.css">
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angular-animate.min.js"></script>
 
 <main data-ng-app="facultyDirectory" data-ng-controller="mainController">
   <h1>Faculty Directory</h1>
@@ -12,14 +13,14 @@
     </div>
 
     <div>
-
+<!--
       <label for="expertise">Filter by Area of Expertise</label>
       <select id="expertise" aria-labelledby="area of expertise"
               data-ng-model="expertise"
               data-ng-options="filter for filter in expertiseFilters">
         <option value="" disabled data-ng-selected="expertise === null">-- Area of Expertise --</option>
       </select>
-
+-->
     </div>
 
 
@@ -51,11 +52,12 @@
           <h2 data-ng-if="x.page.indexOf('mailto') > -1">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }}</h2>
 
           <h3 style="font-size: 1.35em !important;">{{ x.title }}</h3>
-
+<!--
           <h4 data-ng-if="x.specialty.text.length > 0">Area of Expertise:
             <a href="{{ x.specialty.url }}" data-ng-if="x.specialty.url.length > 10">{{ x.specialty.text }}</a>
             <span data-ng-if="x.specialty.url.length < 10">{{ x.specialty.text }}</span>
           </h4>
+ -->
         </header>
 
         <ul>

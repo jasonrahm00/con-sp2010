@@ -145,6 +145,12 @@ aside input {
   cursor: pointer;
 }
 
+aside input[type="checkbox"] {
+  display: table-cell;
+  height: 13px;
+  width: 25px;
+}
+
 aside label {
   color: #4c4b44;
   cursor: pointer;
@@ -154,10 +160,9 @@ aside label {
   width: 100%;
 }
 
-aside input[type="checkbox"] {
-  display: table-cell;
-  height: 13px;
-  width: 25px;
+aside label.disabled > * {
+  cursor: default;
+  opacity: 0.65;
 }
 
 aside .label-text {

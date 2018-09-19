@@ -124,6 +124,16 @@ angular.module("programFinder", [])
     Filtering
   ****************************************************************/
 
+  /*
+
+    checkbox with radio button functionality
+        http://jsfiddle.net/ivangrs/5HdcG/
+
+    disable other options when one selected???
+        http://jsfiddle.net/HWa2m/287/
+
+  */
+
   var uniqueItems = function (data, key) {
     var result = [];
 
@@ -141,7 +151,6 @@ angular.module("programFinder", [])
   $scope.useDegree = {};
   $scope.useFormat = {};
   $scope.useLevel = {};
-  $scope.useSpecialty = {};
 
   $scope.resetResults = function() {
     if ($scope.filteredPrograms !== $scope.programs) {
@@ -149,8 +158,13 @@ angular.module("programFinder", [])
       $scope.useDegree = {};
       $scope.useFormat = {};
       $scope.useLevel = {};
-      $scope.useSpecialty = {};
     }
+  };
+
+  $scope.count = function (prop, value) {
+    return function (el) {
+      return el[prop] == value;
+    };
   };
 
   $scope.$watch(function () {
@@ -158,17 +172,10 @@ angular.module("programFinder", [])
       programs: $scope.programs,
       useDegree: $scope.useDegree,
       useFormat: $scope.useFormat,
-      useSpecialty: $scope.useSpecialty,
       useLevel: $scope.useLevel
     }
   }, function (value) {
       var selected;
-
-      $scope.count = function (prop, value) {
-        return function (el) {
-          return el[prop] == value;
-        };
-      };
 
       $scope.degreeGroup = uniqueItems($scope.programs, 'degree');
       var filterAfterDegree = [];
@@ -227,27 +234,7 @@ angular.module("programFinder", [])
         filterAfterLevel = filterAfterFormat;
       }
 
-      $scope.specialtyGroup = uniqueItems($scope.programs, 'specialty');
-      var filterAfterSpecialty = [];
-      selected = false;
-      for (var j in filterAfterLevel) {
-        var p = filterAfterLevel[j];
-        for (var i in $scope.useSpecialty) {
-          if ($scope.useSpecialty[i]) {
-            selected = true;
-            if (i == p.specialty) {
-              filterAfterSpecialty.push(p);
-              break;
-            }
-          }
-        }
-      }
-      if (!selected) {
-        filterAfterSpecialty = filterAfterLevel;
-      }
-
-
-      $scope.filteredPrograms = filterAfterSpecialty;
+      $scope.filteredPrograms = filterAfterLevel;
   }, true);
 
 });

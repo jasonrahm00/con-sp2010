@@ -3,7 +3,6 @@ var degreeOrder = [
         "Master's",
         "DNP",
         "PhD",
-        "Dual Degree",
         "Graduate Certificate",
         "Post-Graduate Certificate",
         "Non-Degree"
@@ -26,7 +25,7 @@ function compare(a,b) {
 }
 
 angular.module("programFinder", [])
-.filter("custOrder", function() {
+.filter("filterOrder", function() {
 
   return function(arr, strng) {
     if (arr.length > 0) {
@@ -40,6 +39,11 @@ angular.module("programFinder", [])
     }
   }
 
+})
+.filter("cardOrder", function() {
+  return function(arr) {
+    return arr.reverse();
+  }
 })
 .service("dataService", function($q) {
   var listUrl = "/academics/colleges/nursing/programs-admissions/",
@@ -92,7 +96,7 @@ angular.module("programFinder", [])
 })
 .controller("mainController", function($scope, dataService){
 
-  $scope.filteredPrograms;
+  $scope.filteredPrograms = [];
   $scope.programs = [];
   $scope.dataLoaded = false;
   $scope.loadError = false;
@@ -138,11 +142,21 @@ angular.module("programFinder", [])
   var uniqueItems = function (data, key) {
     var result = [];
 
+    function resultCheck(x) {
+      if (result.indexOf(x) == -1) {
+        result.push(x);
+      }
+    }
+
     for (var i = 0; i < data.length; i++) {
       var value = data[i][key];
 
-      if (result.indexOf(value) == -1) {
-        result.push(value);
+      if(Array.isArray(value)) {
+        for (var j = 0; j < value.length; j++) {
+          resultCheck(value[j]);
+        }
+      } else {
+        resultCheck(value);
       }
 
     }

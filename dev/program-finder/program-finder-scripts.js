@@ -70,6 +70,7 @@ angular.module("programFinder", [])
         obj["level"] = item.get_item("Current_x0020_Education_x0020_Le");
         obj["specialty"] = item.get_item("Graduate_x0020_Specialty");
         obj["degree"] = item.get_item("Degree");
+        obj["pathway"] = item.get_item("Pathway");
 
         data.push(obj);
 
@@ -151,6 +152,7 @@ angular.module("programFinder", [])
   $scope.useDegree = {};
   $scope.useFormat = {};
   $scope.useLevel = {};
+  $scope.usePathway = {};
 
   $scope.resetResults = function() {
     if ($scope.filteredPrograms !== $scope.programs) {
@@ -158,6 +160,7 @@ angular.module("programFinder", [])
       $scope.useDegree = {};
       $scope.useFormat = {};
       $scope.useLevel = {};
+      $scope.usePathway = {};
     }
   };
 
@@ -172,7 +175,8 @@ angular.module("programFinder", [])
       programs: $scope.programs,
       useDegree: $scope.useDegree,
       useFormat: $scope.useFormat,
-      useLevel: $scope.useLevel
+      useLevel: $scope.useLevel,
+      usePathway: $scope.usePathway
     }
   }, function (value) {
       var selected;
@@ -234,7 +238,26 @@ angular.module("programFinder", [])
         filterAfterLevel = filterAfterFormat;
       }
 
-      $scope.filteredPrograms = filterAfterLevel;
+      $scope.pathwayGroup = uniqueItems($scope.programs, 'pathway');
+      var filterAfterPathway = [];
+      selected = false;
+      for (var j in filterAfterLevel) {
+        var p = filterAfterLevel[j];
+        for (var i in $scope.usePathway) {
+          if ($scope.usePathway[i]) {
+            selected = true;
+            if (i == p.pathway) {
+              filterAfterPathway.push(p);
+              break;
+            }
+          }
+        }
+      }
+      if (!selected) {
+        filterAfterPathway = filterAfterLevel;
+      }
+
+      $scope.filteredPrograms = filterAfterPathway;
   }, true);
 
 });

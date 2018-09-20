@@ -20,7 +20,7 @@
 
         <section class="border-bottom-gold margin-bottom-medium">
 
-          <xh2 class="border-bottom-gold flex-container between">Refine Results<span title="Reset Results" class="reset-icon" data-ng-click="resetResults()" aria-label="Reset"></span></h2>
+          <h2 class="border-bottom-gold flex-container between">Refine Results<span title="Reset Results" class="reset-icon" data-ng-click="resetResults()" aria-label="Reset"></span></h2>
 
           <section class="filter-group">
             <h3 style="font-size: 1.5em !important;">Your Current Degree</h3>
@@ -46,6 +46,20 @@
                      data-ng-disabled="(filteredPrograms | filter:count('degree', degree)).length < 1">
               <span class="label-text">{{ degree }}</span>
               <span class="result-count">({{ (filteredPrograms | filter:count('degree', degree)).length }})</span>
+            </label>
+          </section>
+
+          <section class="filter-group">
+            <h3 style="font-size: 1.5em !important;">DNP/PhD Pathway</h3>
+            <label for="pathway{{$index}}"
+                   data-ng-repeat="pathway in pathwayGroup"
+                   data-ng-if="pathway !== null"
+                   data-ng-class="(filteredPrograms | filter:count('pathway', pathway)).length < 1 ? 'disabled' : ''">
+              <input id="pathway{{$index}}" type="checkbox"
+                     data-ng-model="usePathway[pathway]"
+                     data-ng-disabled="(filteredPrograms | filter:count('pathway', pathway)).length < 1">
+              <span class="label-text">{{ pathway }}</span>
+              <span class="result-count">({{ (filteredPrograms | filter:count('pathway', pathway)).length }})</span>
             </label>
           </section>
 

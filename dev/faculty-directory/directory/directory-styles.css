@@ -21,6 +21,10 @@ header > h3 {
   margin: 12px 0 !important;
 }
 
+header > h3:last-child {
+  margin-bottom: 0 !important;
+}
+
 header > h4 {
   color: #707070 !important;
   font-size: 1.2em !important;
@@ -47,7 +51,7 @@ Card Styles
 }
 
 .card-image {
-  padding: 10px;
+  height: 118px;
   width: 85px;
 }
 

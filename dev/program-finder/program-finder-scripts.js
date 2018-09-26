@@ -119,7 +119,7 @@ angular.module("programFinder", [])
     }, function(err) {
       $scope.dataLoaded = false;
       $scope.loadError = true;
-      console.log(err);
+      console.error(err);
     });
   }
 
@@ -203,7 +203,9 @@ angular.module("programFinder", [])
         for (var i in $scope.useDegree) {
           if ($scope.useDegree[i]) {
             selected = true;
-            if (i == p.degree) {
+            // If check to allow for up to two degrees per program
+              // If more than two, refactor into a loop
+            if (i == p.degree[0] || i == p.degree[1]) {
               filterAfterDegree.push(p);
               break;
             }

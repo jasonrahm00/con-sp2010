@@ -40,11 +40,6 @@ angular.module("programFinder", [])
   }
 
 })
-.filter("cardOrder", function() {
-  return function(arr) {
-    return arr.reverse();
-  }
-})
 .service("dataService", function($q) {
   var listUrl = "/academics/colleges/nursing/programs-admissions/",
       listName = "program-list";
@@ -180,8 +175,9 @@ angular.module("programFinder", [])
 
   $scope.count = function (prop, value) {
     return function (el) {
-      return el[prop] == value;
+      return el[prop] !== null ? el[prop].indexOf(value) > -1 : '';
     };
+
   };
 
   $scope.$watch(function () {

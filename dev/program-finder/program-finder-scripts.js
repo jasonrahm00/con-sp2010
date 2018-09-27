@@ -40,6 +40,21 @@ angular.module("programFinder", [])
   }
 
 })
+.directive("appFilterGroup", function() {
+  return {
+    scope: {
+      index: '@',
+      label: '=',
+      labelString: '='
+    },
+    templateUrl: "http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/filter-group-template.txt",
+    restrict: 'E',
+    replace: true,
+    link: function(scope, elem, attrs) {
+
+    }
+  }
+})
 .service("dataService", function($q) {
   var listUrl = "/academics/colleges/nursing/programs-admissions/",
       listName = "program-list";

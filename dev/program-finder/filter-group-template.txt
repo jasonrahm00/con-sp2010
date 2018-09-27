@@ -1,0 +1,19 @@
+<label for="{{ labelString }}{{ index }}">
+  <input id="{{ labelString }}{{ index }}" type="checkbox"
+         data-ng-model="useFormat[label]">
+  <span class="label-text">{{ label }}</span>
+  <span class="result-count">({{ (filteredPrograms | filter:count('format', label)).length }})</span>
+</label>
+
+
+<!--
+<label for="format{{$index}}"
+       data-ng-repeat="format in formatGroup | orderBy:format"
+       data-ng-if="format !== null"
+       data-ng-class="(filteredPrograms | filter:count('format', format)).length < 1 ? 'disabled' : ''">
+  <input id="format{{$index}}" type="checkbox" data-ng-model="useFormat[format]"
+         data-ng-disabled="(filteredPrograms | filter:count('format', format)).length < 1">
+  <span class="label-text">{{ format }}</span>
+  <span class="result-count">({{ (filteredPrograms | filter:count('format', format)).length }})</span>
+</label>
+-->

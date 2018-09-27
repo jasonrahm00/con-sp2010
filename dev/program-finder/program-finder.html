@@ -63,6 +63,7 @@
             </label>
           </section>
 
+<!--
           <section class="filter-group">
             <h3 style="font-size: 1.5em !important;">Ideal Learning Format</h3>
             <label for="format{{$index}}"
@@ -74,6 +75,17 @@
               <span class="label-text">{{ format }}</span>
               <span class="result-count">({{ (filteredPrograms | filter:count('format', format)).length }})</span>
             </label>
+          </section>
+-->
+
+          <section class="filter-group">
+            <h3 style="font-size: 1.5em !important;">Directive</h3>
+            <app-filter-group data-ng-repeat="format in formatGroup"
+                              data-ng-if="format !== null"
+                              data-label="format"
+                              data-label-string="'format'"
+                              data-index="{{$index}}">
+            </app-filter-group>
           </section>
 
         </section>

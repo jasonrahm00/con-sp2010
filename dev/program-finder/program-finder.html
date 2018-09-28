@@ -24,68 +24,53 @@
 
           <section class="filter-group">
             <h3 style="font-size: 1.5em !important;">Your Current Degree</h3>
-            <label for="level{{$index}}"
-                   data-ng-repeat="level in levelGroup | filterOrder:'level'"
-                   data-ng-if="level !== null"
-                   data-ng-class="(filteredPrograms | filter:count('level', level)).length < 1 ? 'disabled' : ''">
-              <input id="level{{$index}}" type="checkbox"
-                     data-ng-model="useLevel[level]"
-                     data-ng-disabled="(filteredPrograms | filter:count('level', level)).length < 1">
-              <span class="label-text">{{ level }}</span>
-              <span class="result-count">({{ (filteredPrograms | filter:count('level', level)).length }})</span>
-            </label>
+            <filter-group data-ng-repeat="level in levelGroup | filterOrder:'level'"
+                          data-ng-if="level !== null"
+                          data-label="level"
+                          data-group-string="{{ 'level' }}"
+                          data-index="{{ $index }}"
+                          data-input-value="useLevel[level]"
+                          data-count="{{ (filteredPrograms | filter:count('level', level)).length }}"
+                          data-selected-input="{{ useLevel }}">
+            </filter-group>
           </section>
 
           <section class="filter-group">
             <h3 style="font-size: 1.5em !important;">Desired Outcome</h3>
-            <label for="degree{{$index}}"
-                   data-ng-repeat="degree in degreeGroup | filterOrder:'degree'"
-                   data-ng-class="(filteredPrograms | filter:count('degree', degree)).length < 1 ? 'disabled' : ''">
-              <input id="degree{{$index}}" type="checkbox"
-                     data-ng-model="useDegree[degree]"
-                     data-ng-disabled="(filteredPrograms | filter:count('degree', degree)).length < 1">
-              <span class="label-text">{{ degree }}</span>
-              <span class="result-count">({{ (filteredPrograms | filter:count('degree', degree)).length }})</span>
-            </label>
+            <filter-group data-ng-repeat="degree in degreeGroup | filterOrder:'degree'"
+                          data-label="degree"
+                          data-group-string="{{ 'degree' }}"
+                          data-index="{{ $index }}"
+                          data-input-value="useDegree[degree]"
+                          data-count="{{ (filteredPrograms | filter:count('degree', degree)).length }}"
+                          data-selected-input="{{ useDegree }}">
+            </filter-group>
           </section>
 
           <section class="filter-group">
             <h3 style="font-size: 1.5em !important;">DNP/PhD Pathway</h3>
-            <label for="pathway{{$index}}"
-                   data-ng-repeat="pathway in pathwayGroup"
-                   data-ng-if="pathway !== null"
-                   data-ng-class="(filteredPrograms | filter:count('pathway', pathway)).length < 1 ? 'disabled' : ''">
-              <input id="pathway{{$index}}" type="checkbox"
-                     data-ng-model="usePathway[pathway]"
-                     data-ng-disabled="(filteredPrograms | filter:count('pathway', pathway)).length < 1">
-              <span class="label-text">{{ pathway }}</span>
-              <span class="result-count">({{ (filteredPrograms | filter:count('pathway', pathway)).length }})</span>
-            </label>
+            <filter-group data-ng-repeat="pathway in pathwayGroup"
+                          data-label="pathway"
+                          data-ng-if="pathway !== null"
+                          data-group-string="{{ 'pathway' }}"
+                          data-index="{{ $index }}"
+                          data-input-value="usePathway[pathway]"
+                          data-count="{{ (filteredPrograms | filter:count('pathway', pathway)).length }}"
+                          data-selected-input="{{ usePathway }}">
+            </filter-group>
           </section>
 
-<!--
           <section class="filter-group">
-            <h3 style="font-size: 1.5em !important;">Ideal Learning Format</h3>
-            <label for="format{{$index}}"
-                   data-ng-repeat="format in formatGroup | orderBy:format"
-                   data-ng-if="format !== null"
-                   data-ng-class="(filteredPrograms | filter:count('format', format)).length < 1 ? 'disabled' : ''">
-              <input id="format{{$index}}" type="checkbox" data-ng-model="useFormat[format]"
-                     data-ng-disabled="(filteredPrograms | filter:count('format', format)).length < 1">
-              <span class="label-text">{{ format }}</span>
-              <span class="result-count">({{ (filteredPrograms | filter:count('format', format)).length }})</span>
-            </label>
-          </section>
--->
-
-          <section class="filter-group">
-            <h3 style="font-size: 1.5em !important;">Directive</h3>
-            <app-filter-group data-ng-repeat="format in formatGroup"
-                              data-ng-if="format !== null"
-                              data-label="format"
-                              data-label-string="'format'"
-                              data-index="{{$index}}">
-            </app-filter-group>
+            <h3 style="font-size: 1.5em !important;">Learning Format</h3>
+            <filter-group data-ng-repeat="format in formatGroup"
+                          data-ng-if="format !== null"
+                          data-label="format"
+                          data-group-string="{{ 'format' }}"
+                          data-index="{{ $index }}"
+                          data-input-value="useFormat[format]"
+                          data-count="{{ (filteredPrograms | filter:count('format', format)).length }}"
+                          data-selected-input="{{ useFormat }}">
+            </filter-group>
           </section>
 
         </section>

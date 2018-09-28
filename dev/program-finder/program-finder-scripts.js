@@ -40,17 +40,36 @@ angular.module("programFinder", [])
   }
 
 })
-.directive("appFilterGroup", function() {
+.directive("filterGroup", function() {
   return {
     scope: {
       index: '@',
       label: '=',
-      labelString: '='
+      groupString: '@',
+      inputValue: '=',
+      count: '@',
+      selectedInput: '@'
     },
     templateUrl: "http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/filter-group-template.txt",
     restrict: 'E',
     replace: true,
     link: function(scope, elem, attrs) {
+
+      /*
+      scope.$watch('selectedInput', function(newVal, oldVal) {
+        var obj = JSON.parse(scope.selectedInput);
+        if (newVal !== oldVal && scope.inputValue) {
+          console.log(elem);
+          angular.forEach(obj, function(value, key) {
+            if(key == scope.label) {
+              elem.addClass('selected');
+            }
+          });
+        } else {
+          elem.removeClass('selected');
+        }
+      });
+      */
 
     }
   }

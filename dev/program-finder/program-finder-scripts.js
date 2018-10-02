@@ -1,4 +1,5 @@
-var degreeOrder = [
+var sortOrder = {
+  "degree": [
         "Bachelor's",
         "Master's",
         "DNP",
@@ -7,14 +8,23 @@ var degreeOrder = [
         "Post-Graduate Certificate",
         "Non-Degree"
       ],
-      levelOrder = [
+  "level": [
         "High School Diploma",
         "RN (ADN) License",
         "Nursing Bachelor's",
         "Non-Nursing Bachelor's",
         "Nursing Master's",
         "Non-Nursing Master's"
-      ];
+      ],
+  "pathway": [
+      "Post BS Master's",
+      "BS to DNP",
+      "Post-Graduate DNP",
+      "Post-Bachelor's BS-PhD",
+      "Post-Bachelor’s MS-PhD",
+      "Post-Master’s PhD"
+    ]
+};
 
 function compare(a,b) {
   if (a.name < b.name)
@@ -24,19 +34,26 @@ function compare(a,b) {
   return 0;
 }
 
+// https://gist.github.com/ecarter/1423674
+function mapOrder(array, order, key) {
+  array.sort( function (a, b) {
+    var A = a[key][0], B = b[key][0];
+
+    if (order.indexOf(A) > order.indexOf(B)) {
+      return 1;
+    } else {
+      return -1;
+    }
+
+  });
+  return array;
+}
+
 angular.module("programFinder", [])
 .filter("filterOrder", function() {
 
   return function(arr, strng) {
-    if (arr.length > 0) {
-      if (strng === "degree") {
-        return degreeOrder;
-      } else if (strng === "level") {
-        return levelOrder;
-      } else {
-        return arr.sort();
-      }
-    }
+    return sortOrder[strng];
   }
 
 })
@@ -104,9 +121,7 @@ angular.module("programFinder", [])
 
       }
 
-      data.sort(compare);
-
-      deferred.resolve(data);
+      deferred.resolve(mapOrder(data, sortOrder['degree'], 'degree'));
 
     }
 
@@ -152,16 +167,6 @@ angular.module("programFinder", [])
   /****************************************************************
     Filtering
   ****************************************************************/
-
-  /*
-
-    checkbox with radio button functionality
-        http://jsfiddle.net/ivangrs/5HdcG/
-
-    disable other options when one selected???
-        http://jsfiddle.net/HWa2m/287/
-
-  */
 
   var uniqueItems = function (data, key) {
     var result = [];
@@ -285,6 +290,7 @@ angular.module("programFinder", [])
           }
         }
       }
+
       if (!selected) {
         filterAfterLevel = filterAfterFormat;
       }

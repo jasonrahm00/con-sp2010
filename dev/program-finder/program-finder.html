@@ -49,7 +49,7 @@
 
           <section class="filter-group">
             <h3 style="font-size: 1.5em !important;">Graduate Pathway</h3>
-            <filter-group data-ng-repeat="pathway in pathwayGroup"
+            <filter-group data-ng-repeat="pathway in pathwayGroup | filterOrder:'pathway'"
                           data-label="pathway"
                           data-ng-if="pathway !== null"
                           data-group-string="{{ 'pathway' }}"
@@ -82,7 +82,7 @@
       </aside>
 
       <main>
-        <h2 class="center">Explore Academic Programs</h2>
+        <h2 class="center">Explore Academic Programs ({{ filteredPrograms.length }})</h2>
         <div id="programCards">
 
           <div class="program-card" data-ng-repeat="program in filteredPrograms">

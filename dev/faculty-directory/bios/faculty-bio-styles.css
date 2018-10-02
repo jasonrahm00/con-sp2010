@@ -132,7 +132,6 @@ main > *:last-child {
 }
 
 #imageContainer > img {
-  border-radius: 50%;
   max-height: 206px;
   max-width: 156px;
 }

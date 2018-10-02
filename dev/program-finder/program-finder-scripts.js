@@ -48,28 +48,23 @@ angular.module("programFinder", [])
       groupString: '@',
       inputValue: '=',
       count: '@',
-      selectedInput: '@'
+      selectedInput: '@',
+      disableInput: '='
     },
     templateUrl: "http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/filter-group-template.txt",
     restrict: 'E',
     replace: true,
     link: function(scope, elem, attrs) {
 
-      /*
-      scope.$watch('selectedInput', function(newVal, oldVal) {
-        var obj = JSON.parse(scope.selectedInput);
-        if (newVal !== oldVal && scope.inputValue) {
-          console.log(elem);
-          angular.forEach(obj, function(value, key) {
-            if(key == scope.label) {
-              elem.addClass('selected');
-            }
-          });
-        } else {
-          elem.removeClass('selected');
-        }
-      });
-      */
+      if(scope.groupString === 'degree') {
+        scope.$watch('selectedInput', function(newVal, oldVal) {
+          if(!newVal || newVal === scope.label) {
+            scope.disableInput = false;
+          } else {
+            scope.disableInput = true;
+          }
+        });
+      }
 
     }
   }
@@ -214,6 +209,8 @@ angular.module("programFinder", [])
 
   };
 
+  $scope.selectedInput = null;
+
   $scope.$watch(function () {
     return {
       programs: $scope.programs,
@@ -242,7 +239,15 @@ angular.module("programFinder", [])
           }
         }
       }
-      if (!selected) {
+
+      if (selected) {
+        angular.forEach($scope.useDegree, function(value, key) {
+          if(value === true) {
+            $scope.selectedInput = key;
+          }
+        });
+      } else {
+        $scope.selectedInput = null;
         filterAfterDegree = $scope.programs;
       }
 

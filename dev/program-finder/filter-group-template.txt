@@ -1,6 +1,6 @@
-<label for="{{ groupString + index }}">
+<label for="{{ groupString + index }}" data-ng-class="disableInput || count < 1 ? 'disabled' : ''">
   <input id="{{ groupString + index }}" type="checkbox"
-         data-ng-model="inputValue">
+         data-ng-model="inputValue"
+         data-ng-disabled="disableInput || count < 1 ? true : false">
   <span class="label-text">{{ label }}</span>
-  <span class="result-count">({{ count }})</span>
 </label>

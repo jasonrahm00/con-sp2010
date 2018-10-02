@@ -30,8 +30,7 @@
                           data-group-string="{{ 'level' }}"
                           data-index="{{ $index }}"
                           data-input-value="useLevel[level]"
-                          data-count="{{ (filteredPrograms | filter:count('level', level)).length }}"
-                          data-selected-input="{{ useLevel }}">
+                          data-count="{{ (filteredPrograms | filter:count('level', level)).length }}">
             </filter-group>
           </section>
 
@@ -43,20 +42,20 @@
                           data-index="{{ $index }}"
                           data-input-value="useDegree[degree]"
                           data-count="{{ (filteredPrograms | filter:count('degree', degree)).length }}"
-                          data-selected-input="{{ useDegree }}">
+                          data-selected-input="{{ selectedInput }}"
+                          data-disable-input="false">
             </filter-group>
           </section>
 
           <section class="filter-group">
-            <h3 style="font-size: 1.5em !important;">DNP/PhD Pathway</h3>
+            <h3 style="font-size: 1.5em !important;">Graduate Pathway</h3>
             <filter-group data-ng-repeat="pathway in pathwayGroup"
                           data-label="pathway"
                           data-ng-if="pathway !== null"
                           data-group-string="{{ 'pathway' }}"
                           data-index="{{ $index }}"
                           data-input-value="usePathway[pathway]"
-                          data-count="{{ (filteredPrograms | filter:count('pathway', pathway)).length }}"
-                          data-selected-input="{{ usePathway }}">
+                          data-count="{{ (filteredPrograms | filter:count('pathway', pathway)).length }}">
             </filter-group>
           </section>
 
@@ -68,8 +67,7 @@
                           data-group-string="{{ 'format' }}"
                           data-index="{{ $index }}"
                           data-input-value="useFormat[format]"
-                          data-count="{{ (filteredPrograms | filter:count('format', format)).length }}"
-                          data-selected-input="{{ useFormat }}">
+                          data-count="{{ (filteredPrograms | filter:count('format', format)).length }}">
             </filter-group>
           </section>
 

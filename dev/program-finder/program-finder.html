@@ -26,23 +26,25 @@
             <h3 style="font-size: 1.5em !important;">Your Current Degree</h3>
             <filter-group data-ng-repeat="level in levelGroup | filterOrder:'level'"
                           data-ng-if="level !== null"
-                          data-label="level"
+                          data-label="{{ level }}"
                           data-group-string="{{ 'level' }}"
                           data-index="{{ $index }}"
                           data-input-value="useLevel[level]"
-                          data-count="{{ (filteredPrograms | filter:count('level', level)).length }}">
+                          data-count="{{ (filteredPrograms | filter:count('level', level)).length }}"
+                          data-selected-input="{{ selectedLevel }}"
+                          data-disable-input="false">
             </filter-group>
           </section>
 
           <section class="filter-group">
             <h3 style="font-size: 1.5em !important;">Desired Outcome</h3>
             <filter-group data-ng-repeat="degree in degreeGroup | filterOrder:'degree'"
-                          data-label="degree"
+                          data-label="{{ degree }}"
                           data-group-string="{{ 'degree' }}"
                           data-index="{{ $index }}"
                           data-input-value="useDegree[degree]"
                           data-count="{{ (filteredPrograms | filter:count('degree', degree)).length }}"
-                          data-selected-input="{{ selectedInput }}"
+                          data-selected-input="{{ selectedDegree }}"
                           data-disable-input="false">
             </filter-group>
           </section>
@@ -50,7 +52,7 @@
           <section class="filter-group">
             <h3 style="font-size: 1.5em !important;">Graduate Pathway</h3>
             <filter-group data-ng-repeat="pathway in pathwayGroup | filterOrder:'pathway'"
-                          data-label="pathway"
+                          data-label="{{ pathway }}"
                           data-ng-if="pathway !== null"
                           data-group-string="{{ 'pathway' }}"
                           data-index="{{ $index }}"
@@ -63,7 +65,7 @@
             <h3 style="font-size: 1.5em !important;">Learning Format</h3>
             <filter-group data-ng-repeat="format in formatGroup"
                           data-ng-if="format !== null"
-                          data-label="format"
+                          data-label="{{ format }}"
                           data-group-string="{{ 'format' }}"
                           data-index="{{ $index }}"
                           data-input-value="useFormat[format]"

@@ -9,8 +9,8 @@ var sortOrder = {
     "Non-Degree"
   ],
   "level": [
+    "Some College",
     "Associate's Degree",
-    "Associate's Degree or Some College",
     "Associate's Degree in Nursing",
     "RN (ADN) License",
     "Non-Nursing Bachelor's",
@@ -48,7 +48,7 @@ angular.module("programFinder", [])
   return {
     scope: {
       index: '@',
-      label: '=',
+      label: '@',
       groupString: '@',
       inputValue: '=',
       count: '@',
@@ -60,7 +60,7 @@ angular.module("programFinder", [])
     replace: true,
     link: function(scope, elem, attrs) {
 
-      if(scope.groupString === 'degree') {
+      if(attrs.selectedInput !== undefined) {
         scope.$watch('selectedInput', function(newVal, oldVal) {
           if(!newVal || newVal === scope.label) {
             scope.disableInput = false;
@@ -188,6 +188,11 @@ angular.module("programFinder", [])
     return result;
   };
 
+  $scope.disableCheck = function(x) {
+    console.log(x);
+    return false;
+  }
+
   $scope.useDegree = {};
   $scope.useFormat = {};
   $scope.useLevel = {};
@@ -210,7 +215,8 @@ angular.module("programFinder", [])
 
   };
 
-  $scope.selectedInput = null;
+  $scope.selectedDegree = null;
+  $scope.selectedLevel = null;
 
   $scope.$watch(function () {
     return {
@@ -244,11 +250,11 @@ angular.module("programFinder", [])
       if (selected) {
         angular.forEach($scope.useDegree, function(value, key) {
           if(value === true) {
-            $scope.selectedInput = key;
+            $scope.selectedDegree = key;
           }
         });
       } else {
-        $scope.selectedInput = null;
+        $scope.selectedDegree = null;
         filterAfterDegree = $scope.programs;
       }
 
@@ -277,9 +283,9 @@ angular.module("programFinder", [])
       for (var j in filterAfterFormat) {
         var p = filterAfterFormat[j];
         for (var i in $scope.useLevel) {
-          if ($scope.useLevel[i]) {
+          if ($scope.useLevel[i] && p.level) {
             selected = true;
-            if (i == p.level) {
+            if (i == p.level[0] || i == p.level[1]) {
               filterAfterLevel.push(p);
               break;
             }
@@ -287,7 +293,14 @@ angular.module("programFinder", [])
         }
       }
 
-      if (!selected) {
+      if (selected) {
+        angular.forEach($scope.useLevel, function(value, key) {
+          if(value === true) {
+            $scope.selectedLevel = key;
+          }
+        });
+      } else {
+        $scope.selectedLevel = null;
         filterAfterLevel = filterAfterFormat;
       }
 

@@ -69,7 +69,7 @@ angular.module("programFinder", [])
     }
   }
 })
-.service("dataService", function($q) {
+.service("dataService", ['$q', function($q) {
   var listUrl = "/academics/colleges/nursing/programs-admissions/",
       listName = "program-list";
 
@@ -123,8 +123,8 @@ angular.module("programFinder", [])
     return deferred.promise;
   }
 
-})
-.controller("mainController", function($scope, dataService){
+}])
+.controller("mainController", ['$scope', 'dataService', function($scope, dataService){
 
   $scope.filteredPrograms = [];
   $scope.programs = [];
@@ -313,4 +313,4 @@ angular.module("programFinder", [])
       $scope.filteredPrograms = filterAfterPathway;
   }, true);
 
-});
+}]);

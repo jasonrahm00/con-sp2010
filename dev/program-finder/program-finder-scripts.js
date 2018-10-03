@@ -99,6 +99,7 @@ angular.module("programFinder", [])
         obj["specialty"] = item.get_item("Graduate_x0020_Specialty");
         obj["degree"] = item.get_item("Degree");
         obj["pathway"] = item.get_item("Pathway");
+        obj["blurb"] = item.get_item("Blurb");
 
         data.push(obj);
 

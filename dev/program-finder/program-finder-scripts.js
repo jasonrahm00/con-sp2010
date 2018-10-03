@@ -199,7 +199,12 @@ angular.module("programFinder", [])
 
   $scope.count = function (prop, value) {
     return function (el) {
-      return el[prop] !== null ? el[prop].indexOf(value) > -1 : '';
+      if(prop === 'level') {
+        return el[prop] !== null ? el[prop] === value  : '';
+      } else {
+        return el[prop] !== null ? el[prop].indexOf(value) > -1 : '';
+      }
+
     };
 
   };

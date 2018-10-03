@@ -26,28 +26,11 @@ var sortOrder = {
     ]
 };
 
-function compare(a,b) {
-  if (a.name < b.name)
-    return -1;
-  if (a.name > b.name)
-    return 1;
-  return 0;
-}
+var sortObj = {};
 
-// https://gist.github.com/ecarter/1423674
-function mapOrder(array, order, key) {
-  array.sort( function (a, b) {
-    var A = a[key][0], B = b[key][0];
-
-    if (order.indexOf(A) > order.indexOf(B)) {
-      return 1;
-    } else {
-      return -1;
-    }
-
-  });
-  return array;
-}
+sortOrder["degree"].forEach(function(value, index) {
+  sortObj[value] = index;
+});
 
 angular.module("programFinder", [])
 .filter("filterOrder", function() {
@@ -121,7 +104,14 @@ angular.module("programFinder", [])
 
       }
 
-      deferred.resolve(mapOrder(data, sortOrder['degree'], 'degree'));
+      // https://coderwall.com/p/ebqhca/javascript-sort-by-two-fields
+      // https://stackoverflow.com/questions/47158756/sort-an-array-of-object-by-a-property-with-custom-order-not-alphabetically
+
+      data = data.sort(function(a,b) {
+        return sortObj[a.degree[0]] - sortObj[b.degree[0]];
+      });
+
+      deferred.resolve(data);
 
     }
 

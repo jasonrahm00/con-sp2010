@@ -91,9 +91,13 @@
             </div>
             <div class="card-body">
               <ul>
-                <li><strong>Outcome:</strong> {{ program.degree.join(", ") }}</li>
+                <li><strong>Outcome:</strong> {{ program.degree.join(" and ") }}</li>
                 <li data-ng-if="program.format"><strong>Learning Format:</strong> {{ program.format }}</li>
-                <li data-ng-if="program.level"><strong>Required for Entry:</strong> {{ program.level }}</li>
+                <li data-ng-if="program.level">
+                  <strong>Required for Entry:</strong>
+                  <span data-ng-if="!program.levelOverride">{{ program.level.join(" or ") }}</span>
+                  <span data-ng-if="program.levelOverride">{{ program.levelOverride }}</span>
+                </li>
                 <li data-ng-if="program.specialty"><strong>Graduate Specialty:</strong> {{ program.specialty }}</li>
                 <li data-ng-if="program.blurb"><strong>About:</strong> {{ program.blurb }}</li>
               </ul>

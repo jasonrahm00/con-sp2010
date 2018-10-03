@@ -1,29 +1,33 @@
 var sortOrder = {
   "degree": [
-        "Bachelor's",
-        "Master's",
-        "DNP",
-        "PhD",
-        "Graduate Certificate",
-        "Post-Graduate Certificate",
-        "Non-Degree"
-      ],
+    "Bachelor's",
+    "Master's",
+    "DNP",
+    "PhD",
+    "Graduate Certificate",
+    "Post-Graduate Certificate",
+    "Non-Degree"
+  ],
   "level": [
-        "High School Diploma",
-        "RN (ADN) License",
-        "Nursing Bachelor's",
-        "Non-Nursing Bachelor's",
-        "Nursing Master's",
-        "Non-Nursing Master's"
-      ],
+    "Associate's Degree",
+    "Associate's Degree or Some College",
+    "Associate's Degree in Nursing",
+    "RN (ADN) License",
+    "Non-Nursing Bachelor's",
+    "ADN and Non-Nursing Bachelor's",
+    "RN (ADN) License and Bachelor's",
+    "Nursing Bachelor's",
+    "BSN and Advanced Degree",
+    "Nursing Master's"
+  ],
   "pathway": [
-      "Post BS Master's",
-      "BS to DNP",
-      "Post-Graduate DNP",
-      "Post-Bachelor's BS-PhD",
-      "Post-Bachelor’s MS-PhD",
-      "Post-Master’s PhD"
-    ]
+    "Post BS Master's",
+    "BS to DNP",
+    "Post-Graduate DNP",
+    "Post-Bachelor's BS-PhD",
+    "Post-Bachelor’s MS-PhD",
+    "Post-Master’s PhD"
+  ]
 };
 
 var sortObj = {};
@@ -100,6 +104,7 @@ angular.module("programFinder", [])
         obj["degree"] = item.get_item("Degree");
         obj["pathway"] = item.get_item("Pathway");
         obj["blurb"] = item.get_item("Blurb");
+        obj["levelOverride"] = item.get_item("Entry_x0020_Deg_x0020_Override");
 
         data.push(obj);
 
@@ -200,12 +205,7 @@ angular.module("programFinder", [])
 
   $scope.count = function (prop, value) {
     return function (el) {
-      if(prop === 'level') {
-        return el[prop] !== null ? el[prop] === value  : '';
-      } else {
-        return el[prop] !== null ? el[prop].indexOf(value) > -1 : '';
-      }
-
+      return el[prop] !== null ? el[prop].indexOf(value) > -1 : '';
     };
 
   };

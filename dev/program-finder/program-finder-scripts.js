@@ -30,11 +30,20 @@ var sortOrder = {
   ]
 };
 
-var sortObj = {};
+// https://gist.github.com/ecarter/1423674
+function mapOrder(array, order, key) {
+  array.sort( function (a, b) {
+    var A = a[key][0], B = b[key][0];
 
-sortOrder["degree"].forEach(function(value, index) {
-  sortObj[value] = index;
-});
+    if (order.indexOf(A) > order.indexOf(B)) {
+      return 1;
+    } else {
+      return -1;
+    }
+
+  });
+  return array;
+}
 
 angular.module("programFinder", [])
 .filter("filterOrder", function() {
@@ -142,15 +151,7 @@ angular.module("programFinder", [])
 
       }
 
-      data.programs = data.programs.sort(function(a,b) {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
+      data.programs = mapOrder(data.programs, sortOrder['degree'], 'degree')
 
       deferred.resolve(data);
 

@@ -27,23 +27,26 @@ var sortOrder = {
     "Post-Bachelor's BS-PhD",
     "Post-Bachelor’s MS-PhD",
     "Post-Master’s PhD"
+  ],
+  "category": [
+    "Bachelor’s Degree",
+    "Master's Degree",
+    "BS to DNP Pathway",
+    "Post-Graduate DNP Pathway",
+    "Post-Bachelor's BS-PhD Pathway",
+    "Post-Bachelor’s MS-PhD Pathway",
+    "Post-Master’s PhD Pathway",
+    "Graduate Certificate",
+    "Post-Graduate Certificate",
+    "Non-Degree",
   ]
 };
 
-// https://gist.github.com/ecarter/1423674
-function mapOrder(array, order, key) {
-  array.sort( function (a, b) {
-    var A = a[key][0], B = b[key][0];
+var sortObj = {};
 
-    if (order.indexOf(A) > order.indexOf(B)) {
-      return 1;
-    } else {
-      return -1;
-    }
-
-  });
-  return array;
-}
+sortOrder["degree"].forEach(function(value, index) {
+  sortObj[value] = index;
+});
 
 angular.module("programFinder", [])
 .filter("filterOrder", function() {
@@ -130,6 +133,7 @@ angular.module("programFinder", [])
         obj["pathway"] = item.get_item("Pathway");
         obj["blurb"] = item.get_item("Blurb");
         obj["levelOverride"] = item.get_item("Entry_x0020_Deg_x0020_Override");
+        obj["category"] = item.get_item("Category");
 
         angular.forEach(obj, function(value, key) {
           if (data.filterGroups[key] && value !== null) {
@@ -151,7 +155,15 @@ angular.module("programFinder", [])
 
       }
 
-      data.programs = mapOrder(data.programs, sortOrder['degree'], 'degree')
+      data.programs = data.programs.sort(function(a,b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
 
       deferred.resolve(data);
 
@@ -171,6 +183,7 @@ angular.module("programFinder", [])
   $scope.programs = [];
   $scope.dataLoaded = false;
   $scope.loadError = false;
+  $scope.categories = sortOrder.category;
 
 
 
@@ -184,6 +197,7 @@ angular.module("programFinder", [])
 
   function getData() {
     dataService.getData().then(function(response) {
+      console.log(response);
       $scope.programs = response.programs;
       $scope.degreeGroup = response.filterGroups.degree;
       $scope.formatGroup = response.filterGroups.format;

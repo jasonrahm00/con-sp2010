@@ -87,6 +87,14 @@
         <h2 class="center">Explore Academic Programs ({{ filteredPrograms.length }})</h2>
         <div id="programCards">
 
+          <section class="clearfix" data-ng-repeat="x in categories | filterOrder:'category'">
+            <h3 class="full-width">{{ x }}</h3>
+            <ul>
+              <li data-ng-repeat="program in filteredPrograms | filter:{category: x}">{{ program.name }}</li>
+            </ul>
+          </section>
+
+<!--
           <div class="program-card" data-ng-repeat="program in filteredPrograms">
             <div class="card-title">
               <span>{{ program.name }}</span>
@@ -106,7 +114,7 @@
               <a href="{{ program.page }}">Visit {{ program.name }} Page</a>
             </div>
           </div>
-
+-->
         </div>
       </main>
 

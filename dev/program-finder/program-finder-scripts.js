@@ -89,8 +89,24 @@ angular.module("programFinder", [])
     clientContext.executeQueryAsync(onQuerySucceed, onQueryFail);
 
     function onQuerySucceed() {
-      var data = [],
+      var data = {
+            "filterGroups": {
+              "pathway": [],
+              "degree": [],
+              "level": [],
+              "format": []
+            },
+            "programs": []
+          },
           itemEnumerator = items.getEnumerator();
+
+      function checkPresence(x,y) {
+        if(data.filterGroups[x].indexOf(y) < 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
 
       while (itemEnumerator.moveNext()) {
         var item = itemEnumerator.get_current(),
@@ -106,15 +122,34 @@ angular.module("programFinder", [])
         obj["blurb"] = item.get_item("Blurb");
         obj["levelOverride"] = item.get_item("Entry_x0020_Deg_x0020_Override");
 
-        data.push(obj);
+        angular.forEach(obj, function(value, key) {
+          if (data.filterGroups[key] && value !== null) {
+            if(Array.isArray(value)) {
+              for(var i = 0; i < value.length; i++) {
+                if(checkPresence(key, value[i])) {
+                  data.filterGroups[key].push(value[i]);
+                }
+              }
+            } else if (checkPresence(key, value)) {
+              data.filterGroups[key].push(value);
+            } else {
+              return;
+            }
+          }
+        });
+
+        data.programs.push(obj);
 
       }
 
-      // https://coderwall.com/p/ebqhca/javascript-sort-by-two-fields
-      // https://stackoverflow.com/questions/47158756/sort-an-array-of-object-by-a-property-with-custom-order-not-alphabetically
-
-      data = data.sort(function(a,b) {
-        return sortObj[a.degree[0]] - sortObj[b.degree[0]];
+      data.programs = data.programs.sort(function(a,b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
       });
 
       deferred.resolve(data);
@@ -148,7 +183,11 @@ angular.module("programFinder", [])
 
   function getData() {
     dataService.getData().then(function(response) {
-      $scope.programs = response;
+      $scope.programs = response.programs;
+      $scope.degreeGroup = response.filterGroups.degree;
+      $scope.formatGroup = response.filterGroups.format;
+      $scope.levelGroup = response.filterGroups.level;
+      $scope.pathwayGroup = response.filterGroups.pathway;
       $scope.dataLoaded = true;
       $scope.loadError = false;
     }, function(err) {
@@ -163,30 +202,6 @@ angular.module("programFinder", [])
   /****************************************************************
     Filtering
   ****************************************************************/
-
-  var uniqueItems = function (data, key) {
-    var result = [];
-
-    function resultCheck(x) {
-      if (result.indexOf(x) == -1) {
-        result.push(x);
-      }
-    }
-
-    for (var i = 0; i < data.length; i++) {
-      var value = data[i][key];
-
-      if(Array.isArray(value)) {
-        for (var j = 0; j < value.length; j++) {
-          resultCheck(value[j]);
-        }
-      } else {
-        resultCheck(value);
-      }
-
-    }
-    return result;
-  };
 
   $scope.disableCheck = function(x) {
     console.log(x);
@@ -229,7 +244,6 @@ angular.module("programFinder", [])
   }, function (value) {
       var selected;
 
-      $scope.degreeGroup = uniqueItems($scope.programs, 'degree');
       var filterAfterDegree = [];
       selected = false;
       for (var j in $scope.programs) {
@@ -258,7 +272,6 @@ angular.module("programFinder", [])
         filterAfterDegree = $scope.programs;
       }
 
-      $scope.formatGroup = uniqueItems($scope.programs, 'format');
       var filterAfterFormat = [];
       selected = false;
       for (var j in filterAfterDegree) {
@@ -277,7 +290,6 @@ angular.module("programFinder", [])
         filterAfterFormat = filterAfterDegree;
       }
 
-      $scope.levelGroup = uniqueItems($scope.programs, 'level');
       var filterAfterLevel = [];
       selected = false;
       for (var j in filterAfterFormat) {
@@ -304,7 +316,6 @@ angular.module("programFinder", [])
         filterAfterLevel = filterAfterFormat;
       }
 
-      $scope.pathwayGroup = uniqueItems($scope.programs, 'pathway');
       var filterAfterPathway = [];
       selected = false;
       for (var j in filterAfterLevel) {

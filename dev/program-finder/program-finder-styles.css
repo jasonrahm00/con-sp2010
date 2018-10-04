@@ -223,3 +223,13 @@ h3,
   content: "";
   display: table;
 }
+
+
+
+/*******************************************
+  Tooltip Styles
+*******************************************/
+
+.tooltip.active .tooltip-content {
+  display: block;
+}

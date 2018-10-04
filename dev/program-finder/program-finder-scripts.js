@@ -67,7 +67,7 @@ angular.module("programFinder", [])
       selectedInput: '@',
       disableInput: '='
     },
-    templateUrl: "http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/filter-group-template.txt",
+    templateUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/filter-group-template.txt',
     restrict: 'E',
     replace: true,
     link: function(scope, elem, attrs) {
@@ -82,6 +82,27 @@ angular.module("programFinder", [])
         });
       }
 
+    }
+  }
+})
+.directive("pathwayTooltip", function() {
+  return {
+    scope: {
+      pathway: '@',
+      content: '@',
+      activeTooltip: '='
+    },
+    templateUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/pathway-tooltip-template.txt',
+    restrict: 'E',
+    replace: true,
+    link: function(scope, elem, attrs) {
+      scope.$watch('activeTooltip', function() {
+        if (scope.activeTooltip !== scope.pathway) {
+          elem.removeClass('active');
+        } else {
+          elem.addClass('active');
+        }
+      })
     }
   }
 })
@@ -185,6 +206,12 @@ angular.module("programFinder", [])
   $scope.loadError = false;
   $scope.categories = sortOrder.category;
 
+  $scope.activeTooltip = null;
+
+  $scope.toggleTooltip = function(path) {
+    $scope.activeTooltip = $scope.activeTooltip == path ? null : path;
+  }
+
 
 
   /****************************************************************
@@ -197,7 +224,6 @@ angular.module("programFinder", [])
 
   function getData() {
     dataService.getData().then(function(response) {
-      console.log(response);
       $scope.programs = response.programs;
       $scope.degreeGroup = response.filterGroups.degree;
       $scope.formatGroup = response.filterGroups.format;

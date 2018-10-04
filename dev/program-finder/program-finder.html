@@ -88,7 +88,15 @@
         <div id="programCards">
 
           <section class="clearfix" data-ng-repeat="x in categories | filterOrder:'category'">
-            <h3 class="full-width">{{ x }}</h3>
+            <h3 class="full-width">
+              {{ x }}
+              <span style="font-weight: normal; font-size: 12px;" data-ng-click="toggleTooltip(x)">trigger</span>
+            </h3>
+
+            <pathway-tooltip data-pathway="{{ x }}"
+                             data-content="{{ 'Some Content' }}"
+                             data-active-tooltip="activeTooltip"></pathway-tooltip>
+
             <ul>
               <li data-ng-repeat="program in filteredPrograms | filter:{category: x}">{{ program.name }}</li>
             </ul>

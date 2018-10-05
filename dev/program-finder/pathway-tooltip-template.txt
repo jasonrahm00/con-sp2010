@@ -1,5 +1,5 @@
 <div class="tooltip">
-  <span class="tooltip-trigger" style="font-weight: normal; font-size: 12px;">trigger</span>
+  <span class="tooltip-trigger"></span>
   <div class="tooltip-content">
     <p>{{ text }}</p>
     <span class="close">X</span>

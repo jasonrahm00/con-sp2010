@@ -124,12 +124,9 @@ angular.module("programFinder", [])
           trigger = $(elem).children('.tooltip-trigger');
 
       $(trigger).click(function() {
-        var topPosition = ($(contentBox).outerHeight() * 0.5),
-            leftPosition = $(this).width() + 35;
-
+        var topPosition = ($(contentBox).outerHeight() * 0.5) + ($(trigger).height());
         $(contentBox).css({
-          'top': '-' + topPosition + 'px',
-          'left': leftPosition + 'px'
+          'top': '-' + topPosition + 'px'
         });
 
         $(contentBox).toggleClass('active');

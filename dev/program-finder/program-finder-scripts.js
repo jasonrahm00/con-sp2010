@@ -27,26 +27,51 @@ var sortOrder = {
     "Post-Bachelor's BS-PhD",
     "Post-Bachelor’s MS-PhD",
     "Post-Master’s PhD"
-  ],
-  "category": [
-    "Bachelor’s Degree",
-    "Master's Degree",
-    "BS to DNP Pathway",
-    "Post-Graduate DNP Pathway",
-    "Post-Bachelor's BS-PhD Pathway",
-    "Post-Bachelor’s MS-PhD Pathway",
-    "Post-Master’s PhD Pathway",
-    "Graduate Certificate",
-    "Post-Graduate Certificate",
-    "Non-Degree",
   ]
 };
 
-var sortObj = {};
-
-sortOrder["degree"].forEach(function(value, index) {
-  sortObj[value] = index;
-});
+var categories = [
+  {
+    "name": "Bachelor’s Degree",
+    "description": "Bachelor’s Degree Description"
+  },
+  {
+    "name": "Master's Degree",
+    "description": "Lorem ipsum dolor sit amet, at alienum similique sea, sea discere habemus ei, ei suas mutat molestie sed. No his viris evertitur, id mei erat contentiones. Ei mea melius argumentum. Nulla nostrum at vim, ei facete deleniti ullamcorper duo. "
+  },
+  {
+    "name": "BS to DNP Pathway",
+    "description": "BS to DNP Pathway Description"
+  },
+  {
+    "name": "Post-Graduate DNP Pathway",
+    "description": "Post-Graduate DNP Pathway Description"
+  },
+  {
+    "name": "Post-Bachelor's BS-PhD Pathway",
+    "description": "Post-Bachelor's BS-PhD Pathway Description"
+  },
+  {
+    "name": "Post-Bachelor’s MS-PhD Pathway",
+    "description": "Post-Bachelor’s MS-PhD Pathway Description"
+  },
+  {
+    "name": "Post-Master’s PhD Pathway",
+    "description": "Post-Master’s PhD Pathway Description"
+  },
+  {
+    "name": "Graduate Certificate",
+    "description": "Graduate Certificate Description"
+  },
+  {
+    "name": "Post-Graduate Certificate",
+    "description": "Post-Graduate Certificate Description"
+  },
+  {
+    "name": "Non-Degree",
+    "description": "Non-Degree Description"
+  }
+];
 
 angular.module("programFinder", [])
 .filter("filterOrder", function() {
@@ -85,24 +110,36 @@ angular.module("programFinder", [])
     }
   }
 })
-.directive("pathwayTooltip", function() {
+.directive("tooltip", function() {
   return {
     scope: {
-      pathway: '@',
-      content: '@',
-      activeTooltip: '='
+      text: '@'
     },
-    templateUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/pathway-tooltip-template.txt',
-    restrict: 'E',
     replace: true,
+    restrict: 'E',
+    templateUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/pathway-tooltip-template.txt',
     link: function(scope, elem, attrs) {
-      scope.$watch('activeTooltip', function() {
-        if (scope.activeTooltip !== scope.pathway) {
-          elem.removeClass('active');
-        } else {
-          elem.addClass('active');
-        }
+
+      var contentBox = $(elem).children('.tooltip-content'),
+          trigger = $(elem).children('.tooltip-trigger');
+
+      $(trigger).click(function() {
+        var topPosition = ($(contentBox).outerHeight() * 0.5),
+            leftPosition = $(this).width() + 35;
+
+        $(contentBox).css({
+          'top': '-' + topPosition + 'px',
+          'left': leftPosition + 'px'
+        });
+
+        $(contentBox).toggleClass('active');
+
+      });
+
+      $(contentBox).children('.close').click(function() {
+        $(contentBox).removeClass('active');
       })
+
     }
   }
 })
@@ -204,13 +241,7 @@ angular.module("programFinder", [])
   $scope.programs = [];
   $scope.dataLoaded = false;
   $scope.loadError = false;
-  $scope.categories = sortOrder.category;
-
-  $scope.activeTooltip = null;
-
-  $scope.toggleTooltip = function(path) {
-    $scope.activeTooltip = $scope.activeTooltip == path ? null : path;
-  }
+  $scope.categories = categories;
 
 
 

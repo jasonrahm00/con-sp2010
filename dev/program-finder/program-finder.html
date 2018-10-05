@@ -87,19 +87,18 @@
         <h2 class="center">Explore Academic Programs ({{ filteredPrograms.length }})</h2>
         <div id="programCards">
 
-          <section class="clearfix" data-ng-repeat="x in categories | filterOrder:'category'">
-            <h3 class="full-width">
-              {{ x }}
-              <span style="font-weight: normal; font-size: 12px;" data-ng-click="toggleTooltip(x)">trigger</span>
-            </h3>
+          <section class="clearfix" data-ng-repeat="x in categories">
 
-            <pathway-tooltip data-pathway="{{ x }}"
-                             data-content="{{ 'Some Content' }}"
-                             data-active-tooltip="activeTooltip"></pathway-tooltip>
+            <header class="full-width">
+              <h3 class="" style="display: inline-block;">{{ x.name }}</h3>
+              <tooltip data-text="{{ x.description }}"></tooltip>
+            </header>
+
 
             <ul>
-              <li data-ng-repeat="program in filteredPrograms | filter:{category: x}">{{ program.name }}</li>
+              <li data-ng-repeat="program in filteredPrograms | filter:{category: x.name}">{{ program.name }}</li>
             </ul>
+
           </section>
 
 <!--

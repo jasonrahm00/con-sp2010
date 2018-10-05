@@ -230,6 +230,20 @@ h3,
   Tooltip Styles
 *******************************************/
 
-.tooltip.active .tooltip-content {
+.tooltip {
+  display: inline-block;
+  position: relative;
+}
+
+.tooltip .tooltip-content {
+  width: 175px;
+}
+
+.tooltip .tooltip-content.active {
   display: block;
 }
+
+.tooltip-trigger {
+  cursor: pointer;
+}
+

@@ -33,43 +33,53 @@ var sortOrder = {
 var categories = [
   {
     "name": "Bachelor’s Degree",
-    "description": "Bachelor’s Degree Description"
+    "description": "Bachelor’s Degree Description",
+    "count": 0
   },
   {
     "name": "Master's Degree",
-    "description": "Lorem ipsum dolor sit amet, at alienum similique sea, sea discere habemus ei, ei suas mutat molestie sed. No his viris evertitur, id mei erat contentiones. Ei mea melius argumentum. Nulla nostrum at vim, ei facete deleniti ullamcorper duo. "
+    "description": "Lorem ipsum dolor sit amet, at alienum similique sea, sea discere habemus ei, ei suas mutat molestie sed. No his viris evertitur, id mei erat contentiones. Ei mea melius argumentum. Nulla nostrum at vim, ei facete deleniti ullamcorper duo.",
+    "count": 0
   },
   {
     "name": "BS to DNP Pathway",
-    "description": "BS to DNP Pathway Description"
+    "description": "BS to DNP Pathway Description",
+    "count": 0
   },
   {
     "name": "Post-Graduate DNP Pathway",
-    "description": "Post-Graduate DNP Pathway Description"
+    "description": "Post-Graduate DNP Pathway Description",
+    "count": 0
   },
   {
     "name": "Post-Bachelor's BS-PhD Pathway",
-    "description": "Post-Bachelor's BS-PhD Pathway Description"
+    "description": "Post-Bachelor's BS-PhD Pathway Description",
+    "count": 0
   },
   {
     "name": "Post-Bachelor’s MS-PhD Pathway",
-    "description": "Post-Bachelor’s MS-PhD Pathway Description"
+    "description": "Post-Bachelor’s MS-PhD Pathway Description",
+    "count": 0
   },
   {
     "name": "Post-Master’s PhD Pathway",
-    "description": "Post-Master’s PhD Pathway Description"
+    "description": "Post-Master’s PhD Pathway Description",
+    "count": 0
   },
   {
     "name": "Graduate Certificate",
-    "description": "Graduate Certificate Description"
+    "description": "Graduate Certificate Description",
+    "count": 0
   },
   {
     "name": "Post-Graduate Certificate",
-    "description": "Post-Graduate Certificate Description"
+    "description": "Post-Graduate Certificate Description",
+    "count": 0
   },
   {
     "name": "Non-Degree",
-    "description": "Non-Degree Description"
+    "description": "Non-Degree Description",
+    "count": 0
   }
 ];
 
@@ -238,7 +248,6 @@ angular.module("programFinder", [])
   $scope.programs = [];
   $scope.dataLoaded = false;
   $scope.loadError = false;
-  $scope.categories = categories;
 
 
 
@@ -293,7 +302,6 @@ angular.module("programFinder", [])
     return function (el) {
       return el[prop] !== null ? el[prop].indexOf(value) > -1 : '';
     };
-
   };
 
   $scope.selectedDegree = null;
@@ -383,6 +391,17 @@ angular.module("programFinder", [])
       }
 
       $scope.filteredPrograms = filterAfterLevel;
+
+      $scope.categories = angular.copy(categories);
+
+      $scope.filteredPrograms.forEach(function(elem) {
+        for(var i = 0; i < $scope.categories.length; i++) {
+          if($scope.categories[i].name === elem.category) {
+            $scope.categories[i].count += 1;
+          }
+        }
+      });
+
   }, true);
 
 }]);

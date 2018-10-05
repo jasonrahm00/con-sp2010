@@ -75,22 +75,39 @@
         <h2 class="center">Explore Academic Programs ({{ filteredPrograms.length }})</h2>
         <div id="programCards">
 
-          <section class="clearfix" data-ng-repeat="x in categories">
+          <section class="clearfix"
+                   data-ng-repeat="x in categories"
+                   data-ng-if="x.count > 0">
 
             <header class="full-width">
               <h3 class="" style="display: inline-block;">{{ x.name }}</h3>
               <tooltip data-text="{{ x.description }}"></tooltip>
             </header>
 
-
-            <ul>
-              <li data-ng-repeat="program in filteredPrograms | filter:{category: x.name}">{{ program.name }}</li>
-            </ul>
+            <div class="program-card" data-ng-repeat="program in filteredPrograms | filter : {category: x.name} : true">
+              <div class="card-title">
+                <span>{{ program.name }}</span>
+              </div>
+              <div class="card-body">
+                <ul>
+                  <li><strong>Outcome:</strong> {{ program.degree.join(" and ") }}</li>
+                  <li data-ng-if="program.format"><strong>Learning Format:</strong> {{ program.format }}</li>
+                  <li data-ng-if="program.level">
+                    <strong>Required for Entry:</strong>
+                    <span data-ng-if="!program.levelOverride">{{ program.level.join(" or ") }}</span>
+                    <span data-ng-if="program.levelOverride">{{ program.levelOverride }}</span>
+                  </li>
+                  <li data-ng-if="program.specialty"><strong>Graduate Specialty:</strong> {{ program.specialty }}</li>
+                  <li data-ng-if="program.blurb"><strong>About:</strong> {{ program.blurb }}</li>
+                </ul>
+                <a href="{{ program.page }}">Visit {{ program.name }} Page</a>
+              </div>
+            </div>
 
           </section>
 
 <!--
-          <div class="program-card" data-ng-repeat="program in filteredPrograms">
+          <div class="program-card" data-ng-repeat="program in filteredPrograms | filter : {category: x.name} : true">
             <div class="card-title">
               <span>{{ program.name }}</span>
             </div>

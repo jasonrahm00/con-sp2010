@@ -256,7 +256,6 @@ angular.module("programFinder", [])
       $scope.degreeGroup = response.filterGroups.degree;
       $scope.formatGroup = response.filterGroups.format;
       $scope.levelGroup = response.filterGroups.level;
-      $scope.pathwayGroup = response.filterGroups.pathway;
       $scope.dataLoaded = true;
       $scope.loadError = false;
     }, function(err) {
@@ -280,7 +279,6 @@ angular.module("programFinder", [])
   $scope.useDegree = {};
   $scope.useFormat = {};
   $scope.useLevel = {};
-  $scope.usePathway = {};
 
   $scope.resetResults = function() {
     if ($scope.filteredPrograms !== $scope.programs) {
@@ -288,7 +286,6 @@ angular.module("programFinder", [])
       $scope.useDegree = {};
       $scope.useFormat = {};
       $scope.useLevel = {};
-      $scope.usePathway = {};
     }
   };
 
@@ -385,25 +382,7 @@ angular.module("programFinder", [])
         filterAfterLevel = filterAfterFormat;
       }
 
-      var filterAfterPathway = [];
-      selected = false;
-      for (var j in filterAfterLevel) {
-        var p = filterAfterLevel[j];
-        for (var i in $scope.usePathway) {
-          if ($scope.usePathway[i]) {
-            selected = true;
-            if (i == p.pathway) {
-              filterAfterPathway.push(p);
-              break;
-            }
-          }
-        }
-      }
-      if (!selected) {
-        filterAfterPathway = filterAfterLevel;
-      }
-
-      $scope.filteredPrograms = filterAfterPathway;
+      $scope.filteredPrograms = filterAfterLevel;
   }, true);
 
 }]);

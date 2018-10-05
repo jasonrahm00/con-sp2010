@@ -50,18 +50,6 @@
           </section>
 
           <section class="filter-group">
-            <h3 style="font-size: 1.5em !important;">Graduate Pathway</h3>
-            <filter-group data-ng-repeat="pathway in pathwayGroup | filterOrder:'pathway'"
-                          data-label="{{ pathway }}"
-                          data-ng-if="pathway !== null"
-                          data-group-string="{{ 'pathway' }}"
-                          data-index="{{ $index }}"
-                          data-input-value="usePathway[pathway]"
-                          data-count="{{ (filteredPrograms | filter:count('pathway', pathway)).length }}">
-            </filter-group>
-          </section>
-
-          <section class="filter-group">
             <h3 style="font-size: 1.5em !important;">Learning Format</h3>
             <filter-group data-ng-repeat="format in formatGroup"
                           data-ng-if="format !== null"

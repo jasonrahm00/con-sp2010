@@ -52,6 +52,11 @@ var categories = [
     "count": 0
   },
   {
+    "name": "DNP/MPH",
+    "description": "DNP/MPH",
+    "count": 0
+  },
+  {
     "name": "Post-Bachelor's BS-PhD Pathway",
     "description": "Post-Bachelor's BS-PhD Pathway Description",
     "count": 0
@@ -220,16 +225,6 @@ angular.module("programFinder", [])
 
       }
 
-      data.programs = data.programs.sort(function(a,b) {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
-
       deferred.resolve(data);
 
     }
@@ -273,6 +268,15 @@ angular.module("programFinder", [])
       console.error(err);
     });
   }
+
+  $(document).click(function(event) {
+    var clickTarget = $(event.target);
+    if($(clickTarget).hasClass('tooltip-trigger') || $(clickTarget).hasClass('tooltip-content') || $(clickTarget).parents().hasClass('tooltip-content')) {
+      return;
+    } else {
+      $('.tooltip-content').removeClass('active');
+    }
+  });
 
 
 

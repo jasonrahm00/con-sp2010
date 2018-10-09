@@ -43,6 +43,11 @@ aside h2 {
   border-bottom: 3px solid #d6cca6;
 }
 
+.result-count {
+  display: inline-block;
+  width: 50px;
+}
+
 #contentPage0 #columnPrimary {
   max-width: 948px;
 }
@@ -125,13 +130,14 @@ aside h2 {
 
 #programCards {
   margin-left: 1.5rem;
-}
-
-.program-card:nth-child(even) {
-  float: right;
+  margin-top: 2rem;
 }
 
 .program-card:nth-child(odd) {
+  float: right;
+}
+
+.program-card:nth-child(even) {
   float: left;
 }
 
@@ -188,6 +194,24 @@ h3,
   font-family: MuliRegular, Helvetica, Arial, sans-serif;
   font-weight: bold;
   margin: 0 0 6px;
+}
+
+.category {
+  margin-top: 2rem;
+}
+
+.category:first-child {
+  margin-top: 0;
+}
+
+.category header {
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.category header h3 {
+  color: #531111 !important;
+  font-size: 1.83em !important;
 }
 
 .filter-group {

@@ -33,57 +33,57 @@ var sortOrder = {
 var categories = [
   {
     "name": "Bachelor’s Degree",
-    "description": "Bachelor’s Degree Description",
+    "description": "Gain entry into the nursing field with a bachelor’s degree. Applicants must have at least an associate’s degree or be on their way towards an associate’s degree.",
     "count": 0
   },
   {
     "name": "Master's Degree",
-    "description": "Lorem ipsum dolor sit amet, at alienum similique sea, sea discere habemus ei, ei suas mutat molestie sed. No his viris evertitur, id mei erat contentiones. Ei mea melius argumentum. Nulla nostrum at vim, ei facete deleniti ullamcorper duo.",
+    "description": "Choose a specialty field in which to gain a master’s degree. Applicants must have a nursing bachelor’s and an active nursing license.",
     "count": 0
   },
   {
     "name": "BS to DNP Pathway",
-    "description": "BS to DNP Pathway Description",
+    "description": "This option provides applicants with a bachelor’s degree a pathway to the DNP, and they earn a master’s degree along the way. After earning the master’s degree, students have a year to begin the DNP coursework without having to reapply to the college.",
     "count": 0
   },
   {
     "name": "Post-Graduate DNP Pathway",
-    "description": "Post-Graduate DNP Pathway Description",
+    "description": "Applicants who already have a master’s degree and who want a DNP have several options from which to choose.",
     "count": 0
   },
   {
     "name": "DNP/MPH",
-    "description": "DNP/MPH",
+    "description": "Applicants with at least a bachelor’s degree in nursing can earn a DNP and Master’s of Public Health with this option.",
     "count": 0
   },
   {
     "name": "Post-Bachelor's BS-PhD Pathway",
-    "description": "Post-Bachelor's BS-PhD Pathway Description",
+    "description": "This option offers direct admission to the PhD program for applicants who already hold a bachelor’s degree in nursing. Completion of the GRE is required as well.",
     "count": 0
   },
   {
     "name": "Post-Bachelor’s MS-PhD Pathway",
-    "description": "Post-Bachelor’s MS-PhD Pathway Description",
+    "description": "This pathway offers a 30-credit MS degree (or an advanced practice specialty) leading into PhD coursework and research.",
     "count": 0
   },
   {
     "name": "Post-Master’s PhD Pathway",
-    "description": "Post-Master’s PhD Pathway Description",
+    "description": "This option is designed for applicants who already hold a master’s degree in nursing. Two to three years of post-master’s doctoral course work leads to the PhD dissertation and PhD degree.",
     "count": 0
   },
   {
     "name": "Graduate Certificate",
-    "description": "Graduate Certificate Description",
+    "description": "Graduate-level certificates consist of academic credit offerings focused on a specialized area of study with defined outcomes. They are designed to provide extended study education to graduate-level and post-graduate-level professionals.",
     "count": 0
   },
   {
     "name": "Post-Graduate Certificate",
-    "description": "Post-Graduate Certificate Description",
+    "description": "Students who hold at least a master’s degree in nursing can be certified in another specialty area through the post-graduate certification program.",
     "count": 0
   },
   {
     "name": "Non-Degree",
-    "description": "Non-Degree Description",
+    "description": "",
     "count": 0
   }
 ];

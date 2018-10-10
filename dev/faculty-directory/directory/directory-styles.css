@@ -98,19 +98,19 @@ header > h2 > a {
 }
 
 .page-link {
-  bottom: 8px;
-  right: -18px;
+  bottom: 4px;
+  right: -30px;
   position: absolute;
 }
 
-.page-link:before {
-  content: '\1F86D';
+.page-link::before {
+  content: '>>';
   display: table-cell;
   text-align: center;
   vertical-align: middle;
 }
 
-.page-link:after {
+.page-link::after {
   clear: both;
   content: '';
   display: table;

@@ -1,10 +1,11 @@
 /**********************************************************
-    
+
             Custom Styles for News Page
 
 **********************************************************/
 
 #localNav {
+  float: left;
   width: 244px;
 }
 
@@ -38,7 +39,8 @@
 }
 
 #mainContainer {
-  width: 712px;
+  float: right;
+  width: 668px;
 }
 
 #mainContainer table.ms-listviewtable tr:nth-child(2n),

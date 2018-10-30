@@ -150,7 +150,7 @@ angular.module("programFinder", [])
 
       $(contentBox).children('.close').click(function() {
         $(contentBox).removeClass('active');
-      })
+      });
 
     }
   }

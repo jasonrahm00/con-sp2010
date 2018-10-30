@@ -1,6 +1,5 @@
-// Scroll top button
-  // https://jsfiddle.net/tmdy51rh/5/
-  // http://jsfiddle.net/b63rH/
+var currentPage = window.location.href,
+    directory = currentPage.indexOf('staff-directory.aspx') > -1 ? 'Staff' : 'Faculty';
 
 angular.module("facultyDirectory", [])
 .service("dataService", ['$q', function($q) {
@@ -59,24 +58,31 @@ angular.module("facultyDirectory", [])
             obj = {};
 
         if (item.get_item("Hidden") !== true) {
-          obj["page"] = item.get_item("Name").get_url();
-          obj["name"] = {
-            "firstName": item.get_item("Name").get_description().split(',')[1],
-            "lastName": item.get_item("Name").get_description().split(',')[0]
-          };
-          obj["title"] = item.get_item("Title");
-          obj["headshot"] = item.get_item("Headshot");
-          obj["degree"] = item.get_item("Degree");
-          obj["email"] = item.get_item("EMail");
-          obj["office"] = item.get_item("Office");
-          obj["phone"] = item.get_item("PrimaryNumber") == "N/A" ? undefined : item.get_item("PrimaryNumber");
-          obj["hidden"] = item.get_item("Hidden");
 
-          obj["specialty"] = getLinkField(item.get_item("Specialty"), "specialty");
+          var listPresence = item.get_item("List_Presence");
 
-          obj["clinic"] = getLinkField(item.get_item("Clinic_x0020_Location"), null);
+          if (listPresence.indexOf(directory) > -1) {
+            obj["page"] = item.get_item("Page_URL") ? item.get_item("Page_URL").get_url() : null;
+            obj["name"] = {
+              "firstName": item.get_item("First_Name"),
+              "lastName": item.get_item("Last_Name")
+            };
+            obj["title"] = item.get_item("Title");
+            obj["headshot"] = item.get_item("Headshot");
+            obj["degree"] = item.get_item("Degree");
+            obj["email"] = item.get_item("EMail");
+            obj["office"] = item.get_item("Office");
+            obj["phone"] = item.get_item("PrimaryNumber") == "N/A" ? undefined : item.get_item("PrimaryNumber");
+            obj["hidden"] = item.get_item("Hidden");
 
-          data.people.push(obj);
+            obj["specialty"] = getLinkField(item.get_item("Specialty"), "specialty");
+
+            obj["clinic"] = getLinkField(item.get_item("Clinic_x0020_Location"), null);
+
+            obj["listPresence"] = listPresence;
+
+            data.people.push(obj);
+          }
         }
       }
 
@@ -90,6 +96,7 @@ angular.module("facultyDirectory", [])
 
       data.expertiseFilters = filters.sort();
 
+      console.log(data);
       deferred.resolve(data);
 
     }
@@ -110,6 +117,7 @@ angular.module("facultyDirectory", [])
   $scope.query = "";
   $scope.people = [];
   $scope.filteredPeople = [];
+  $scope.directory = directory;
 
   $scope.clearFilters = function() {
     if ($scope.filteredPeople !== $scope.people) {

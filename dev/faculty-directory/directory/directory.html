@@ -2,7 +2,7 @@
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
 
 <main data-ng-app="facultyDirectory" data-ng-controller="mainController">
-  <h1>Faculty Directory</h1>
+  <h1 data-ng-cloak>{{ directory }} Directory</h1>
 
   <div id="filters" data-ng-show="dataLoaded && !loadError" data-ng-cloak>
 
@@ -13,7 +13,7 @@
 
     <div>
 <!--
-      <label for="expertise">Filter by Area of Expertise</label>
+      <label for="expertise" data-ng-if="directory === 'Faculty'">Filter by Area of Expertise</label>
       <select id="expertise" aria-labelledby="area of expertise"
               data-ng-model="expertise"
               data-ng-options="filter for filter in expertiseFilters">
@@ -47,8 +47,8 @@
         </div>
 
         <header>
-          <h2 data-ng-if="x.page && x.page.indexOf('mailto') < 0"><a href="{{ x.page }}">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }} <span class="page-link"></span></a></h2>
-          <h2 data-ng-if="x.page.indexOf('mailto') > -1">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }}</h2>
+          <h2 data-ng-if="x.page !== null"><a href="{{ x.page }}">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }} <span class="page-link"></span></a></h2>
+          <h2 data-ng-if="x.page === null">{{ x.name.firstName }} {{ x.name.lastName }}, {{ x.degree }}</h2>
 
           <h3 style="font-size: 1.35em !important;">{{ x.title }}</h3>
 <!--

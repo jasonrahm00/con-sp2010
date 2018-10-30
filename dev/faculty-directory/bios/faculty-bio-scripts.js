@@ -40,11 +40,10 @@ angular.module("facultyBio", [])
         var item = itemEnumerator.get_current(),
             obj = {};
 
-        if (item.get_item("Name").get_url() == currentPage) {
-          obj["page"] = item.get_item("Name").get_url();
+        if (item.get_item("Page_URL") && item.get_item("Page_URL").get_url() == currentPage) {
           obj["name"] = {
-            "firstName": item.get_item("Name").get_description().split(',')[1],
-            "lastName": item.get_item("Name").get_description().split(',')[0]
+            "firstName": item.get_item("First_Name"),
+            "lastName": item.get_item("Last_Name")
           };
           obj["title"] = item.get_item("Title");
           obj["headshot"] = item.get_item("Headshot");

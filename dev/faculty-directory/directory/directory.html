@@ -47,8 +47,8 @@
         </div>
 
         <header>
-          <h2 data-ng-if="x.page !== null"><a href="{{ x.page }}">{{ x.name.lastName }}, {{ x.name.firstName }}, {{ x.degree }} <span class="page-link"></span></a></h2>
-          <h2 data-ng-if="x.page === null">{{ x.name.lastName }}, {{ x.name.firstName }}, {{ x.degree }}</h2>
+          <h2 data-ng-if="x.page !== null"><a href="{{ x.page }}">{{ x.name.lastName }}, {{ x.name.firstName }}<span data-ng-if="x.degree">, {{ x.degree }}</span> <span class="page-link"></span></a></h2>
+          <h2 data-ng-if="x.page === null">{{ x.name.lastName }}, {{ x.name.firstName }}<span data-ng-if="x.degree">, {{ x.degree }}</span></h2>
 
           <h3 style="font-size: 1.35em !important;">{{ x.title }}</h3>
 <!--

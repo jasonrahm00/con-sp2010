@@ -68,7 +68,7 @@ angular.module("facultyDirectory", [])
               "lastName": item.get_item("Last_Name")
             };
             obj["title"] = item.get_item("Title");
-            obj["headshot"] = item.get_item("Headshot");
+            obj["headshot"] = item.get_item("Profile_Headshot") ? item.get_item("Profile_Headshot").get_url() : null;
             obj["degree"] = item.get_item("Degree");
             obj["email"] = item.get_item("EMail");
             obj["office"] = item.get_item("Office");

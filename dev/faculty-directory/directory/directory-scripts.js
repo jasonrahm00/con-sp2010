@@ -87,9 +87,9 @@ angular.module("facultyDirectory", [])
       }
 
       data.people = data.people.sort(function(a, b) {
-        if (a.name.firstName < b.name.firstName)
+        if (a.name.lastName < b.name.lastName)
           return -1;
-        if (a.name.firstName > b.name.firstName)
+        if (a.name.lastName > b.name.lastName)
           return 1;
         return 0;
       });

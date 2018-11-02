@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/program-finder-styles.css">
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
+
+<h1>College of Nursing Degrees and Programs</h1>
+<div class="margin-top-medium" data-ng-app="programFinder">
+  <div data-ng-controller="mainController" data-ng-cloak>
+
+    <div data-ng-if="!dataLoaded">
+      <h2 class="center">Loading...</h2>
+      <div class="spinner"></div>
+    </div>
+
+    <div data-ng-if="loadError">
+      <h2 class="center">Unable to Load Data</h2>
+    </div>
+
+    <div id="sortContainer" data-ng-if="dataLoaded">
+
+      <main>
+        <h2 class="center">Explore Academic Programs</h2>
+        <div id="programCards">
+
+          <section class="clearfix category"
+                   data-ng-repeat="x in categories"
+                   data-ng-if="x.count > 0">
+
+            <header class="full-width">
+              <h3 style="display: inline-block;">{{ x.name }}</h3>
+              <tooltip data-text="{{ x.description }}"
+                       data-ng-if="x.name !== 'Non-Degree'"></tooltip>
+            </header>
+
+            <div class="program-card"
+                 data-ng-repeat="program in filteredPrograms | filter : {category: x.name} : true | orderBy: 'name'">
+              <div class="card-title">
+                <span>{{ program.name }}</span>
+              </div>
+              <div class="card-body">
+                <ul>
+                  <li><strong>Outcome:</strong> {{ program.degree.join(" and ") }}</li>
+                  <li data-ng-if="program.format"><strong>Learning Format:</strong> {{ program.format }}</li>
+                  <li data-ng-if="program.level">
+                    <strong>Required for Entry:</strong>
+                    <span data-ng-if="!program.levelOverride">{{ program.level.join(" or ") }}</span>
+                    <span data-ng-if="program.levelOverride">{{ program.levelOverride }}</span>
+                  </li>
+                  <li data-ng-if="program.specialty"><strong>Graduate Specialty:</strong> {{ program.specialty }}</li>
+                  <li data-ng-if="program.blurb"><strong>About:</strong> {{ program.blurb }}</li>
+                </ul>
+                <a href="{{ program.page }}">Visit {{ program.name }} Page</a>
+              </div>
+            </div>
+
+          </section>
+
+        </div>
+      </main>
+
+      <aside>
+
+        <section class="border-bottom-gold margin-bottom-medium">
+
+          <h2 class="border-bottom-gold flex-container between">Refine Results<span title="Reset Results" class="reset-icon" data-ng-click="resetResults()" aria-label="Reset"></span></h2>
+
+          <section class="filter-group">
+            <h3 style="font-size: 1.5em !important;">Desired Outcome</h3>
+            <filter-group data-ng-repeat="degree in degreeGroup | filterOrder:'degree'"
+                          data-label="{{ degree }}"
+                          data-group-string="{{ 'degree' }}"
+                          data-index="{{ $index }}"
+                          data-input-value="useDegree[degree]"
+                          data-count="{{ (filteredPrograms | filter:count('degree', degree)).length }}"
+                          data-selected-input="{{ selectedDegree }}"
+                          data-disable-input="false">
+            </filter-group>
+          </section>
+
+          <section class="filter-group">
+            <h3 style="font-size: 1.5em !important;">Your Current Degree</h3>
+            <filter-group data-ng-repeat="level in levelGroup | filterOrder:'level'"
+                          data-ng-if="level !== null"
+                          data-label="{{ level }}"
+                          data-group-string="{{ 'level' }}"
+                          data-index="{{ $index }}"
+                          data-input-value="useLevel[level]"
+                          data-count="{{ (filteredPrograms | filter:count('level', level)).length }}"
+                          data-selected-input="{{ selectedLevel }}"
+                          data-disable-input="false">
+            </filter-group>
+          </section>
+
+          <section class="filter-group">
+            <h3 style="font-size: 1.5em !important;">Learning Format</h3>
+            <filter-group data-ng-repeat="format in formatGroup"
+                          data-ng-if="format !== null"
+                          data-label="{{ format }}"
+                          data-group-string="{{ 'format' }}"
+                          data-index="{{ $index }}"
+                          data-input-value="useFormat[format]"
+                          data-count="{{ (filteredPrograms | filter:count('format', format)).length }}">
+            </filter-group>
+          </section>
+
+        </section>
+
+        <section>
+          <h2>Speak to an Advisor</h2>
+          <p>To book an appointment with one of our academic advisors, click on the link below.</p>
+          <a class="button" href="https://booknow.appointment-plus.com/y9ltsxxy/" target="_blank">Book Appointment</a>
+        </section>
+
+      </aside>
+
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/program-finder/program-finder-scripts.js"></script>

@@ -6,8 +6,23 @@ h1 {
   line-height: 100% !important;
 }
 
+aside {
+  float: left;
+  margin-right: 3%;
+  width: 27%;
+}
+
 main {
+  float: right;
   width: 70%;
+}
+
+main: after,
+aside:after,
+.program-card:after {
+  clear: both;
+  content: "";
+  display: table;
 }
 
 main > h2,
@@ -28,6 +43,11 @@ aside h2 {
   border-bottom: 3px solid #d6cca6;
 }
 
+.result-count {
+  display: inline-block;
+  width: 50px;
+}
+
 #contentPage0 #columnPrimary {
   max-width: 948px;
 }
@@ -45,12 +65,6 @@ aside h2 {
 
 #columnPrimary li {
   line-height: 1.8em;
-}
-
-#sortContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 
@@ -101,7 +115,7 @@ aside h2 {
 }
 
 .program-card {
-  border: 1px solid #ddd;
+  border: 1px solid #cecece;
   border-radius: 4px;
   height: 275px;
   margin-bottom: 2rem;
@@ -115,11 +129,16 @@ aside h2 {
 }
 
 #programCards {
-  align-content: flex-start;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   margin-left: 1.5rem;
+  margin-top: 2rem;
+}
+
+.program-card:nth-child(odd) {
+  float: right;
+}
+
+.program-card:nth-child(even) {
+  float: left;
 }
 
 
@@ -128,29 +147,41 @@ aside h2 {
   Filter Styles
 *******************************************/
 
-aside {
-  width: 27%;
-}
-
 aside input {
   cursor: pointer;
+}
+
+aside input[type="checkbox"] {
+  display: table-cell;
+  height: 13px;
+  width: 25px;
 }
 
 aside label {
   color: #4c4b44;
   cursor: pointer;
-  display: grid;
-  grid-template-columns: 25px auto 30px;
+  display: table-row;
+  line-height: 35px;
   margin-right: 0;
-  padding: 5px 0;
+  width: 100%;
 }
 
-aside label span {
-  align-self: center;
+aside label.disabled > * {
+  cursor: default;
+  opacity: 0.65;
 }
 
-aside label span:last-child {
-  justify-self: end;
+aside .label-text {
+  display: table-cell;
+  line-height: normal;
+  margin-right: 10px;
+  width: 190px;
+}
+
+aside .result-count {
+  display: table-cell;
+  text-align: right;
+  width: 30px;
 }
 
 aside > div {
@@ -165,8 +196,26 @@ h3,
   margin: 0 0 6px;
 }
 
+.category {
+  margin-top: 2rem;
+}
+
+.category:first-child {
+  margin-top: 0;
+}
+
+.category header {
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.category header h3 {
+  color: #531111 !important;
+  font-size: 1.83em !important;
+}
+
 .filter-group {
-  background: whitesmoke;
+  background: #f5f5f5;
   padding: 5px 5px 2rem;
 }
 
@@ -179,6 +228,7 @@ h3,
   color: inherit;
   cursor: pointer;
   display: table;
+  float: right;
   height: 26px;
   text-decoration: none !important;
   transform: rotate(-90deg);
@@ -193,5 +243,44 @@ h3,
 }
 
 .reset-icon:after {
-  content: '';
+  clear: both;
+  content: "";
+  display: table;
+}
+
+
+
+/*******************************************
+  Tooltip Styles
+*******************************************/
+
+.tooltip {
+  display: inline-block;
+  position: relative;
+}
+
+.tooltip .tooltip-content {
+  width: 175px;
+  left: 35px;
+}
+
+.tooltip .tooltip-content.active {
+  display: block;
+}
+
+.tooltip-trigger {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  text-align: center;
+  position: absolute;
+  bottom: 5px;
+  border: 1px solid #565a5c;
+}
+
+.tooltip-trigger:before {
+  content: '?';
+  font-weight: bold;
+  color: #565a5c;
 }

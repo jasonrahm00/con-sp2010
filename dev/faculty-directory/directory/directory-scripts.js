@@ -33,6 +33,7 @@ angular.module("facultyDirectory", [])
 
   }
 
+  // Executes CAML query on directory list returning an object array of faculty/staff members
   this.getData = function() {
 
     var deferred = $q.defer(),
@@ -53,14 +54,21 @@ angular.module("facultyDirectory", [])
           },
           itemEnumerator = items.getEnumerator();
 
+      // While loop runs as long as there is another entry on the list
       while (itemEnumerator.moveNext()) {
         var item = itemEnumerator.get_current(),
             obj = {};
 
         if (item.get_item("Hidden") !== true) {
 
+          // listPresence is an array that is used to determine which list the person should be displayed on
+            // "Faculty" and "Staff" are the only two choice
+              // The field is multiple choice as people can be listed in both directories
           var listPresence = item.get_item("List_Presence");
 
+          // Directory variable examines current URL to determine if the app is on the staff directory
+            // If current list entry is supposed to show up on the current directory as determined by the page URL
+              // Person object created with various data points and pushed into data.people array
           if (listPresence.indexOf(directory) > -1) {
             obj["page"] = item.get_item("Page_URL") ? item.get_item("Page_URL").get_url() : null;
             obj["name"] = {
@@ -79,13 +87,12 @@ angular.module("facultyDirectory", [])
 
             obj["clinic"] = getLinkField(item.get_item("Clinic_x0020_Location"), null);
 
-            obj["listPresence"] = listPresence;
-
             data.people.push(obj);
           }
         }
       }
 
+      // People array sorted alphabetically by last name then returned to controller
       data.people = data.people.sort(function(a, b) {
         if (a.name.lastName < b.name.lastName)
           return -1;
@@ -96,7 +103,6 @@ angular.module("facultyDirectory", [])
 
       data.expertiseFilters = filters.sort();
 
-      console.log(data);
       deferred.resolve(data);
 
     }
@@ -127,12 +133,16 @@ angular.module("facultyDirectory", [])
     }
   };
 
+  // Page must be loaded for SPJS to be available, else CAML query in service will not execute
+    // Once page is ready, loadData function called to retrieve info from directory
   jQuery(document).ready(function() {
     ExecuteOrDelayUntilScriptLoaded(loadData, "sp.js");
   });
 
+  // getData service called to retrieve entries from the directory list
   function loadData() {
     dataService.getData().then(function(response) {
+      // expertiseFilters field used to populate expertise dropdown filter in DOM
       $scope.expertiseFilters = response.expertiseFilters;
       $scope.people = response.people;
       $scope.filteredPeople = angular.copy($scope.people);
@@ -144,6 +154,8 @@ angular.module("facultyDirectory", [])
     });
   }
 
+  // Watcher established to detect changes in the "expertise" model
+    // If there are changes, list is filtered and DOM is updated
   $scope.$watch("expertise", function(newVal, oldVal) {
     if(newVal !== oldVal) {
       var filteredPeople = [];

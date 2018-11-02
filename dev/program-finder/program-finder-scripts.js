@@ -159,6 +159,11 @@ angular.module("programFinder", [])
   var listUrl = "/academics/colleges/nursing/programs-admissions/",
       listName = "program-list";
 
+  // Retrieves items from Sharepoint list
+    // Each item becomes a program object
+
+  // Additional logic is used to build out filter groups based on the data in the fields
+    // Filter inputs are not static, so they're easier to change and update
   this.getData = function() {
 
     var deferred = $q.defer(),
@@ -250,10 +255,13 @@ angular.module("programFinder", [])
     Loading Data
   ****************************************************************/
 
+  // Once page is loaded and SPJS is available, getData function triggers
   jQuery(document).ready(function() {
     ExecuteOrDelayUntilScriptLoaded(getData, "sp.js");
   });
 
+  // Call getData function in the dataService
+    // Service returns program list and filter groups
   function getData() {
     dataService.getData().then(function(response) {
       $scope.programs = response.programs;
@@ -269,6 +277,7 @@ angular.module("programFinder", [])
     });
   }
 
+  // Click event used to control tooltips
   $(document).click(function(event) {
     var clickTarget = $(event.target);
     if($(clickTarget).hasClass('tooltip-trigger') || $(clickTarget).hasClass('tooltip-content') || $(clickTarget).parents().hasClass('tooltip-content')) {
@@ -284,15 +293,11 @@ angular.module("programFinder", [])
     Filtering
   ****************************************************************/
 
-  $scope.disableCheck = function(x) {
-    console.log(x);
-    return false;
-  }
-
   $scope.useDegree = {};
   $scope.useFormat = {};
   $scope.useLevel = {};
 
+  // Resets all fitlers to empty objects, so programs are displayed on page
   $scope.resetResults = function() {
     if ($scope.filteredPrograms !== $scope.programs) {
       $scope.filteredPrograms = $scope.programs;
@@ -302,6 +307,7 @@ angular.module("programFinder", [])
     }
   };
 
+  // Count filter used to conditionally activate/deactivate filter inputs
   $scope.count = function (prop, value) {
     return function (el) {
       return el[prop] !== null ? el[prop].indexOf(value) > -1 : '';
@@ -311,6 +317,8 @@ angular.module("programFinder", [])
   $scope.selectedDegree = null;
   $scope.selectedLevel = null;
 
+  // Watcher that keeps an eye on the filter objects
+    // If there's a change, the filters are run to remove un-matched results
   $scope.$watch(function () {
     return {
       programs: $scope.programs,

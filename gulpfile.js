@@ -4,162 +4,109 @@ var concat = require('gulp-concat'),
     del = require('del'),
     gulp = require('gulp'),
     rename = require('gulp-rename'),
-    runSequence = require('run-sequence'),
     uglify = require('gulp-uglify');
 
+var scriptPath,
+    stylePath,
+    pathRoot,
+    htmlPath;
 
-
-/*********************************************
-            Individual Tasks
-*********************************************/
-
-gulp.task('admin-scripts', function() {
-  gulp.src('dev/administration/administration-scripts.js')
-    .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/admin'))
-});
-
-gulp.task('event-styles', function() {
-  gulp.src('dev/newsroom-subsite/events-page/*.css')
-    .pipe(rename('event-styles.txt'))
-    .pipe(gulp.dest('dist/events'))
-});
-
-gulp.task('event-scripts', function() {
-  gulp.src('dev/newsroom-subsite/events-page/*.js')
-    .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/events'))
-});
-
-gulp.task('news-scripts', function() {
-  gulp.src('dev/newsroom-subsite/news-stories/*.js')
-    .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/news'))
-});
-
-gulp.task('news-styles', function() {
-  gulp.src('dev/newsroom-subsite/news-room/*.css')
-    .pipe(rename('news-styles.txt'))
-    .pipe(gulp.dest('dist/news'))
-});
-
-gulp.task('homepage-dropdown', function() {
-  gulp.src('dev/homepage_dropdown/*.js')
-    .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/homepage-dropdown'))
-});
+var paths = {
+  directory: {
+    root: 'faculty-directory',
+    styles: '/**/*.css',
+    scripts: '/**/*.js',
+    html: '/**/*.html'
+  },
+  finder: {
+    root: 'program-finder',
+    styles: '/*.css',
+    scripts: '/*.js',
+    html: '/*.txt'
+  }
+};
 
 
 
 /*********************************************
-            Map Locator Tasks
+  Global Tasks
 *********************************************/
 
-gulp.task('locator-scripts', function() {
-  gulp.src('dev/clinic-locator/locator-scripts.js')
+function clean() {
+  return del(['dist']);
+}
+
+function scripts() {
+  return gulp.src('./dev/' + pathRoot + scriptPath)
     .pipe(uglify())
-    .pipe(rename('local.js'))
-    .pipe(gulp.dest('dist/clinic-locator'))
-});
+    .pipe(gulp.dest('./dist/' + pathRoot));
+}
 
-gulp.task('locator-styles', function() {
-  gulp.src('dev/clinic-locator/*.css')
+function styles() {
+  return gulp.src('./dev/' + pathRoot + stylePath)
     .pipe(cssnano())
-    .pipe(rename('locator-styles.txt'))
-    .pipe(gulp.dest('dist/clinic-locator'))
-});
+    .pipe(gulp.dest('./dist/' + pathRoot));
+}
 
-gulp.task('compile-locator', function(callback) {
-  runSequence('clean:dist', ['locator-scripts', 'locator-styles'], callback);
-});
+function html() {
+  return gulp.src('./dev/' + pathRoot + htmlPath)
+    .pipe(gulp.dest('./dist/' + pathRoot))
+}
 
 
 
 /*********************************************
-          Faculty Profile Tasks
+  Specific Tasks/Functions
 *********************************************/
 
-gulp.task('bio-scripts', function() {
-  gulp.src('dev/faculty-directory/bios/faculty-bio-scripts.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('dist/faculty-bios'))
-});
+function resetPaths() {
+  scriptPath = null;
+  stylePath = null;
+  pathRoot = null;
+  htmlPath = null;
+}
 
-gulp.task('bio-styles', function() {
-  gulp.src('dev/faculty-directory/bios/faculty-bio-styles.css')
-    .pipe(cssnano())
-    .pipe(gulp.dest('dist/faculty-bios'))
-});
+function directory(cb) {
+  pathRoot = paths.directory.root;
+  scriptPath = paths.directory.scripts;
+  stylePath = paths.directory.styles;
+  htmlPath = paths.directory.html;
+  cb();
+}
 
-gulp.task('bio-html', function() {
-  gulp.src('dev/faculty-directory/bios/faculty-bio.html')
-    .pipe(rename('faculty-bio.txt'))
-    .pipe(gulp.dest('dist/faculty-bios'))
-});
-
-gulp.task('compile-bio', function(callback) {
-  runSequence('clean:dist', ['bio-scripts', 'bio-styles', 'bio-html'], callback)
-});
+function programFinder(cb) {
+  pathRoot = paths.finder.root;
+  scriptPath = paths.finder.scripts;
+  stylePath = paths.finder.styles;
+  htmlPath = paths.finder.html;
+  cb();
+}
 
 
 
 /*********************************************
-          Faculty Directory Tasks
+  Exported Tasks
 *********************************************/
 
-gulp.task('directory-scripts', function() {
-  gulp.src('dev/faculty-directory/directory/directory-scripts.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('dist/faculty-directory'))
-});
+exports.clean = clean;
 
-gulp.task('directory-styles', function() {
-  gulp.src('dev/faculty-directory/directory/directory-styles.css')
-    .pipe(cssnano())
-    .pipe(gulp.dest('dist/faculty-directory'))
-});
+exports.buildDirectory = gulp.series(
+  clean,
+  directory,
+  gulp.parallel(scripts, styles, html),
+  function(done){
+    resetPaths();
+    done();
+  }
+);
 
-gulp.task('directory-html', function() {
-  gulp.src('dev/faculty-directory/directory/directory.html')
-    .pipe(gulp.dest('dist/faculty-directory'))
-});
+exports.buildFinder = gulp.series(
+  clean,
+  programFinder,
+  gulp.parallel(scripts, styles, html),
+  function(done){
+    resetPaths();
+    done();
+  }
+);
 
-gulp.task('compile-directory', function(callback) {
-  runSequence('clean:dist', ['directory-scripts', 'directory-styles', 'directory-html'], callback)
-});
-
-
-
-/*********************************************
-            Global Tasks
-*********************************************/
-
-gulp.task('clean:dist', function() {
-  return del.sync('dist');
-});
-
-gulp.task('single-css', function() {
-  return gulp.src(['dev/styles.css', 'dev/photo-gallery/*.css', 'dev/toggle-widget/*.css', 'dev/tooltip-widget/*.css'])
-    .pipe(concatCss('subSite.css'))
-    .pipe(cssnano())
-    .pipe(gulp.dest('dist'));
-});
-
-gulp.task('single-js', function() {
-  return gulp.src(['dev/photo-gallery/*.js', 'dev/programs-landing/*.js', 'dev/toggle-widget/*.js', 'dev/tooltip-widget/*.js'])
-    .pipe(concat('local.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('dist'));
-});
-
-gulp.task('compile-css', function(callback) {
-  runSequence('clean:dist', 'single-css', callback)
-});
-
-gulp.task('compile-js', function(callback) {
-  runSequence('clean:dist', 'single-js', callback)
-});
-
-gulp.task('compile', function(callback) {
-  runSequence('clean:dist', ['single-css', 'single-js'], callback)
-});

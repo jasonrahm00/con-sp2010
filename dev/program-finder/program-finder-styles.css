@@ -17,9 +17,9 @@ main {
   width: 70%;
 }
 
-main: after,
-aside:after,
-.program-card:after {
+main::after,
+aside::after,
+.program-card::after {
   clear: both;
   content: "";
   display: table;
@@ -64,9 +64,8 @@ aside h2 {
 }
 
 #columnPrimary li {
-  line-height: 1.8em;
+  margin-bottom: 10px;
 }
-
 
 
 /*******************************************
@@ -117,7 +116,7 @@ aside h2 {
 .program-card {
   border: 1px solid #cecece;
   border-radius: 4px;
-  height: 275px;
+  height: 325px;
   margin-bottom: 2rem;
   position: relative;
   width: 300px;
@@ -235,14 +234,14 @@ h3,
   width: 30px;
 }
 
-.reset-icon:before {
+.reset-icon::before {
   content: '\21BA';
   display: table-cell;
   text-align: center;
   vertical-align: middle;
 }
 
-.reset-icon:after {
+.reset-icon::after {
   clear: both;
   content: "";
   display: table;
@@ -279,7 +278,7 @@ h3,
   border: 1px solid #565a5c;
 }
 
-.tooltip-trigger:before {
+.tooltip-trigger::before {
   content: '?';
   font-weight: bold;
   color: #565a5c;

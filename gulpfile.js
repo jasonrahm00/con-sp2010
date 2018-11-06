@@ -9,7 +9,8 @@ var concat = require('gulp-concat'),
 var scriptPath,
     stylePath,
     pathRoot,
-    htmlPath;
+    htmlPath,
+    txtPath;
 
 var paths = {
   directory: {
@@ -22,7 +23,8 @@ var paths = {
     root: 'program-finder',
     styles: '/*.css',
     scripts: '/*.js',
-    html: '/*.txt'
+    html: '/*.html',
+    txt: '/*.txt'
   }
 };
 
@@ -53,6 +55,11 @@ function html() {
     .pipe(gulp.dest('./dist/' + pathRoot))
 }
 
+function txt() {
+  return gulp.src('./dev/' + pathRoot + txtPath)
+    .pipe(gulp.dest('./dist/' + pathRoot))
+}
+
 
 
 /*********************************************
@@ -64,6 +71,7 @@ function resetPaths() {
   stylePath = null;
   pathRoot = null;
   htmlPath = null;
+  txtPath = null;
 }
 
 function directory(cb) {
@@ -79,6 +87,7 @@ function programFinder(cb) {
   scriptPath = paths.finder.scripts;
   stylePath = paths.finder.styles;
   htmlPath = paths.finder.html;
+  txtPath = paths.finder.txt;
   cb();
 }
 
@@ -103,7 +112,7 @@ exports.buildDirectory = gulp.series(
 exports.buildFinder = gulp.series(
   clean,
   programFinder,
-  gulp.parallel(scripts, styles, html),
+  gulp.parallel(scripts, styles, html, txt),
   function(done){
     resetPaths();
     done();

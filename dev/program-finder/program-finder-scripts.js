@@ -337,9 +337,8 @@ angular.module("programFinder", [])
         for (var i in $scope.useDegree) {
           if ($scope.useDegree[i]) {
             selected = true;
-            // If check to allow for up to two degrees per program
-              // If more than two, refactor into a loop
-            if (i == p.degree[0] || i == p.degree[1]) {
+            // If check to allow for multiple degree outcomes for a program
+            if (p.degree.indexOf(i) > -1) {
               filterAfterDegree.push(p);
               break;
             }
@@ -383,7 +382,7 @@ angular.module("programFinder", [])
         for (var i in $scope.useLevel) {
           if ($scope.useLevel[i] && p.level) {
             selected = true;
-            if (i == p.level[0] || i == p.level[1]) {
+            if (p.level.indexOf(i) > -1) {
               filterAfterLevel.push(p);
               break;
             }

@@ -15,7 +15,7 @@ var sortOrder = {
     "RN (ADN) License",
     "Non-Nursing Bachelor's",
     "ADN and Non-Nursing Bachelor's",
-    "RN (ADN) License and Bachelor's",
+    "Nursing Bachelor's and RN License",
     "Nursing Bachelor's",
     "BSN and Advanced Degree",
     "Nursing Master's"

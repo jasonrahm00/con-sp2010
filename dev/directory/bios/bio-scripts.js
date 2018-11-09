@@ -18,8 +18,8 @@ angular.module("facultyBio", [])
 }])
 .service("dataService", ['$q', function($q) {
 
-  var listUrl = "/academics/colleges/nursing/faculty-staff/faculty/",
-      listName = "Faculty";
+  var listUrl = "/academics/colleges/nursing/faculty-staff/admin/",
+      listName = "Directory";
 
   // Executes CAML query on faculty directory list taking current url as a dependency
     // If current url match Page_URL field in list, data object created with various data points

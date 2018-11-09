@@ -1,10 +1,10 @@
 var currentPage = window.location.href,
     directory = currentPage.indexOf('staff-directory.aspx') > -1 ? 'Staff' : 'Faculty';
 
-angular.module("facultyDirectory", [])
+angular.module("directory", [])
 .service("dataService", ['$q', function($q) {
-  var listUrl = "/academics/colleges/nursing/faculty-staff/faculty/",
-      listName = "Faculty",
+  var listUrl = "/academics/colleges/nursing/faculty-staff/admin/",
+      listName = "Directory",
       filters = [];
 
   function getLinkField(x,y) {

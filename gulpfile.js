@@ -14,7 +14,7 @@ var scriptPath,
 
 var paths = {
   directory: {
-    root: 'faculty-directory',
+    root: 'directory',
     styles: '/**/*.css',
     scripts: '/**/*.js',
     html: '/**/*.html'
@@ -52,12 +52,12 @@ function styles() {
 
 function html() {
   return gulp.src('./dev/' + pathRoot + htmlPath)
-    .pipe(gulp.dest('./dist/' + pathRoot))
+    .pipe(gulp.dest('./dist/' + pathRoot));
 }
 
 function txt() {
   return gulp.src('./dev/' + pathRoot + txtPath)
-    .pipe(gulp.dest('./dist/' + pathRoot))
+    .pipe(gulp.dest('./dist/' + pathRoot));
 }
 
 
@@ -103,7 +103,7 @@ exports.buildDirectory = gulp.series(
   clean,
   directory,
   gulp.parallel(scripts, styles, html),
-  function(done){
+  function(done) {
     resetPaths();
     done();
   }
@@ -118,4 +118,3 @@ exports.buildFinder = gulp.series(
     done();
   }
 );
-

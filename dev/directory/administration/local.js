@@ -57,6 +57,7 @@ $(document).ready(function() {
     });
 
     $(adminTables[currentTable]).find('tr.ms-viewheadertr.ms-vhltr').remove();
+    $(adminTables[currentTable]).find('tr').removeClass('ms-alternating ms-itmhover');
     $(adminTables[currentTable]).show();
 
     currentTable++;

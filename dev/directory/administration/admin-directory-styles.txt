@@ -1,0 +1,62 @@
+<style>
+#pageContent table.ms-listviewtable td {
+  border-right: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+table[summary="Directory "] {
+  display: none;
+}
+
+table.ms-listviewtable tr:nth-child(2n) {
+  background-color: #fff;
+}
+
+.directory-row img {
+  width: 100%;
+}
+
+.directory-row td {
+  vertical-align: middle;
+}
+
+.directory-row > td:first-child {
+  width: 55px;
+}
+
+.directory-row td:nth-child(2) {
+  height: 120px;
+}
+
+.directory-row td:nth-child(2) a {
+  position: relative;
+}
+
+.directory-row td:nth-child(2) a:hover strong {
+  text-decoration: underline;
+}
+
+.directory-row td:nth-child(2) strong {
+  color: #707070;
+}
+
+.page-link {
+  bottom: 0.1px;
+  color: #707070;
+  position: absolute;
+  right: -25px;
+}
+
+.page-link::before {
+  content: '>>';
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.page-link::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+</style>

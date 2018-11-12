@@ -4,7 +4,12 @@
   border-bottom: 1px solid #ddd;
 }
 
+#pageContent table.ms-listviewtable tr:last-child td {
+  border-bottom: 0;
+}
+
 table[summary="Directory "] {
+  border-top: 3px solid #d6cca6;
   display: none;
 }
 

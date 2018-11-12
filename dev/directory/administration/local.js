@@ -27,16 +27,16 @@ $(document).ready(function() {
   }
 
   function createRowContent(x) {
-    var rowContent = '<td colspan="1">';
+    var rowContent = '<td>';
           rowContent += x.headshot ? x.headshot : '';
         rowContent += '</td>';
-        rowContent += '<td colspan="3">';
+        rowContent += '<td>';
           rowContent += linkToBio(x);
           rowContent += '<span>' + x.title + '</span>';
         rowContent += '</td>';
-        rowContent += '<td colspan="3">';
+        rowContent += '<td>';
           rowContent += '<ul>';
-            rowContent += '<li>Phone: ' + x.phone + '</li>' ;
+            rowContent += x.phone !== null ? '<li>Phone: ' + x.phone + '</li>' : '';
             rowContent += '<li>Email: ' + x.email + '</li>';
           rowContent += '</ul>';
         rowContent += '</td>';

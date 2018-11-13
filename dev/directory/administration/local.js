@@ -37,7 +37,7 @@ $(document).ready(function() {
         rowContent += '<td>';
           rowContent += '<ul>';
             rowContent += x.phone !== null ? '<li>Phone: ' + x.phone + '</li>' : '';
-            rowContent += '<li>Email: ' + x.email + '</li>';
+            rowContent += x.email !== null ? '<li>Email: ' + x.email + '</li>' : '';
           rowContent += '</ul>';
         rowContent += '</td>';
     return rowContent;

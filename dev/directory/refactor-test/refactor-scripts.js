@@ -9,8 +9,13 @@ angular.module('refactor', ['directoryService'])
 
   // getData service called to retrieve entries from the directory list
   function loadData() {
+
+    // Pass in settings object with key and property you want to filter by in directory
+      // So service doesn't return entire directory with each query
+        // {'listPresence': 'Faculty'}
     DirectoryService.getDirectory().then(function(response) {
-      console.log(response)
+      console.log('List Length: ' + response.length);
+      console.log(response);
     }, function(error) {
       console.error(error);
     });

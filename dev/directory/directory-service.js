@@ -13,19 +13,9 @@ function stripSpaces(strng) {
 function getLinkField(x,y) {
 
   if (x !== null) {
-
-    var linkText = x.get_description(),
-        linkUrl = x.get_url();
-
-    if (y === "specialty") {
-      if (filters.indexOf(linkText) < 0) {
-        filters.push(linkText);
-      }
-    }
-
     return {
-      "text": linkText,
-      "url": linkUrl
+      "text": x.get_description(),
+      "url": x.get_url()
     }
   } else {
     return {
@@ -33,39 +23,11 @@ function getLinkField(x,y) {
       "url": ''
     }
   }
-
 }
 
 angular.module('directoryService',[]).service('DirectoryService', ['$q', function($q) {
   var listUrl = "/academics/colleges/nursing/faculty-staff/admin/",
-      listName = "Directory",
-      filters = [];
-
-  function getLinkField(x,y) {
-
-    if (x !== null) {
-
-      var linkText = x.get_description(),
-          linkUrl = x.get_url();
-
-      if (y === "specialty") {
-        if (filters.indexOf(linkText) < 0) {
-          filters.push(linkText);
-        }
-      }
-
-      return {
-        "text": linkText,
-        "url": linkUrl
-      }
-    } else {
-      return {
-        "text": '',
-        "url": ''
-      }
-    }
-
-  }
+      listName = "Directory";
 
   // Executes CAML query on directory list returning an object array of faculty/staff members
   this.getDirectory = function() {
@@ -80,7 +42,6 @@ angular.module('directoryService',[]).service('DirectoryService', ['$q', functio
     clientContext.executeQueryAsync(onQuerySucceed, onQueryFail);
 
     function onQuerySucceed() {
-      filters = [];
 
       var people = [],
           itemEnumerator = items.getEnumerator();
@@ -117,6 +78,10 @@ angular.module('directoryService',[]).service('DirectoryService', ['$q', functio
           })(item.get_item("Video"))
           obj["listPresence"] = item.get_item("List_Presence");
 
+          // Before pushing object into people array
+            // Check passed in settings object and match against obj key/value
+            // use indexOf to account for list presence
+            // Need to unpack filter settings object and to separate key and value?
           people.push(obj);
         }
       }

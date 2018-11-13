@@ -1,11 +1,3 @@
-var now = Date.now(),
-    currentPage = window.location.href;
-
-function addMonth(x) {
-  var y = new Date(x);
-  return y.setDate(y.getDate() + 30);
-}
-
 function stripSpaces(strng) {
   return strng !== null ? strng.replace(/[\u200B]/g, '') : null;
 }

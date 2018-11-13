@@ -30,7 +30,8 @@ table.ms-listviewtable tr:nth-child(2n) {
 }
 
 .directory-row td:nth-child(2) {
-  height: 120px;
+  height: 85px;
+  width: 50%;
 }
 
 .directory-row td:nth-child(2) a {
@@ -46,7 +47,7 @@ table.ms-listviewtable tr:nth-child(2n) {
 }
 
 .page-link {
-  bottom: 0.1px;
+  bottom: 1px;
   color: #707070;
   position: absolute;
   right: -25px;

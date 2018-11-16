@@ -1,4 +1,4 @@
-angular.module('refactor', ['directoryService'])
+angular.module('directory')
 .controller('mainController', ['$scope', 'DirectoryService', function($scope, DirectoryService){
 
   // Page must be loaded for SPJS to be available, else CAML query in service will not execute
@@ -13,11 +13,11 @@ angular.module('refactor', ['directoryService'])
     // Pass in settings object with key and property you want to filter by in directory
       // So service doesn't return entire directory with each query
         // {'listPresence': 'Faculty'}
-    DirectoryService.getDirectory().then(function(response) {
+    DirectoryService.getDirectory(pageTemplates[3]).then(function(response) {
       console.log('List Length: ' + response.length);
       console.log(response);
     }, function(error) {
-      console.error(error);
+      console.error('List query failed');
     });
   }
 

@@ -1,3 +1,8 @@
+var currentPage = window.location.href,
+    currentPage = 'http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Sheridan/Pages/Home.aspx',
+    listUrl = "/academics/colleges/nursing/faculty-staff/admin/",
+    listName = "Directory";
+
 function stripSpaces(strng) {
   return strng !== null ? strng.replace(/[\u200B]/g, '') : null;
 }
@@ -18,11 +23,9 @@ function getLinkField(x,y) {
 }
 
 angular.module('directoryService',[]).service('DirectoryService', ['$q', function($q) {
-  var listUrl = "/academics/colleges/nursing/faculty-staff/admin/",
-      listName = "Directory";
 
   // Executes CAML query on directory list returning an object array of faculty/staff members
-  this.getDirectory = function() {
+  this.getDirectory = function(chosenTemplate) {
 
     var deferred = $q.defer(),
         clientContext = new SP.ClientContext(listUrl),
@@ -63,18 +66,33 @@ angular.module('directoryService',[]).service('DirectoryService', ['$q', functio
           obj["clinic"] = getLinkField(item.get_item("Clinic_x0020_Location"), null);
           obj["awards"] = stripSpaces(item.get_item("Awards"));
           obj["quote"] = stripSpaces(item.get_item("Quote"));
+          obj["listPresence"] = item.get_item("List_Presence");
           obj["video"] = (function(x) {
             if (x !== null) {
               return '<iframe width="225" height="126" src="https://www.youtube.com/embed/' + stripSpaces(x) + '?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
             }
-          })(item.get_item("Video"))
-          obj["listPresence"] = item.get_item("List_Presence");
+          })(item.get_item("Video"));
 
           // Before pushing object into people array
             // Check passed in settings object and match against obj key/value
-            // use indexOf to account for list presence
-            // Need to unpack filter settings object and to separate key and value?
-          people.push(obj);
+          if(chosenTemplate === 'faculty' || chosenTemplate === 'staff') {
+            obj.listPresence.forEach(function(elem) {
+              if (elem.toLowerCase() === chosenTemplate) {
+                people.push(obj);
+              }
+            })
+          } else if (chosenTemplate === 'clinic') {
+            if (obj.clinic.url === currentPage) {
+              people.push(obj);
+            }
+          } else if (chosenTemplate === 'bio') {
+            if (obj.page === currentPage) {
+              people.push(obj);
+            }
+          } else {
+            continue;
+          }
+
         }
       }
 

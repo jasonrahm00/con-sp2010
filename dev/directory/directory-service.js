@@ -1,10 +1,9 @@
 var currentPage = window.location.href,
-    currentPage = 'http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Sheridan/Pages/Home.aspx',
     listUrl = "/academics/colleges/nursing/faculty-staff/admin/",
     listName = "Directory";
 
 function stripSpaces(strng) {
-  return strng !== null ? strng.replace(/[\u200B]/g, '') : null;
+  return strng !== null ? strng.replace(/[\u200B]/g, "") : null;
 }
 
 function getLinkField(x,y) {
@@ -16,13 +15,13 @@ function getLinkField(x,y) {
     }
   } else {
     return {
-      "text": '',
-      "url": ''
+      "text": "",
+      "url": ""
     }
   }
 }
 
-angular.module('directoryService',[]).service('DirectoryService', ['$q', function($q) {
+angular.module("directoryService",[]).service("DirectoryService", ["$q", function($q) {
 
   // Executes CAML query on directory list returning an object array of faculty/staff members
   this.getDirectory = function(chosenTemplate) {
@@ -69,23 +68,23 @@ angular.module('directoryService',[]).service('DirectoryService', ['$q', functio
           obj["listPresence"] = item.get_item("List_Presence");
           obj["video"] = (function(x) {
             if (x !== null) {
-              return '<iframe width="225" height="126" src="https://www.youtube.com/embed/' + stripSpaces(x) + '?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+              return "<iframe width='225' height='126' src='https://www.youtube.com/embed/" + stripSpaces(x) + "?rel=0' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>";
             }
           })(item.get_item("Video"));
 
           // Before pushing object into people array
             // Check passed in settings object and match against obj key/value
-          if(chosenTemplate === 'faculty' || chosenTemplate === 'staff') {
+          if(chosenTemplate === "faculty" || chosenTemplate === "staff") {
             obj.listPresence.forEach(function(elem) {
               if (elem.toLowerCase() === chosenTemplate) {
                 people.push(obj);
               }
             })
-          } else if (chosenTemplate === 'clinic') {
+          } else if (chosenTemplate === "clinic") {
             if (obj.clinic.url === currentPage) {
               people.push(obj);
             }
-          } else if (chosenTemplate === 'bio') {
+          } else if (chosenTemplate === "bio") {
             if (obj.page === currentPage) {
               people.push(obj);
             }

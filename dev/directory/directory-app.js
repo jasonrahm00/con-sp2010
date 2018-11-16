@@ -1,8 +1,8 @@
 var pageTemplates = [
-      'faculty',
-      'staff',
-      'bio',
-      'clinic'
+      "faculty",
+      "staff",
+      "bio",
+      "clinic"
     ];
 
-angular.module('directory', ['directoryService']);
+angular.module("directory", ["directoryService"]);

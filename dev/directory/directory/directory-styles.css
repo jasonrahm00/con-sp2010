@@ -12,6 +12,10 @@ header > * {
   margin: 0;
 }
 
+h1 {
+  text-transform: capitalize;
+}
+
 header > h2 {
   color: #707070 !important;
   font-size: 1.5em !important;

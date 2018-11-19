@@ -1,5 +1,3 @@
-var directory = currentPage.indexOf('staff-directory.aspx') > -1 ? pageTemplates[1] : pageTemplates[0];
-
 angular.module("directory")
 .controller("directoryController", ["$scope", "DirectoryService", function($scope, DirectoryService){
   $scope.dataLoaded = false;
@@ -7,7 +5,7 @@ angular.module("directory")
   $scope.query = "";
   $scope.people = [];
   $scope.filteredPeople = [];
-  $scope.directory = directory;
+  $scope.directory = template;
 
   $scope.clearFilters = function() {
     if ($scope.filteredPeople !== $scope.people) {
@@ -25,7 +23,7 @@ angular.module("directory")
 
   // getData service called to retrieve entries from the directory list
   function loadData() {
-    DirectoryService.getDirectory(directory).then(function(response) {
+    DirectoryService.getDirectory().then(function(response) {
       $scope.people = response;
       $scope.filteredPeople = angular.copy($scope.people);
       $scope.dataLoaded = true;

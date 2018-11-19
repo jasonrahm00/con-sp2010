@@ -24,7 +24,7 @@ function getLinkField(x,y) {
 
 (function() {
   if ((currentPage.indexOf("directory.aspx") > -1) || (currentPage.indexOf("staff-directory.aspx") > -1)) {
-    template = currentPage.indexOf('staff-directory.aspx') > -1 ? "staff" : "faculty";
+    template = currentPage.indexOf("staff-directory.aspx") > -1 ? "staff" : "faculty";
   } else if (currentPage.indexOf("nursing/faculty-staff/faculty/Pages") > -1) {
     template = "bio";
   } else  if (currentPage.indexOf("PatientServices") > -1) {

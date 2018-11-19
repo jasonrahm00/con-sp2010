@@ -12,7 +12,7 @@ angular.module("directory")
 
   // getData service called to retrieve entries from the directory list
   function loadData() {
-    DirectoryService.getDirectory(pageTemplates[3]).then(function(response) {
+    DirectoryService.getDirectory().then(function(response) {
       $scope.people = response;
       $scope.dataLoaded = true;
     }, function(error) {

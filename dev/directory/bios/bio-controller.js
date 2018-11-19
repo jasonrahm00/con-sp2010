@@ -1,122 +1,15 @@
-var now = Date.now(),
-    currentPage = window.location.href;
+var now = Date.now()
 
 function addMonth(x) {
   var y = new Date(x);
   return y.setDate(y.getDate() + 30);
 }
 
-function stripSpaces(strng) {
-  return strng !== null ? strng.replace(/[\u200B]/g, '') : null;
-}
-
-angular.module("facultyBio", [])
+angular.module("directory")
 .filter("renderHTMLCorrectly", ['$sce', function($sce) {
   return function(stringToParse) {
     return $sce.trustAsHtml(stringToParse);
   }
-}])
-.service("dataService", ['$q', function($q) {
-
-  var listUrl = "/academics/colleges/nursing/faculty-staff/admin/",
-      listName = "Directory";
-
-  // Executes CAML query on faculty directory list taking current url as a dependency
-    // If current url match Page_URL field in list, data object created with various data points
-    // While loop breaks after first match
-    // Data object containing faculty bio details returned to controller
-  this.getData = function(currentPage) {
-
-    var deferred = $q.defer(),
-        clientContext = new SP.ClientContext(listUrl),
-        web = clientContext.get_web(),
-        list = web.get_lists().getByTitle(listName),
-        items = list.getItems(SP.CamlQuery.createAllItemsQuery());
-
-    clientContext.load(items);
-    clientContext.executeQueryAsync(onQuerySucceed, onQueryFail);
-
-    function onQuerySucceed() {
-      var data = [],
-          itemEnumerator = items.getEnumerator();
-
-      while (itemEnumerator.moveNext()) {
-        var item = itemEnumerator.get_current(),
-            obj = {};
-
-        if (item.get_item("Page_URL") && item.get_item("Page_URL").get_url() == currentPage) {
-          obj["name"] = {
-            "firstName": item.get_item("First_Name"),
-            "lastName": item.get_item("Last_Name")
-          };
-          obj["title"] = item.get_item("Title");
-          obj["headshot"] = item.get_item("Profile_Headshot") ? item.get_item("Profile_Headshot").get_url() : null;
-          obj["bio"] = stripSpaces(item.get_item("Bio"));
-          obj["biosketch"] = item.get_item("Biosketch");
-          obj["cv"] = item.get_item("CV");
-          obj["degree"] = item.get_item("Degree");
-          obj["education"] = stripSpaces(item.get_item("Education"));
-          obj["email"] = item.get_item("EMail");
-          obj["office"] = item.get_item("Office");
-          obj["phone"] = item.get_item("PrimaryNumber");
-
-          obj["specialty"] = (function(x) {
-            if (x !== null) {
-              return {
-                "text": item.get_item("Specialty").get_description(),
-                "url": item.get_item("Specialty").get_url()
-              }
-            } else {
-              return {
-                "text": '',
-                "url": ''
-              }
-            }
-          })(item.get_item("Specialty"));
-
-          obj["clinic"] = (function(x) {
-            if (x !== null) {
-              return {
-                "text": item.get_item("Clinic_x0020_Location").get_description(),
-                "url": item.get_item("Clinic_x0020_Location").get_url()
-              }
-            } else {
-              return {
-                "text": '',
-                "url": ''
-              }
-            }
-          })(item.get_item("Clinic_x0020_Location"));
-
-          obj["awards"] = stripSpaces(item.get_item("Awards"));
-          obj["quote"] = stripSpaces(item.get_item("Quote"));
-          obj["video"] = (function(x) {
-            if (x !== null) {
-              return '<iframe width="225" height="126" src="https://www.youtube.com/embed/' + stripSpaces(x) + '?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-            }
-          })(item.get_item("Video"))
-
-
-
-          data.push(obj);
-
-          break;
-        }
-
-      }
-
-      deferred.resolve(data);
-
-    }
-
-    function onQueryFail() {
-      deferred.reject();
-    }
-
-    return deferred.promise;
-
-  };
-
 }])
 .service("newsService", ['$q', function($q) {
   var listUrl = "/academics/colleges/nursing/about-us/news/",
@@ -180,7 +73,7 @@ angular.module("facultyBio", [])
   }
 
 }])
-.controller("mainController", ['$scope', 'dataService', 'newsService', function($scope, dataService, newsService){
+.controller("bioController", ['$scope', 'DirectoryService', 'newsService', function($scope, DirectoryService, newsService){
 
   $scope.data;
   $scope.dataLoaded = false;
@@ -222,10 +115,10 @@ angular.module("facultyBio", [])
     });
 
     // Get fac data
-      // Sends current page to the dataService getData function
+      // Sends page template to DirectoryService getDirectory function
       // Expects object array as return, with the first object being the faculty member from the directory
       // Data set is matched by the page url
-    dataService.getData(currentPage).then(function(response) {
+    DirectoryService.getDirectory(pageTemplates[2]).then(function(response) {
       // If check to test whether data was returned from the list
       if (response[0] === undefined) {
         $scope.loadError = true;

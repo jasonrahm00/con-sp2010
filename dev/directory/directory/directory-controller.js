@@ -1,7 +1,7 @@
 var directory = currentPage.indexOf('staff-directory.aspx') > -1 ? pageTemplates[1] : pageTemplates[0];
 
 angular.module("directory")
-.controller("mainController", ["$scope", "DirectoryService", function($scope, DirectoryService){
+.controller("directoryController", ["$scope", "DirectoryService", function($scope, DirectoryService){
   $scope.dataLoaded = false;
   $scope.loadError = false;
   $scope.query = "";

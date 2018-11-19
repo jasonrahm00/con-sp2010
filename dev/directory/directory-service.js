@@ -2,6 +2,13 @@ var currentPage = window.location.href,
     listUrl = "/academics/colleges/nursing/faculty-staff/admin/",
     listName = "Directory";
 
+var pageTemplates = [
+  "faculty",
+  "staff",
+  "bio",
+  "clinic"
+];
+
 function stripSpaces(strng) {
   return strng !== null ? strng.replace(/[\u200B]/g, "") : null;
 }

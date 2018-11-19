@@ -1,0 +1,138 @@
+#bioContainer a:link {
+  color: #004D81 !important;
+}
+
+#bioContainer a:visited {
+  color: #006091 !important;
+}
+
+#bioContainer a:hover {
+  text-decoration: underline !important;
+}
+
+#bioContainer h1 {
+  font-family: MuliRegular, Helvetica, Arial, sans-serif;
+  font-weight:700;
+  font-size:2.5rem;
+  line-height:100%;
+}
+
+#bioContainer h2 {
+  color: #000;
+  font-family: MuliLight, Helvetica, Arial, sans-serif;
+  font-size: 2.08em;
+  font-weight: normal;
+  line-height: 120%;
+  margin: 6px 0 12px 0;
+}
+
+#bioContainer header h2 {
+  font-size: 2.25em;
+  font-style: italic;
+}
+
+#bioContainer header h1,
+#bioContainer header h2,
+#bioContainer header h3 {
+  color: #565a5c;
+}
+
+#bioContainer header h3 {
+  font-size: 1.85em !important;
+}
+
+#bioContainer header h3 a:link {
+  color: #0072bc;
+  text-decoration: none;
+}
+
+#bioContainer header h3 > span {
+  font-weight: bold;
+}
+
+aside {
+  float: left;
+  margin-top: 14px;
+  width: 25%;
+}
+
+aside ul {
+  list-style-type: none;
+  margin-left: 0 !important;
+}
+
+aside ul li {
+  margin: 0 !important;
+}
+
+aside:after,
+main:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+blockquote,
+#videoContainer {
+  margin-top: 2rem;
+}
+
+blockquote {
+  border-bottom: 3px solid #c5a95d;
+  border-top: 3px solid #c5a95d;
+  padding: 1.5rem 1rem 1rem;
+  text-align: center;
+}
+
+blockquote q {
+  quotes: initial;
+  font-size: 1.15rem;
+  font-style: italic;
+  margin: 0;
+}
+
+ blockquote q:before {
+  content: open-quote;
+  font-size: 4rem;
+  line-height: 0.1em;
+  vertical-align: -0.4em;
+  padding-right: 10px;
+}
+
+blockquote q:after {
+  content: "";
+}
+
+main {
+  float: right;
+  width: 70%;
+}
+
+main > * {
+  margin-bottom: 3rem;
+}
+
+main > *:last-child {
+  margin-bottom: 0;
+}
+
+.promoted-news {
+  border-top: 3px solid #c5a95d;
+  margin-top: 3rem;
+  padding: 1rem;
+}
+
+.promoted-news a {
+  display: block;
+}
+
+#imageContainer {
+  margin: 0 auto 1rem;
+  text-align: center;
+}
+
+#imageContainer > img {
+  max-height: 206px;
+  max-width: 156px;
+}
+

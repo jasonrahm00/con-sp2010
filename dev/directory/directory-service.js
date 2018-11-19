@@ -80,7 +80,7 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
           })(item.get_item("Video"));
 
           // Before pushing object into people array
-            // Check passed in settings object and match against obj key/value
+            // If check used to filter list items based on passed in pageTemplate value
           if(chosenTemplate === "faculty" || chosenTemplate === "staff") {
             obj.listPresence.forEach(function(elem) {
               if (elem.toLowerCase() === chosenTemplate) {

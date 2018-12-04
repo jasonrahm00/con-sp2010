@@ -60,6 +60,12 @@ function txt() {
     .pipe(gulp.dest('./dist/' + pathRoot));
 }
 
+function subsiteCss() {
+  return gulp.src(['dev/styles.css', 'dev/photo-gallery/*.css', 'dev/toggle-widget/*.css', 'dev/tooltip-widget/*.css'])
+    .pipe(concatCss('subSite.css'))
+    .pipe(gulp.dest('./dist'));
+}
+
 
 
 /*********************************************
@@ -98,6 +104,8 @@ function programFinder(cb) {
 *********************************************/
 
 exports.clean = clean;
+
+exports.subsiteCss = subsiteCss;
 
 exports.buildDirectory = gulp.series(
   clean,

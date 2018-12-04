@@ -356,9 +356,7 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
 
 
 /**********************************************************
-
-                    List Styles
-
+  List Styles
 **********************************************************/
 
 ul.no-bullets {
@@ -385,9 +383,7 @@ ul.column-list.two>li {
 
 
 /**********************************************************
-
-            Accordion Widget Overrides
-
+  Accordion Widget Overrides
 **********************************************************/
 
 /************ Inline Accordions ************/
@@ -489,9 +485,47 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
+  Custom Accordion Styles
+**********************************************************/
 
-        Custom Styles for Programs Landing Page
+.accordion {
+  width: 100%;
+  margin: 2rem 0;
+}
 
+.accordion-body {
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  color: #474a4c;
+  display: none;
+  padding: 1.25rem;
+}
+
+.accordion-header {
+  border: 1px solid #ddd;
+  color: #5a5a5a;
+  font-size: .85rem;
+  font-weight: normal !important;
+  margin-top: 16px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.accordion-header:first-of-type {
+  margin-top: 0;
+}
+
+.accordion-header:hover {
+  border-color: #cfb87c;
+  cursor: pointer;
+}
+
+
+
+/**********************************************************
+  Custom Styles for Programs Landing Page
 **********************************************************/
 
 #labelWrapper {
@@ -566,9 +600,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-
-        Custom Styles for Admissions Pages
-
+  Custom Styles for Admissions Pages
 **********************************************************/
 
 
@@ -597,9 +629,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-
-                    Next Steps
-
+  Next Steps
 **********************************************************/
 
 .next-steps {
@@ -646,9 +676,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-
-              Custom Margins and Padding
-
+  Custom Margins and Padding
 **********************************************************/
 
 /******************** Margins ********************/
@@ -904,9 +932,7 @@ h3.ui-accordion-header:hover,
 
 
 /**********************************************************
-
-                  Custom Widths
-
+  Custom Widths
 **********************************************************/
 
 .full-width {

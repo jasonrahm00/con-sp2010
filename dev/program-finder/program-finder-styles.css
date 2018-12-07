@@ -279,7 +279,9 @@ h3,
 }
 
 .tooltip-trigger::before {
+  color: #565a5c;
   content: '?';
   font-weight: bold;
-  color: #565a5c;
+  position: relative;
+  top: -2px;
 }

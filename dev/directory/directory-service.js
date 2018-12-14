@@ -29,6 +29,8 @@ function getLinkField(x,y) {
     template = "bio";
   } else  if (currentPage.indexOf("PatientServices") > -1) {
     template = "clinic";
+  } else  if (currentPage.indexOf("/research/Pages/research.aspx") > -1) {
+    template = "research";
   }
 })();
 
@@ -77,6 +79,8 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
           obj["awards"] = stripSpaces(item.get_item("Awards"));
           obj["quote"] = stripSpaces(item.get_item("Quote"));
           obj["listPresence"] = item.get_item("List_Presence");
+          obj["adminDepartment"] = item.get_item("Administrative_Department");
+          obj["adminListOrder"] = item.get_item("Admin_List_Order");
           obj["video"] = (function(x) {
             if (x !== null) {
               return "<iframe width='225' height='126' src='https://www.youtube.com/embed/" + stripSpaces(x) + "?rel=0' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>";
@@ -90,7 +94,7 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
               if (elem.toLowerCase() === template) {
                 people.push(obj);
               }
-            })
+            });
           } else if (template === "clinic") {
             if (obj.clinic.url === currentPage) {
               people.push(obj);
@@ -99,6 +103,12 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
             if (obj.page === currentPage) {
               people.push(obj);
             }
+          } else if (template === "research" && obj.adminDepartment){
+            obj.adminDepartment.forEach(function(elem) {
+              if (elem === "Office of Research and Scholarship") {
+                people.push(obj);
+              }
+            });
           } else {
             continue;
           }

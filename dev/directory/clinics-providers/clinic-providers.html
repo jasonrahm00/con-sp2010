@@ -1,0 +1,33 @@
+<link type="text/css" rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/clinic-providers/clinic-providers-styles.css">
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
+
+<style type="text/css">
+
+  h3,
+  .ms-WPBody h3 {
+    color: #565a5c !important;
+    font-family: MuliRegular,Helvetica,Arial,sans-serif !important;
+    font-size: 2.5em !important;
+    font-weight: 700;
+    line-height: 100%;
+    margin-bottom: 3rem !important;
+    text-align: center;
+  }
+
+</style>
+
+<div data-ng-app="directory" data-ng-controller="clinicProvidersController">
+
+  <div data-ng-if="dataLoaded && people.length > 0">
+    <h3>Meet Our Providers</h3>
+    <ul>
+      <li data-ng-repeat="x in people" data-ng-if="x.page === null">{{ x.name.lastName }}, {{ x.name.firstName }}, {{ x.degree }}</li>
+      <li data-ng-repeat="x in people" data-ng-if="x.page !== null"><a data-ng-href="{{ x.page }}">{{ x.name.lastName }}, {{ x.name.firstName }}, {{ x.degree }}</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/directory-service.js"></script>
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/directory-app.js"></script>
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/clinic-providers/clinic-providers-controller.js"></script>

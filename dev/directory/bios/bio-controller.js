@@ -118,7 +118,7 @@ angular.module("directory")
       // Sends page template to DirectoryService getDirectory function
       // Expects object array as return, with the first object being the faculty member from the directory
       // Data set is matched by the page url
-    DirectoryService.getDirectory(pageTemplates[2]).then(function(response) {
+    DirectoryService.getDirectory().then(function(response) {
       // If check to test whether data was returned from the list
       if (response[0] === undefined) {
         $scope.loadError = true;

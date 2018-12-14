@@ -47,22 +47,22 @@
         </div>
 
         <header>
-          <h2 data-ng-if="x.page !== null"><a href="{{ x.page }}">{{ x.name.lastName }}, {{ x.name.firstName }}<span data-ng-if="x.degree">, {{ x.degree }}</span> <span class="page-link"></span></a></h2>
+          <h2 data-ng-if="x.page !== null"><a data-ng-href="{{ x.page }}">{{ x.name.lastName }}, {{ x.name.firstName }}<span data-ng-if="x.degree">, {{ x.degree }}</span> <span class="page-link"></span></a></h2>
           <h2 data-ng-if="x.page === null">{{ x.name.lastName }}, {{ x.name.firstName }}<span data-ng-if="x.degree">, {{ x.degree }}</span></h2>
 
           <h3 style="font-size: 1.35em !important;">{{ x.title }}</h3>
 <!--
           <h4 data-ng-if="x.specialty.text.length > 0">Area of Expertise:
-            <a href="{{ x.specialty.url }}" data-ng-if="x.specialty.url.length > 10">{{ x.specialty.text }}</a>
+            <a data-ng-href="{{ x.specialty.url }}" data-ng-if="x.specialty.url.length > 10">{{ x.specialty.text }}</a>
             <span data-ng-if="x.specialty.url.length < 10">{{ x.specialty.text }}</span>
           </h4>
  -->
         </header>
 
         <ul>
-          <li data-ng-if="x.phone">Phone: <a href="tel:{{ x.phone }}">{{ x.phone }}</a></li>
+          <li data-ng-if="x.phone">Phone: <a data-ng-href="tel:{{ x.phone }}">{{ x.phone }}</a></li>
           <li data-ng-if="x.office">Office: Ed2 North Room {{ x.office }}</li>
-          <li data-ng-if="x.email">Email: <a href="mailto:{{ x.email }}">{{ x.email }}</a></li>
+          <li data-ng-if="x.email">Email: <a data-ng-href="mailto:{{ x.email }}">{{ x.email }}</a></li>
         </ul>
       </div>
     </section>

@@ -1,13 +1,7 @@
 var currentPage = window.location.href,
     listUrl = "/academics/colleges/nursing/faculty-staff/admin/",
-    listName = "Directory";
-
-var pageTemplates = [
-  "faculty",
-  "staff",
-  "bio",
-  "clinic"
-];
+    listName = "Directory",
+    template = null;
 
 function stripSpaces(strng) {
   return strng !== null ? strng.replace(/[\u200B]/g, "") : null;
@@ -28,10 +22,20 @@ function getLinkField(x,y) {
   }
 }
 
+(function() {
+  if ((currentPage.indexOf("directory.aspx") > -1) || (currentPage.indexOf("staff-directory.aspx") > -1)) {
+    template = currentPage.indexOf("staff-directory.aspx") > -1 ? "staff" : "faculty";
+  } else if (currentPage.indexOf("nursing/faculty-staff/faculty/Pages") > -1) {
+    template = "bio";
+  } else  if (currentPage.indexOf("PatientServices") > -1) {
+    template = "clinic";
+  }
+})();
+
 angular.module("directoryService",[]).service("DirectoryService", ["$q", function($q) {
 
   // Executes CAML query on directory list returning an object array of faculty/staff members
-  this.getDirectory = function(chosenTemplate) {
+  this.getDirectory = function() {
 
     var deferred = $q.defer(),
         clientContext = new SP.ClientContext(listUrl),
@@ -80,18 +84,18 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
           })(item.get_item("Video"));
 
           // Before pushing object into people array
-            // Check passed in settings object and match against obj key/value
-          if(chosenTemplate === "faculty" || chosenTemplate === "staff") {
+            // If check used to filter list items based on passed in pageTemplate value
+          if(template === "faculty" || template === "staff") {
             obj.listPresence.forEach(function(elem) {
-              if (elem.toLowerCase() === chosenTemplate) {
+              if (elem.toLowerCase() === template) {
                 people.push(obj);
               }
             })
-          } else if (chosenTemplate === "clinic") {
+          } else if (template === "clinic") {
             if (obj.clinic.url === currentPage) {
               people.push(obj);
             }
-          } else if (chosenTemplate === "bio") {
+          } else if (template === "bio") {
             if (obj.page === currentPage) {
               people.push(obj);
             }

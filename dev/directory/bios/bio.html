@@ -20,17 +20,17 @@
       <ul>
         <li data-ng-if="data.phone"><strong>Phone:</strong> {{ data.phone }}</li>
         <li data-ng-if="data.office"><strong>Office:</strong> Ed2 North Room {{ data.office }}</li>
-        <li data-ng-if="data.email"><strong>Email:</strong> <a href="mailto:{{ data.email }}">{{ data.email }}</a></li>
+        <li data-ng-if="data.email"><strong>Email:</strong> <a data-ng-href="mailto:{{ data.email }}">{{ data.email }}</a></li>
         <li data-ng-if="data.cv !== null"><strong>CV:</strong>
-          <a href="{{ data.cv }}" target="_blank">{{ data.name.firstName }}'s CV (PDF)</a>
+          <a data-ng-href="{{ data.cv }}" target="_blank">{{ data.name.firstName }}'s CV (PDF)</a>
         </li>
       </ul>
 
       <div class="promoted-news" data-ng-if="promotedNews">
         <h2>Breaking News</h2>
-        <a href="{{ promotedNews.link }}" data-ng-if="promotedNews.link.indexOf('pdf') < 0 && promotedNews.link.indexOf('ucdenver.edu') > -1">{{ promotedNews.title }}</a>
-        <a href="{{ promotedNews.link }}" target="_blank" data-ng-if="promotedNews.link.indexOf('ucdenver.edu') < 0">{{ promotedNews.title }}</a>
-        <a href="{{ promotedNews.link }}" data-ng-if="promotedNews.link.indexOf('pdf') > -1" target="_blank">{{ promotedNews.title }} (PDF)</a>
+        <a data-ng-href="{{ promotedNews.link }}" data-ng-if="promotedNews.link.indexOf('pdf') < 0 && promotedNews.link.indexOf('ucdenver.edu') > -1">{{ promotedNews.title }}</a>
+        <a data-ng-href="{{ promotedNews.link }}" target="_blank" data-ng-if="promotedNews.link.indexOf('ucdenver.edu') < 0">{{ promotedNews.title }}</a>
+        <a data-ng-href="{{ promotedNews.link }}" data-ng-if="promotedNews.link.indexOf('pdf') > -1" target="_blank">{{ promotedNews.title }} (PDF)</a>
       </div>
 
       <div id="videoContainer" data-ng-if="data.video">
@@ -50,12 +50,12 @@
         <h2>{{ data.title }}</h2>
 <!--
         <h3 data-ng-if="data.specialty.text.length">Specializing in
-          <span data-ng-if="data.specialty.url.length > 10"><a href="{{ data.specialty.url }}">{{ data.specialty.text }}</a></span>
+          <span data-ng-if="data.specialty.url.length > 10"><a data-ng-href="{{ data.specialty.url }}">{{ data.specialty.text }}</a></span>
           <span data-ng-if="data.specialty.url.length < 10">{{ data.specialty.text }}</span>
         </h3>
 -->
         <h3 data-ng-if="data.clinic.text.length && data.specialty.url.length < 10">Practices at
-          <span data-ng-if="data.clinic.url.length > 10"><a href="{{ data.clinic.url }}">{{ data.clinic.text }}</a></span>
+          <span data-ng-if="data.clinic.url.length > 10"><a data-ng-href="{{ data.clinic.url }}">{{ data.clinic.text }}</a></span>
           <span data-ng-if="data.clinic.url.length < 10">{{ data.clinic.text }}</span>
         </h3>
 
@@ -80,9 +80,9 @@
         <h2>In the News</h2>
         <ul>
           <li data-ng-repeat="x in news">
-            <a href="{{ x.link }}" data-ng-if="x.link.indexOf('pdf') < 0 && x.link.indexOf('ucdenver.edu') > -1">{{ x.title }}</a>
-            <a href="{{ x.link }}" target="_blank" data-ng-if="x.link.indexOf('ucdenver.edu') < 0">{{ x.title }}</a>
-            <a href="{{ x.link }}" target="_blank" data-ng-if="x.link.indexOf('pdf') > -1">{{ x.title }} (PDF)</a>
+            <a data-ng-href="{{ x.link }}" data-ng-if="x.link.indexOf('pdf') < 0 && x.link.indexOf('ucdenver.edu') > -1">{{ x.title }}</a>
+            <a data-ng-href="{{ x.link }}" target="_blank" data-ng-if="x.link.indexOf('ucdenver.edu') < 0">{{ x.title }}</a>
+            <a data-ng-href="{{ x.link }}" target="_blank" data-ng-if="x.link.indexOf('pdf') > -1">{{ x.title }} (PDF)</a>
           </li>
         </ul>
       </section>

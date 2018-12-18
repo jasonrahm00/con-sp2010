@@ -1,19 +1,5 @@
-#pageContent table.ms-listviewtable td {
-  border-right: 0;
-  border-bottom: 1px solid #ddd;
-}
-
-#pageContent table.ms-listviewtable tr:last-child td {
-  border-bottom: 0;
-}
-
-table[summary="Directory "] {
+.directory-table {
   border-top: 3px solid #d6cca6;
-  display: none;
-}
-
-table.ms-listviewtable tr:nth-child(2n) {
-  background-color: #fff;
 }
 
 .directory-row img {
@@ -21,6 +7,8 @@ table.ms-listviewtable tr:nth-child(2n) {
 }
 
 .directory-row td {
+  border-bottom: 1px solid #ddd;
+  padding: .5em .5em .5em 1em;
   vertical-align: middle;
 }
 
@@ -33,6 +21,10 @@ table.ms-listviewtable tr:nth-child(2n) {
   width: 50%;
 }
 
+.directory-row td:nth-child(2) > span {
+  display: block;
+}
+
 .directory-row td:nth-child(2) a {
   position: relative;
 }
@@ -43,6 +35,11 @@ table.ms-listviewtable tr:nth-child(2n) {
 
 .directory-row td:nth-child(2) strong {
   color: #707070;
+}
+
+.directory-row .name {
+  color: #707070;
+  font-weight: bold;
 }
 
 .page-link {

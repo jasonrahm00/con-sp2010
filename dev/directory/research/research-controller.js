@@ -13,8 +13,9 @@ angular.module("directory")
   // getData service called to retrieve entries from the directory list
   function loadData() {
     DirectoryService.getDirectory().then(function(response) {
-      $scope.people = response;
-      console.log($scope.people);
+      $scope.people = response.sort(function(a, b) {
+        return a.adminListOrder - b.adminListOrder;
+      });
       $scope.dataLoaded = true;
     }, function(error) {
       $scope.dataLoaded = true;

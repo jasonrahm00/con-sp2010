@@ -1,0 +1,8 @@
+<style type="text/css">
+
+table.ms-listviewtable tr:nth-child(2n),
+.ms-alternating {
+  background: #fff;
+}
+
+</style>

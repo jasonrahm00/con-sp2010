@@ -62,7 +62,7 @@
         <ul>
           <li data-ng-if="x.phone">Phone: <a data-ng-href="tel:{{ x.phone }}">{{ x.phone }}</a></li>
           <li data-ng-if="x.office">Office: Ed2 North Room {{ x.office }}</li>
-          <li data-ng-if="x.clinic.text.length">Location:
+          <li data-ng-if="x.clinic.text.length">Clinic:
             <span data-ng-if="x.clinic.url.length > 10"><a data-ng-href="{{ x.clinic.url }}">{{ x.clinic.text }}</a></span>
             <span data-ng-if="x.clinic.url.length < 10">{{ x.clinic.text }}</span>
           </li>

@@ -62,15 +62,14 @@
         <ul>
           <li data-ng-if="x.phone">Phone: <a data-ng-href="tel:{{ x.phone }}">{{ x.phone }}</a></li>
           <li data-ng-if="x.office">Office: Ed2 North Room {{ x.office }}</li>
-<!--
-          <li data-ng-if="x.clinic.text.length">Clinic:
-            <span data-ng-if="x.clinic.url.length > 10"><a data-ng-href="{{ x.clinic.url }}">{{ x.clinic.text }}</a></span>
-            <span data-ng-if="x.clinic.url.length < 10">{{ x.clinic.text }}</span>
+          <li data-ng-repeat="clinic in x.clinics">Clinic:
+            <span data-ng-if="clinic.url"><a data-ng-href="{{ clinic.url }}">{{ clinic.name }}</a></span>
+            <span data-ng-if="!clinic.url">{{ clinic.name }}</span>
           </li>
--->
           <li data-ng-if="x.email">Email: <a data-ng-href="mailto:{{ x.email }}">{{ x.email }}</a></li>
         </ul>
       </div>
+
     </section>
 
 

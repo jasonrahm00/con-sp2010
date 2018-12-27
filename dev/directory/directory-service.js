@@ -3,6 +3,59 @@ var currentPage = window.location.href,
     listName = "Directory",
     template = null;
 
+var clinics = [
+  {
+    "key": "BVP",
+    "name": "Belleview Point Clinic",
+    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/HCPBelleview/Pages/default.aspx"
+  },
+  {
+    "key": "CFM Longmont",
+    "name": "Center for Midwifery - Longmont",
+    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx"
+  },
+  {
+    "key": "CFM AMC",
+    "name": "Center for Midwifery - Anchutz Medical Campus",
+    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx"
+  },
+  {
+    "key": "SHS Family",
+    "name": "Sheridan Family Health Clinic",
+    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Sheridan/Pages/Home.aspx"
+  },
+  {
+    "key": "SHS Youth",
+    "name": "Sheridan Youth Health Clinic",
+    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Sheridan/Pages/Home.aspx"
+  },
+  {
+    "key": "CHC",
+    "name": "Campus Health Center at CU Anschutz",
+    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/CHC/Pages/default.aspx"
+  },
+  {
+    "key": "UNM",
+    "name": "University Nurse Midwives",
+    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/UniversityNurseMidwives.aspx"
+  },
+  {
+    "key": "Midwifery Services",
+    "name": "Midwifery Services",
+    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx"
+  },
+  {
+    "key": "SHS",
+    "name": "Sheridan Health Services",
+    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Sheridan/Pages/Home.aspx"
+  },
+  {
+    "key": "CEDAR",
+    "name": "Center for Dependency, Addiction and Rehabilitation",
+    "url": ""
+  }
+];
+
 function stripSpaces(strng) {
   return strng !== null ? strng.replace(/[\u200B]/g, "") : null;
 }
@@ -20,6 +73,18 @@ function getLinkField(x,y) {
       "url": ""
     }
   }
+}
+
+function getClinics(arr) {
+  var gottenClinics = [];
+  arr.forEach(function(val) {
+    clinics.forEach(function(elem) {
+      if(elem.key === val) {
+        gottenClinics.push(elem);
+      }
+    })
+  })
+  return gottenClinics;
 }
 
 (function() {
@@ -74,7 +139,7 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
         obj["phone"] = item.get_item("PrimaryNumber") == "N/A" ? undefined : item.get_item("PrimaryNumber");
         obj["hidden"] = item.get_item("Hidden");
         obj["specialty"] = getLinkField(item.get_item("Specialty"), "specialty");
-        obj["clinic"] = item.get_item("Clinic");
+        obj["clinics"] = item.get_item("Clinic") ? getClinics(item.get_item("Clinic")) : null;
         obj["awards"] = stripSpaces(item.get_item("Awards"));
         obj["quote"] = stripSpaces(item.get_item("Quote"));
         obj["listPresence"] = item.get_item("List_Presence");

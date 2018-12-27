@@ -20,6 +20,10 @@
       <ul>
         <li data-ng-if="data.phone"><strong>Phone:</strong> {{ data.phone }}</li>
         <li data-ng-if="data.office"><strong>Office:</strong> Ed2 North Room {{ data.office }}</li>
+        <li data-ng-repeat="clinic in data.clinics"><strong>Clinic:</strong>
+          <span data-ng-if="clinic.url"><a data-ng-href="{{ clinic.url }}">{{ clinic.name }}</a></span>
+          <span data-ng-if="!clinic.url">{{ clinic.name }}</span>
+        </li>
         <li data-ng-if="data.email"><strong>Email:</strong> <a data-ng-href="mailto:{{ data.email }}">{{ data.email }}</a></li>
         <li data-ng-if="data.cv !== null"><strong>CV:</strong>
           <a data-ng-href="{{ data.cv }}" target="_blank">{{ data.name.firstName }}'s CV (PDF)</a>

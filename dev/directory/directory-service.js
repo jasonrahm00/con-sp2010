@@ -159,15 +159,15 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
               people.push(obj);
             }
           });
-        } else if (template === "clinic") {
-//          if (obj.clinic.url === currentPage) {
-//            people.push(obj);
-//          }
         } else if (template === "bio") {
           if (obj.page === currentPage) {
             people.push(obj);
           }
-        } else if (template === "research" && obj.adminDepartment){
+        } else if (template === "clinic" && obj.clinics) {
+//          if (obj.clinic.url === currentPage) {
+//            people.push(obj);
+//          }
+        }  else if (template === "research" && obj.adminDepartment) {
           obj.adminDepartment.forEach(function(elem) {
             if (elem === "Office of Research and Scholarship") {
               people.push(obj);

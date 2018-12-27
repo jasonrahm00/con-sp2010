@@ -164,9 +164,11 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
             people.push(obj);
           }
         } else if (template === "clinic" && obj.clinics) {
-//          if (obj.clinic.url === currentPage) {
-//            people.push(obj);
-//          }
+          obj.clinics.forEach(function(elem) {
+            if(elem.url === currentPage) {
+              people.push(obj);
+            }
+          })
         }  else if (template === "research" && obj.adminDepartment) {
           obj.adminDepartment.forEach(function(elem) {
             if (elem === "Office of Research and Scholarship") {

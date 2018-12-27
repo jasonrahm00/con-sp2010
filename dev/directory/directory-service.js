@@ -74,7 +74,7 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
         obj["phone"] = item.get_item("PrimaryNumber") == "N/A" ? undefined : item.get_item("PrimaryNumber");
         obj["hidden"] = item.get_item("Hidden");
         obj["specialty"] = getLinkField(item.get_item("Specialty"), "specialty");
-        obj["clinic"] = getLinkField(item.get_item("Clinic_x0020_Location"), null);
+        obj["clinic"] = item.get_item("Clinic");
         obj["awards"] = stripSpaces(item.get_item("Awards"));
         obj["quote"] = stripSpaces(item.get_item("Quote"));
         obj["listPresence"] = item.get_item("List_Presence");
@@ -95,9 +95,9 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
             }
           });
         } else if (template === "clinic") {
-          if (obj.clinic.url === currentPage) {
-            people.push(obj);
-          }
+//          if (obj.clinic.url === currentPage) {
+//            people.push(obj);
+//          }
         } else if (template === "bio") {
           if (obj.page === currentPage) {
             people.push(obj);

@@ -96,6 +96,8 @@ function getClinics(arr) {
     template = "clinic";
   } else  if (currentPage.indexOf("/research/Pages/research.aspx") > -1) {
     template = "research";
+  } else  if (currentPage.indexOf("/Preceptor/Pages/") > -1) {
+    template = "preceptor";
   }
 })();
 
@@ -140,6 +142,7 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
         obj["hidden"] = item.get_item("Hidden");
         obj["specialty"] = getLinkField(item.get_item("Specialty"), "specialty");
         obj["clinics"] = item.get_item("Clinic") ? getClinics(item.get_item("Clinic")) : null;
+        obj["preceptDept"] = item.get_item("Precept_Dept");
         obj["awards"] = stripSpaces(item.get_item("Awards"));
         obj["quote"] = stripSpaces(item.get_item("Quote"));
         obj["listPresence"] = item.get_item("List_Presence");
@@ -175,6 +178,8 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
               people.push(obj);
             }
           });
+        } else if (template === "preceptor" && obj.preceptDept) {
+          people.push(obj);
         } else {
           continue;
         }

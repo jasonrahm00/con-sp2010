@@ -1,0 +1,39 @@
+<link type="text/css" rel="stylesheet" href="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/preceptor/preceptor-styles.css">
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
+
+<section data-ng-app="directory" data-ng-controller="preceptorController" data-ng-cloak>
+<!--
+  <table class="directory-table">
+    <tbody>
+      <tr class="directory-row" data-ng-repeat="x in people">
+
+        <td>
+          <img data-ng-src="{{ x.headshot }}" alt="{{ x.firstName }} {{ x.lastName }}" data-ng-if="x.headshot !== null">
+        </td>
+
+        <td>
+
+          <span class="name page-link" data-ng-if="x.page !== null"><a data-ng-href="{{ x.page }}">{{ x.name.lastName }}, {{ x.name.firstName }}<span data-ng-if="x.degree">, {{ x.degree }}</span> <span class="page-link"></span></a></span>
+          <span class="name" data-ng-if="x.page === null">{{ x.name.lastName }}, {{ x.name.firstName }}<span data-ng-if="x.degree">, {{ x.degree }}</span></span>
+
+          <span class="title" data-ng-if="x.title">{{ x.title }}</span>
+
+        </td>
+
+        <td>
+          <ul data-ng-if="x.phone || x.email || x.office">
+            <li data-ng-if="x.phone">Phone: <a data-ng-href="tel:{{ x.phone }}">{{ x.phone }}</a></li>
+            <li data-ng-if="x.office">Office: Ed2 North Room {{ x.office }}</li>
+            <li data.ng-if="x.email">Email: <a data-ng-href="mailto:{{ x.email }}">{{ x.email }}</a></li>
+          </ul>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+-->
+</section>
+
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/directory-service.js"></script>
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/directory-app.js"></script>
+<script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/preceptor/preceptor-controller.js"></script>

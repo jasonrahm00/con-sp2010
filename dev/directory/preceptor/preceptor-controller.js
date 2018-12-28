@@ -13,7 +13,13 @@ angular.module("directory")
   // getData service called to retrieve entries from the directory list
   function loadData() {
     DirectoryService.getDirectory().then(function(response) {
-      $scope.people = response;
+      $scope.people = response.sort(function(a,b){
+        if (a.preceptDept < b.preceptDept)
+            return -1;
+          if (a.preceptDept > b.preceptDept)
+            return 1;
+          return 0;
+      });
       console.log($scope.people);
       $scope.dataLoaded = true;
     }, function(error) {

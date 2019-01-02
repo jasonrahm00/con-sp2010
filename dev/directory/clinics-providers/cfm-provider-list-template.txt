@@ -1,0 +1,32 @@
+<section class="margin-bottom-medium">
+  <h3 class="center margin-bottom-medium h2-style">Meet Our Certified Nurse Midwives</h3>
+  <section class="margin-bottom-medium">
+    <h4 class="center h3-style margin-bottom-x-small">Anschutz Medical Campus Nurse Midwives</h4>
+    <div class="clearfix margin-top-small padding-top-small">
+      <ul class="float-left">
+        <li><a href="/academics/colleges/nursing/faculty-staff/faculty/Pages/n_chesser.aspx">Nichol Chesser, DNP</a></li>
+        <li><a href="/academics/colleges/nursing/faculty-staff/faculty/Pages/s_drexler.aspx">Sarah Drexler, MS, CNM</a></li>
+        <li><a href="/academics/colleges/nursing/faculty-staff/faculty/Pages/j_howard.aspx">Jessica Howard, MSN, CNM, MSW</a></li>
+        <li>Rachael Kulick</li>
+        <li><a href="/academics/colleges/nursing/faculty-staff/faculty/Pages/j_lake.aspx">Jennifer Lake, MSN, CNM</a></li>
+        
+        <li><a href="/academics/colleges/nursing/faculty-staff/faculty/Pages/j_williams.aspx">Julianne Williams, CNM, MS</a></li>
+        <li><a href="/academics/colleges/nursing/faculty-staff/faculty/Pages/m_yeoman.aspx">Molly Yeoman, MS, CNM</a></li>
+      </ul>
+      <img class="float-right" src="/academics/colleges/nursing/PublishingImages/clinics/amc-nurse-midwives.jpg" alt="Outdoor group photo of the Denver Center for Midwifery Midwives">
+    </div>
+  </section>
+  
+  <section>
+    <h4 class="center h3-style margin-bottom-x-small">Longmont Nurse Midwives</h4>
+    <div class="clearfix margin-top-small padding-top-small">
+      <ul class="float-left">
+        <li><a href="/academics/colleges/nursing/faculty-staff/faculty/Pages/sharon-shin.aspx">Sharon Shin, MSN, CNM, FNP-C</a></li>
+        <li><a href="/academics/colleges/nursing/faculty-staff/faculty/Pages/ana_williams.aspx">Ana Williams, MS, CNM, IBCLC</a></li>
+        <li><a href="/academics/colleges/nursing/faculty-staff/faculty/Pages/s_williams.aspx">Sheri Williams, MS, CNM</a></li>
+      </ul>
+      <img class="float-right" src="/academics/colleges/nursing/PublishingImages/clinics/longmont-nurse-midwives.jpg" alt="Photo of the Nurse Midwives who serve the Boulder and Weld County region.">
+    </div>
+  </section>
+  
+</section>

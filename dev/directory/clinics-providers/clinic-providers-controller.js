@@ -1,4 +1,25 @@
 angular.module("directory")
+.directive("providerList", function() {
+  return {
+    template: '<div class="people-list" data-ng-include="templateUrl"></div>',
+    restrict: 'E',
+    replace: true,
+    link: function(scope) {
+      if(currentPage.indexOf('Center-for-Midwifery.aspx') > -1) {
+        scope.templateUrl = 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/clinic-providers/cfm-provider-list-template.txt';
+      } else {
+        scope.templateUrl = 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/clinic-providers/single-provider-list-template.txt';
+      }
+    }
+  }
+})
+.directive("providerListItem", function() {
+  return {
+    templateUrl: 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/clinic-providers/provider-list-item-template.txt',
+    restrict: 'E',
+    replace: true
+  }
+})
 .controller("clinicProvidersController", ["$scope", "DirectoryService", function($scope, DirectoryService){
   $scope.dataLoaded = false;
   $scope.loadError = false;
@@ -14,6 +35,7 @@ angular.module("directory")
   function loadData() {
     DirectoryService.getDirectory().then(function(response) {
       $scope.people = response;
+      console.log(response);
       $scope.dataLoaded = true;
     }, function(error) {
       $scope.dataLoaded = true;

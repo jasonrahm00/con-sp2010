@@ -1,0 +1,3 @@
+<ul data-ng-class="people.length >= 10 ? 'column-list two between' : ''">
+  <provider-list-item data-ng-repeat="x in people"></provider-list-item>
+</ul>

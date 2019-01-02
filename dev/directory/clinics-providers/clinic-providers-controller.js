@@ -20,6 +20,26 @@ angular.module("directory")
     replace: true
   }
 })
+.filter("clinicKey", function() {
+
+  return function(input, clinicKey, secondKey) {
+    var filterMatch = [];
+
+    for(var i = 0; i < input.length; i++) {
+      input[i].clinics.forEach(function(elem) {
+        if (secondKey && elem.key === secondKey) {
+          filterMatch.push(input[i]);
+        } else if (elem.key === clinicKey) {
+          filterMatch.push(input[i]);
+        }
+      });
+    }
+
+    return filterMatch;
+
+  }
+
+})
 .controller("clinicProvidersController", ["$scope", "DirectoryService", function($scope, DirectoryService){
   $scope.dataLoaded = false;
   $scope.loadError = false;
@@ -35,7 +55,6 @@ angular.module("directory")
   function loadData() {
     DirectoryService.getDirectory().then(function(response) {
       $scope.people = response;
-      console.log(response);
       $scope.dataLoaded = true;
     }, function(error) {
       $scope.dataLoaded = true;

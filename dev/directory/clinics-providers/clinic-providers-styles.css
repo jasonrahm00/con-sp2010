@@ -2,11 +2,6 @@
 Base Element Styles
 **********************************************************/
 
-h3,
-.ms-WPBody h3 {
-  color: #565a5c !important;
-  font-family: MuliRegular,Helvetica,Arial,sans-serif !important;
-  font-size: 2.5em !important;
-  font-weight: 700;
-  line-height: 100%
+.people-list a:hover {
+  text-decoration: underline !important;
 }

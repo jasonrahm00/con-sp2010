@@ -96,6 +96,11 @@ ul.no-left-margin>li {
   width: 100%;
 }
 
+.border-vertical-white {
+  border-top: 1px solid #fff !important;
+  border-bottom: 1px solid #fff !important;
+}
+
 .bottom {
   position: absolute;
   bottom: 10px;
@@ -284,12 +289,13 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
   color: #000;
   font-weight: bold;
   padding: 10px;
-  text-align: center;
 }
 
 .accordion_body .table th,
 .accordion_body .table td {
   border-right: 1px solid #7C7E7F !important;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .accordion_body .table th:last-child,
@@ -297,7 +303,7 @@ table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
   border-right: 0 !important;
 }
 
-.accordion_body .table tbody tr {
+.accordion_body .table tr {
   border-bottom: 1px solid #7C7E7F;
 }
 

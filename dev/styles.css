@@ -124,6 +124,13 @@ ul.no-left-margin>li {
   display: table;
 }
 
+.disclaimer {
+  font-size: .9em !important;
+  font-style: italic !important;
+  line-height: 15px !important;
+  margin-bottom: 0 !important;
+}
+
 .e1-background {
   background: #e1e1e1;
 }
@@ -526,81 +533,6 @@ h3.ui-accordion-header:hover,
 .accordion-header:hover {
   border-color: #cfb87c;
   cursor: pointer;
-}
-
-
-
-/**********************************************************
-  Custom Styles for Programs Landing Page
-**********************************************************/
-
-#labelWrapper {
-  margin: 2rem 0;
-  text-align: center;
-}
-
-#programSorting input[type="radio"] {
-  display: none;
-  margin: 0;
-}
-
-#programSorting label {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  display: inline-block;
-  font-size: 20px;
-  margin-bottom: 3px;
-  min-width: 12%;
-  padding: 10px;
-  text-align: center;
-}
-
-#programSorting label:hover {
-  cursor: pointer;
-  background: #cfb87c;
-}
-
-#programSorting label.active {
-  background: #cfb87c;
-}
-
-
-
-/******************** Program Cards ********************/
-
-.program-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 2rem;
-  min-height: 170px;
-}
-
-.program-cards>div {
-  margin-bottom: 2rem;
-}
-
-.program-cards .toggle-content a {
-  background: #000;
-  border-radius: 4px;
-  color: white;
-  display: block;
-  font-size: 1rem;
-  margin-top: 1rem;
-  text-align: center;
-  text-decoration: none;
-  padding: .5rem;
-}
-
-.program-cards .toggle-content a:hover {
-  color: #cfb87c;
-  text-decoration: none;
-}
-
-.program-cards .toggle-content,
-.program-cards .toggle-target {
-  width: 355px;
 }
 
 

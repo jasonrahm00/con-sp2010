@@ -178,7 +178,7 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
               people.push(obj);
             }
           });
-        } else if (template === "preceptor" && obj.preceptDept) {
+        } else if (template === "preceptor" && obj.preceptDept && obj.preceptDept !== "null") {
           people.push(obj);
         } else {
           continue;

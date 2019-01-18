@@ -167,11 +167,13 @@ angular.module("directoryService",[]).service("DirectoryService", ["$q", functio
             people.push(obj);
           }
         } else if (template === "clinic" && obj.clinics) {
-          obj.clinics.forEach(function(elem) {
-            if(elem.url === currentPage) {
-              people.push(obj);
-            }
-          })
+          if (obj.listPresence.indexOf("Faculty") > -1) {
+            obj.clinics.forEach(function(elem) {
+              if(elem.url === currentPage) {
+                people.push(obj);
+              }
+            })
+          }
         }  else if (template === "research" && obj.adminDepartment) {
           obj.adminDepartment.forEach(function(elem) {
             if (elem === "Office of Research and Scholarship") {

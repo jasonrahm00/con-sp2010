@@ -1,4 +1,4 @@
 <li>
-  <span data-ng-if="x.page !== null"><a data-ng-href="{{ x.page }}">{{ x.name.lastName }}, {{ x.name.firstName }}, {{ x.degree }}</a></span>
-  <span data-ng-if="x.page === null">{{ x.name.lastName }}, {{ x.name.firstName }}, {{ x.degree }}</span>
+  <span data-ng-if="x.page !== null"><a data-ng-href="{{ x.page }}">{{ x.name.lastName }}, {{ x.name.firstName }}<span data-ng-if="x.degree">, {{ x.degree }}</span></a></span>
+  <span data-ng-if="x.page === null">{{ x.name.lastName }}, {{ x.name.firstName }}<span data-ng-if="x.degree">, {{ x.degree }}</span></span>
 </li>

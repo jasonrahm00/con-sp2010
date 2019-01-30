@@ -7,6 +7,8 @@ angular.module("directory")
     link: function(scope) {
       if(currentPage.indexOf('Center-for-Midwifery.aspx') > -1) {
         scope.templateUrl = 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/clinic-providers/cfm-provider-list-template.txt';
+      } else if(currentPage.indexOf('PatientServices/Sheridan') > -1) {
+        scope.templateUrl = 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/clinic-providers/sheridan-provider-list-template.txt'
       } else {
         scope.templateUrl = 'http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/directory/clinic-providers/single-provider-list-template.txt';
       }

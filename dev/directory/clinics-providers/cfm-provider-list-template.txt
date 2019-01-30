@@ -1,8 +1,8 @@
 <section class="margin-bottom-medium">
-  <h3 class="center h2-style">Meet Our Certified Nurse Midwives</h3>
+  <h3 class="center h2-style" style="font-size: 2.5em!important">Meet Our Certified Nurse Midwives</h3>
   <section class="margin-vertical-medium">
     <h4 class="center h3-style">Anschutz Medical Campus Nurse Midwives</h4>
-    <div class="clearfix margin-top-small padding-top-small">
+    <div class="clearfix margin-top-medium">
       <ul class="float-left">
         <provider-list-item data-ng-repeat="x in people | clinicKey:'CFM AMC':'Midwifery Services'"></provider-list-item>
       </ul>
@@ -12,7 +12,7 @@
 
   <section>
     <h4 class="center h3-style">Longmont Nurse Midwives</h4>
-    <div class="clearfix margin-top-small padding-top-small">
+    <div class="clearfix margin-top-medium">
       <ul class="float-left">
         <provider-list-item data-ng-repeat="x in people | clinicKey:'CFM Longmont'"></provider-list-item>
       </ul>

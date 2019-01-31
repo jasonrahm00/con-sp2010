@@ -34,7 +34,13 @@
 
     $.each(newsStories, function(index, value) {
       var story = getNewsData(value);
-      $(this).html('<td colspan="4" style="padding: 0;"><div class="margin-bottom-medium"><h4>' + story.name + '</h4><p><strong>' + story.publishDate + '</strong></p><p>' + story.summary + '</p></div></td>');
+
+      if(story.categories.indexOf('grand-rounds') > -1) {
+        $(value).remove();
+      } else {
+        $(this).html('<td colspan="4" style="padding: 0;"><div class="margin-bottom-medium"><h4>' + story.name + '</h4><p><strong>' + story.publishDate + '</strong></p><p>' + story.summary + '</p></div></td>');
+      }
+
     });
 
     $('#localNav li a').each(function (index, value) {

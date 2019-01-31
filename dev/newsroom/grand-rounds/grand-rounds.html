@@ -2,7 +2,27 @@
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/angular-js/angularjs.min.js"></script>
 
 <div data-ng-app="news" data-ng-controller="newsroomController" data-ng-cloak>
-  <p>App Loaded</p>
+
+  <div data-ng-if="!dataLoaded && !loadError">
+    <h2 class="center">Loading...</h2>
+    <div class="spinner"></div>
+  </div>
+
+  <div data-ng-if="loadError">
+    <h2 class="center">Unable to Load Content</h2>
+  </div>
+
+  <div class="accordion">
+    <div data-ng-repeat="x in data">
+      <div class="accordion-header">{{ x.published | date:'MMMM, yyyy' }}: {{ x.title }}</div>
+      <div class="accordion-body">
+        <img data-ng-src="{{ x.image }}" alt="" data-ng-if="x.image">
+        <span data-ng-bind-html="x.description | renderHTMLCorrectly"></span>
+        <p data-ng-if="x.pdf"><a data-ng-href="{{ x.pdf }}" target="_blank">View Presentation (PDF)</a></p>
+      </div>
+    </div>
+  </div>  
+  
 </div>
 
 <script type="text/javascript" src="http://www.ucdenver.edu/academics/colleges/nursing/Documents/Styles_Scripts/newsroom/news-service.js"></script>

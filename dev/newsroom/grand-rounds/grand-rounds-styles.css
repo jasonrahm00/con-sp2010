@@ -1,3 +1,25 @@
-p {
-  color: red;
+.accordion > div {
+  margin-bottom: .5rem;
+}
+
+.accordion > div:last-child {
+  margin-bottom: 0;
+}
+
+.accordion-body a:hover {
+  text-decoration: underline !important;
+}
+
+.accordion-body img {
+  float: right;
+  height: auto;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  width: 156px;
+}
+
+.accordion-body img::after {
+  clear: both;
+  content: "";
+  display: table;
 }

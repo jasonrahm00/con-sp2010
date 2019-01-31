@@ -1,5 +1,3 @@
-var currentPage = window.location.href;
-
 angular.module("newsService",[]).service("NewsService", ["$q", function($q) {
   var listUrl = "/academics/colleges/nursing/about-us/news/",
       listName = "news-items";
@@ -9,7 +7,7 @@ angular.module("newsService",[]).service("NewsService", ["$q", function($q) {
       // Checks each news item to see if current page is in Faculty Pages array
       // If present, news object created with various pieces of data
     // Top six news item in data array returned to controller
-  this.getNews = function(currentPage) {
+  this.getNews = function() {
     var deferred = $q.defer(),
         clientContext = new SP.ClientContext(listUrl),
         web = clientContext.get_web(),
@@ -33,9 +31,12 @@ angular.module("newsService",[]).service("NewsService", ["$q", function($q) {
         obj["published"] = new Date(item.get_item("Publish_x0020_Date"));
         obj["category"] = item.get_item("Category");
         obj["promoted"] = item.get_item("Promoted");
+        obj["image"] = item.get_item("Image") ? item.get_item("Image").get_url() : null;
+        obj["pdf"] = item.get_item("Supporting_Doc") ? item.get_item("Supporting_Doc").get_url() : null;
+        obj["description"] = item.get_item("Description");
 
         data.push(obj);
-
+        
       }
 
       data = data.sort(function(a, b) {

@@ -14,7 +14,7 @@
 
   <div class="accordion">
     <div data-ng-repeat="x in data">
-      <div class="accordion-header">{{ x.published | date:'MMMM, yyyy' }}: {{ x.title }}</div>
+      <div class="accordion-header">{{ x.published | date:'MMMM dd, yyyy' }}: {{ x.title }}</div>
       <div class="accordion-body">
         <img data-ng-src="{{ x.image }}" alt="" data-ng-if="x.image">
         <span data-ng-bind-html="x.description | renderHTMLCorrectly"></span>

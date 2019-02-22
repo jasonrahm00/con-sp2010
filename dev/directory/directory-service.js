@@ -12,7 +12,7 @@ var clinics = [
   {
     "key": "CFM Longmont",
     "name": "Center for Midwifery - Longmont",
-    "url": "http://www.ucdenver.edu/academics/colleges/nursing/clinical-practice-community/PatientServices/Pages/Center-for-Midwifery.aspx"
+    "url": "http://www.cucfmlongmont.com/"
   },
   {
     "key": "CFM AMC",

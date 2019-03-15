@@ -278,16 +278,19 @@ th.ms-vh2 {
   background-color: #fff;
 }
 
-table[summary="Upcoming Info Sessions "] td.ms-vb2 {
+table[summary="Upcoming Info Sessions "] td.ms-vb2,
+table[summary="virtual-info-sessions "] td.ms-vb2 {
   padding: 0 !important;
 }
 
-table[summary="Upcoming Info Sessions "] tr.ms-viewheadertr {
+table[summary="Upcoming Info Sessions "] tr.ms-viewheadertr,
+table[summary="virtual-info-sessions "] tr.ms-viewheadertr {
   display:none;
 }
 
 table.ms-listviewtable tbody tr.ms-newsletteralt td,
-table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n) {
+table[summary="Upcoming Info Sessions "].ms-listviewtable tr:nth-child(2n),
+table[summary="virtual-info-sessions "].ms-listviewtable tr:nth-child(2n) {
   background: #fff;
 }
 
